@@ -2,7 +2,6 @@ package controller;
 
 import database.TextsDao;
 import view.dialogs.ShowInfoAboutExamDialog;
-import view.main_menu.MainMenuFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class MainMenuPresenter {
 
-    class StartExamBtnListener implements ActionListener {
+    class StartExamActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             ShowInfoAboutExamDialog dialog = new ShowInfoAboutExamDialog();
@@ -39,8 +38,11 @@ public class MainMenuPresenter {
     }
 
     public void setVisitsBtn(JButton visitsBtn) {
-        JButton visitsBtn1 = visitsBtn;
-        visitsBtn1.addActionListener(new StartExamBtnListener());
+        visitsBtn.addActionListener(new StartExamActionListener());
+    }
+
+    public void setStartExamMenuItem(JMenuItem startExamMenuItem) {
+        startExamMenuItem.addActionListener(new StartExamActionListener());
     }
 
     public void setCloseMenuItem(JMenuItem closeMenuItem) {
