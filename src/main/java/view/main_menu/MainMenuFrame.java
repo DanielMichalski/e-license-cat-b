@@ -11,7 +11,7 @@ import java.awt.*;
  * Date: 01.11.13
  */
 public class MainMenuFrame extends JFrame {
-    private MainMenuPresenter presenter;
+    private JMenuItem startExamMenuItem;
     private JMenuItem closeMenuItem;
 
     public static final int WIDTH = 400;
@@ -38,7 +38,7 @@ public class MainMenuFrame extends JFrame {
     }
 
     private void initializeComponents() {
-        presenter = new MainMenuPresenter();
+        MainMenuPresenter presenter = new MainMenuPresenter();
 
         MainMenuPanel mainPanel = new MainMenuPanel();
         add(mainPanel, BorderLayout.CENTER);
@@ -47,6 +47,7 @@ public class MainMenuFrame extends JFrame {
         setJMenuBar(menuBar);
 
         presenter.setVisitsBtn(mainPanel.getRegisterBtn());
+        presenter.setStartExamMenuItem(startExamMenuItem);
         presenter.setCloseMenuItem(closeMenuItem);
     }
 
@@ -54,6 +55,9 @@ public class MainMenuFrame extends JFrame {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu(TextsDao.get("view.fileMenu"));
         menuBar.add(fileMenu);
+
+        startExamMenuItem = new JMenuItem(TextsDao.get("view.starExamMenuItem"));
+        fileMenu.add(startExamMenuItem);
 
         closeMenuItem = new JMenuItem(TextsDao.get("view.closeMenuItem"));
         fileMenu.add(closeMenuItem);
