@@ -2,7 +2,7 @@ package view.dialogs;
 
 import database.TextsDao;
 import util.Const;
-import view.main_menu.MainMenuFrame;
+import view.exam_view.ExamFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,17 +21,17 @@ public class ShowInfoAboutExamDialog extends JDialog {
         setUpDialog();
         initializeComponents();
         pack();
+        setLocationRelativeTo(null);
     }
 
     private void setUpDialog() {
         setTitle(TextsDao.get("view.ShowInfoAboutExam.dialogName"));
-        setLocationRelativeTo(null);
         setModal(true);
     }
 
     private void initializeComponents() {
-        add(createCenterPanel(), BorderLayout.CENTER);
-        add(createSouthPanel(), BorderLayout.SOUTH);
+        add(createCenterComponent(), BorderLayout.CENTER);
+        add(createSouthComponent(), BorderLayout.SOUTH);
     }
 
     /**
@@ -41,9 +41,10 @@ public class ShowInfoAboutExamDialog extends JDialog {
      *
      * @return komponent zawierający tekst opisujący egzamin
      */
-    protected JComponent createCenterPanel() {
+    protected JComponent createCenterComponent() {
 
         JTextArea aboutTextArea = new JTextArea();
+        aboutTextArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         Font sansSerifFont = new Font("SansSerif", Font.PLAIN, 12);
         aboutTextArea.setFont(sansSerifFont);
         aboutTextArea.setEditable(false);
@@ -65,14 +66,28 @@ public class ShowInfoAboutExamDialog extends JDialog {
      *
      * @return dolny panel z przyciskiem
      */
-    protected JComponent createSouthPanel() {
+    protected JComponent createSouthComponent() {
 
-        JButton saveBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.startBtn.text"));
+        JButton startBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.startBtn.text"));
+        startBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showExamFrameAndCloseThis();
+            }
+        });
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Const.Colors.backgroundColor);
-        buttonPanel.add(saveBtn);
+        buttonPanel.add(startBtn);
 
         return buttonPanel;
+    }
+
+    private void showExamFrameAndCloseThis() {
+        this.dispose();
+        ExamFrame examFrame = new ExamFrame();
+        examFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        examFrame.setVisible(true);
+
     }
 }
