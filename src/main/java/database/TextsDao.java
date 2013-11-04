@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
  */
 public class TextsDao {
     public static String get(String name) {
-        ResourceBundle rb = ResourceBundle.getBundle("properties" + File.separator + "texts");
+        ResourceBundle rb = ResourceBundle.getBundle("properties/texts");
         return rb.getString(name);
     }
 }

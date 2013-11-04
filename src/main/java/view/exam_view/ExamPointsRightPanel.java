@@ -1,16 +1,23 @@
 package view.exam_view;
 
+import controller.TimerCountdown;
 import util.Const;
 import util.ImagesUtil;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Author: Daniel
  * Date: 03.11.13
  */
 public class ExamPointsRightPanel extends JPanel {
+    private JLabel timerLbl;
+    private BasicPartPanel basicPartPanel;
+    private JPanel standardBallsPanel;
 
     public ExamPointsRightPanel() {
         setUpPanel();
@@ -25,7 +32,9 @@ public class ExamPointsRightPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        add(new BasicPartPanel());
+        basicPartPanel = new BasicPartPanel();
+
+        add(basicPartPanel);
         add(new SpecjalistPartPanel());
         add(new TimeAndBtnConfirmPanel());
     }
@@ -42,19 +51,19 @@ public class ExamPointsRightPanel extends JPanel {
             basicQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             basicQuestionNumLbl.setFont(Const.Fonts.textsFont);
 
-            JPanel ballsPanel = new JPanel(new GridLayout(4, 5, 5, 5));
+            standardBallsPanel = new JPanel(new GridLayout(4, 5, 5, 5));
 
             ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
 
             for (int i = 1; i <= 20; i++) {
                 JLabel imageLabel = new JLabel("", unmarkedBallIcon, SwingConstants.CENTER);
-                ballsPanel.add(imageLabel);
+                standardBallsPanel.add(imageLabel);
             }
 
             add(basicPartLbl);
             add(basicQuestionNumLbl);
             add(Box.createRigidArea(new Dimension(0, 10)));
-            add(ballsPanel);
+            add(standardBallsPanel);
         }
     }
 
@@ -72,11 +81,11 @@ public class ExamPointsRightPanel extends JPanel {
 
             JPanel ballsPanel = new JPanel(new GridLayout(3, 5, 5, 5));
 
-            ImageIcon markedBallIcon = ImagesUtil.getMarkedBallIcon();
+            ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
 
             for (int i = 1; i <= 15; i++) {
                 if (i <= 12) {
-                    JLabel imageLabel = new JLabel("", markedBallIcon, JLabel.LEADING);
+                    JLabel imageLabel = new JLabel("", unmarkedBallIcon, JLabel.LEADING);
                     ballsPanel.add(imageLabel);
                 } else {
                     ballsPanel.add(new JLabel());
@@ -108,7 +117,7 @@ public class ExamPointsRightPanel extends JPanel {
 
         private JPanel getHowManyPointsPanel() {
             JPanel howManyPointsPanel = new JPanel();
-            JLabel howManyPoints = new JLabel("2 pkt.");
+            JLabel howManyPoints = new JLabel("3 pkt.");
             howManyPoints.setAlignmentX(Component.CENTER_ALIGNMENT);
             howManyPoints.setFont(Const.Fonts.textsFont);
             howManyPointsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -127,11 +136,39 @@ public class ExamPointsRightPanel extends JPanel {
         }
 
         private JLabel getTimerLbl() {
-            JLabel timerLbl = new JLabel("40");
+            timerLbl = new JLabel("40");
             timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             timerLbl.setFont(Const.Fonts.timerFont);
             timerLbl.setForeground(Const.Colors.timerFontColor);
+
             return timerLbl;
         }
+    }
+
+    public void setNumberOfStandardQuestion(int questionNumber) {
+        standardBallsPanel = new JPanel(new GridLayout(4, 5, 5, 5));
+
+        ImageIcon markedBallIcon = ImagesUtil.getMarkedBallIcon();
+        ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
+
+
+        for (int i = 1; i <= 20; i++) {
+            JLabel imageLabel;
+            if (i <= questionNumber) {
+                imageLabel = new JLabel("", markedBallIcon, SwingConstants.CENTER);
+            } else {
+                imageLabel = new JLabel("", unmarkedBallIcon, SwingConstants.CENTER);
+            }
+            standardBallsPanel.add(imageLabel);
+        }
+
+    }
+
+    public JLabel getTimerLbl() {
+        return timerLbl;
+    }
+
+    public BasicPartPanel getBasicPartPanel() {
+        return basicPartPanel;
     }
 }
