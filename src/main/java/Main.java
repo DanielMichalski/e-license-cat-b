@@ -1,7 +1,9 @@
+import controller.TimerCountdown;
 import view.main_menu.MainMenuFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Timer;
 
 /**
  * Author: dmichalski
@@ -12,9 +14,9 @@ public class Main {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainMenuFrame mv = new MainMenuFrame();
-                mv.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                mv.setVisible(true);
+                    MainMenuFrame mv = new MainMenuFrame();
+                    mv.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                    mv.setVisible(true);
             }
         });
     }
