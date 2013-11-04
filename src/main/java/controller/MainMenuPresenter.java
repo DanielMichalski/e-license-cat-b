@@ -16,29 +16,47 @@ public class MainMenuPresenter {
     class StartExamActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ShowInfoAboutExamDialog dialog = new ShowInfoAboutExamDialog();
+            ShowInfoAboutExamDialog dialog = new ShowInfoAboutExamDialog(true);
             dialog.setVisible(true);
         }
     }
 
-    class CloseMenuListener implements ActionListener {
+    class ShowInfoAboutExam implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int answer = JOptionPane.showConfirmDialog(
-                    null,
-                    TextsDao.get("view.confirmDialog.message"),
-                    TextsDao.get("view.confirmDialog.title"),
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE);
-
-            if (answer == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
+            ShowInfoAboutExamDialog dialog = new ShowInfoAboutExamDialog(false);
+            dialog.setVisible(true);
         }
     }
 
-    public void setVisitsBtn(JButton visitsBtn) {
-        visitsBtn.addActionListener(new StartExamActionListener());
+    class CloseWindowListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showConfirmClosingDialog();
+        }
+    }
+
+    public void showConfirmClosingDialog() {
+        UIManager.put("OptionPane.yesButtonText", TextsDao.get("OptionPane.yesButtonTex"));
+        UIManager.put("OptionPane.noButtonText", TextsDao.get("OptionPane.noButtonText"));
+        int answer = JOptionPane.showConfirmDialog(
+                null,
+                TextsDao.get("view.confirmDialog.message"),
+                TextsDao.get("view.confirmDialog.title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    public void setStartExamBtn(JButton startExamBtn) {
+        startExamBtn.addActionListener(new StartExamActionListener());
+    }
+
+    public void setInfoAboutExamBtn(JButton aboutExamBtn) {
+        aboutExamBtn.addActionListener(new ShowInfoAboutExam());
     }
 
     public void setStartExamMenuItem(JMenuItem startExamMenuItem) {
@@ -46,6 +64,6 @@ public class MainMenuPresenter {
     }
 
     public void setCloseMenuItem(JMenuItem closeMenuItem) {
-        closeMenuItem.addActionListener(new CloseMenuListener());
+        closeMenuItem.addActionListener(new CloseWindowListener());
     }
 }

@@ -19,8 +19,10 @@ import java.util.Scanner;
  * Date: 02.11.13
  */
 public class ShowInfoAboutExamDialog extends JDialog {
+    private boolean startExamAfterRead;
 
-    public ShowInfoAboutExamDialog() {
+    public ShowInfoAboutExamDialog(boolean startExamAfterRead) {
+        this.startExamAfterRead = startExamAfterRead;
         setUpDialog();
         initializeComponents();
         pack();
@@ -30,6 +32,7 @@ public class ShowInfoAboutExamDialog extends JDialog {
     private void setUpDialog() {
         setTitle(TextsDao.get("view.ShowInfoAboutExam.dialogName"));
         setModal(true);
+        setResizable(false);
     }
 
     private void initializeComponents() {
@@ -51,7 +54,7 @@ public class ShowInfoAboutExamDialog extends JDialog {
         Font sansSerifFont = new Font("SansSerif", Font.PLAIN, 12);
         aboutTextArea.setFont(sansSerifFont);
         aboutTextArea.setEditable(false);
-        aboutTextArea.setBackground(Const.Colors.backgroundColor);
+        aboutTextArea.setBackground(Const.Colors.examBackgroundColor);
 
         try {
             String aboutPluginTxtFileName = TextsDao.get("view.showInfoAboutExam.txtFileName");
@@ -75,17 +78,27 @@ public class ShowInfoAboutExamDialog extends JDialog {
      * @return dolny panel z przyciskiem
      */
     protected JComponent createSouthComponent() {
-
-        JButton startBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.startBtn.text"));
-        startBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showExamFrameAndCloseThis();
-            }
-        });
+        JButton startBtn;
+        if (startExamAfterRead) {
+            startBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.startBtn.text"));
+            startBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    showExamFrameAndCloseThis();
+                }
+            });
+        } else {
+            startBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.closeBtn.text"));
+            startBtn.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ShowInfoAboutExamDialog.this.dispose();
+                }
+            });
+        }
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Const.Colors.backgroundColor);
+        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
         buttonPanel.add(startBtn);
 
         return buttonPanel;

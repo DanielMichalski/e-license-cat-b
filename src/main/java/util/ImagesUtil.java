@@ -14,7 +14,7 @@ public class ImagesUtil {
     }
 
     public static ImageIcon getUnmarkedBallIcon() {
-        URL imageSrc = ImagesUtil.class.getResource("/images/test.png");
+        URL imageSrc = ImagesUtil.class.getResource("/images/unmarked_ball.png");
         return new ImageIcon(imageSrc);
     }
 }

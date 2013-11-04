@@ -1,5 +1,6 @@
 package view.exam_view;
 
+import model.StandardQuestion;
 import util.Const;
 
 import javax.swing.*;
@@ -12,6 +13,9 @@ import java.net.URL;
  * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
+    private JLabel imageLabel;
+    private JLabel questionLabel;
+
     private JButton yesBtn;
     private JButton noBtn;
 
@@ -25,6 +29,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private void setUpPanel() {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setAlignmentX(Component.LEFT_ALIGNMENT);
+        setBackground(Const.Colors.examBackgroundColor);
     }
 
     private void initializeComponents() {
@@ -39,11 +44,13 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public Component getImage() {
         JPanel imagePanel = new JPanel();
+
         imagePanel.setBorder(emptyBorder);
+        imagePanel.setBackground(Const.Colors.examBackgroundColor);
 
         URL imageSrc = getClass().getResource("/images/wait_photo.jpg");
         ImageIcon image = new ImageIcon(imageSrc);
-        JLabel imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel = new JLabel("", image, JLabel.LEADING);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         imagePanel.add(imageLabel);
@@ -52,9 +59,11 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public Component getQuestion() {
         JPanel questionPanel = new JPanel();
-        questionPanel.setBorder(emptyBorder);
 
-        JLabel questionLabel = new JLabel();
+        questionPanel.setBorder(emptyBorder);
+        questionPanel.setBackground(Const.Colors.examBackgroundColor);
+
+        questionLabel = new JLabel();
         questionLabel.setText("Czy wyjeżdzając za te znaki informacyjne włączysz się do ruchu?");
         questionLabel.setFont(Const.Fonts.textsFont);
 
@@ -65,7 +74,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public JPanel getButtonPanel() {
         JPanel buttonPanel = new JPanel();
+
         buttonPanel.setBorder(emptyBorder);
+        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
 
         yesBtn = createBtn("Tak");
         noBtn = createBtn("Nie");
@@ -76,10 +87,14 @@ public class ExamQuestionsLeftPanel extends JPanel {
         return buttonPanel;
     }
 
+    public void setQestion(StandardQuestion qestion) {
+        questionLabel.setText(qestion.getQuestion());
+    }
+
     private JButton createBtn(String label) {
         JButton button = new JButton(label);
         button.setBackground(Color.WHITE);
-        button.setPreferredSize(Const.Dimensions.btnSize);
+        button.setPreferredSize(Const.Dimensions.exambtnSize);
         return button;
     }
 
