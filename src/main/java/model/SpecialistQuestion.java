@@ -2,14 +2,14 @@ package model;
 
 /**
  * Author: Daniel
- * Date: 03.11.13
+ * Date: 04.11.13
  */
-public class StandardQuestion {
+public class SpecialistQuestion {
     private String question;
-    private YesOrNoAnswer anser;
+    private ABCAnswer anser;
     private int points;
 
-    public StandardQuestion(String question, YesOrNoAnswer anser, int points) {
+    public SpecialistQuestion(String question, ABCAnswer anser, int points) {
         this.question = question;
         this.anser = anser;
         this.points = points;
@@ -19,11 +19,7 @@ public class StandardQuestion {
         return question;
     }
 
-    public YesOrNoAnswer getAnser() {
+    public ABCAnswer getAnser() {
         return anser;
-    }
-
-    public int getPoints() {
-        return points;
     }
 }
