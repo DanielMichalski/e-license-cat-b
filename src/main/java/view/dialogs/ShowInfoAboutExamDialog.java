@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 
 /**
@@ -50,12 +53,17 @@ public class ShowInfoAboutExamDialog extends JDialog {
         aboutTextArea.setEditable(false);
         aboutTextArea.setBackground(Const.Colors.backgroundColor);
 
-        String aboutPluginTxtFileName = TextsDao.get("view.showInfoAboutExam.txtFileName");
-        InputStream textFileStream = getClass().getResourceAsStream(aboutPluginTxtFileName);
-        Scanner scanner = new Scanner(textFileStream);
+        try {
+            String aboutPluginTxtFileName = TextsDao.get("view.showInfoAboutExam.txtFileName");
+            InputStream textFileStream = getClass().getResourceAsStream(aboutPluginTxtFileName);
+            Reader reader = new InputStreamReader(textFileStream, "UTF-8");
 
-        while (scanner.hasNextLine()) {
-            aboutTextArea.append(scanner.nextLine() + "\n");
+            Scanner scanner = new Scanner(reader);
+
+            while (scanner.hasNextLine()) {
+                aboutTextArea.append(scanner.nextLine() + "\n");
+            }
+        } catch (UnsupportedEncodingException ignored) {
         }
 
         return aboutTextArea;
@@ -88,6 +96,5 @@ public class ShowInfoAboutExamDialog extends JDialog {
         ExamFrame examFrame = new ExamFrame();
         examFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         examFrame.setVisible(true);
-
     }
 }
