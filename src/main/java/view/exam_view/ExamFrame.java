@@ -34,6 +34,9 @@ public class ExamFrame extends JDialog {
 
         presenter.setYesBtn(examQuestionsPanel.getYesBtn());
         presenter.setNoBtn(examQuestionsPanel.getNoBtn());
-    }
+        presenter.setTimerLbl(examResultPanel.getTimerLbl());
+        presenter.setExamPointsRightPanel(examResultPanel);
 
+        presenter.nextStandardQuestion();
+    }
 }
