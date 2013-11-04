@@ -5,9 +5,9 @@ import model.StandardQuestion;
 import model.YesOrNoAnswer;
 import util.Const;
 import view.exam_view.ExamPointsRightPanel;
+import view.exam_view.ExamQuestionsLeftPanel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -21,36 +21,73 @@ import java.util.Timer;
 public class ExamPresenter {
     private Map<Integer, StandardQuestion> standardQuestions;
     private Map<Integer, YesOrNoAnswer> standardAnswers;
-    private int actualStandardQuestion;
 
-    private ExamPointsRightPanel examPointsRightPanel;
+    private Map<Integer, StandardQuestion> specialistQuestions;
+    private Map<Integer, YesOrNoAnswer> specialistAnswers;
+
+    private int actualStandardQuestion;
+    private int actualSpecialistQuestion;
+
+    private ExamQuestionsLeftPanel examQuestionsLeftPanel;
+    private ExamPointsRightPanel.BasicPartPanel basicPartPanel;
+    private ExamPointsRightPanel.SpecjalistPartPanel specjalistPartPanel;
+    private ExamPointsRightPanel.TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
+
     private JLabel timerLbl;
     private JButton yesBtn;
     private JButton noBtn;
 
     private Timer timer;
+    private boolean isStandardPartCompleted;
 
     public ExamPresenter() {
         this.standardQuestions = QuestionsDao.getlistOfStandardQuestion();
         this.standardAnswers = new HashMap<Integer, YesOrNoAnswer>();
+
+        this.specialistQuestions = QuestionsDao.getlistOfSpecialistdQuestion();
+        this.specialistAnswers = new HashMap<Integer, YesOrNoAnswer>();
+
         actualStandardQuestion = 1;
+        actualSpecialistQuestion = 1;
 
         timer = new Timer();
+        isStandardPartCompleted = false;
     }
 
-    public void nextStandardQuestion() {
-        if (actualStandardQuestion < 20) {
+    public void nextQuestion() {
+        TimerCountdown countDown = new TimerCountdown(this, timerLbl, 3);
+        timer.schedule(countDown, 0, 50);
 
-            examPointsRightPanel.setNumberOfStandardQuestion(actualStandardQuestion);
+        if (!isStandardPartCompleted) {
+            if (actualStandardQuestion <= 20) {
+                if (actualStandardQuestion == 20) {
+                    isStandardPartCompleted = true;
+                }
+                setNumberOfStandardQuestion(actualStandardQuestion);
 
-            System.out.println(actualStandardQuestion);
+                actualStandardQuestion++;
+            }
+        }  else {
+            if (actualSpecialistQuestion <= 12) {
+                setNumberOfSpecialistQuestion(actualSpecialistQuestion);
 
-            TimerCountdown countDown = new TimerCountdown(this, timerLbl, 5);
-            timer.schedule(countDown, 0, 1000);
-            actualStandardQuestion++;
-        } else {
-            System.out.println("Przechodzę do drugiego rodzaju pytań");
+                actualSpecialistQuestion++;
+            } else {
+                timer.cancel();
+                System.out.println("Koniec");
+            }
         }
+
+    }
+
+    public void setNumberOfStandardQuestion(int questionNumber) {
+        basicPartPanel.setQuestionNumber(questionNumber);
+        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber));
+    }
+
+    public void setNumberOfSpecialistQuestion(int questionNumber) {
+        specjalistPartPanel.setQuestionNumber(questionNumber);
+        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber));
     }
 
     class YesBtnListener implements ActionListener {
@@ -67,25 +104,35 @@ public class ExamPresenter {
         }
     }
 
+    class ConfirmBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (yesBtn.isSelected()) {
+                System.out.println("yes");
+            } else if (noBtn.isSelected()){
+                System.out.println("no");
+            } else {
+                System.out.println("żaden");
+            }
+        }
+    }
+
     private void markBtn(JButton whichButtonToMark) {
         unmarkBtns();
         whichButtonToMark.setBackground(Const.Colors.markedBtnBgColor);
+        whichButtonToMark.setSelected(true);
     }
 
     private void unmarkBtns() {
         yesBtn.setBackground(Const.Colors.unmarkedBtnBgColor);
         noBtn.setBackground(Const.Colors.unmarkedBtnBgColor);
+
+        yesBtn.setSelected(false);
+        noBtn.setSelected(false);
     }
 
     public void setTimerLbl(JLabel timerLbl) {
         this.timerLbl = timerLbl;
-        startTimer(timerLbl);
-    }
-
-    private void startTimer(JLabel timerLbl) {
-        Timer timer = new Timer();
-        TimerCountdown countDown = new TimerCountdown(this, timerLbl, 5);
-        timer.schedule(countDown, 0, 1000);
     }
 
     public void setYesBtn(JButton yesBtn) {
@@ -98,7 +145,24 @@ public class ExamPresenter {
         this.noBtn.addActionListener(new NoBtnListener());
     }
 
-    public void setExamPointsRightPanel(ExamPointsRightPanel examPointsRightPanel) {
-        this.examPointsRightPanel = examPointsRightPanel;
+    public void setConfirmBtn(JButton confirmBtn) {
+        confirmBtn.addActionListener(new ConfirmBtnListener());
     }
+
+    public void setExamQuestionsLeftPanel(ExamQuestionsLeftPanel examQuestionsLeftPanel) {
+        this.examQuestionsLeftPanel = examQuestionsLeftPanel;
+    }
+
+    public void setBasicPartPanel(ExamPointsRightPanel.BasicPartPanel basicPartPanel) {
+        this.basicPartPanel = basicPartPanel;
+    }
+
+    public void setSpecjalistPartPanel(ExamPointsRightPanel.SpecjalistPartPanel specjalistPartPanel) {
+        this.specjalistPartPanel = specjalistPartPanel;
+    }
+
+    public void setTimeAndBtnConfirmPanel(ExamPointsRightPanel.TimeAndBtnConfirmPanel timeAndBtnConfirmPanel) {
+        this.timeAndBtnConfirmPanel = timeAndBtnConfirmPanel;
+    }
+
 }

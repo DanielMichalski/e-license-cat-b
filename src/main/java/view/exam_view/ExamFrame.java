@@ -5,6 +5,8 @@ import database.TextsDao;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Author: Daniel
@@ -21,6 +23,7 @@ public class ExamFrame extends JDialog {
     private void setUpFrame() {
         setTitle(TextsDao.get("view.ExamView.title"));
         setModal(true);
+        setResizable(false);
     }
 
     private void initializeComponents() {
@@ -35,8 +38,13 @@ public class ExamFrame extends JDialog {
         presenter.setYesBtn(examQuestionsPanel.getYesBtn());
         presenter.setNoBtn(examQuestionsPanel.getNoBtn());
         presenter.setTimerLbl(examResultPanel.getTimerLbl());
-        presenter.setExamPointsRightPanel(examResultPanel);
+        presenter.setConfirmBtn(examResultPanel.getConfirmBtn());
 
-        presenter.nextStandardQuestion();
+        presenter.setExamQuestionsLeftPanel(examQuestionsPanel);
+        presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
+        presenter.setSpecjalistPartPanel(examResultPanel.getSpecjalistPartPanel());
+        presenter.setTimeAndBtnConfirmPanel(examResultPanel.getTimeAndBtnConfirmPanel());
+
+        presenter.nextQuestion();
     }
 }
