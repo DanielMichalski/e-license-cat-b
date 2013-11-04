@@ -24,7 +24,7 @@ public class TimerCountdown extends TimerTask {
         if (sec >= 0) {
            timerLbl.setText("" + sec);
         } else {
-            examPresenter.nextStandardQuestion();
+            examPresenter.nextQuestion();
             this.cancel();
         }
 

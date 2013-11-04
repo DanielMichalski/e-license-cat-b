@@ -1,13 +1,9 @@
 package view.exam_view;
 
-import controller.TimerCountdown;
 import util.Const;
-import util.ImagesUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -15,9 +11,12 @@ import java.util.List;
  * Date: 03.11.13
  */
 public class ExamPointsRightPanel extends JPanel {
-    private JLabel timerLbl;
     private BasicPartPanel basicPartPanel;
-    private JPanel standardBallsPanel;
+    private SpecjalistPartPanel specjalistPartPanel;
+    private TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
+
+    private JButton confirmBtn;
+    private JLabel timerLbl;
 
     public ExamPointsRightPanel() {
         setUpPanel();
@@ -29,94 +28,98 @@ public class ExamPointsRightPanel extends JPanel {
                 new BoxLayout(ExamPointsRightPanel.this, BoxLayout.Y_AXIS);
         setLayout(layout);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBackground(Const.Colors.examBackgroundColor);
     }
 
     private void initializeComponents() {
         basicPartPanel = new BasicPartPanel();
+        specjalistPartPanel = new SpecjalistPartPanel();
 
         add(basicPartPanel);
-        add(new SpecjalistPartPanel());
+        add(specjalistPartPanel);
         add(new TimeAndBtnConfirmPanel());
     }
 
-    class BasicPartPanel extends JPanel {
+    public class BasicPartPanel extends JPanel {
+        private JLabel basicQuestionNumLbl;
+        private BallsPanel standardBallsPanel;
+
         public BasicPartPanel() {
             setLayout(new BoxLayout(BasicPartPanel.this, BoxLayout.Y_AXIS));
+            setBackground(Const.Colors.examBackgroundColor);
 
             JLabel basicPartLbl = new JLabel("Część podstawowa");
             basicPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             basicPartLbl.setFont(Const.Fonts.textsFont);
 
-            JLabel basicQuestionNumLbl = new JLabel("Pytanie numer: 1/20");
+            basicQuestionNumLbl = new JLabel("Pytanie numer: 1 / 20");
             basicQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             basicQuestionNumLbl.setFont(Const.Fonts.textsFont);
 
-            standardBallsPanel = new JPanel(new GridLayout(4, 5, 5, 5));
-
-            ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
-
-            for (int i = 1; i <= 20; i++) {
-                JLabel imageLabel = new JLabel("", unmarkedBallIcon, SwingConstants.CENTER);
-                standardBallsPanel.add(imageLabel);
-            }
+            standardBallsPanel = new BallsPanel(20, BallsPanel.BallPanelType.basic);
 
             add(basicPartLbl);
             add(basicQuestionNumLbl);
             add(Box.createRigidArea(new Dimension(0, 10)));
             add(standardBallsPanel);
         }
+
+        public void setQuestionNumber(int number) {
+           basicQuestionNumLbl.setText("Pytanie numer: " + number + " / 20");
+           standardBallsPanel.setQuestionNumber(number);
+        }
     }
 
-    class SpecjalistPartPanel extends JPanel {
+    public class SpecjalistPartPanel extends JPanel {
+        private JLabel specjalistQuestionNumLbl;
+        private BallsPanel specialistBallsPanel;
+
         public SpecjalistPartPanel() {
             setLayout(new BoxLayout(SpecjalistPartPanel.this, BoxLayout.Y_AXIS));
+            setBackground(Const.Colors.examBackgroundColor);
 
             JLabel specjalistPartLbl = new JLabel("Część specjalistyczna");
             specjalistPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             specjalistPartLbl.setFont(Const.Fonts.textsFont);
 
-            JLabel specjalistQuestionNumLbl = new JLabel("Pytanie numer: 1/20");
+            specjalistQuestionNumLbl = new JLabel("Pytanie numer: 1 / 12");
             specjalistQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             specjalistQuestionNumLbl.setFont(Const.Fonts.textsFont);
 
-            JPanel ballsPanel = new JPanel(new GridLayout(3, 5, 5, 5));
-
-            ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
-
-            for (int i = 1; i <= 15; i++) {
-                if (i <= 12) {
-                    JLabel imageLabel = new JLabel("", unmarkedBallIcon, JLabel.LEADING);
-                    ballsPanel.add(imageLabel);
-                } else {
-                    ballsPanel.add(new JLabel());
-                }
-            }
+            specialistBallsPanel = new BallsPanel(12, BallsPanel.BallPanelType.specialist);
 
             add(Box.createRigidArea(new Dimension(0, 10)));
             add(specjalistPartLbl);
             add(specjalistQuestionNumLbl);
             add(Box.createRigidArea(new Dimension(0, 10)));
-            add(ballsPanel);
+            add(specialistBallsPanel);
+        }
+
+        public void setQuestionNumber(int number) {
+            specjalistQuestionNumLbl.setText("Pytanie numer: " + number + " / 12");
+            specialistBallsPanel.setQuestionNumber(number);
         }
     }
 
-    class TimeAndBtnConfirmPanel extends JPanel {
+    public class TimeAndBtnConfirmPanel extends JPanel {
         public TimeAndBtnConfirmPanel() {
             setLayout(new BoxLayout(TimeAndBtnConfirmPanel.this, BoxLayout.Y_AXIS));
+            setBackground(Const.Colors.examBackgroundColor);
 
             JLabel timerLbl = getTimerLbl();
-            JButton button = getAcceptBtn();
+            confirmBtn = getAcceptBtn();
             JPanel howManyPointsPanel = getHowManyPointsPanel();
 
             add(timerLbl);
             add(Box.createRigidArea(new Dimension(0, 10)));
-            add(button);
+            add(confirmBtn);
             add(Box.createRigidArea(new Dimension(0, 10)));
             add(howManyPointsPanel);
         }
 
         private JPanel getHowManyPointsPanel() {
             JPanel howManyPointsPanel = new JPanel();
+            howManyPointsPanel.setBackground(Const.Colors.examBackgroundColor);
             JLabel howManyPoints = new JLabel("3 pkt.");
             howManyPoints.setAlignmentX(Component.CENTER_ALIGNMENT);
             howManyPoints.setFont(Const.Fonts.textsFont);
@@ -128,9 +131,9 @@ public class ExamPointsRightPanel extends JPanel {
         private JButton getAcceptBtn() {
             JButton button = new JButton("Zatwierdź");
             button.setBackground(Color.WHITE);
-            button.setPreferredSize(Const.Dimensions.btnSize);
-            button.setMinimumSize(Const.Dimensions.btnSize);
-            button.setMaximumSize(Const.Dimensions.btnSize);
+            button.setPreferredSize(Const.Dimensions.exambtnSize);
+            button.setMinimumSize(Const.Dimensions.exambtnSize);
+            button.setMaximumSize(Const.Dimensions.exambtnSize);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             return button;
         }
@@ -145,30 +148,23 @@ public class ExamPointsRightPanel extends JPanel {
         }
     }
 
-    public void setNumberOfStandardQuestion(int questionNumber) {
-        standardBallsPanel = new JPanel(new GridLayout(4, 5, 5, 5));
-
-        ImageIcon markedBallIcon = ImagesUtil.getMarkedBallIcon();
-        ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
-
-
-        for (int i = 1; i <= 20; i++) {
-            JLabel imageLabel;
-            if (i <= questionNumber) {
-                imageLabel = new JLabel("", markedBallIcon, SwingConstants.CENTER);
-            } else {
-                imageLabel = new JLabel("", unmarkedBallIcon, SwingConstants.CENTER);
-            }
-            standardBallsPanel.add(imageLabel);
-        }
-
-    }
-
     public JLabel getTimerLbl() {
         return timerLbl;
     }
 
     public BasicPartPanel getBasicPartPanel() {
         return basicPartPanel;
+    }
+
+    public SpecjalistPartPanel getSpecjalistPartPanel() {
+        return specjalistPartPanel;
+    }
+
+    public TimeAndBtnConfirmPanel getTimeAndBtnConfirmPanel() {
+        return timeAndBtnConfirmPanel;
+    }
+
+    public JButton getConfirmBtn() {
+        return confirmBtn;
     }
 }

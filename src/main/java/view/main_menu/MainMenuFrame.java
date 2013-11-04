@@ -5,6 +5,8 @@ import database.TextsDao;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Author: dmichalski
@@ -13,9 +15,6 @@ import java.awt.*;
 public class MainMenuFrame extends JFrame {
     private JMenuItem startExamMenuItem;
     private JMenuItem closeMenuItem;
-
-    public static final int WIDTH = 400;
-    public static final int HEIGHT = 300;
 
     public MainMenuFrame() {
         setUpFrame();
@@ -33,12 +32,11 @@ public class MainMenuFrame extends JFrame {
         catch (UnsupportedLookAndFeelException ignored) {}
 
         setTitle(TextsDao.get("view.MainView.title"));
-        setSize(WIDTH, HEIGHT);
-        setLocationRelativeTo(null);
+        setResizable(false);
     }
 
     private void initializeComponents() {
-        MainMenuPresenter presenter = new MainMenuPresenter();
+        final MainMenuPresenter presenter = new MainMenuPresenter();
 
         MainMenuPanel mainPanel = new MainMenuPanel();
         add(mainPanel, BorderLayout.CENTER);
@@ -46,9 +44,20 @@ public class MainMenuFrame extends JFrame {
         JMenuBar menuBar = createJMenuBar();
         setJMenuBar(menuBar);
 
-        presenter.setVisitsBtn(mainPanel.getRegisterBtn());
+        presenter.setStartExamBtn(mainPanel.getStartExamBtn());
+        presenter.setInfoAboutExamBtn(mainPanel.getInfoAboutExamBtn());
         presenter.setStartExamMenuItem(startExamMenuItem);
         presenter.setCloseMenuItem(closeMenuItem);
+
+        pack();
+        setLocationRelativeTo(null);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                presenter.showConfirmClosingDialog();
+            }
+        });
     }
 
     private JMenuBar createJMenuBar() {

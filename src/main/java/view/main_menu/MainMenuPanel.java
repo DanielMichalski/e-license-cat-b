@@ -12,10 +12,8 @@ import java.net.URL;
  * Date: 01.11.13
  */
 public class MainMenuPanel extends JPanel {
-    private static final int BUTTON_WIDTH = 280;
-    private static final int BUTTON_HEIGHT = 88;
-
-    private JButton registerBtn;
+    private JButton startExamBtn;
+    private JButton infoAboutExamBtn;
 
     public MainMenuPanel() {
         setUpPanel();
@@ -23,26 +21,48 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        setBackground(Const.Colors.backgroundColor);
+        setBackground(Const.Colors.mainMenubackgroundColor);
+        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
     }
 
     private void initializeComponents() {
-        // Tworzenie ikon wykorzystywanych do przyciskow
-        URL registerIconResource = getClass().getResource("/images/start_exam.jpg");
+        String startExamImageResourcePath = "/images/start_exam.jpg";
+        String infoAboutExamImageResourcePath = "/images/information.jpg";
 
-        Icon registerIcon = new ImageIcon(registerIconResource);
+        String startExamBtnLabel = TextsDao.get("view.mainPanel.startExamBtn.text");
+        String infoAboutExamBtnLabel = TextsDao.get("view.mainPanel.infoAboutExamBtn.text");
 
-        String registerBtnText = TextsDao.get("view.registerBtn.text");
-        registerBtn = new JButton(registerBtnText);
-        //registerBtn.setBounds(10, 10, BUTTON_WIDTH, BUTTON_HEIGHT);
-        registerBtn.setForeground(Color.darkGray);
-        registerBtn.setIcon(registerIcon);
-        //registerBtn.setHorizontalAlignment(SwingConstants.LEFT);
+        startExamBtn = createBtn(startExamBtnLabel, startExamImageResourcePath);
+        infoAboutExamBtn = createBtn(infoAboutExamBtnLabel, infoAboutExamImageResourcePath);
 
-        add(registerBtn);
+        startExamBtn.setMargin(new Insets(0, 0, 0, 15));
+
+        add(startExamBtn);
+        add(Box.createRigidArea(new Dimension(0, 20)));
+        add(infoAboutExamBtn);
     }
 
-    public JButton getRegisterBtn() {
-        return registerBtn;
+    private JButton createBtn(String btnLabel, String imageResource) {
+        URL startExamIconResource = getClass().getResource(imageResource);
+        Icon startExamIcon = new ImageIcon(startExamIconResource);
+
+        JButton button = new JButton(btnLabel);
+        button.setHorizontalTextPosition(SwingConstants.RIGHT);
+        button.setPreferredSize(Const.Dimensions.mainMenubtnSize);
+        button.setMinimumSize(Const.Dimensions.mainMenubtnSize);
+        button.setMaximumSize(Const.Dimensions.mainMenubtnSize);
+        button.setForeground(Color.darkGray);
+        button.setIcon(startExamIcon);
+
+        return button;
+    }
+
+    public JButton getStartExamBtn() {
+        return startExamBtn;
+    }
+
+    public JButton getInfoAboutExamBtn() {
+        return infoAboutExamBtn;
     }
 }

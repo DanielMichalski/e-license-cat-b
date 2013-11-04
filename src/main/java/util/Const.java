@@ -8,9 +8,9 @@ import java.awt.*;
  */
 public class Const {
     public static interface Colors {
-        Color backgroundColor = new Color(228, 250, 255);
+        Color mainMenubackgroundColor = new Color(228, 250, 255);
+        Color examBackgroundColor = new Color(240, 255, 255);
         Color timerFontColor = new Color(200, 73, 46);
-
         Color markedBtnBgColor = new Color(124, 210, 255);
         Color unmarkedBtnBgColor = new Color(255, 255, 255);
     }
@@ -21,6 +21,7 @@ public class Const {
     }
 
     public static interface Dimensions {
-        Dimension btnSize = new Dimension(250, 60);
+        Dimension exambtnSize = new Dimension(250, 60);
+        Dimension mainMenubtnSize = new Dimension(280, 85);
     }
 }
