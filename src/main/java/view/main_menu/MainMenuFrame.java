@@ -2,6 +2,7 @@ package view.main_menu;
 
 import controller.MainMenuPresenter;
 import database.TextsDao;
+import util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,17 +23,11 @@ public class MainMenuFrame extends JFrame {
     }
 
     private void setUpFrame() {
-        // zmiana wyglądu na domyślny dla systemu
-        try {
-            UIManager.setLookAndFeel(
-                    UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException ignored) {}
-        catch (InstantiationException ignored) {}
-        catch (IllegalAccessException ignored) {}
-        catch (UnsupportedLookAndFeelException ignored) {}
+        Utils.setSystemLookAndFeel();
 
-        setTitle(TextsDao.get("view.MainView.title"));
+        setTitle(TextsDao.getText("view.MainView.title"));
         setResizable(false);
+        Utils.setApplicationIcon(this);
     }
 
     private void initializeComponents() {
@@ -62,13 +57,13 @@ public class MainMenuFrame extends JFrame {
 
     private JMenuBar createJMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu(TextsDao.get("view.fileMenu"));
+        JMenu fileMenu = new JMenu(TextsDao.getText("view.fileMenu"));
         menuBar.add(fileMenu);
 
-        startExamMenuItem = new JMenuItem(TextsDao.get("view.starExamMenuItem"));
+        startExamMenuItem = new JMenuItem(TextsDao.getText("view.starExamMenuItem"));
         fileMenu.add(startExamMenuItem);
 
-        closeMenuItem = new JMenuItem(TextsDao.get("view.closeMenuItem"));
+        closeMenuItem = new JMenuItem(TextsDao.getText("view.closeMenuItem"));
         fileMenu.add(closeMenuItem);
 
         return menuBar;

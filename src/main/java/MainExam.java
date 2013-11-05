@@ -1,3 +1,4 @@
+import util.Utils;
 import view.exam_view.ExamFrame;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ public class MainExam {
             @Override
             public void run() {
                 ExamFrame frame = new ExamFrame();
+                Utils.setApplicationIcon(frame);
                 frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                 frame.setVisible(true);
             }

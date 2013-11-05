@@ -37,12 +37,12 @@ public class MainMenuPresenter {
     }
 
     public void showConfirmClosingDialog() {
-        UIManager.put("OptionPane.yesButtonText", TextsDao.get("OptionPane.yesButtonTex"));
-        UIManager.put("OptionPane.noButtonText", TextsDao.get("OptionPane.noButtonText"));
+        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("OptionPane.yesButtonTex"));
+        UIManager.put("OptionPane.noButtonText", TextsDao.getText("OptionPane.noButtonText"));
         int answer = JOptionPane.showConfirmDialog(
                 null,
-                TextsDao.get("view.confirmDialog.message"),
-                TextsDao.get("view.confirmDialog.title"),
+                TextsDao.getText("view.confirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
 

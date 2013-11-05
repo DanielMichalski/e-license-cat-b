@@ -24,20 +24,16 @@ public class BallsPanel extends JPanel {
 
         switch (ballPanelType) {
             case basic:
-                setLayout(new GridLayout(4, 5, 5, 5));
+                setLayout(new GridLayout(4, 5, 0, 5));
                 break;
             case specialist:
-                setLayout(new GridLayout(3, 5, 5, 5));
+                setLayout(new GridLayout(3, 5, 0, 5));
         }
     }
 
     public void setQuestionNumber(int questionNumber) {
         this.questionNumber = questionNumber;
         repaint();
-    }
-
-    public int getQuestionNumber() {
-        return questionNumber;
     }
 
     @Override

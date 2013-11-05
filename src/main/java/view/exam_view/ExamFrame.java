@@ -2,17 +2,16 @@ package view.exam_view;
 
 import controller.ExamPresenter;
 import database.TextsDao;
+import util.Utils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 /**
  * Author: Daniel
  * Date: 03.11.13
  */
-public class ExamFrame extends JDialog {
+public class ExamFrame extends JDialog implements WindowAutoSizer {
     public ExamFrame() {
         setUpFrame();
         initializeComponents();
@@ -21,15 +20,17 @@ public class ExamFrame extends JDialog {
     }
 
     private void setUpFrame() {
-        setTitle(TextsDao.get("view.ExamView.title"));
+        Utils.setSystemLookAndFeel();
+        Utils.setApplicationIcon(this);
+        setTitle(TextsDao.getText("view.ExamView.title"));
         setModal(true);
-        setResizable(false);
+        //setResizable(false);
     }
 
     private void initializeComponents() {
         ExamPresenter presenter = new ExamPresenter();
 
-        ExamQuestionsLeftPanel examQuestionsPanel = new ExamQuestionsLeftPanel();
+        ExamQuestionsLeftPanel examQuestionsPanel = new ExamQuestionsLeftPanel(this);
         ExamPointsRightPanel examResultPanel = new ExamPointsRightPanel();
 
         add(examQuestionsPanel, BorderLayout.CENTER);
@@ -39,6 +40,7 @@ public class ExamFrame extends JDialog {
         presenter.setNoBtn(examQuestionsPanel.getNoBtn());
         presenter.setTimerLbl(examResultPanel.getTimerLbl());
         presenter.setConfirmBtn(examResultPanel.getConfirmBtn());
+        presenter.setHowManyPoints(examResultPanel.getHowManyPoints());
 
         presenter.setExamQuestionsLeftPanel(examQuestionsPanel);
         presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
@@ -46,5 +48,10 @@ public class ExamFrame extends JDialog {
         presenter.setTimeAndBtnConfirmPanel(examResultPanel.getTimeAndBtnConfirmPanel());
 
         presenter.nextQuestion();
+    }
+
+    @Override
+    public void autoSize() {
+        pack();
     }
 }

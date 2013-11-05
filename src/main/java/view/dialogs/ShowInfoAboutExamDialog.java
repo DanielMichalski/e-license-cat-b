@@ -1,18 +1,13 @@
 package view.dialogs;
 
 import database.TextsDao;
-import util.Const;
+import util.ImagesUtil;
 import view.exam_view.ExamFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.util.Scanner;
 
 /**
  * Author: dmichalski
@@ -30,7 +25,7 @@ public class ShowInfoAboutExamDialog extends JDialog {
     }
 
     private void setUpDialog() {
-        setTitle(TextsDao.get("view.ShowInfoAboutExam.dialogName"));
+        setTitle(TextsDao.getText("view.ShowInfoAboutExam.dialogName"));
         setModal(true);
         setResizable(false);
     }
@@ -43,44 +38,32 @@ public class ShowInfoAboutExamDialog extends JDialog {
     /**
      * Metoda tworzy centralny panel okna dialogowego na ktorym
      * są wyświetlane informacje o egzaminie. Informacje o egzaminie są
-     * pobierane z pliku about_egzam.txt znajdującego się w resources
+     * pobierane z pliku information.jpg znajdującego się w resources
      *
-     * @return komponent zawierający tekst opisujący egzamin
+     * @return komponent zawierający dane opisujące egzamin
      */
     protected JComponent createCenterComponent() {
+        JPanel imagePanel = new JPanel();
+        imagePanel.setBackground(Color.WHITE);
 
-        JTextArea aboutTextArea = new JTextArea();
-        aboutTextArea.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        Font sansSerifFont = new Font("SansSerif", Font.PLAIN, 12);
-        aboutTextArea.setFont(sansSerifFont);
-        aboutTextArea.setEditable(false);
-        aboutTextArea.setBackground(Const.Colors.examBackgroundColor);
+        ImageIcon aboutExamImage = ImagesUtil.getAboutExamImage();
+        JLabel imageLbl = new JLabel(aboutExamImage);
 
-        try {
-            String aboutPluginTxtFileName = TextsDao.get("view.showInfoAboutExam.txtFileName");
-            InputStream textFileStream = getClass().getResourceAsStream(aboutPluginTxtFileName);
-            Reader reader = new InputStreamReader(textFileStream, "UTF-8");
+        imagePanel.add(imageLbl);
 
-            Scanner scanner = new Scanner(reader);
+        return imagePanel;
 
-            while (scanner.hasNextLine()) {
-                aboutTextArea.append(scanner.nextLine() + "\n");
-            }
-        } catch (UnsupportedEncodingException ignored) {
-        }
-
-        return aboutTextArea;
     }
 
     /**
-     * Metoda tworzy dolny panel z przyciskami
+     * Metoda tworzy dolny panel z przyciskiem
      *
      * @return dolny panel z przyciskiem
      */
     protected JComponent createSouthComponent() {
         JButton startBtn;
         if (startExamAfterRead) {
-            startBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.startBtn.text"));
+            startBtn = new JButton(TextsDao.getText("views.ShowInfoAboutExam.startBtn.text"));
             startBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -88,7 +71,7 @@ public class ShowInfoAboutExamDialog extends JDialog {
                 }
             });
         } else {
-            startBtn = new JButton(TextsDao.get("views.ShowInfoAboutExam.closeBtn.text"));
+            startBtn = new JButton(TextsDao.getText("views.ShowInfoAboutExam.closeBtn.text"));
             startBtn.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -98,7 +81,7 @@ public class ShowInfoAboutExamDialog extends JDialog {
         }
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
+        buttonPanel.setBackground(Color.WHITE);
         buttonPanel.add(startBtn);
 
         return buttonPanel;

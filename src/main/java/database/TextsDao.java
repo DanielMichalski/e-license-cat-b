@@ -1,6 +1,5 @@
 package database;
 
-import java.io.File;
 import java.util.ResourceBundle;
 
 /**
@@ -8,8 +7,13 @@ import java.util.ResourceBundle;
  * Date: 01.11.13
  */
 public class TextsDao {
-    public static String get(String name) {
+    public static String getText(String name) {
         ResourceBundle rb = ResourceBundle.getBundle("properties/texts");
+        return rb.getString(name);
+    }
+
+    public static String getPath(String name) {
+        ResourceBundle rb = ResourceBundle.getBundle("properties/paths");
         return rb.getString(name);
     }
 }
