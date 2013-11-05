@@ -1,9 +1,11 @@
 package database;
 
+import database.xls.XLSModuleDataProvider;
+import database.xls.XLSSpecialistQuestionDataProvider;
+import database.xls.XLSStandardQuestionDataProvider;
+import model.SpecialistQuestion;
 import model.StandardQuestion;
-import model.YesOrNoAnswer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,31 +13,19 @@ import java.util.Map;
  * Date: 03.11.13
  */
 public class QuestionsDao {
-    public static Map<Integer, StandardQuestion> getlistOfStandardQuestion() {
+    /*public static Map<Integer, StandardQuestion> getAllStandardQuestion() {
+        return XLSStandardQuestionDataProvider.getAllStandardQuestions();
+    }*/
 
-        Map<Integer, StandardQuestion> questions =
-                new HashMap<Integer, StandardQuestion>();
-
-        for (int i = 1; i <= 20; i++) {
-            StandardQuestion question = new StandardQuestion(
-                    "Pytanie standard " + i + ": Czy wyjeżdzając za te znaki informacyjne włączysz się do ruchu? ", YesOrNoAnswer.yes, i);
-            questions.put(i, question);
-        }
-
-        return questions;
+    public static Map<Integer, StandardQuestion> get20StandardQuestion() {
+        return XLSStandardQuestionDataProvider.get20StandardQuestions();
     }
 
-    public static Map<Integer, StandardQuestion> getlistOfSpecialistdQuestion() {
+    public static Map<Integer, SpecialistQuestion> getAllSpecialistQuestion() {
+        return XLSSpecialistQuestionDataProvider.getAllSpecialistQuestions();
+    }
 
-        Map<Integer, StandardQuestion> questions =
-                new HashMap<Integer, StandardQuestion>();
-
-        for (int i = 1; i <= 20; i++) {
-            StandardQuestion question = new StandardQuestion(
-                    "Pytanie specialist " + i + ": Czy wyjeżdzając za te znaki informacyjne włączysz się do ruchu? ", YesOrNoAnswer.yes, i);
-            questions.put(i, question);
-        }
-
-        return questions;
+    public static Map<Integer, SpecialistQuestion> get12SpecialistQuestion() {
+        return XLSSpecialistQuestionDataProvider.get12SpecialistQuestions();
     }
 }

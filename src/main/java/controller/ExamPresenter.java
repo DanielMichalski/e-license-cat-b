@@ -1,8 +1,9 @@
 package controller;
 
 import database.QuestionsDao;
+import model.SpecialistQuestion;
 import model.StandardQuestion;
-import model.YesOrNoAnswer;
+import model.enums.YesOrNoAnswer;
 import util.Const;
 import view.exam_view.ExamPointsRightPanel;
 import view.exam_view.ExamQuestionsLeftPanel;
@@ -22,7 +23,7 @@ public class ExamPresenter {
     private Map<Integer, StandardQuestion> standardQuestions;
     private Map<Integer, YesOrNoAnswer> standardAnswers;
 
-    private Map<Integer, StandardQuestion> specialistQuestions;
+    private Map<Integer, SpecialistQuestion> specialistQuestions;
     private Map<Integer, YesOrNoAnswer> specialistAnswers;
 
     private int actualStandardQuestion;
@@ -36,15 +37,16 @@ public class ExamPresenter {
     private JLabel timerLbl;
     private JButton yesBtn;
     private JButton noBtn;
+    private JLabel howManyPoints;
 
     private Timer timer;
     private boolean isStandardPartCompleted;
 
     public ExamPresenter() {
-        this.standardQuestions = QuestionsDao.getlistOfStandardQuestion();
+        this.standardQuestions = QuestionsDao.get20StandardQuestion();
         this.standardAnswers = new HashMap<Integer, YesOrNoAnswer>();
 
-        this.specialistQuestions = QuestionsDao.getlistOfSpecialistdQuestion();
+        this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
         this.specialistAnswers = new HashMap<Integer, YesOrNoAnswer>();
 
         actualStandardQuestion = 1;
@@ -55,8 +57,8 @@ public class ExamPresenter {
     }
 
     public void nextQuestion() {
-        TimerCountdown countDown = new TimerCountdown(this, timerLbl, 3);
-        timer.schedule(countDown, 0, 50);
+        TimerCountdown countDown = new TimerCountdown(this, timerLbl, 5);
+        timer.schedule(countDown, 0, 1000);
 
         if (!isStandardPartCompleted) {
             if (actualStandardQuestion <= 20) {
@@ -67,8 +69,9 @@ public class ExamPresenter {
 
                 actualStandardQuestion++;
             }
-        }  else {
+        } else {
             if (actualSpecialistQuestion <= 12) {
+                changePanelFromStandardToSpecial();
                 setNumberOfSpecialistQuestion(actualSpecialistQuestion);
 
                 actualSpecialistQuestion++;
@@ -80,14 +83,20 @@ public class ExamPresenter {
 
     }
 
+    private void changePanelFromStandardToSpecial() {
+        examQuestionsLeftPanel.changePanelFromStandarToSpecial();
+    }
+
     public void setNumberOfStandardQuestion(int questionNumber) {
         basicPartPanel.setQuestionNumber(questionNumber);
-        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber));
+        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber).getQuestion());
+        howManyPoints.setText(standardQuestions.get(questionNumber).getPoints() + " pkt");
     }
 
     public void setNumberOfSpecialistQuestion(int questionNumber) {
         specjalistPartPanel.setQuestionNumber(questionNumber);
-        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber));
+        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber).getQuestion());
+        howManyPoints.setText(specialistQuestions.get(questionNumber).getPoints() + " pkt");
     }
 
     class YesBtnListener implements ActionListener {
@@ -109,7 +118,7 @@ public class ExamPresenter {
         public void actionPerformed(ActionEvent e) {
             if (yesBtn.isSelected()) {
                 System.out.println("yes");
-            } else if (noBtn.isSelected()){
+            } else if (noBtn.isSelected()) {
                 System.out.println("no");
             } else {
                 System.out.println("żaden");
@@ -137,16 +146,20 @@ public class ExamPresenter {
 
     public void setYesBtn(JButton yesBtn) {
         this.yesBtn = yesBtn;
-        this.yesBtn.addActionListener(new YesBtnListener());
+        //this.yesBtn.addActionListener(new YesBtnListener());
     }
 
     public void setNoBtn(JButton noBtn) {
         this.noBtn = noBtn;
-        this.noBtn.addActionListener(new NoBtnListener());
+        //this.noBtn.addActionListener(new NoBtnListener());
     }
 
     public void setConfirmBtn(JButton confirmBtn) {
         confirmBtn.addActionListener(new ConfirmBtnListener());
+    }
+
+    public void setHowManyPoints(JLabel howManyPoints) {
+        this.howManyPoints = howManyPoints;
     }
 
     public void setExamQuestionsLeftPanel(ExamQuestionsLeftPanel examQuestionsLeftPanel) {
