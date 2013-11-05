@@ -9,12 +9,17 @@ import java.net.URL;
  */
 public class ImagesUtil {
     public static ImageIcon getMarkedBallIcon() {
-        URL imageSrc = ImagesUtil.class.getResource("/images/marked_ball.png");
+        URL imageSrc = ImagesUtil.class.getResource("/program_images/point_was.png");
         return new ImageIcon(imageSrc);
     }
 
     public static ImageIcon getUnmarkedBallIcon() {
-        URL imageSrc = ImagesUtil.class.getResource("/images/unmarked_ball.png");
+        URL imageSrc = ImagesUtil.class.getResource("/program_images/point_before.png");
+        return new ImageIcon(imageSrc);
+    }
+
+    public static ImageIcon getAboutExamImage() {
+        URL imageSrc = ImagesUtil.class.getResource("/program_images/wait_start.jpg");
         return new ImageIcon(imageSrc);
     }
 }
