@@ -17,6 +17,7 @@ public class ExamPointsRightPanel extends JPanel {
 
     private JButton confirmBtn;
     private JLabel timerLbl;
+    private JLabel howManyPoints;
 
     public ExamPointsRightPanel() {
         setUpPanel();
@@ -34,10 +35,11 @@ public class ExamPointsRightPanel extends JPanel {
     private void initializeComponents() {
         basicPartPanel = new BasicPartPanel();
         specjalistPartPanel = new SpecjalistPartPanel();
+        timeAndBtnConfirmPanel = new TimeAndBtnConfirmPanel();
 
         add(basicPartPanel);
         add(specjalistPartPanel);
-        add(new TimeAndBtnConfirmPanel());
+        add(timeAndBtnConfirmPanel);
     }
 
     public class BasicPartPanel extends JPanel {
@@ -65,8 +67,8 @@ public class ExamPointsRightPanel extends JPanel {
         }
 
         public void setQuestionNumber(int number) {
-           basicQuestionNumLbl.setText("Pytanie numer: " + number + " / 20");
-           standardBallsPanel.setQuestionNumber(number);
+            basicQuestionNumLbl.setText("Pytanie numer: " + number + " / 20");
+            standardBallsPanel.setQuestionNumber(number);
         }
     }
 
@@ -82,7 +84,7 @@ public class ExamPointsRightPanel extends JPanel {
             specjalistPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             specjalistPartLbl.setFont(Const.Fonts.textsFont);
 
-            specjalistQuestionNumLbl = new JLabel("Pytanie numer: 1 / 12");
+            specjalistQuestionNumLbl = new JLabel("Pytanie numer: 0 / 12");
             specjalistQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             specjalistQuestionNumLbl.setFont(Const.Fonts.textsFont);
 
@@ -117,27 +119,6 @@ public class ExamPointsRightPanel extends JPanel {
             add(howManyPointsPanel);
         }
 
-        private JPanel getHowManyPointsPanel() {
-            JPanel howManyPointsPanel = new JPanel();
-            howManyPointsPanel.setBackground(Const.Colors.examBackgroundColor);
-            JLabel howManyPoints = new JLabel("3 pkt.");
-            howManyPoints.setAlignmentX(Component.CENTER_ALIGNMENT);
-            howManyPoints.setFont(Const.Fonts.textsFont);
-            howManyPointsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            howManyPointsPanel.add(howManyPoints);
-            return howManyPointsPanel;
-        }
-
-        private JButton getAcceptBtn() {
-            JButton button = new JButton("Zatwierdź");
-            button.setBackground(Color.WHITE);
-            button.setPreferredSize(Const.Dimensions.exambtnSize);
-            button.setMinimumSize(Const.Dimensions.exambtnSize);
-            button.setMaximumSize(Const.Dimensions.exambtnSize);
-            button.setAlignmentX(Component.CENTER_ALIGNMENT);
-            return button;
-        }
-
         private JLabel getTimerLbl() {
             timerLbl = new JLabel("40");
             timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -146,6 +127,34 @@ public class ExamPointsRightPanel extends JPanel {
 
             return timerLbl;
         }
+
+        private JButton getAcceptBtn() {
+            JButton button = new JButton("Zatwierdź");
+            button.setFont(Const.Fonts.btnConfirmFont);
+            button.setPreferredSize(Const.Dimensions.examConfirmBtnSize);
+            button.setMinimumSize(Const.Dimensions.examConfirmBtnSize);
+            button.setMaximumSize(Const.Dimensions.examConfirmBtnSize);
+            button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            return button;
+        }
+
+        private JPanel getHowManyPointsPanel() {
+            JPanel howManyPointsPanel = new JPanel();
+            howManyPointsPanel.setBackground(Const.Colors.examBackgroundColor);
+            howManyPoints = new JLabel();
+            howManyPoints.setAlignmentX(Component.CENTER_ALIGNMENT);
+            howManyPoints.setAlignmentY(Component.BOTTOM_ALIGNMENT);
+            howManyPoints.setFont(Const.Fonts.textsFont);
+
+            howManyPointsPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            howManyPointsPanel.add(howManyPoints);
+            return howManyPointsPanel;
+        }
+
+    }
+
+    public JLabel getHowManyPoints() {
+        return howManyPoints;
     }
 
     public JLabel getTimerLbl() {

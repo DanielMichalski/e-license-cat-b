@@ -22,7 +22,7 @@ public class TimerCountdown extends TimerTask {
     public void run() {
 
         if (sec >= 0) {
-           timerLbl.setText("" + sec);
+            timerLbl.setText("" + sec);
         } else {
             examPresenter.nextQuestion();
             this.cancel();

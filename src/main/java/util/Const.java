@@ -16,12 +16,17 @@ public class Const {
     }
 
     public static interface Fonts {
-        Font textsFont = new Font("SansSerif", Font.PLAIN, 16);
-        Font timerFont = new Font("SansSerif", Font.PLAIN, 48);
+        Font textsFont = new Font("Arial", Font.PLAIN, 16);
+        Font timerFont = new Font("Arial", Font.PLAIN, 48);
+        Font btnsYesNoFont = new Font("Arial", Font.PLAIN,18);
+        Font btnsABCFont = new Font("Arial", Font.PLAIN, 18);
+        Font btnConfirmFont = new Font("Arial", Font.PLAIN, 18);
     }
 
     public static interface Dimensions {
-        Dimension exambtnSize = new Dimension(250, 60);
+        Dimension examYesNoBtnSize = new Dimension(320, 50);
+        Dimension ABCBtnsSize = new Dimension(450, 50);
+        Dimension examConfirmBtnSize = new Dimension(230, 50);
         Dimension mainMenubtnSize = new Dimension(280, 85);
     }
 }
