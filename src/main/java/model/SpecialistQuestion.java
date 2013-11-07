@@ -15,7 +15,7 @@ public class SpecialistQuestion {
     private ABCAnswer correctAnser;
     private Module module;
     private String picturePath;
-    private String moviePath;
+    private String videoPath;
 
     public SpecialistQuestion(
             int points,
@@ -26,7 +26,7 @@ public class SpecialistQuestion {
             ABCAnswer correctAnser,
             Module module,
             String picturePath,
-            String moviePath) {
+            String videoPath) {
 
         this.points = points;
         this.question = question;
@@ -36,7 +36,7 @@ public class SpecialistQuestion {
         this.correctAnser = correctAnser;
         this.module = module;
         this.picturePath = picturePath;
-        this.moviePath = moviePath;
+        this.videoPath = videoPath;
     }
 
     public int getPoints() {
@@ -71,7 +71,7 @@ public class SpecialistQuestion {
         return picturePath;
     }
 
-    public String getMoviePath() {
-        return moviePath;
+    public String getVideoPath() {
+        return videoPath;
     }
 }
