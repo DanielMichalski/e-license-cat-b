@@ -70,6 +70,7 @@ public class XLSUtil {
         return new StandardQuestion(
                 points,
                 question,
+                null,
                 correctAnser,
                 module,
                 picturePath,
@@ -125,6 +126,7 @@ public class XLSUtil {
                 answerA,
                 answerB,
                 answerC,
+                null,
                 correctAnser,
                 module,
                 picturePath,

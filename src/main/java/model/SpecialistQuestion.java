@@ -12,6 +12,7 @@ public class SpecialistQuestion {
     private String answerA;
     private String answerB;
     private String answerC;
+    private ABCAnswer userAnswer;
     private ABCAnswer correctAnser;
     private Module module;
     private String picturePath;
@@ -23,6 +24,7 @@ public class SpecialistQuestion {
             String answerA,
             String answerB,
             String answerC,
+            ABCAnswer userAnswer,
             ABCAnswer correctAnser,
             Module module,
             String picturePath,
@@ -33,6 +35,7 @@ public class SpecialistQuestion {
         this.answerA = answerA;
         this.answerB = answerB;
         this.answerC = answerC;
+        this.userAnswer = userAnswer;
         this.correctAnser = correctAnser;
         this.module = module;
         this.picturePath = picturePath;
@@ -59,7 +62,15 @@ public class SpecialistQuestion {
         return answerC;
     }
 
-    public ABCAnswer getCorrectAnser() {
+    public ABCAnswer getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(ABCAnswer userAnswer) {
+        this.userAnswer = userAnswer;
+    }
+
+    public ABCAnswer getCorrectAnswer() {
         return correctAnser;
     }
 
