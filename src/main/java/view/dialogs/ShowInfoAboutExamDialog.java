@@ -25,7 +25,7 @@ public class ShowInfoAboutExamDialog extends JDialog {
     }
 
     private void setUpDialog() {
-        setTitle(TextsDao.getText("view.ShowInfoAboutExam.dialogName"));
+        setTitle(TextsDao.getText("view.ShowInfoAboutExam.title"));
         setModal(true);
         setResizable(false);
     }

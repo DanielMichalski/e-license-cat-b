@@ -4,6 +4,7 @@ import database.QuestionsDao;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
 import model.enums.YesOrNoAnswer;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import util.Const;
 import view.exam_view.ExamPointsRightPanel;
 import view.exam_view.ExamQuestionsLeftPanel;
@@ -11,7 +12,9 @@ import view.exam_view.ExamQuestionsLeftPanel;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 
@@ -20,10 +23,10 @@ import java.util.Timer;
  * Date: 03.11.13
  */
 public class ExamPresenter {
-    private Map<Integer, StandardQuestion> standardQuestions;
+    private List<StandardQuestion> standardQuestions;
     private Map<Integer, YesOrNoAnswer> standardAnswers;
 
-    private Map<Integer, SpecialistQuestion> specialistQuestions;
+    private List<SpecialistQuestion> specialistQuestions;
     private Map<Integer, YesOrNoAnswer> specialistAnswers;
 
     private int actualStandardQuestion;
@@ -43,11 +46,16 @@ public class ExamPresenter {
     private boolean isStandardPartCompleted;
 
     public ExamPresenter() {
-        this.standardQuestions = QuestionsDao.get20StandardQuestion();
-        this.standardAnswers = new HashMap<Integer, YesOrNoAnswer>();
-
-        this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
-        this.specialistAnswers = new HashMap<Integer, YesOrNoAnswer>();
+        try {
+            this.standardQuestions = QuestionsDao.get20StandardQuestion();
+            this.standardAnswers = new HashMap<Integer, YesOrNoAnswer>();
+            this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
+            this.specialistAnswers = new HashMap<Integer, YesOrNoAnswer>();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidFormatException e) {
+            e.printStackTrace();
+        }
 
         actualStandardQuestion = 1;
         actualSpecialistQuestion = 1;
@@ -58,7 +66,7 @@ public class ExamPresenter {
 
     public void nextQuestion() {
         TimerCountdown countDown = new TimerCountdown(this, timerLbl, 5);
-        timer.schedule(countDown, 0, 1000);
+        timer.schedule(countDown, 0, 100);
 
         if (!isStandardPartCompleted) {
             if (actualStandardQuestion <= 20) {
@@ -89,14 +97,14 @@ public class ExamPresenter {
 
     public void setNumberOfStandardQuestion(int questionNumber) {
         basicPartPanel.setQuestionNumber(questionNumber);
-        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber).getQuestion());
-        howManyPoints.setText(standardQuestions.get(questionNumber).getPoints() + " pkt");
+        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber-1).getQuestion());
+        howManyPoints.setText(standardQuestions.get(questionNumber-1).getPoints() + " pkt");
     }
 
     public void setNumberOfSpecialistQuestion(int questionNumber) {
         specjalistPartPanel.setQuestionNumber(questionNumber);
-        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber).getQuestion());
-        howManyPoints.setText(specialistQuestions.get(questionNumber).getPoints() + " pkt");
+        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber-1).getQuestion());
+        howManyPoints.setText(specialistQuestions.get(questionNumber-1).getPoints() + " pkt");
     }
 
     class YesBtnListener implements ActionListener {
@@ -117,9 +125,9 @@ public class ExamPresenter {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (yesBtn.isSelected()) {
-                System.out.println("yes");
+                System.out.println("TAK");
             } else if (noBtn.isSelected()) {
-                System.out.println("no");
+                System.out.println("NIE");
             } else {
                 System.out.println("żaden");
             }

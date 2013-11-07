@@ -53,4 +53,17 @@ public class StandardQuestion {
     public String getVideoPath() {
         return videoPath;
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("StandardQuestion{");
+        sb.append("points=").append(points);
+        sb.append(", question='").append(question).append('\'');
+        sb.append(", correctAnswer=").append(correctAnswer);
+        sb.append(", module=").append(module);
+        sb.append(", picturePath='").append(picturePath).append('\'');
+        sb.append(", videoPath='").append(videoPath).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
 }
