@@ -30,8 +30,8 @@ public class MainMenuPanel extends JPanel {
         String startExamImageResourcePath = "/program_images/start_exam.jpg";
         String infoAboutExamImageResourcePath = "/program_images/information.jpg";
 
-        String startExamBtnLabel = TextsDao.getText("view.mainPanel.startExamBtn.text");
-        String infoAboutExamBtnLabel = TextsDao.getText("view.mainPanel.infoAboutExamBtn.text");
+        String startExamBtnLabel = TextsDao.getText("view.mainMenuPanel.startExamBtn.text");
+        String infoAboutExamBtnLabel = TextsDao.getText("view.mainMenuPanel.infoAboutExamBtn.text");
 
         startExamBtn = createBtn(startExamBtnLabel, startExamImageResourcePath);
         infoAboutExamBtn = createBtn(infoAboutExamBtnLabel, infoAboutExamImageResourcePath);

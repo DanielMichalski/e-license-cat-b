@@ -1,5 +1,6 @@
 package view.exam_view;
 
+import database.TextsDao;
 import util.Const;
 
 import javax.swing.*;
@@ -92,8 +93,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
         buttonPanel.setBackground(Const.Colors.examBackgroundColor);
 
-        yesBtn = createYesNoBtn("Tak");
-        noBtn = createYesNoBtn("Nie");
+        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
+        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
 
         buttonPanel.add(yesBtn);
         buttonPanel.add(noBtn);

@@ -5,6 +5,6 @@ package model.enums;
  * Date: 03.11.13
  */
 public enum YesOrNoAnswer {
-    yes,
-    no
+    TAK,
+    NIE
 }

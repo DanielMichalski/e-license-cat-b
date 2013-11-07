@@ -1,5 +1,6 @@
 package view.exam_view;
 
+import database.TextsDao;
 import util.Const;
 
 import javax.swing.*;
@@ -50,11 +51,11 @@ public class ExamPointsRightPanel extends JPanel {
             setLayout(new BoxLayout(BasicPartPanel.this, BoxLayout.Y_AXIS));
             setBackground(Const.Colors.examBackgroundColor);
 
-            JLabel basicPartLbl = new JLabel("Część podstawowa");
+            JLabel basicPartLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.basicPartLbl"));
             basicPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             basicPartLbl.setFont(Const.Fonts.textsFont);
 
-            basicQuestionNumLbl = new JLabel("Pytanie numer: 1 / 20");
+            basicQuestionNumLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.basicPointsLbl"));
             basicQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             basicQuestionNumLbl.setFont(Const.Fonts.textsFont);
 
@@ -80,11 +81,11 @@ public class ExamPointsRightPanel extends JPanel {
             setLayout(new BoxLayout(SpecjalistPartPanel.this, BoxLayout.Y_AXIS));
             setBackground(Const.Colors.examBackgroundColor);
 
-            JLabel specjalistPartLbl = new JLabel("Część specjalistyczna");
+            JLabel specjalistPartLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.specialistPartLbl"));
             specjalistPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             specjalistPartLbl.setFont(Const.Fonts.textsFont);
 
-            specjalistQuestionNumLbl = new JLabel("Pytanie numer: 0 / 12");
+            specjalistQuestionNumLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.specialistPointsLbl"));
             specjalistQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
             specjalistQuestionNumLbl.setFont(Const.Fonts.textsFont);
 
@@ -129,7 +130,7 @@ public class ExamPointsRightPanel extends JPanel {
         }
 
         private JButton getAcceptBtn() {
-            JButton button = new JButton("Zatwierdź");
+            JButton button = new JButton(TextsDao.getText("ExamPointRigthPanel.btnConfirmLbl"));
             button.setFont(Const.Fonts.btnConfirmFont);
             button.setPreferredSize(Const.Dimensions.examConfirmBtnSize);
             button.setMinimumSize(Const.Dimensions.examConfirmBtnSize);
