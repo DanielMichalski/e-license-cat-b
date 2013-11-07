@@ -14,6 +14,7 @@ import java.awt.event.WindowEvent;
  * Date: 01.11.13
  */
 public class MainMenuFrame extends JFrame {
+
     private JMenuItem startExamMenuItem;
     private JMenuItem closeMenuItem;
 
