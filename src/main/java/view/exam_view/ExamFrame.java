@@ -36,8 +36,13 @@ public class ExamFrame extends JDialog implements WindowAutoSizer {
         add(examQuestionsPanel, BorderLayout.CENTER);
         add(examResultPanel, BorderLayout.EAST);
 
+        addWindowListener(presenter.getWindowListener());
+
         presenter.setYesBtn(examQuestionsPanel.getYesBtn());
         presenter.setNoBtn(examQuestionsPanel.getNoBtn());
+        presenter.setBtnA(examQuestionsPanel.getBtnA());
+        presenter.setBtnB(examQuestionsPanel.getBtnB());
+        presenter.setBtnC(examQuestionsPanel.getBtnC());
         presenter.setTimerLbl(examResultPanel.getTimerLbl());
         presenter.setConfirmBtn(examResultPanel.getConfirmBtn());
         presenter.setHowManyPoints(examResultPanel.getHowManyPoints());
@@ -45,7 +50,6 @@ public class ExamFrame extends JDialog implements WindowAutoSizer {
         presenter.setExamQuestionsLeftPanel(examQuestionsPanel);
         presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
         presenter.setSpecjalistPartPanel(examResultPanel.getSpecjalistPartPanel());
-        presenter.setTimeAndBtnConfirmPanel(examResultPanel.getTimeAndBtnConfirmPanel());
 
         presenter.nextQuestion();
     }

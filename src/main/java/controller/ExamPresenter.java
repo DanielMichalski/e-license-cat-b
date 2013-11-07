@@ -3,20 +3,18 @@ package controller;
 import database.QuestionsDao;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
+import model.enums.ABCAnswer;
 import model.enums.YesOrNoAnswer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import util.Const;
 import view.exam_view.ExamPointsRightPanel;
 import view.exam_view.ExamQuestionsLeftPanel;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Author: Daniel
@@ -24,10 +22,8 @@ import java.util.Timer;
  */
 public class ExamPresenter {
     private List<StandardQuestion> standardQuestions;
-    private Map<Integer, YesOrNoAnswer> standardAnswers;
 
     private List<SpecialistQuestion> specialistQuestions;
-    private Map<Integer, YesOrNoAnswer> specialistAnswers;
 
     private int actualStandardQuestion;
     private int actualSpecialistQuestion;
@@ -35,11 +31,13 @@ public class ExamPresenter {
     private ExamQuestionsLeftPanel examQuestionsLeftPanel;
     private ExamPointsRightPanel.BasicPartPanel basicPartPanel;
     private ExamPointsRightPanel.SpecjalistPartPanel specjalistPartPanel;
-    private ExamPointsRightPanel.TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
 
     private JLabel timerLbl;
     private JButton yesBtn;
     private JButton noBtn;
+    private JButton btnA;
+    private JButton btnB;
+    private JButton btnC;
     private JLabel howManyPoints;
 
     private Timer timer;
@@ -48,47 +46,57 @@ public class ExamPresenter {
     public ExamPresenter() {
         try {
             this.standardQuestions = QuestionsDao.get20StandardQuestion();
-            this.standardAnswers = new HashMap<Integer, YesOrNoAnswer>();
             this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
-            this.specialistAnswers = new HashMap<Integer, YesOrNoAnswer>();
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
         } catch (InvalidFormatException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e);
         }
 
-        actualStandardQuestion = 1;
-        actualSpecialistQuestion = 1;
+        actualStandardQuestion = 0;
+        actualSpecialistQuestion = 0;
 
-        timer = new Timer();
         isStandardPartCompleted = false;
     }
 
     public void nextQuestion() {
-        TimerCountdown countDown = new TimerCountdown(this, timerLbl, 5);
-        timer.schedule(countDown, 0, 100);
+        timer = new Timer();
+        TimerTask countDown;
+        long period = 1000;
 
-        if (!isStandardPartCompleted) {
-            if (actualStandardQuestion <= 20) {
-                if (actualStandardQuestion == 20) {
+        try {
+            actualStandardQuestion++;
+            standardQuestions.get(actualStandardQuestion - 1);
+            countDown = new StandardPartTimerCountdown(this);
+            timer.schedule(countDown, 0, period);
+
+            setNumberOfStandardQuestion(actualStandardQuestion);
+
+        } catch (IndexOutOfBoundsException e) {
+            try {
+                if (actualSpecialistQuestion == 0) {
                     isStandardPartCompleted = true;
+                    changePanelFromStandardToSpecial();
                 }
-                setNumberOfStandardQuestion(actualStandardQuestion);
-
-                actualStandardQuestion++;
-            }
-        } else {
-            if (actualSpecialistQuestion <= 12) {
-                changePanelFromStandardToSpecial();
-                setNumberOfSpecialistQuestion(actualSpecialistQuestion);
 
                 actualSpecialistQuestion++;
-            } else {
-                timer.cancel();
-                System.out.println("Koniec");
+                specialistQuestions.get(actualSpecialistQuestion - 1);
+                countDown = new SpecialistPartTimerCountdown(this);
+                timer.schedule(countDown, 0, period);
+
+                setNumberOfSpecialistQuestion(actualSpecialistQuestion);
+
+
+            } catch (IndexOutOfBoundsException e1) {
+                endExam();
             }
         }
+        enableBtns();
+    }
 
+    private void endExam() {
+        timer.cancel();
+        timerLbl.setText("KONIEC");
     }
 
     private void changePanelFromStandardToSpecial() {
@@ -97,14 +105,37 @@ public class ExamPresenter {
 
     public void setNumberOfStandardQuestion(int questionNumber) {
         basicPartPanel.setQuestionNumber(questionNumber);
-        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber-1).getQuestion());
-        howManyPoints.setText(standardQuestions.get(questionNumber-1).getPoints() + " pkt");
+        examQuestionsLeftPanel.setQestion(standardQuestions.get(questionNumber - 1).getQuestion());
+        howManyPoints.setText(standardQuestions.get(questionNumber - 1).getPoints() + " pkt");
     }
 
     public void setNumberOfSpecialistQuestion(int questionNumber) {
         specjalistPartPanel.setQuestionNumber(questionNumber);
-        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber-1).getQuestion());
-        howManyPoints.setText(specialistQuestions.get(questionNumber-1).getPoints() + " pkt");
+        examQuestionsLeftPanel.setQestion(specialistQuestions.get(questionNumber - 1).getQuestion());
+        String btnAText = specialistQuestions.get(questionNumber - 1).getAnswerA();
+        String btnBText = specialistQuestions.get(questionNumber - 1).getAnswerB();
+        String btnCText = specialistQuestions.get(questionNumber - 1).getAnswerC();
+
+        examQuestionsLeftPanel.setBtnABCTexts(btnAText, btnBText, btnCText);
+
+        howManyPoints.setText(specialistQuestions.get(questionNumber - 1).getPoints() + " pkt");
+    }
+
+    public WindowListener getWindowListener() {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                endExam();
+            }
+        };
+    }
+
+    public void showWaitImage() {
+        examQuestionsLeftPanel.setImagePath("/program_images/wait_photo.jpg");
+    }
+
+    public void showImage() {
+        examQuestionsLeftPanel.setImagePath("/images/Slajd117_ITS.jpg");
     }
 
     class YesBtnListener implements ActionListener {
@@ -121,31 +152,78 @@ public class ExamPresenter {
         }
     }
 
+    class ABtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            markBtn(btnA);
+        }
+    }
+
+    class BBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            markBtn(btnB);
+        }
+    }
+
+    class CBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            markBtn(btnC);
+        }
+    }
+
     class ConfirmBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (yesBtn.isSelected()) {
-                System.out.println("TAK");
-            } else if (noBtn.isSelected()) {
-                System.out.println("NIE");
+            if (!isStandardPartCompleted) {
+                if (!yesBtn.isEnabled()) {
+                    setStandardAnswer(YesOrNoAnswer.TAK);
+                } else if (!noBtn.isEnabled()) {
+                    setStandardAnswer(YesOrNoAnswer.NIE);
+                }
             } else {
-                System.out.println("żaden");
+                if (!btnA.isEnabled()) {
+                    setSpecialistAnswer(ABCAnswer.A);
+                } else if (!btnB.isEnabled()) {
+                    setSpecialistAnswer(ABCAnswer.B);
+                } else if (!btnC.isEnabled()) {
+                    setSpecialistAnswer(ABCAnswer.C);
+                }
             }
+            enableBtns();
+        }
+
+        private void setStandardAnswer(YesOrNoAnswer answer) {
+            standardQuestions.get(actualStandardQuestion - 1).setUserAnswer(answer);
+            StandardQuestion standardQuestion = standardQuestions.get(actualStandardQuestion - 1);
+            String text = String.format("%d. User answer: %s, correct: %s", (actualStandardQuestion), standardQuestion.getUserAnswer(), standardQuestion.getCorrectAnswer());
+            System.out.println(text);
+            timer.cancel();
+            nextQuestion();
+        }
+
+        private void setSpecialistAnswer(ABCAnswer answer) {
+            specialistQuestions.get(actualSpecialistQuestion - 1).setUserAnswer(answer);
+            SpecialistQuestion specialistQuestion = specialistQuestions.get(actualSpecialistQuestion - 1);
+            String text = String.format("%d. User answer: %s, correct: %s", (actualSpecialistQuestion), specialistQuestion.getUserAnswer(), specialistQuestion.getCorrectAnswer());
+            System.out.println(text);
+            timer.cancel();
+            nextQuestion();
         }
     }
 
     private void markBtn(JButton whichButtonToMark) {
-        unmarkBtns();
-        whichButtonToMark.setBackground(Const.Colors.markedBtnBgColor);
-        whichButtonToMark.setSelected(true);
+        enableBtns();
+        whichButtonToMark.setEnabled(false);
     }
 
-    private void unmarkBtns() {
-        yesBtn.setBackground(Const.Colors.unmarkedBtnBgColor);
-        noBtn.setBackground(Const.Colors.unmarkedBtnBgColor);
-
-        yesBtn.setSelected(false);
-        noBtn.setSelected(false);
+    private void enableBtns() {
+        yesBtn.setEnabled(true);
+        noBtn.setEnabled(true);
+        btnA.setEnabled(true);
+        btnB.setEnabled(true);
+        btnC.setEnabled(true);
     }
 
     public void setTimerLbl(JLabel timerLbl) {
@@ -154,12 +232,27 @@ public class ExamPresenter {
 
     public void setYesBtn(JButton yesBtn) {
         this.yesBtn = yesBtn;
-        //this.yesBtn.addActionListener(new YesBtnListener());
+        this.yesBtn.addActionListener(new YesBtnListener());
     }
 
     public void setNoBtn(JButton noBtn) {
         this.noBtn = noBtn;
-        //this.noBtn.addActionListener(new NoBtnListener());
+        this.noBtn.addActionListener(new NoBtnListener());
+    }
+
+    public void setBtnA(JButton btnA) {
+        this.btnA = btnA;
+        this.btnA.addActionListener(new ABtnListener());
+    }
+
+    public void setBtnB(JButton btnB) {
+        this.btnB = btnB;
+        this.btnB.addActionListener(new BBtnListener());
+    }
+
+    public void setBtnC(JButton btnC) {
+        this.btnC = btnC;
+        this.btnC.addActionListener(new CBtnListener());
     }
 
     public void setConfirmBtn(JButton confirmBtn) {
@@ -182,8 +275,7 @@ public class ExamPresenter {
         this.specjalistPartPanel = specjalistPartPanel;
     }
 
-    public void setTimeAndBtnConfirmPanel(ExamPointsRightPanel.TimeAndBtnConfirmPanel timeAndBtnConfirmPanel) {
-        this.timeAndBtnConfirmPanel = timeAndBtnConfirmPanel;
+    public JLabel getTimerLbl() {
+        return timerLbl;
     }
-
 }
