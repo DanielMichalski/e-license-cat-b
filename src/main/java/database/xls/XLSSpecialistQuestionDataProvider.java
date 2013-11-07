@@ -1,12 +1,18 @@
 package database.xls;
 
-import model.Module;
+import database.TextsDao;
 import model.SpecialistQuestion;
-import model.StandardQuestion;
-import model.enums.ABCAnswer;
-import model.enums.YesOrNoAnswer;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,28 +20,47 @@ import java.util.Map;
  * Date: 05.11.13
  */
 public class XLSSpecialistQuestionDataProvider {
-    public static Map<Integer, SpecialistQuestion> getAllSpecialistQuestions() {
-        return new HashMap<Integer, SpecialistQuestion>();
-    }
+    public static List<SpecialistQuestion> getAllSpecialistQuestions()
+            throws IOException, InvalidFormatException {
 
-    public static Map<Integer, SpecialistQuestion> get12SpecialistQuestions() {
-        Map<Integer, SpecialistQuestion> map = new HashMap<Integer, SpecialistQuestion>();
+        List<SpecialistQuestion> specialistQuestionList =
+                new ArrayList<SpecialistQuestion>();
 
-        for (int i = 1; i <= 12; i++) {
-            SpecialistQuestion standardQuestion = new SpecialistQuestion(
-                    i,
-                    i + ". W którym momencie powinno nastąpić ustawienie lusterek podczas przygotowywania się do jazdy?",
-                    "A) po ustawieniu fotela ",
-                    "B) w dowolnym momencie ",
-                    "C) przed ustawieniem fotela",
-                    ABCAnswer.A,
-                    new Module(1, "module name"),
-                    null,
-                    null
-            );
-            map.put(i, standardQuestion);
+        String questionPath = TextsDao.getPath("questions_path");
+        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream(questionPath);
+
+        Workbook exWorkBook = WorkbookFactory.create(resourceAsStream);
+
+        Sheet sheet = exWorkBook.getSheetAt(0);
+
+        for (Row tempRow : sheet) {
+            if (tempRow.getCell(11) != null) {
+                if (tempRow.getCell(11).getStringCellValue().equals("specjalistyczna")) {
+                    SpecialistQuestion specialistQuestion =
+                            XLSUtil.getSpecialistQuestionFromRow(tempRow);
+                    specialistQuestionList.add(specialistQuestion);
+                }
+            }
         }
 
-        return map;
+        return specialistQuestionList;
+    }
+
+    public static List<SpecialistQuestion> get12SpecialistQuestions()
+            throws IOException, InvalidFormatException {
+
+        List<SpecialistQuestion> list = getAllSpecialistQuestions();
+        List<SpecialistQuestion> list12 = new ArrayList<SpecialistQuestion>();
+
+        int i = 0;
+        for (SpecialistQuestion specialistQuestion : list) {
+            if (i == 12) {
+                break;
+            }
+            list12.add(specialistQuestion);
+            i++;
+        }
+
+        return list12;
     }
 }

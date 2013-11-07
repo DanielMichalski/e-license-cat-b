@@ -22,7 +22,7 @@ public class ExamFrame extends JDialog implements WindowAutoSizer {
     private void setUpFrame() {
         Utils.setSystemLookAndFeel();
         Utils.setApplicationIcon(this);
-        setTitle(TextsDao.getText("view.ExamView.title"));
+        setTitle(TextsDao.getText("view.ExamFrame.title"));
         setModal(true);
         //setResizable(false);
     }

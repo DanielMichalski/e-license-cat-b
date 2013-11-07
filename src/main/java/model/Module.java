@@ -21,4 +21,8 @@ public class Module {
         sb.append('}');
         return sb.toString();
     }
+
+    public int getId() {
+        return id;
+    }
 }

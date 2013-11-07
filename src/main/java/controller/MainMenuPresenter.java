@@ -37,8 +37,8 @@ public class MainMenuPresenter {
     }
 
     public void showConfirmClosingDialog() {
-        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("OptionPane.yesButtonTex"));
-        UIManager.put("OptionPane.noButtonText", TextsDao.getText("OptionPane.noButtonText"));
+        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
+        UIManager.put("noButtonLbl", TextsDao.getText("noButtonLbl"));
         int answer = JOptionPane.showConfirmDialog(
                 null,
                 TextsDao.getText("view.confirmDialog.message"),

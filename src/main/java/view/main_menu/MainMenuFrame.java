@@ -25,7 +25,7 @@ public class MainMenuFrame extends JFrame {
     private void setUpFrame() {
         Utils.setSystemLookAndFeel();
 
-        setTitle(TextsDao.getText("view.MainView.title"));
+        setTitle(TextsDao.getText("view.MainMenu.title"));
         setResizable(false);
         Utils.setApplicationIcon(this);
     }
@@ -57,13 +57,13 @@ public class MainMenuFrame extends JFrame {
 
     private JMenuBar createJMenuBar() {
         JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu(TextsDao.getText("view.fileMenu"));
+        JMenu fileMenu = new JMenu(TextsDao.getText("view.MainMenuFrame.Menu.fileMenu"));
         menuBar.add(fileMenu);
 
-        startExamMenuItem = new JMenuItem(TextsDao.getText("view.starExamMenuItem"));
+        startExamMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.starExamMenuItem"));
         fileMenu.add(startExamMenuItem);
 
-        closeMenuItem = new JMenuItem(TextsDao.getText("view.closeMenuItem"));
+        closeMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.closeMenuItem"));
         fileMenu.add(closeMenuItem);
 
         return menuBar;

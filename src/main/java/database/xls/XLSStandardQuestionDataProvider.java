@@ -5,14 +5,13 @@ import model.Module;
 import model.StandardQuestion;
 import model.enums.YesOrNoAnswer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.ss.usermodel.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,9 +19,11 @@ import java.util.Map;
  * Date: 05.11.13
  */
 public class XLSStandardQuestionDataProvider {
-    /*public static Map<Integer, StandardQuestion> getAllStandardQuestions() throws IOException, InvalidFormatException {
-        Map<Integer, StandardQuestion> standardQuestionMap
-                = new HashMap<Integer, StandardQuestion>();
+    public static List<StandardQuestion> getAllStandardQuestions()
+            throws IOException, InvalidFormatException {
+
+        List<StandardQuestion> standardQuestionList
+                = new ArrayList<StandardQuestion>();
 
         String questionPath = TextsDao.getPath("questions_path");
         InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream(questionPath);
@@ -31,37 +32,34 @@ public class XLSStandardQuestionDataProvider {
 
         Sheet sheet = exWorkBook.getSheetAt(0);
 
-        int rowNum = 1;
         for (Row tempRow : sheet) {
-            if (rowNum == 1) {
-                continue;
+            if (tempRow.getCell(11) != null) {
+                if (tempRow.getCell(11).getStringCellValue().equals("podstawowa")) {
+                    StandardQuestion standardQuestion =
+                            XLSUtil.getStandardQuestionFromRow(tempRow);
+                    standardQuestionList.add(standardQuestion);
+                }
             }
-
-            StandardQuestion standardQuestion =
-                    XLSUtil.;
-
-            standardQuestionMap.put(rowNum, standardQuestion);
-            rowNum++;
         }
 
-        return standardQuestionMap;
-    }*/
+        return standardQuestionList;
+    }
 
-    public static Map<Integer, StandardQuestion> get20StandardQuestions() {
-        Map<Integer, StandardQuestion> map = new HashMap<Integer, StandardQuestion>();
+    public static List<StandardQuestion> get20StandardQuestions()
+            throws IOException, InvalidFormatException {
 
-        for (int i = 1; i <= 20; i++) {
-            StandardQuestion standardQuestion = new StandardQuestion(
-                    i,
-                    i + ". Czy po wjeździe na to skrzyżowanie powinieneś poruszać się dookoła wyspy zgodnie z kierunkiem ruchu wskazówek zegara?",
-                    YesOrNoAnswer.no,
-                    new Module(1, "module name"),
-                    null,
-                    null
-            );
-            map.put(i, standardQuestion);
+        List<StandardQuestion> list = getAllStandardQuestions();
+        List<StandardQuestion> list20 = new ArrayList<StandardQuestion>();
+
+        int i = 0;
+        for (StandardQuestion standardQuestion : list) {
+            if (i == 20) {
+                break;
+            }
+            list20.add(standardQuestion);
+            i++;
         }
 
-        return map;
+        return list20;
     }
 }
