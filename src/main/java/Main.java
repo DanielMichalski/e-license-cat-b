@@ -15,9 +15,7 @@ public class Main {
                 MainMenuFrame mv = new MainMenuFrame();
                 mv.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
                 mv.setVisible(true);
-            /*ShowInfoAboutExamDialog frame = new ShowInfoAboutExamDialog();
-            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            frame.setVisible(true);*/
+                // test
             }
         });
     }
