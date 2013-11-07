@@ -13,6 +13,7 @@ import java.net.URL;
  * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
+    private JPanel imagePanel;
     private JPanel abcBtnPanel;
     private JPanel yesNoBtnPanel;
 
@@ -45,7 +46,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        JPanel imagePanel = getImagePanel();
+        imagePanel = getImagePanel();
         JPanel questionPanel = getQuestionPanel();
         abcBtnPanel = getABCBtnPanel();
         yesNoBtnPanel = getYesNoBtnPanel();
@@ -60,9 +61,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
         imagePanel.setBackground(Const.Colors.examBackgroundColor);
 
-        URL imageSrc = getClass().getResource("/images/Slajd117_ITS.jpg");
+        URL imageSrc = getClass().getResource("/program_images/no_photo.jpg");
         ImageIcon image = new ImageIcon(imageSrc);
-        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel = new JLabel("", image, SwingConstants.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         imagePanel.add(imageLabel);
@@ -142,6 +143,28 @@ public class ExamQuestionsLeftPanel extends JPanel {
         questionTextArea.setText(qestion);
     }
 
+    public void setBtnABCTexts(String btnAText, String btnBText, String btnCText) {
+        this.btnA.setText(btnAText);
+        this.btnB.setText(btnBText);
+        this.btnC.setText(btnCText);
+    }
+
+    public void changePanelFromStandarToSpecial() {
+        remove(yesNoBtnPanel);
+        add(abcBtnPanel);
+        validateWindowSize.autoSize();
+    }
+
+    public void setImagePath(String imagePath) {
+        System.out.println(imagePath);
+        URL imageSrc = getClass().getResource(imagePath);
+        ImageIcon image = new ImageIcon(imageSrc);
+        imagePanel.remove(imageLabel);
+        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        imagePanel.add(imageLabel);
+    }
+
     public JButton getYesBtn() {
         return yesBtn;
     }
@@ -150,9 +173,15 @@ public class ExamQuestionsLeftPanel extends JPanel {
         return noBtn;
     }
 
-    public void changePanelFromStandarToSpecial() {
-        remove(yesNoBtnPanel);
-        add(abcBtnPanel);
-        validateWindowSize.autoSize();
+    public JButton getBtnA() {
+        return btnA;
+    }
+
+    public JButton getBtnB() {
+        return btnB;
+    }
+
+    public JButton getBtnC() {
+        return btnC;
     }
 }
