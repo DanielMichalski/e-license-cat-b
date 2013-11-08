@@ -10,7 +10,7 @@ import java.awt.*;
 public class Utils {
     public static void setSystemLookAndFeel() {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException ignored) {
         } catch (InstantiationException ignored) {
         } catch (IllegalAccessException ignored) {

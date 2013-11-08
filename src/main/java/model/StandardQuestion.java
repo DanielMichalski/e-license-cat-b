@@ -1,7 +1,5 @@
 package model;
 
-import model.enums.YesOrNoAnswer;
-
 /**
  * Author: Daniel
  * Date: 03.11.13

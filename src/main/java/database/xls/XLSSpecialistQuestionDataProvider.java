@@ -1,6 +1,6 @@
 package database.xls;
 
-import database.TextsDao;
+import database.dao.TextsDao;
 import model.SpecialistQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,9 +11,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Author: Daniel
