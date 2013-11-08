@@ -1,4 +1,4 @@
-import view.main_menu.MainMenuFrame;
+import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class Main {
             @Override
             public void run() {
                 MainMenuFrame mv = new MainMenuFrame();
-                mv.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 mv.setVisible(true);
             }
         });

@@ -1,5 +1,5 @@
+import ui.exam.view.ExamFrame;
 import util.Utils;
-import view.exam_view.ExamFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class MainExam {
             public void run() {
                 ExamFrame frame = new ExamFrame();
                 Utils.setApplicationIcon(frame);
-                frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 frame.setVisible(true);
             }
         });

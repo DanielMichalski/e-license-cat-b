@@ -18,6 +18,16 @@ public class ImagesUtil {
         return new ImageIcon(imageSrc);
     }
 
+    public static ImageIcon getGoodBallIcon() {
+        URL imageSrc = ImagesUtil.class.getResource("/program_images/point_ok.png");
+        return new ImageIcon(imageSrc);
+    }
+
+    public static ImageIcon getBadBallIcon() {
+        URL imageSrc = ImagesUtil.class.getResource("/program_images/point_bad.png");
+        return new ImageIcon(imageSrc);
+    }
+
     public static ImageIcon getAboutExamImage() {
         URL imageSrc = ImagesUtil.class.getResource("/program_images/wait_start.jpg");
         return new ImageIcon(imageSrc);
