@@ -1,16 +1,13 @@
-import database.ModuleDao;
-import database.xls.XLSModuleDataProvider;
 import database.xls.XLSSpecialistQuestionDataProvider;
 import database.xls.XLSStandardQuestionDataProvider;
-import database.xls.XLSUtil;
-import model.Module;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import ui.exam_result.view.ExamResultFrame;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Author: Daniel
@@ -18,6 +15,17 @@ import java.util.Map;
  */
 public class MainTest {
     public static void main(String[] args) {
+        testExamResultFrame();
+        //testdao();
+    }
+
+    private static void testExamResultFrame() {
+        ExamResultFrame frame = new ExamResultFrame(standardQuestions, specialistQuestions);
+        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        frame.setVisible(true);
+    }
+
+    private static void testdao() {
         try {
             List<StandardQuestion> allStandardQuestions = XLSStandardQuestionDataProvider.get20StandardQuestions();
             int i = 1;

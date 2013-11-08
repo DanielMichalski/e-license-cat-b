@@ -1,7 +1,5 @@
 package model;
 
-import model.enums.ABCAnswer;
-
 /**
  * Author: Daniel
  * Date: 04.11.13
@@ -84,5 +82,22 @@ public class SpecialistQuestion {
 
     public String getVideoPath() {
         return videoPath;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("SpecialistQuestion{");
+        sb.append("points=").append(points);
+        sb.append(", question='").append(question).append('\'');
+        sb.append(", answerA='").append(answerA).append('\'');
+        sb.append(", answerB='").append(answerB).append('\'');
+        sb.append(", answerC='").append(answerC).append('\'');
+        sb.append(", userAnswer=").append(userAnswer);
+        sb.append(", correctAnser=").append(correctAnser);
+        sb.append(", module=").append(module);
+        sb.append(", picturePath='").append(picturePath).append('\'');
+        sb.append(", videoPath='").append(videoPath).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

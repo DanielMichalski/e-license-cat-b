@@ -1,10 +1,6 @@
 package database.xls;
 
-import model.Module;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
-import model.enums.ABCAnswer;
-import model.enums.YesOrNoAnswer;
+import model.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
