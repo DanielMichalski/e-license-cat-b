@@ -2,6 +2,7 @@ package database.xls;
 
 import database.dao.TextsDao;
 import model.StandardQuestion;
+import model.YesNoAnswer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -58,6 +59,12 @@ public class XLSStandardQuestionDataProvider {
             list20.add(standardQuestion);
             i++;
         }
+
+        //TODO usunac po tescie
+        YesNoAnswer correctAnswer = list20.get(0).getCorrectAnswer();
+        list20.get(0).setUserAnswer(correctAnswer);
+
+        list20.get(1).setUserAnswer(YesNoAnswer.NIE);
 
         return list20;
     }

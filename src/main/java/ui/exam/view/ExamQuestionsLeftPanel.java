@@ -40,7 +40,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBackground(Const.Colors.examBackgroundColor);
+        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
     }
@@ -59,7 +59,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getImagePanel() {
         JPanel imagePanel = new JPanel();
 
-        imagePanel.setBackground(Const.Colors.examBackgroundColor);
+        imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         URL imageSrc = getClass().getResource("/program_images/no_photo.jpg");
         ImageIcon image = new ImageIcon(imageSrc);
@@ -72,7 +72,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public JPanel getQuestionPanel() {
         JPanel questionPanel = new JPanel();
-        questionPanel.setBackground(Const.Colors.examBackgroundColor);
+        questionPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         questionTextArea = getQuestionTextArea();
 
@@ -83,8 +83,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private JTextArea getQuestionTextArea() {
         JTextArea questionTextArea = new JTextArea(3, 49);
         questionTextArea.setBorder(emptyBorder);
-        questionTextArea.setFont(Const.Fonts.textsFont);
-        questionTextArea.setBackground(Const.Colors.examBackgroundColor);
+        questionTextArea.setFont(Const.Fonts.TEXTS_FONT);
+        questionTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
         questionTextArea.setEditable(false);
@@ -94,7 +94,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
+        buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
@@ -109,7 +109,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         JPanel buttonPanel = new JPanel();
 
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
-        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
+        buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
@@ -126,19 +126,19 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     private JButton createYesNoBtn(String label) {
         JButton button = new JButton(label);
-        button.setFont(Const.Fonts.btnsYesNoFont);
-        button.setPreferredSize(Const.Dimensions.examYesNoBtnSize);
-        button.setMinimumSize(Const.Dimensions.examYesNoBtnSize);
-        button.setMaximumSize(Const.Dimensions.examYesNoBtnSize);
+        button.setFont(Const.Fonts.BTNS_YES_NO_FONT);
+        button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         return button;
     }
 
     private JButton createABCBtn() {
         JButton button = new JButton();
-        button.setFont(Const.Fonts.btnsABCFont);
-        button.setPreferredSize(Const.Dimensions.ABCBtnsSize);
-        button.setMinimumSize(Const.Dimensions.ABCBtnsSize);
-        button.setMaximumSize(Const.Dimensions.ABCBtnsSize);
+        button.setFont(Const.Fonts.BTNS_ABC_FONT);
+        button.setPreferredSize(Const.Dimensions.ABC_BTNS_SIZE);
+        button.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
+        button.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setHorizontalAlignment(SwingConstants.LEFT);
         return button;
     }

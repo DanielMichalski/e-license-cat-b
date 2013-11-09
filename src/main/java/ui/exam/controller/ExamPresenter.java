@@ -5,10 +5,11 @@ import database.dao.TextsDao;
 import model.ABCAnswer;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
-import model.YesOrNoAnswer;
+import model.YesNoAnswer;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import timer_tasks.SpecialistPartTimerCountdown;
 import timer_tasks.StandardPartTimerCountdown;
+import timer_tasks.TimerCountDown;
 import ui.exam.view.ExamPointsRightPanel;
 import ui.exam.view.ExamQuestionsLeftPanel;
 import ui.exam.view.interfaces.WindowCloser;
@@ -19,7 +20,6 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 import java.util.logging.Logger;
 
 /**
@@ -50,6 +50,7 @@ public class ExamPresenter {
 
     private WindowCloser windowCloser;
     private Timer timer;
+    private TimerCountDown countDown;
 
     public ExamPresenter(WindowCloser windowCloser) {
         this.windowCloser = windowCloser;
@@ -66,8 +67,7 @@ public class ExamPresenter {
 
     public void nextQuestion() {
         timer = new Timer();
-        TimerTask countDown;
-        long period = 1000;
+        long period = 100;
 
         try {
             actualStandardQuestion++;
@@ -99,6 +99,10 @@ public class ExamPresenter {
         enableAllBtns();
     }
 
+    public void cancelTimerCountdownTask() {
+        countDown.cancel();
+    }
+
     private void finishExam() {
         timer.cancel();
         windowCloser.close();
@@ -107,7 +111,7 @@ public class ExamPresenter {
 
     private void showExamResultFrame() {
         ExamResultFrame examResultFrame = new ExamResultFrame(standardQuestions, specialistQuestions);
-        examResultFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        examResultFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         examResultFrame.setVisible(true);
     }
 
@@ -166,12 +170,98 @@ public class ExamPresenter {
         };
     }
 
+
+    public void showImage() {
+        examQuestionsLeftPanel.setImagePath("/images/Slajd117_ITS.jpg");
+    }
+
+    public void showWaitMedia() {
+        if (!isStandardPartCompleted) {
+            switch (standardQuestions.get(actualStandardQuestion - 1).getMediaType()) {
+                case IMAGE:
+                    showWaitImage();
+                    break;
+                case VIDEO:
+                    showWaitVideo();
+                    break;
+            }
+        } else {
+            switch (specialistQuestions.get(actualSpecialistQuestion - 1).getMediaType()) {
+                case IMAGE:
+                    showWaitImage();
+                    break;
+                case VIDEO:
+                    showWaitVideo();
+            }
+        }
+    }
+
     public void showWaitImage() {
         examQuestionsLeftPanel.setImagePath("/program_images/wait_photo.jpg");
     }
 
-    public void showImage() {
-        examQuestionsLeftPanel.setImagePath("/images/Slajd117_ITS.jpg");
+    private void showWaitVideo() {
+        examQuestionsLeftPanel.setImagePath("/program_images/wait_video.jpg");
+    }
+
+    public boolean trySaveAnswer() {
+        if (!isStandardPartCompleted) {
+            if (!yesBtn.isEnabled()) {
+                setStandardAnswer(YesNoAnswer.TAK);
+                return true;
+            } else if (!noBtn.isEnabled()) {
+                setStandardAnswer(YesNoAnswer.NIE);
+                return true;
+            }
+        } else {
+            if (!btnA.isEnabled()) {
+                setSpecialistAnswer(ABCAnswer.A);
+                return true;
+            } else if (!btnB.isEnabled()) {
+                setSpecialistAnswer(ABCAnswer.B);
+                return true;
+            } else if (!btnC.isEnabled()) {
+                setSpecialistAnswer(ABCAnswer.C);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void setStandardAnswer(YesNoAnswer answer) {
+        standardQuestions.get(actualStandardQuestion - 1).setUserAnswer(answer);
+        StandardQuestion standardQuestion = standardQuestions.get(actualStandardQuestion - 1);
+
+        int resultPoints = 0;
+        if (standardQuestion.getUserAnswer() == standardQuestion.getCorrectAnswer()) {
+            resultPoints = standardQuestion.getPoints();
+        }
+
+        String text = String.format("%d. User answer: %s, correct: %s, resultPoints: %d",
+                (actualStandardQuestion),
+                standardQuestion.getUserAnswer(),
+                standardQuestion.getCorrectAnswer(),
+                resultPoints);
+
+        LOGGER.info(text);
+    }
+
+    private void setSpecialistAnswer(ABCAnswer answer) {
+        specialistQuestions.get(actualSpecialistQuestion - 1).setUserAnswer(answer);
+        SpecialistQuestion specialistQuestion = specialistQuestions.get(actualSpecialistQuestion - 1);
+
+        int resultPoints = 0;
+        if (specialistQuestion.getUserAnswer() == specialistQuestion.getCorrectAnswer()) {
+            resultPoints = specialistQuestion.getPoints();
+        }
+
+        String text = String.format("%d. User answer: %s, correct: %s, resultPoints: %d",
+                (actualSpecialistQuestion),
+                specialistQuestion.getUserAnswer(),
+                specialistQuestion.getCorrectAnswer(),
+                resultPoints);
+
+        LOGGER.info(text);
     }
 
     class YesBtnListener implements ActionListener {
@@ -212,62 +302,13 @@ public class ExamPresenter {
     class ConfirmBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (!isStandardPartCompleted) {
-                if (!yesBtn.isEnabled()) {
-                    setStandardAnswer(YesOrNoAnswer.TAK);
-                } else if (!noBtn.isEnabled()) {
-                    setStandardAnswer(YesOrNoAnswer.NIE);
-                }
-            } else {
-                if (!btnA.isEnabled()) {
-                    setSpecialistAnswer(ABCAnswer.A);
-                } else if (!btnB.isEnabled()) {
-                    setSpecialistAnswer(ABCAnswer.B);
-                } else if (!btnC.isEnabled()) {
-                    setSpecialistAnswer(ABCAnswer.C);
-                }
-            }
+            boolean isSaved = trySaveAnswer();
             enableAllBtns();
-        }
 
-        private void setStandardAnswer(YesOrNoAnswer answer) {
-            standardQuestions.get(actualStandardQuestion - 1).setUserAnswer(answer);
-            StandardQuestion standardQuestion = standardQuestions.get(actualStandardQuestion - 1);
-
-            int resultPoints = 0;
-            if (standardQuestion.getUserAnswer() == standardQuestion.getCorrectAnswer()) {
-                resultPoints = standardQuestion.getPoints();
+            if (isSaved) {
+                cancelTimerCountdownTask();
+                nextQuestion();
             }
-
-            String text = String.format("%d. User answer: %s, correct: %s, resultPoints: %d",
-                    (actualStandardQuestion),
-                    standardQuestion.getUserAnswer(),
-                    standardQuestion.getCorrectAnswer(),
-                    resultPoints);
-
-            LOGGER.info(text);
-            timer.cancel();
-            nextQuestion();
-        }
-
-        private void setSpecialistAnswer(ABCAnswer answer) {
-            specialistQuestions.get(actualSpecialistQuestion - 1).setUserAnswer(answer);
-            SpecialistQuestion specialistQuestion = specialistQuestions.get(actualSpecialistQuestion - 1);
-
-            int resultPoints = 0;
-            if (specialistQuestion.getUserAnswer() == specialistQuestion.getCorrectAnswer()) {
-                resultPoints = specialistQuestion.getPoints();
-            }
-
-            String text = String.format("%d. User answer: %s, correct: %s, resultPoints: %d",
-                    (actualSpecialistQuestion),
-                    specialistQuestion.getUserAnswer(),
-                    specialistQuestion.getCorrectAnswer(),
-                    resultPoints);
-
-            LOGGER.info(text);
-            timer.cancel();
-            nextQuestion();
         }
     }
 

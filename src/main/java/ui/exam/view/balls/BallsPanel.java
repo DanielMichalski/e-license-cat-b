@@ -15,7 +15,7 @@ public abstract class BallsPanel extends JPanel {
     protected int questionNumber;
 
     public BallsPanel(int howManyBalls) {
-        setBackground(Const.Colors.examBackgroundColor);
+        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         this.howManyBalls = howManyBalls;
         questionNumber = 0;

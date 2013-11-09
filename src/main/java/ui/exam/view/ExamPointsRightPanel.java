@@ -29,7 +29,7 @@ public class ExamPointsRightPanel extends JPanel {
                 new BoxLayout(ExamPointsRightPanel.this, BoxLayout.Y_AXIS);
         setLayout(layout);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setBackground(Const.Colors.examBackgroundColor);
+        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
     }
 
     private void initializeComponents() {
@@ -48,15 +48,15 @@ public class ExamPointsRightPanel extends JPanel {
 
         public BasicPartPanel() {
             setLayout(new BoxLayout(BasicPartPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.examBackgroundColor);
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
             JLabel basicPartLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.basicPartLbl"));
             basicPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            basicPartLbl.setFont(Const.Fonts.textsFont);
+            basicPartLbl.setFont(Const.Fonts.TEXTS_FONT);
 
             basicQuestionNumLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.basicPointsLbl"));
             basicQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            basicQuestionNumLbl.setFont(Const.Fonts.textsFont);
+            basicQuestionNumLbl.setFont(Const.Fonts.TEXTS_FONT);
 
             standardBallsPanel = new StandardBallsPanel();
 
@@ -82,15 +82,15 @@ public class ExamPointsRightPanel extends JPanel {
 
         public SpecjalistPartPanel() {
             setLayout(new BoxLayout(SpecjalistPartPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.examBackgroundColor);
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
             JLabel specjalistPartLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.specialistPartLbl"));
             specjalistPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            specjalistPartLbl.setFont(Const.Fonts.textsFont);
+            specjalistPartLbl.setFont(Const.Fonts.TEXTS_FONT);
 
             specjalistQuestionNumLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.specialistPointsLbl"));
             specjalistQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            specjalistQuestionNumLbl.setFont(Const.Fonts.textsFont);
+            specjalistQuestionNumLbl.setFont(Const.Fonts.TEXTS_FONT);
 
             specialistBallsPanel = new SpecialistBallsPanel();
 
@@ -114,7 +114,7 @@ public class ExamPointsRightPanel extends JPanel {
 
         public TimeAndBtnConfirmPanel() {
             setLayout(new BoxLayout(TimeAndBtnConfirmPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.examBackgroundColor);
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
             timerLbl = createTimerLbl();
             confirmBtn = createConfirmBtn();
@@ -131,21 +131,21 @@ public class ExamPointsRightPanel extends JPanel {
             JLabel timerLbl = new JLabel();
             timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
             timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            timerLbl.setFont(Const.Fonts.timerFont);
-            timerLbl.setPreferredSize(Const.Dimensions.examTimeLblSize);
-            timerLbl.setMinimumSize(Const.Dimensions.examTimeLblSize);
-            timerLbl.setMaximumSize(Const.Dimensions.examTimeLblSize);
-            timerLbl.setForeground(Const.Colors.timerFontColor);
+            timerLbl.setFont(Const.Fonts.TIMER_FONT);
+            timerLbl.setPreferredSize(Const.Dimensions.EXAM_TIME_LBL_SIZE);
+            timerLbl.setMinimumSize(Const.Dimensions.EXAM_TIME_LBL_SIZE);
+            timerLbl.setMaximumSize(Const.Dimensions.EXAM_TIME_LBL_SIZE);
+            timerLbl.setForeground(Const.Colors.TIMER_FONT_COLOR);
 
             return timerLbl;
         }
 
         private JButton createConfirmBtn() {
             JButton button = new JButton(TextsDao.getText("ExamPointRigthPanel.btnConfirmLbl"));
-            button.setFont(Const.Fonts.btnConfirmFont);
-            button.setPreferredSize(Const.Dimensions.examConfirmBtnSize);
-            button.setMinimumSize(Const.Dimensions.examConfirmBtnSize);
-            button.setMaximumSize(Const.Dimensions.examConfirmBtnSize);
+            button.setFont(Const.Fonts.BTN_CONFIRM_FONT);
+            button.setPreferredSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            button.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            button.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             return button;
         }
@@ -154,11 +154,11 @@ public class ExamPointsRightPanel extends JPanel {
             JLabel howManyPointsLbl = new JLabel();
             howManyPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
             howManyPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            howManyPointsLbl.setPreferredSize(Const.Dimensions.examConfirmBtnSize);
-            howManyPointsLbl.setMinimumSize(Const.Dimensions.examConfirmBtnSize);
-            howManyPointsLbl.setMaximumSize(Const.Dimensions.examConfirmBtnSize);
-            howManyPointsLbl.setFont(Const.Fonts.textsFont);
-            howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.howManyPointsBorderColor));
+            howManyPointsLbl.setPreferredSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setFont(Const.Fonts.TEXTS_FONT);
+            howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.HOW_MANY_POINTS_BORDER_COLOR));
             return howManyPointsLbl;
         }
 

@@ -1,6 +1,9 @@
 package ui.exam_result.view;
 
 import database.dao.TextsDao;
+import model.ABCAnswer;
+import model.YesNoAnswer;
+import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Const;
 
 import javax.swing.*;
@@ -13,8 +16,9 @@ import java.net.URL;
  * Date: 08.11.13
  */
 public class ExamResultLeftPanel extends JPanel {
+    private WindowAutoSizer windowAutoSizer;
+
     private JPanel imagePanel;
-    private JPanel questionPanel;
     private JPanel abcBtnPanel;
     private JPanel yesNoBtnPanel;
 
@@ -29,7 +33,9 @@ public class ExamResultLeftPanel extends JPanel {
 
     private Border emptyBorder;
 
-    public ExamResultLeftPanel() {
+    public ExamResultLeftPanel(WindowAutoSizer windowAutoSizer) {
+        this.windowAutoSizer = windowAutoSizer;
+
         setUpPanel();
         initializeComponents();
     }
@@ -38,14 +44,14 @@ public class ExamResultLeftPanel extends JPanel {
         emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBackground(Const.Colors.examBackgroundColor);
+        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
     }
 
     private void initializeComponents() {
         imagePanel = getImagePanel();
-        questionPanel = getQuestionPanel();
+        JPanel questionPanel = getQuestionPanel();
         abcBtnPanel = getABCBtnPanel();
         yesNoBtnPanel = getYesNoBtnPanel();
 
@@ -57,7 +63,7 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getImagePanel() {
         JPanel imagePanel = new JPanel();
 
-        imagePanel.setBackground(Const.Colors.examBackgroundColor);
+        imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         URL imageSrc = getClass().getResource("/program_images/no_photo.jpg");
         ImageIcon image = new ImageIcon(imageSrc);
@@ -70,7 +76,7 @@ public class ExamResultLeftPanel extends JPanel {
 
     public JPanel getQuestionPanel() {
         JPanel questionPanel = new JPanel();
-        questionPanel.setBackground(Const.Colors.examBackgroundColor);
+        questionPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         questionTextArea = getQuestionTextArea();
 
@@ -81,8 +87,8 @@ public class ExamResultLeftPanel extends JPanel {
     private JTextArea getQuestionTextArea() {
         JTextArea questionTextArea = new JTextArea(3, 49);
         questionTextArea.setBorder(emptyBorder);
-        questionTextArea.setFont(Const.Fonts.textsFont);
-        questionTextArea.setBackground(Const.Colors.examBackgroundColor);
+        questionTextArea.setFont(Const.Fonts.TEXTS_FONT);
+        questionTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
         questionTextArea.setEditable(false);
@@ -92,7 +98,7 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
+        buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
@@ -107,7 +113,7 @@ public class ExamResultLeftPanel extends JPanel {
         JPanel buttonPanel = new JPanel();
 
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
-        buttonPanel.setBackground(Const.Colors.examBackgroundColor);
+        buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
@@ -124,19 +130,20 @@ public class ExamResultLeftPanel extends JPanel {
 
     private JButton createYesNoBtn(String label) {
         JButton button = new JButton(label);
-        button.setFont(Const.Fonts.btnsYesNoFont);
-        button.setPreferredSize(Const.Dimensions.examYesNoBtnSize);
-        button.setMinimumSize(Const.Dimensions.examYesNoBtnSize);
-        button.setMaximumSize(Const.Dimensions.examYesNoBtnSize);
+        button.setFont(Const.Fonts.BTNS_YES_NO_FONT);
+        button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         return button;
     }
 
     private JButton createABCBtn() {
         JButton button = new JButton();
-        button.setFont(Const.Fonts.btnsABCFont);
-        button.setPreferredSize(Const.Dimensions.ABCBtnsSize);
-        button.setMinimumSize(Const.Dimensions.ABCBtnsSize);
-        button.setMaximumSize(Const.Dimensions.ABCBtnsSize);
+        button.setFocusable(false);
+        button.setFont(Const.Fonts.BTNS_ABC_FONT);
+        button.setPreferredSize(Const.Dimensions.ABC_BTNS_SIZE);
+        button.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
+        button.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setHorizontalAlignment(SwingConstants.LEFT);
         return button;
     }
@@ -151,10 +158,75 @@ public class ExamResultLeftPanel extends JPanel {
         this.btnC.setText(btnCText);
     }
 
-    public void changePanelFromStandarToSpecial() {
+    public void setUserAndCorrectAnswer(ABCAnswer userAnswer, ABCAnswer correctAnswer) {
+        Color positiveColor = Const.Colors.POSITIVE_RESULT_COLOR;
+        Color negativeColor = Const.Colors.NEGATIVE_RESULT_COLOR;
+
+        btnA.setBackground(null);
+        btnB.setBackground(null);
+        btnC.setBackground(null);
+
+        if (userAnswer == null) {
+            colorBtn(correctAnswer, negativeColor);
+        } else if (userAnswer == correctAnswer) {
+            colorBtn(correctAnswer, positiveColor);
+        } else {
+            colorBtn(userAnswer, negativeColor);
+            colorBtn(correctAnswer, positiveColor);
+        }
+    }
+
+    private void colorBtn(ABCAnswer abcBtn, Color color) {
+        switch (abcBtn) {
+            case A:
+                btnA.setBackground(color);
+                break;
+            case B:
+                btnB.setBackground(color);
+                break;
+            case C:
+                btnC.setBackground(color);
+        }
+    }
+
+    public void setUserAndCorrectAnswer(YesNoAnswer userAnswer, YesNoAnswer correctAnswer) {
+        Color positiveColor = Const.Colors.POSITIVE_RESULT_COLOR;
+        Color negativeColor = Const.Colors.NEGATIVE_RESULT_COLOR;
+
+        yesBtn.setBackground(null);
+        noBtn.setBackground(null);
+
+        if (userAnswer == null) {
+            colorBtn(correctAnswer, negativeColor);
+        } else if (userAnswer == correctAnswer) {
+            colorBtn(correctAnswer, positiveColor);
+        } else {
+            colorBtn(userAnswer, negativeColor);
+            colorBtn(correctAnswer, positiveColor);
+        }
+    }
+
+    private void colorBtn(YesNoAnswer yesNoAnswer, Color color) {
+        switch (yesNoAnswer) {
+            case TAK:
+                yesBtn.setBackground(color);
+                break;
+            case NIE:
+                noBtn.setBackground(color);
+                break;
+        }
+    }
+
+    public void changePanelToStandardPanel() {
+        remove(abcBtnPanel);
+        add(yesNoBtnPanel);
+        windowAutoSizer.autoSize();
+    }
+
+    public void changePanelToSpecialistPanel() {
         remove(yesNoBtnPanel);
         add(abcBtnPanel);
-        //TODO zmienic panel na "special"
+        windowAutoSizer.autoSize();
     }
 
     public void setImagePath(String imagePath) {
@@ -180,25 +252,5 @@ public class ExamResultLeftPanel extends JPanel {
         btnA.setEnabled(false);
         btnB.setEnabled(false);
         btnC.setEnabled(false);
-    }
-
-    public JButton getYesBtn() {
-        return yesBtn;
-    }
-
-    public JButton getNoBtn() {
-        return noBtn;
-    }
-
-    public JButton getBtnA() {
-        return btnA;
-    }
-
-    public JButton getBtnB() {
-        return btnB;
-    }
-
-    public JButton getBtnC() {
-        return btnC;
     }
 }

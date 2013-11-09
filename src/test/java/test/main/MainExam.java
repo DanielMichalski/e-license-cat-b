@@ -1,3 +1,5 @@
+package test.main;
+
 import ui.exam.view.ExamFrame;
 import util.Utils;
 

@@ -1,6 +1,6 @@
 package ui.exam_result.view.balls;
 
-import model.StandardQuestion;
+import model.SpecialistQuestion;
 import ui.exam_result.controller.ExamResultPresenter;
 import util.Const;
 import util.ImagesUtil;
@@ -13,18 +13,17 @@ import java.util.List;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
+ * Date: 09.11.13
  */
-public class ResultStandardBallsPanel extends JPanel {
-    ExamResultPresenter presenter;
-    private List<StandardQuestion> standardQuestionList;
+public class ResultSpecialistBallsPanel extends JPanel {
+    private ExamResultPresenter presenter;
+    private List<SpecialistQuestion> specialistQuestions;
 
-
-    public ResultStandardBallsPanel(ExamResultPresenter presenter,
-                                    List<StandardQuestion> standardQuestionList) {
+    public ResultSpecialistBallsPanel(ExamResultPresenter presenter,
+                                      List<SpecialistQuestion> specialistQuestions) {
 
         this.presenter = presenter;
-        this.standardQuestionList = standardQuestionList;
+        this.specialistQuestions = specialistQuestions;
 
         setUpPanel();
         initComponents();
@@ -32,7 +31,7 @@ public class ResultStandardBallsPanel extends JPanel {
 
     private void setUpPanel() {
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-        setLayout(new GridLayout(4, 5, 0, 5));
+        setLayout(new GridLayout(3, 5, 0, 5));
     }
 
     private void initComponents() {
@@ -40,12 +39,13 @@ public class ResultStandardBallsPanel extends JPanel {
         ImageIcon goodBallIcon = ImagesUtil.getGoodBallIcon();
         ImageIcon badBallIcon = ImagesUtil.getBadBallIcon();
 
-        int howManyBalls = 20;
+        int howManyBalls = 12;
+
         for (int i = 0; i < howManyBalls; i++) {
             JLabel imageLbl = new JLabel();
-            if (standardQuestionList.get(i).getUserAnswer() == null) {
+            if (specialistQuestions.get(i).getUserAnswer() == null) {
                 imageLbl.setIcon(noAnswerBallIcon);
-            } else if (standardQuestionList.get(i).getUserAnswer() == standardQuestionList.get(i).getCorrectAnswer()) {
+            } else if (specialistQuestions.get(i).getUserAnswer() == specialistQuestions.get(i).getCorrectAnswer()) {
                 imageLbl.setIcon(goodBallIcon);
             } else {
                 imageLbl.setIcon(badBallIcon);
@@ -59,10 +59,14 @@ public class ResultStandardBallsPanel extends JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     JLabel jLabel = (JLabel) e.getSource();
-                    presenter.setNumberOfStandardQuestion(jLabel.getDisplayedMnemonic());
-                    presenter.changePanelToStandardPanel();
+                    presenter.setNumberOfSpecialistQuestion(jLabel.getDisplayedMnemonic());
+                    presenter.changePanelToSpecialistPanel();
                 }
             });
         }
+
+        add(new JLabel());
+        add(new JLabel());
+        add(new JLabel());
     }
 }
