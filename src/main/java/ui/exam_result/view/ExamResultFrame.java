@@ -4,6 +4,7 @@ import database.dao.TextsDao;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
 import ui.exam_result.controller.ExamResultPresenter;
+import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Utils;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.util.List;
  * Author: Daniel
  * Date: 08.11.13
  */
-public class ExamResultFrame extends JFrame {
+public class ExamResultFrame extends JDialog implements WindowAutoSizer {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
@@ -31,26 +32,29 @@ public class ExamResultFrame extends JFrame {
     }
 
     private void setUpFrame() {
-        Utils.setApplicationIcon(this);
         setTitle(TextsDao.getText("view.ExamResultFrame.title"));
+        Utils.setApplicationIcon(this);
+        setModal(true);
+        setResizable(false);
     }
 
     private void initializeComponents() {
-        ExamResultPresenter presenter = new ExamResultPresenter();
+        ExamResultPresenter presenter = new ExamResultPresenter(standardQuestions, specialistQuestions);
 
-        ExamResultLeftPanel leftPanel = new ExamResultLeftPanel();
-        JScrollPane scrollPane = new JScrollPane(leftPanel);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        ExamResultLeftPanel leftPanel = new ExamResultLeftPanel(this);
+        ExamResultRightPanel rightPanel = new ExamResultRightPanel(presenter, standardQuestions, specialistQuestions);
 
-        ExamResultRightPanel rightPanel = new ExamResultRightPanel();
-
-        add(scrollPane, BorderLayout.CENTER);
+        add(leftPanel, BorderLayout.CENTER);
         add(rightPanel, BorderLayout.EAST);
-
-        addWindowListener(presenter.getWindowListener(this));
 
         presenter.setLeftPanel(leftPanel);
         presenter.setRightPanel(rightPanel);
+
+        presenter.setUpPanels();
     }
 
+    @Override
+    public void autoSize() {
+        pack();
+    }
 }

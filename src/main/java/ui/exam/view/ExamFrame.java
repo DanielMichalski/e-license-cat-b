@@ -22,11 +22,11 @@ public class ExamFrame extends JDialog implements WindowAutoSizer, WindowCloser 
     }
 
     private void setUpFrame() {
-        Utils.setSystemLookAndFeel();
+        Utils.setNimbusLookAndFeel();
         Utils.setApplicationIcon(this);
         setTitle(TextsDao.getText("view.ExamFrame.title"));
         setModal(true);
-        //setResizable(false);
+        setResizable(false);
     }
 
     private void initializeComponents() {

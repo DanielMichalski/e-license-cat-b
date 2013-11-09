@@ -1,10 +1,10 @@
 package ui.exam_result.view;
 
 import database.dao.TextsDao;
+import model.SpecialistQuestion;
 import model.StandardQuestion;
-import ui.exam.view.balls.BallsPanel;
-import ui.exam.view.balls.SpecialistBallsPanel;
-import ui.exam.view.balls.StandardBallsPanel;
+import ui.exam_result.controller.ExamResultPresenter;
+import ui.exam_result.view.balls.ResultSpecialistBallsPanel;
 import ui.exam_result.view.balls.ResultStandardBallsPanel;
 import util.Const;
 
@@ -17,11 +17,23 @@ import java.util.List;
  * Date: 08.11.13
  */
 public class ExamResultRightPanel extends JPanel {
-    private BasicPartPanel standardPartPanel;
-    private SpecjalistPartPanel specjalistPartPanel;
-    private TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
+    private ExamResultPresenter presenter;
 
-    public ExamResultRightPanel() {
+    private List<StandardQuestion> standardQuestions;
+    private List<SpecialistQuestion> specialistQuestions;
+
+    private StandardPartPanel standardPartPanel;
+    private SpecjalistPartPanel specjalistPartPanel;
+    private HowManyPointsPanel timeAndBtnConfirmPanel;
+
+    public ExamResultRightPanel(ExamResultPresenter presenter,
+                                List<StandardQuestion> standardQuestions,
+                                List<SpecialistQuestion> specialistQuestions) {
+
+        this.presenter = presenter;
+        this.standardQuestions = standardQuestions;
+        this.specialistQuestions = specialistQuestions;
+
         setUpPanel();
         initializeComponents();
     }
@@ -31,41 +43,36 @@ public class ExamResultRightPanel extends JPanel {
                 new BoxLayout(ExamResultRightPanel.this, BoxLayout.Y_AXIS);
         setLayout(layout);
         setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        setBackground(Const.Colors.examBackgroundColor);
+        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
     }
 
     private void initializeComponents() {
-        standardPartPanel = new BasicPartPanel();
+        standardPartPanel = new StandardPartPanel();
         specjalistPartPanel = new SpecjalistPartPanel();
-        timeAndBtnConfirmPanel = new TimeAndBtnConfirmPanel();
+        timeAndBtnConfirmPanel = new HowManyPointsPanel();
 
         add(standardPartPanel);
         add(specjalistPartPanel);
         add(timeAndBtnConfirmPanel);
     }
 
-    public void showResultOfStandarQuestions(List<StandardQuestion> standardQuestions) {
-        remove(standardPartPanel);
-        add(new ResultStandardBallsPanel(standardQuestions));
-    }
-
-    public class BasicPartPanel extends JPanel {
+    public class StandardPartPanel extends JPanel {
         private JLabel basicQuestionNumLbl;
-        private StandardBallsPanel standardBallsPanel;
+        private ResultStandardBallsPanel standardBallsPanel;
 
-        public BasicPartPanel() {
-            setLayout(new BoxLayout(BasicPartPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.examBackgroundColor);
+        public StandardPartPanel() {
+            setLayout(new BoxLayout(StandardPartPanel.this, BoxLayout.Y_AXIS));
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
             JLabel basicPartLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.basicPartLbl"));
             basicPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            basicPartLbl.setFont(Const.Fonts.textsFont);
+            basicPartLbl.setFont(Const.Fonts.TEXTS_FONT);
 
-            basicQuestionNumLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.basicPointsLbl"));
+            basicQuestionNumLbl = new JLabel(TextsDao.getText("ExamResultPointRigthPanel.basicPointsLb"));
             basicQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            basicQuestionNumLbl.setFont(Const.Fonts.textsFont);
+            basicQuestionNumLbl.setFont(Const.Fonts.TEXTS_FONT);
 
-            standardBallsPanel = new StandardBallsPanel();
+            standardBallsPanel = new ResultStandardBallsPanel(presenter, standardQuestions);
 
             add(basicPartLbl);
             add(basicQuestionNumLbl);
@@ -73,33 +80,28 @@ public class ExamResultRightPanel extends JPanel {
             add(standardBallsPanel);
         }
 
-        public void setQuestionNumber(int number) {
-            basicQuestionNumLbl.setText("Pytanie numer: " + number + " / 20");
-            standardBallsPanel.setQuestionNumber(number);
-        }
-
-        public StandardBallsPanel getStandardBallsPanel() {
-            return standardBallsPanel;
+        private void setNumberOfQuestion(int numOfQuestion) {
+            basicQuestionNumLbl.setText("Pytanie numer: " + numOfQuestion + " / 20");
         }
     }
 
     public class SpecjalistPartPanel extends JPanel {
         private JLabel specjalistQuestionNumLbl;
-        private BallsPanel specialistBallsPanel;
+        private ResultSpecialistBallsPanel specialistBallsPanel;
 
         public SpecjalistPartPanel() {
             setLayout(new BoxLayout(SpecjalistPartPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.examBackgroundColor);
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
             JLabel specjalistPartLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.specialistPartLbl"));
             specjalistPartLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            specjalistPartLbl.setFont(Const.Fonts.textsFont);
+            specjalistPartLbl.setFont(Const.Fonts.TEXTS_FONT);
 
-            specjalistQuestionNumLbl = new JLabel(TextsDao.getText("ExamPointRigthPanel.specialistPointsLbl"));
+            specjalistQuestionNumLbl = new JLabel(TextsDao.getText("ExamResultPointRigthPanel.specialistPointsLb"));
             specjalistQuestionNumLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            specjalistQuestionNumLbl.setFont(Const.Fonts.textsFont);
+            specjalistQuestionNumLbl.setFont(Const.Fonts.TEXTS_FONT);
 
-            specialistBallsPanel = new SpecialistBallsPanel();
+            specialistBallsPanel = new ResultSpecialistBallsPanel(presenter, specialistQuestions);
 
             add(Box.createRigidArea(new Dimension(0, 10)));
             add(specjalistPartLbl);
@@ -108,134 +110,51 @@ public class ExamResultRightPanel extends JPanel {
             add(specialistBallsPanel);
         }
 
-        public void setQuestionNumber(int number) {
-            specjalistQuestionNumLbl.setText("Pytanie numer: " + number + " / 12");
-            specialistBallsPanel.setQuestionNumber(number);
+        private void setNumberOfQuestion(int numberOfQuestion) {
+            specjalistQuestionNumLbl.setText("Pytanie numer: " + numberOfQuestion + " / 12");
         }
     }
 
-    public class TimeAndBtnConfirmPanel extends JPanel {
-        private JLabel timerLbl;
-        private JButton confirmBtn;
+    public class HowManyPointsPanel extends JPanel {
         private JLabel howManyPointsLbl;
 
-        public TimeAndBtnConfirmPanel() {
-            setLayout(new BoxLayout(TimeAndBtnConfirmPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.examBackgroundColor);
+        public HowManyPointsPanel() {
+            setLayout(new BoxLayout(HowManyPointsPanel.this, BoxLayout.Y_AXIS));
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
-            timerLbl = createTimerLbl();
-            confirmBtn = createConfirmBtn();
+
             howManyPointsLbl = createHowManyPointsLbl();
 
-            add(timerLbl);
-            add(Box.createRigidArea(new Dimension(0, 10)));
-            add(confirmBtn);
             add(Box.createRigidArea(new Dimension(0, 10)));
             add(howManyPointsLbl);
-        }
-
-        private JLabel createTimerLbl() {
-            JLabel timerLbl = new JLabel();
-            timerLbl.setHorizontalAlignment(SwingConstants.CENTER);
-            timerLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            timerLbl.setFont(Const.Fonts.timerFont);
-            timerLbl.setPreferredSize(Const.Dimensions.examTimeLblSize);
-            timerLbl.setMinimumSize(Const.Dimensions.examTimeLblSize);
-            timerLbl.setMaximumSize(Const.Dimensions.examTimeLblSize);
-            timerLbl.setForeground(Const.Colors.timerFontColor);
-
-            return timerLbl;
-        }
-
-        private JButton createConfirmBtn() {
-            JButton button = new JButton(TextsDao.getText("ExamPointRigthPanel.btnConfirmLbl"));
-            button.setFont(Const.Fonts.btnConfirmFont);
-            button.setPreferredSize(Const.Dimensions.examConfirmBtnSize);
-            button.setMinimumSize(Const.Dimensions.examConfirmBtnSize);
-            button.setMaximumSize(Const.Dimensions.examConfirmBtnSize);
-            button.setAlignmentX(Component.CENTER_ALIGNMENT);
-            return button;
         }
 
         private JLabel createHowManyPointsLbl() {
             JLabel howManyPointsLbl = new JLabel();
             howManyPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
             howManyPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            howManyPointsLbl.setPreferredSize(Const.Dimensions.examConfirmBtnSize);
-            howManyPointsLbl.setMinimumSize(Const.Dimensions.examConfirmBtnSize);
-            howManyPointsLbl.setMaximumSize(Const.Dimensions.examConfirmBtnSize);
-            howManyPointsLbl.setFont(Const.Fonts.textsFont);
-            howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.howManyPointsBorderColor));
+            howManyPointsLbl.setPreferredSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setFont(Const.Fonts.TEXTS_FONT);
+            howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.HOW_MANY_POINTS_BORDER_COLOR));
             return howManyPointsLbl;
         }
 
-        public void setNegativePointMessage(int userPoints, int allPoint) {
-            timerLbl.setForeground(Const.Colors.timerFontColor);
-            timerLbl.setText("Nie zdany");
-
-            removeBtnConfirm();
-
-            showPointsResult(userPoints, allPoint, false);
-
-            repaint();
-
-        }
-
-        public void setPositivePointMessage(int userPoints, int allPoint) {
-            timerLbl.setForeground(Const.Colors.positivePointsResultColor);
-            timerLbl.setText("Zdany");
-
-            removeBtnConfirm();
-
-            showPointsResult(userPoints, allPoint, true);
-
-            repaint();
-        }
-
-        private void showPointsResult(int userPoints, int allPoint, boolean isPositive) {
-            JLabel resultPointsLbl = new JLabel(userPoints + " / " + allPoint + " pkt");
-
-            if (isPositive) {
-                resultPointsLbl.setForeground(Const.Colors.positivePointsResultColor);
-            } else {
-                resultPointsLbl.setForeground(Const.Colors.negativePointsResultColor);
-            }
-
-            resultPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
-            resultPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            resultPointsLbl.setFont(Const.Fonts.resultPointFont);
-
-            remove(howManyPointsLbl);
-            add(resultPointsLbl);
-            add(howManyPointsLbl);
-        }
-
-        public void setHowManyPointsText(String howManyPoints) {
-            this.howManyPointsLbl.setText(howManyPoints);
-        }
-
-        public void removeBtnConfirm() {
-            remove(confirmBtn);
-        }
-
-        public JLabel getTimerLbl() {
-            return timerLbl;
-        }
-
-        public JButton getConfirmBtn() {
-            return confirmBtn;
+        private void setHowManyPoints(int points) {
+            howManyPointsLbl.setText(points + " pkt");
         }
     }
 
-    public BasicPartPanel getStandardPartPanel() {
-        return standardPartPanel;
+    public void setStandardQuestionNumber(int number) {
+        standardPartPanel.setNumberOfQuestion(number);
     }
 
-    public SpecjalistPartPanel getSpecjalistPartPanel() {
-        return specjalistPartPanel;
+    public void setSpecialistQuestionNumber(int number) {
+        specjalistPartPanel.setNumberOfQuestion(number);
     }
 
-    public TimeAndBtnConfirmPanel getTimeAndBtnConfirmPanel() {
-        return timeAndBtnConfirmPanel;
+    public void setHowManyQuestionPoints(int howManyPoints) {
+        timeAndBtnConfirmPanel.setHowManyPoints(howManyPoints);
     }
 }
