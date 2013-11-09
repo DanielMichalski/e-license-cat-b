@@ -24,7 +24,7 @@ public class MainMenuFrame extends JFrame {
     }
 
     private void setUpFrame() {
-        Utils.setSystemLookAndFeel();
+        Utils.setNimbusLookAndFeel();
 
         setTitle(TextsDao.getText("view.MainMenu.title"));
         setResizable(false);

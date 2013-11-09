@@ -7,27 +7,27 @@ package model;
 public class StandardQuestion {
     private int points;
     private String question;
-    private YesOrNoAnswer userAnswer;
-    private YesOrNoAnswer correctAnswer;
+    private YesNoAnswer userAnswer;
+    private YesNoAnswer correctAnswer;
     private Module module;
-    private String picturePath;
-    private String videoPath;
+    private String mediaPath;
+    private MediaType mediaType;
 
     public StandardQuestion(int points,
                             String question,
-                            YesOrNoAnswer userAnswer,
-                            YesOrNoAnswer correctAnswer,
+                            YesNoAnswer userAnswer,
+                            YesNoAnswer correctAnswer,
                             Module module,
-                            String picturePath,
-                            String videoPath) {
+                            String mediaPath,
+                            MediaType mediaType) {
 
         this.points = points;
         this.question = question;
         this.userAnswer = userAnswer;
         this.correctAnswer = correctAnswer;
         this.module = module;
-        this.picturePath = picturePath;
-        this.videoPath = videoPath;
+        this.mediaPath = mediaPath;
+        this.mediaType = mediaType;
     }
 
     public int getPoints() {
@@ -38,15 +38,15 @@ public class StandardQuestion {
         return question;
     }
 
-    public YesOrNoAnswer getUserAnswer() {
+    public YesNoAnswer getUserAnswer() {
         return userAnswer;
     }
 
-    public void setUserAnswer(YesOrNoAnswer userAnswer) {
+    public void setUserAnswer(YesNoAnswer userAnswer) {
         this.userAnswer = userAnswer;
     }
 
-    public YesOrNoAnswer getCorrectAnswer() {
+    public YesNoAnswer getCorrectAnswer() {
         return correctAnswer;
     }
 
@@ -54,12 +54,12 @@ public class StandardQuestion {
         return module;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public String getMediaPath() {
+        return mediaPath;
     }
 
-    public String getVideoPath() {
-        return videoPath;
+    public MediaType getMediaType() {
+        return mediaType;
     }
 
     @Override
@@ -70,8 +70,8 @@ public class StandardQuestion {
         sb.append(", userAnswer=").append(userAnswer);
         sb.append(", correctAnswer=").append(correctAnswer);
         sb.append(", module=").append(module);
-        sb.append(", picturePath='").append(picturePath).append('\'');
-        sb.append(", videoPath='").append(videoPath).append('\'');
+        sb.append(", mediaPath='").append(mediaPath).append('\'');
+        sb.append(", mediaType=").append(mediaType);
         sb.append('}');
         return sb.toString();
     }

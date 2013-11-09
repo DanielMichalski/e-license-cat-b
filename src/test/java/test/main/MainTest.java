@@ -1,3 +1,5 @@
+package test.main;
+
 import database.xls.XLSSpecialistQuestionDataProvider;
 import database.xls.XLSStandardQuestionDataProvider;
 import model.SpecialistQuestion;
@@ -7,6 +9,7 @@ import ui.exam_result.view.ExamResultFrame;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,18 +19,22 @@ import java.util.List;
 public class MainTest {
     public static void main(String[] args) {
         testExamResultFrame();
-        //testdao();
+        testdao();
     }
 
     private static void testExamResultFrame() {
-        ExamResultFrame frame = new ExamResultFrame(standardQuestions, specialistQuestions);
-        frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        ExamResultFrame frame = new ExamResultFrame(
+                new ArrayList<StandardQuestion>(),
+                new ArrayList<SpecialistQuestion>());
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
         frame.setVisible(true);
     }
 
     private static void testdao() {
         try {
-            List<StandardQuestion> allStandardQuestions = XLSStandardQuestionDataProvider.get20StandardQuestions();
+            List<StandardQuestion> allStandardQuestions =
+                    XLSStandardQuestionDataProvider.get20StandardQuestions();
             int i = 1;
             for (StandardQuestion standardQuestion : allStandardQuestions) {
                 System.out.println(i);
@@ -35,7 +42,8 @@ public class MainTest {
             }
 
 
-            List<SpecialistQuestion> allSpecialistQuestions = XLSSpecialistQuestionDataProvider.getAllSpecialistQuestions();
+            List<SpecialistQuestion> allSpecialistQuestions =
+                    XLSSpecialistQuestionDataProvider.getAllSpecialistQuestions();
             i = 1;
             for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
                 System.out.println(i);
