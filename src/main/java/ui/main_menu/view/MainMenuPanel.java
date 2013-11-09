@@ -21,7 +21,7 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        setBackground(Const.Colors.mainMenubackgroundColor);
+        setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
     }
@@ -49,9 +49,9 @@ public class MainMenuPanel extends JPanel {
 
         JButton button = new JButton(btnLabel);
         button.setHorizontalTextPosition(SwingConstants.RIGHT);
-        button.setPreferredSize(Const.Dimensions.mainMenubtnSize);
-        button.setMinimumSize(Const.Dimensions.mainMenubtnSize);
-        button.setMaximumSize(Const.Dimensions.mainMenubtnSize);
+        button.setPreferredSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+        button.setMinimumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+        button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
         button.setForeground(Color.darkGray);
         button.setIcon(startExamIcon);
 

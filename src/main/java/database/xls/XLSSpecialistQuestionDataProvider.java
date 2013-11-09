@@ -1,6 +1,7 @@
 package database.xls;
 
 import database.dao.TextsDao;
+import model.ABCAnswer;
 import model.SpecialistQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Row;
@@ -58,6 +59,12 @@ public class XLSSpecialistQuestionDataProvider {
             list12.add(specialistQuestion);
             i++;
         }
+
+        //TODO usunac po tescie
+        ABCAnswer correctAnswer = list12.get(0).getCorrectAnswer();
+        list12.get(0).setUserAnswer(correctAnswer);
+
+        list12.get(1).setUserAnswer(ABCAnswer.B);
 
         return list12;
     }

@@ -11,22 +11,21 @@ public class SpecialistQuestion {
     private String answerB;
     private String answerC;
     private ABCAnswer userAnswer;
-    private ABCAnswer correctAnser;
+    private ABCAnswer correctAnswer;
     private Module module;
-    private String picturePath;
-    private String videoPath;
+    private String mediaPath;
+    private MediaType mediaType;
 
-    public SpecialistQuestion(
-            int points,
-            String question,
-            String answerA,
-            String answerB,
-            String answerC,
-            ABCAnswer userAnswer,
-            ABCAnswer correctAnser,
-            Module module,
-            String picturePath,
-            String videoPath) {
+    public SpecialistQuestion(int points,
+                              String question,
+                              String answerA,
+                              String answerB,
+                              String answerC,
+                              ABCAnswer userAnswer,
+                              ABCAnswer correctAnswer,
+                              Module module,
+                              String mediaPath,
+                              MediaType mediaType) {
 
         this.points = points;
         this.question = question;
@@ -34,10 +33,10 @@ public class SpecialistQuestion {
         this.answerB = answerB;
         this.answerC = answerC;
         this.userAnswer = userAnswer;
-        this.correctAnser = correctAnser;
+        this.correctAnswer = correctAnswer;
         this.module = module;
-        this.picturePath = picturePath;
-        this.videoPath = videoPath;
+        this.mediaPath = mediaPath;
+        this.mediaType = mediaType;
     }
 
     public int getPoints() {
@@ -69,19 +68,19 @@ public class SpecialistQuestion {
     }
 
     public ABCAnswer getCorrectAnswer() {
-        return correctAnser;
+        return correctAnswer;
     }
 
     public Module getModule() {
         return module;
     }
 
-    public String getPicturePath() {
-        return picturePath;
+    public String getMediaPath() {
+        return mediaPath;
     }
 
-    public String getVideoPath() {
-        return videoPath;
+    public MediaType getMediaType() {
+        return mediaType;
     }
 
     @Override
@@ -93,10 +92,10 @@ public class SpecialistQuestion {
         sb.append(", answerB='").append(answerB).append('\'');
         sb.append(", answerC='").append(answerC).append('\'');
         sb.append(", userAnswer=").append(userAnswer);
-        sb.append(", correctAnser=").append(correctAnser);
+        sb.append(", correctAnswer=").append(correctAnswer);
         sb.append(", module=").append(module);
-        sb.append(", picturePath='").append(picturePath).append('\'');
-        sb.append(", videoPath='").append(videoPath).append('\'');
+        sb.append(", mediaPath='").append(mediaPath).append('\'');
+        sb.append(", mediaType=").append(mediaType);
         sb.append('}');
         return sb.toString();
     }
