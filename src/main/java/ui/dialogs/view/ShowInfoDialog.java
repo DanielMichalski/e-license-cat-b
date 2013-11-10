@@ -3,7 +3,8 @@ package ui.dialogs.view;
 import database.dao.TextsDao;
 import ui.dialogs.logic.ShowInfoPresenter;
 import ui.dialogs.logic.WindowCloser;
-import util.ImagesUtil;
+import util.IconUtils;
+import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +49,8 @@ public class ShowInfoDialog extends JDialog implements WindowCloser {
         JPanel imagePanel = new JPanel();
         imagePanel.setBackground(Color.WHITE);
 
-        ImageIcon aboutExamImage = ImagesUtil.getAboutExamImage();
+        String aboutExamImageFileName = TextsDao.getFileName("img.wait_start");
+        ImageIcon aboutExamImage = ImageUtils.getProgramImage(aboutExamImageFileName);
         JLabel imageLbl = new JLabel(aboutExamImage);
 
         imagePanel.add(imageLbl);

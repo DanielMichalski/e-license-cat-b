@@ -3,10 +3,12 @@ package ui.exam.view;
 import database.dao.TextsDao;
 import ui.exam.view.interfaces.WindowAutoSizer;
 import util.Const;
+import util.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -61,8 +63,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
         imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
-        URL imageSrc = getClass().getResource("/program_images/no_photo.jpg");
-        ImageIcon image = new ImageIcon(imageSrc);
+        String noPhotoFileName = TextsDao.getFileName("img.no_photo");
+        ImageIcon image = ImageUtils.getProgramImage(noPhotoFileName);
+
         imageLabel = new JLabel("", image, SwingConstants.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -159,13 +162,35 @@ public class ExamQuestionsLeftPanel extends JPanel {
         validateWindowSize.autoSize();
     }
 
-    public void setImagePath(String imagePath) {
-        URL imageSrc = getClass().getResource(imagePath);
-        ImageIcon image = new ImageIcon(imageSrc);
+    public void showWaitImageImage() {
+        String imgFileName = TextsDao.getFileName("img.wait_photo");
+        ImageIcon image = ImageUtils.getProgramImage(imgFileName);
         imagePanel.remove(imageLabel);
         imageLabel = new JLabel("", image, JLabel.LEADING);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         imagePanel.add(imageLabel);
+    }
+
+    public void showWaitVideoImage() {
+        String imgFileName = TextsDao.getFileName("img.wait_video");
+        ImageIcon image = ImageUtils.getProgramImage(imgFileName);
+        imagePanel.remove(imageLabel);
+        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        imagePanel.add(imageLabel);
+    }
+
+    public void setImageName(String imageName) {
+        try {
+            ImageIcon image = ImageUtils.getQuestionImage(imageName);
+            imagePanel.remove(imageLabel);
+            imageLabel = new JLabel("", image, JLabel.LEADING);
+            imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            imagePanel.add(imageLabel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void enableAllBtns() {
@@ -203,4 +228,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JButton getBtnC() {
         return btnC;
     }
+
+
 }

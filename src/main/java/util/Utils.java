@@ -1,7 +1,10 @@
 package util;
 
+import database.dao.TextsDao;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 /**
  * Author: Daniel
@@ -29,9 +32,8 @@ public class Utils {
     }
 
     public static void setApplicationIcon(Window owner) {
-        Toolkit toolkit = owner.getToolkit();
-
-        Image IconImage = toolkit.createImage(Utils.class.getResource("/program_images/ikona.gif"));
-        owner.setIconImage(IconImage);
+        String appIconFileName = TextsDao.getFileName("img.app_icon");
+        ImageIcon iconImage = ImageUtils.getProgramImage(appIconFileName);
+        owner.setIconImage(iconImage.getImage());
     }
 }
