@@ -25,8 +25,8 @@ public class XLSStandardQuestionDataProvider {
         List<StandardQuestion> standardQuestionList
                 = new ArrayList<StandardQuestion>();
 
-        String questionPath = TextsDao.getPath("questions_path");
-        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream(questionPath);
+        String questionPath = TextsDao.getFileName("xls.questions");
+        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream("/xls/" + questionPath);
 
         Workbook exWorkBook = WorkbookFactory.create(resourceAsStream);
 

@@ -5,10 +5,12 @@ import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Const;
+import util.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -62,15 +64,14 @@ public class ExamResultLeftPanel extends JPanel {
 
     public JPanel getImagePanel() {
         JPanel imagePanel = new JPanel();
-
         imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
-        URL imageSrc = getClass().getResource("/program_images/no_photo.jpg");
-        ImageIcon image = new ImageIcon(imageSrc);
+        ImageIcon image = ImageUtils.getProgramImage("no_photo.jpg");
         imageLabel = new JLabel("", image, SwingConstants.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         imagePanel.add(imageLabel);
+
         return imagePanel;
     }
 
@@ -229,13 +230,16 @@ public class ExamResultLeftPanel extends JPanel {
         windowAutoSizer.autoSize();
     }
 
-    public void setImagePath(String imagePath) {
-        URL imageSrc = getClass().getResource(imagePath);
-        ImageIcon image = new ImageIcon(imageSrc);
-        imagePanel.remove(imageLabel);
-        imageLabel = new JLabel("", image, JLabel.LEADING);
-        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        imagePanel.add(imageLabel);
+    public void setImageName(String imageName) {
+        try {
+            ImageIcon image = ImageUtils.getQuestionImage(imageName);
+            imagePanel.remove(imageLabel);
+            imageLabel = new JLabel("", image, JLabel.LEADING);
+            imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            imagePanel.add(imageLabel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void enableAllBtns() {

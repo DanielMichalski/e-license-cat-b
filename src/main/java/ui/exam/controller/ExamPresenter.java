@@ -67,7 +67,7 @@ public class ExamPresenter {
 
     public void nextQuestion() {
         timer = new Timer();
-        long period = 100;
+        long period = 1000;
 
         try {
             actualStandardQuestion++;
@@ -172,7 +172,7 @@ public class ExamPresenter {
 
 
     public void showImage() {
-        examQuestionsLeftPanel.setImagePath("/images/Slajd117_ITS.jpg");
+        examQuestionsLeftPanel.setImageName("Slajd117_ITS.jpg");
     }
 
     public void showWaitMedia() {
@@ -197,11 +197,11 @@ public class ExamPresenter {
     }
 
     public void showWaitImage() {
-        examQuestionsLeftPanel.setImagePath("/program_images/wait_photo.jpg");
+        examQuestionsLeftPanel.showWaitImageImage();
     }
 
     private void showWaitVideo() {
-        examQuestionsLeftPanel.setImagePath("/program_images/wait_video.jpg");
+        examQuestionsLeftPanel.showWaitVideoImage();
     }
 
     public boolean trySaveAnswer() {

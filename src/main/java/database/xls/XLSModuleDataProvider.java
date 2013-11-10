@@ -25,8 +25,8 @@ public class XLSModuleDataProvider {
     public static List<Module> getAllModules() throws IOException, InvalidFormatException {
         List<Module> listOfModules = new ArrayList<Module>();
 
-        String modulesPath = TextsDao.getPath("modules_path");
-        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream(modulesPath);
+        String modulesPath = TextsDao.getFileName("xls.modules");
+        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream("/xls/" + modulesPath);
 
         Workbook exWorkBook = WorkbookFactory.create(resourceAsStream);
 
@@ -41,8 +41,8 @@ public class XLSModuleDataProvider {
     }
 
     public static Module getModuleFromModuleId(int id) throws IOException, InvalidFormatException {
-        String modulesPath = TextsDao.getPath("modules_path");
-        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream(modulesPath);
+        String modulesPath = TextsDao.getFileName("xls.modules");
+        InputStream resourceAsStream = XLSModuleDataProvider.class.getResourceAsStream("/xls/" + modulesPath);
 
         Workbook exWorkBook = WorkbookFactory.create(resourceAsStream);
 
