@@ -12,8 +12,8 @@ public class TextsDao {
         return rb.getString(name);
     }
 
-    public static String getPath(String name) {
-        ResourceBundle rb = ResourceBundle.getBundle("properties/paths");
+    public static String getFileName(String name) {
+        ResourceBundle rb = ResourceBundle.getBundle("properties/file_names");
         return rb.getString(name);
     }
 }

@@ -1,7 +1,7 @@
 package ui.exam.view.balls;
 
 import util.Const;
-import util.ImagesUtil;
+import util.IconUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,8 +31,8 @@ public abstract class BallsPanel extends JPanel {
         super.paintComponent(g);
         removeAll();
 
-        ImageIcon markedBallIcon = ImagesUtil.getMarkedBallIcon();
-        ImageIcon unmarkedBallIcon = ImagesUtil.getUnmarkedBallIcon();
+        ImageIcon markedBallIcon = IconUtils.getMarkedBallIcon();
+        ImageIcon unmarkedBallIcon = IconUtils.getUnmarkedBallIcon();
 
         for (int i = 1; i <= howManyBalls; i++) {
             if (i <= questionNumber) {

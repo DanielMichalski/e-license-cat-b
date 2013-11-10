@@ -2,10 +2,11 @@ package ui.main_menu.view;
 
 import database.dao.TextsDao;
 import util.Const;
+import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
+import java.io.IOException;
 
 /**
  * Author: dmichalski
@@ -27,14 +28,14 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        String startExamImageResourcePath = "/program_images/start_exam.jpg";
-        String infoAboutExamImageResourcePath = "/program_images/information.jpg";
+        String startExamImageName = TextsDao.getFileName("img.start_exam");
+        String infoAboutExamImageName = TextsDao.getFileName("img.information");
 
         String startExamBtnLabel = TextsDao.getText("view.mainMenuPanel.startExamBtn.text");
         String infoAboutExamBtnLabel = TextsDao.getText("view.mainMenuPanel.infoAboutExamBtn.text");
 
-        startExamBtn = createBtn(startExamBtnLabel, startExamImageResourcePath);
-        infoAboutExamBtn = createBtn(infoAboutExamBtnLabel, infoAboutExamImageResourcePath);
+        startExamBtn = createBtn(startExamBtnLabel, startExamImageName);
+        infoAboutExamBtn = createBtn(infoAboutExamBtnLabel, infoAboutExamImageName);
 
         startExamBtn.setMargin(new Insets(0, 0, 0, 15));
 
@@ -43,19 +44,16 @@ public class MainMenuPanel extends JPanel {
         add(infoAboutExamBtn);
     }
 
-    private JButton createBtn(String btnLabel, String imageResource) {
-        URL startExamIconResource = getClass().getResource(imageResource);
-        Icon startExamIcon = new ImageIcon(startExamIconResource);
-
-        JButton button = new JButton(btnLabel);
-        button.setHorizontalTextPosition(SwingConstants.RIGHT);
-        button.setPreferredSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-        button.setMinimumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-        button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-        button.setForeground(Color.darkGray);
-        button.setIcon(startExamIcon);
-
-        return button;
+    private JButton createBtn(String btnLabel, String imageName) {
+            ImageIcon imageIcon = ImageUtils.getProgramImage(imageName);
+            JButton button = new JButton(btnLabel);
+            button.setHorizontalTextPosition(SwingConstants.RIGHT);
+            button.setPreferredSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+            button.setMinimumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+            button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+            button.setForeground(Color.darkGray);
+            button.setIcon(imageIcon);
+            return button;
     }
 
     public JButton getStartExamBtn() {
