@@ -24,7 +24,7 @@ public class ExamResultRightPanel extends JPanel {
 
     private StandardPartPanel standardPartPanel;
     private SpecjalistPartPanel specjalistPartPanel;
-    private HowManyPointsPanel timeAndBtnConfirmPanel;
+    private HowManyPointsPanel howManyPointsPanel;
 
     public ExamResultRightPanel(ExamResultPresenter presenter,
                                 List<StandardQuestion> standardQuestions,
@@ -49,11 +49,11 @@ public class ExamResultRightPanel extends JPanel {
     private void initializeComponents() {
         standardPartPanel = new StandardPartPanel();
         specjalistPartPanel = new SpecjalistPartPanel();
-        timeAndBtnConfirmPanel = new HowManyPointsPanel();
+        howManyPointsPanel = new HowManyPointsPanel();
 
         add(standardPartPanel);
         add(specjalistPartPanel);
-        add(timeAndBtnConfirmPanel);
+        add(howManyPointsPanel);
     }
 
     public class StandardPartPanel extends JPanel {
@@ -116,33 +116,85 @@ public class ExamResultRightPanel extends JPanel {
     }
 
     public class HowManyPointsPanel extends JPanel {
-        private JLabel howManyPointsLbl;
+        private JLabel examResultLbl;
+        private JLabel userPointsLbl;
+        private JLabel howManyPointsForQuestionLbl;
 
         public HowManyPointsPanel() {
             setLayout(new BoxLayout(HowManyPointsPanel.this, BoxLayout.Y_AXIS));
             setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
+            examResultLbl = createIsPassedOrNoLbl();
+            userPointsLbl = createUserPointsLbl();
+            howManyPointsForQuestionLbl = createHowManyPointsLbl();
 
-            howManyPointsLbl = createHowManyPointsLbl();
+            Component rigidArea = Box.createRigidArea(new Dimension(0, 10));
 
-            add(Box.createRigidArea(new Dimension(0, 10)));
-            add(howManyPointsLbl);
+            add(rigidArea);
+            add(examResultLbl);
+            add(rigidArea);
+            add(userPointsLbl);
+            add(rigidArea);
+            add(howManyPointsForQuestionLbl);
+        }
+        
+        private JLabel createIsPassedOrNoLbl() {
+            JLabel isPaassedOrNoLbl = new JLabel("");
+            isPaassedOrNoLbl.setHorizontalAlignment(SwingConstants.CENTER);
+            isPaassedOrNoLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            isPaassedOrNoLbl.setFont(Const.Fonts.IS_PASSED_OR_NO_LBL_FONT);
+            isPaassedOrNoLbl.setPreferredSize(Const.Dimensions.IS_PASSED_OR_NO_LBL);
+            isPaassedOrNoLbl.setMinimumSize(Const.Dimensions.IS_PASSED_OR_NO_LBL);
+            isPaassedOrNoLbl.setMaximumSize(Const.Dimensions.IS_PASSED_OR_NO_LBL);
+
+            return isPaassedOrNoLbl;
         }
 
+        private JLabel createUserPointsLbl() {
+            JLabel userPointsLbl = new JLabel("");
+            userPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
+            userPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            userPointsLbl.setFont(Const.Fonts.RESULT_POINT_FONT);
+            userPointsLbl.setPreferredSize(Const.Dimensions.RESULT_POINT);
+            userPointsLbl.setMinimumSize(Const.Dimensions.RESULT_POINT);
+            userPointsLbl.setMaximumSize(Const.Dimensions.RESULT_POINT);
+
+            return userPointsLbl;
+        }
+        
         private JLabel createHowManyPointsLbl() {
             JLabel howManyPointsLbl = new JLabel();
             howManyPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
             howManyPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            howManyPointsLbl.setPreferredSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
-            howManyPointsLbl.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
-            howManyPointsLbl.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
+            howManyPointsLbl.setPreferredSize(Const.Dimensions.HOW_MANY_POINTS_LBL);
+            howManyPointsLbl.setMinimumSize(Const.Dimensions.HOW_MANY_POINTS_LBL);
+            howManyPointsLbl.setMaximumSize(Const.Dimensions.HOW_MANY_POINTS_LBL);
             howManyPointsLbl.setFont(Const.Fonts.TEXTS_FONT);
             howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.HOW_MANY_POINTS_BORDER_COLOR));
             return howManyPointsLbl;
         }
 
+        private void setExamResult(boolean isPassed, int userPoints, int allPoints) {
+            String howManyUserPointsText = String.format("%d / %d pkt", userPoints, allPoints);
+            userPointsLbl.setText(howManyUserPointsText);
+
+            if (isPassed) {
+                String examPassedText = TextsDao.getText("ExamResultPointRigthPanel.examPassedText");
+
+                examResultLbl.setForeground(Const.Colors.POSITIVE_RESULT_COLOR);
+                examResultLbl.setText(examPassedText);
+                userPointsLbl.setForeground(Const.Colors.POSITIVE_RESULT_COLOR);
+            } else {
+                String examFailedText = TextsDao.getText("ExamResultPointRigthPanel.examFailedText");
+
+                examResultLbl.setForeground(Const.Colors.NEGATIVE_RESULT_COLOR);
+                examResultLbl.setText(examFailedText);
+                userPointsLbl.setForeground(Const.Colors.NEGATIVE_RESULT_COLOR);
+            }
+        }
+
         private void setHowManyPoints(int points) {
-            howManyPointsLbl.setText(points + " pkt");
+            howManyPointsForQuestionLbl.setText(points + " pkt");
         }
     }
 
@@ -155,6 +207,10 @@ public class ExamResultRightPanel extends JPanel {
     }
 
     public void setHowManyQuestionPoints(int howManyPoints) {
-        timeAndBtnConfirmPanel.setHowManyPoints(howManyPoints);
+        howManyPointsPanel.setHowManyPoints(howManyPoints);
+    }
+
+    public void setExamResult(boolean isPassed, int userPoints, int allPoints) {
+        howManyPointsPanel.setExamResult(isPassed, userPoints, allPoints);
     }
 }

@@ -20,6 +20,8 @@ public class ExamResultPresenter {
     private ExamResultLeftPanel leftPanel;
     private ExamResultRightPanel rightPanel;
 
+    public static final int HOW_MANY_POINTS_TO_PASS = 68;
+
     public ExamResultPresenter(List<StandardQuestion> standardQuestions,
                                List<SpecialistQuestion> specialistQuestions) {
         this.standardQuestions = standardQuestions;
@@ -29,6 +31,9 @@ public class ExamResultPresenter {
     public void setUpPanels() {
         int userPoints = countUserPoints();
         int allPoints = countAllPoints();
+
+        boolean isPassed = userPoints >= HOW_MANY_POINTS_TO_PASS;
+        rightPanel.setExamResult(isPassed, userPoints, allPoints);
 
         setNumberOfStandardQuestion(1);
     }
@@ -69,7 +74,7 @@ public class ExamResultPresenter {
         YesNoAnswer userAnswer = standardQuestions.get(numOfQuestion - 1).getUserAnswer();
         YesNoAnswer correctAnswer = standardQuestions.get(numOfQuestion - 1).getCorrectAnswer();
 
-        leftPanel.setImagePath("/images/Slajd117_ITS.jpg");
+        leftPanel.setImageName("Slajd117_ITS.jpg");
         leftPanel.setQestion(standardQuestions.get(numOfQuestion - 1).getQuestion());
 
         rightPanel.setHowManyQuestionPoints(standardQuestions.get(numOfQuestion - 1).getPoints());
@@ -85,7 +90,7 @@ public class ExamResultPresenter {
         ABCAnswer userAnswer = specialistQuestions.get(numOfQuestion - 1).getUserAnswer();
         ABCAnswer correctAnswer = specialistQuestions.get(numOfQuestion - 1).getCorrectAnswer();
 
-        leftPanel.setImagePath("/images/Slajd117_ITS.jpg");
+        leftPanel.setImageName("Slajd117_ITS.jpg");
         leftPanel.setQestion(specialistQuestions.get(numOfQuestion - 1).getQuestion());
 
         rightPanel.setHowManyQuestionPoints(specialistQuestions.get(numOfQuestion - 1).getPoints());

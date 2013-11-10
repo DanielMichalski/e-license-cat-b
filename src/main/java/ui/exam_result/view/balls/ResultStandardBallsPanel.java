@@ -3,7 +3,7 @@ package ui.exam_result.view.balls;
 import model.StandardQuestion;
 import ui.exam_result.controller.ExamResultPresenter;
 import util.Const;
-import util.ImagesUtil;
+import util.IconUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,9 +36,9 @@ public class ResultStandardBallsPanel extends JPanel {
     }
 
     private void initComponents() {
-        ImageIcon noAnswerBallIcon = ImagesUtil.getUnmarkedBallIcon();
-        ImageIcon goodBallIcon = ImagesUtil.getGoodBallIcon();
-        ImageIcon badBallIcon = ImagesUtil.getBadBallIcon();
+        ImageIcon noAnswerBallIcon = IconUtils.getUnmarkedBallIcon();
+        ImageIcon goodBallIcon = IconUtils.getGoodBallIcon();
+        ImageIcon badBallIcon = IconUtils.getBadBallIcon();
 
         int howManyBalls = 20;
         for (int i = 0; i < howManyBalls; i++) {
