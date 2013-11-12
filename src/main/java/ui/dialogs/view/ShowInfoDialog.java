@@ -3,8 +3,7 @@ package ui.dialogs.view;
 import database.dao.TextsDao;
 import ui.dialogs.logic.ShowInfoPresenter;
 import ui.dialogs.logic.WindowCloser;
-import util.IconUtils;
-import util.ImageUtils;
+import media.images.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;

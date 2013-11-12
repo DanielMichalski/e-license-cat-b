@@ -3,13 +3,12 @@ package ui.exam.view;
 import database.dao.TextsDao;
 import ui.exam.view.interfaces.WindowAutoSizer;
 import util.Const;
-import util.ImageUtils;
+import media.images.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Author: Daniel

@@ -1,4 +1,4 @@
-package timer_tasks;
+package timer;
 
 import ui.exam.controller.ExamPresenter;
 
