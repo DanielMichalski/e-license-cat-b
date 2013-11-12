@@ -1,10 +1,10 @@
-package database.xls.xls_column_names;
+package database.columns;
 
 /**
  * Author: Daniel
  * Date: 08.11.13
  */
-public class XLSModuleColumnNames {
+public class ModuleColumnNames {
     public static final int MODULE_ID = 0;
     public static final int MODULE_NAME = 1;
 }

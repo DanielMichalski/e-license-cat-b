@@ -1,5 +1,6 @@
 package test.main;
 
+import database.csv.CSVModuleDataProvider;
 import database.xls.XLSSpecialistQuestionDataProvider;
 import database.xls.XLSStandardQuestionDataProvider;
 import model.SpecialistQuestion;
@@ -18,8 +19,17 @@ import java.util.List;
  */
 public class MainTest {
     public static void main(String[] args) {
-        testExamResultFrame();
-        testdao();
+        //testExamResultFrame();
+        //testdao();
+        testCSV();
+    }
+
+    private static void testCSV() {
+        try {
+            CSVModuleDataProvider.readAllModules();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void testExamResultFrame() {

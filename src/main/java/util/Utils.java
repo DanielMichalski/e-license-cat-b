@@ -1,10 +1,10 @@
 package util;
 
 import database.dao.TextsDao;
+import media.images.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 /**
  * Author: Daniel
