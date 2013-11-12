@@ -60,12 +60,6 @@ public class XLSStandardQuestionDataProvider {
             i++;
         }
 
-        //TODO usunac po tescie
-        YesNoAnswer correctAnswer = list20.get(0).getCorrectAnswer();
-        list20.get(0).setUserAnswer(correctAnswer);
-
-        list20.get(1).setUserAnswer(YesNoAnswer.NIE);
-
         return list20;
     }
 }

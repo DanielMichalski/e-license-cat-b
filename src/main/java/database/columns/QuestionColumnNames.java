@@ -1,12 +1,15 @@
-package database.xls.xls_column_names;
+package database.columns;
 
 /**
  * Author: Daniel
  * Date: 08.11.13
  */
-public class XLSQuestionColumnNames {
+public class QuestionColumnNames {
     public static final int Q_POINTS = 3;
     public static final int Q_QUESTION = 4;
+    public static final int Q_ANSWER_A = 5;
+    public static final int Q_ANSWER_B = 6;
+    public static final int Q_ANSWER_C = 7;
     public static final int Q_CORRECT_ANSWER = 8;
     public static final int Q_MODULE = 9;
     public static final int Q_FIRST_MEDIA_PATH = 12;

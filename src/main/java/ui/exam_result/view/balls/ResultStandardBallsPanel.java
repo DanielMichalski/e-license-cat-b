@@ -3,7 +3,7 @@ package ui.exam_result.view.balls;
 import model.StandardQuestion;
 import ui.exam_result.controller.ExamResultPresenter;
 import util.Const;
-import util.IconUtils;
+import media.images.IconUtils;
 
 import javax.swing.*;
 import java.awt.*;

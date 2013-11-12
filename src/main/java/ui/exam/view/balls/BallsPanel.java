@@ -1,7 +1,7 @@
 package ui.exam.view.balls;
 
 import util.Const;
-import util.IconUtils;
+import media.images.IconUtils;
 
 import javax.swing.*;
 import java.awt.*;

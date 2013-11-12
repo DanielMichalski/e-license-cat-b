@@ -7,9 +7,9 @@ import org.apache.poi.ss.usermodel.Row;
 
 import java.io.IOException;
 
-import static database.xls.xls_column_names.XLSModuleColumnNames.MODULE_ID;
-import static database.xls.xls_column_names.XLSModuleColumnNames.MODULE_NAME;
-import static database.xls.xls_column_names.XLSQuestionColumnNames.*;
+import static database.columns.ModuleColumnNames.MODULE_ID;
+import static database.columns.ModuleColumnNames.MODULE_NAME;
+import static database.columns.QuestionColumnNames.*;
 
 /**
  * Author: Daniel
@@ -42,7 +42,7 @@ public class XLSUtil {
         int points = 0;
         String question = null;
         YesNoAnswer correctAnser = null;
-        int moduleId = 0;
+        int moduleId;
         Module module = null;
         String mediaPath = null;
         MediaType mediaType = null;

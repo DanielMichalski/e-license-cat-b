@@ -5,13 +5,12 @@ import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Const;
-import util.ImageUtils;
+import media.images.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 import java.io.IOException;
-import java.net.URL;
 
 /**
  * Author: Daniel
