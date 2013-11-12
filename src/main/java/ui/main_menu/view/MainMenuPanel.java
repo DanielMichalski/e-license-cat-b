@@ -2,11 +2,10 @@ package ui.main_menu.view;
 
 import database.dao.TextsDao;
 import util.Const;
-import util.ImageUtils;
+import media.images.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 /**
  * Author: dmichalski

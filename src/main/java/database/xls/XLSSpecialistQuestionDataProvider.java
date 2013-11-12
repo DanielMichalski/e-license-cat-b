@@ -60,12 +60,6 @@ public class XLSSpecialistQuestionDataProvider {
             i++;
         }
 
-        //TODO usunac po tescie
-        ABCAnswer correctAnswer = list12.get(0).getCorrectAnswer();
-        list12.get(0).setUserAnswer(correctAnswer);
-
-        list12.get(1).setUserAnswer(ABCAnswer.B);
-
         return list12;
     }
 }
