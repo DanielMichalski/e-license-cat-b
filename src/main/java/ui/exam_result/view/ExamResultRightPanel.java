@@ -137,7 +137,7 @@ public class ExamResultRightPanel extends JPanel {
             add(rigidArea);
             add(howManyPointsForQuestionLbl);
         }
-        
+
         private JLabel createIsPassedOrNoLbl() {
             JLabel isPaassedOrNoLbl = new JLabel("");
             isPaassedOrNoLbl.setHorizontalAlignment(SwingConstants.CENTER);
@@ -161,7 +161,7 @@ public class ExamResultRightPanel extends JPanel {
 
             return userPointsLbl;
         }
-        
+
         private JLabel createHowManyPointsLbl() {
             JLabel howManyPointsLbl = new JLabel();
             howManyPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);

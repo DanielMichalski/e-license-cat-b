@@ -26,7 +26,7 @@ public class MainTest {
 
     private static void testCSV() {
         try {
-            CSVModuleDataProvider.readAllModules();
+            CSVModuleDataProvider.getAllModules();
         } catch (IOException e) {
             e.printStackTrace();
         }
