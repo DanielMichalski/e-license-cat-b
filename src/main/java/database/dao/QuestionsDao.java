@@ -1,5 +1,7 @@
 package database.dao;
 
+import database.csv.CSVSpecialistQuestionDataProvider;
+import database.csv.CSVStandardQuestionDataProvider;
 import database.xls.XLSSpecialistQuestionDataProvider;
 import database.xls.XLSStandardQuestionDataProvider;
 import model.SpecialistQuestion;
@@ -16,21 +18,21 @@ import java.util.List;
 public class QuestionsDao {
     public static List<StandardQuestion> get20StandardQuestion()
             throws IOException, InvalidFormatException {
-        return XLSStandardQuestionDataProvider.get20StandardQuestions();
+        return CSVStandardQuestionDataProvider.get20StandardQuestions();
     }
 
     public static List<StandardQuestion> getAllStandardQuestion()
             throws IOException, InvalidFormatException {
-        return XLSStandardQuestionDataProvider.getAllStandardQuestions();
+        return CSVStandardQuestionDataProvider.getAllStandardQuestions();
     }
 
     public static List<SpecialistQuestion> get12SpecialistQuestion()
             throws IOException, InvalidFormatException {
-        return XLSSpecialistQuestionDataProvider.get12SpecialistQuestions();
+        return CSVSpecialistQuestionDataProvider.get12SpecialistQuestion();
     }
 
     public static List<SpecialistQuestion> getAllSpecialistQuestion()
             throws IOException, InvalidFormatException {
-        return XLSSpecialistQuestionDataProvider.getAllSpecialistQuestions();
+        return CSVSpecialistQuestionDataProvider.getAllSpecialistQuestions();
     }
 }

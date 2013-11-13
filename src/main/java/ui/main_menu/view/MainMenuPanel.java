@@ -44,15 +44,15 @@ public class MainMenuPanel extends JPanel {
     }
 
     private JButton createBtn(String btnLabel, String imageName) {
-            ImageIcon imageIcon = ImageUtils.getProgramImage(imageName);
-            JButton button = new JButton(btnLabel);
-            button.setHorizontalTextPosition(SwingConstants.RIGHT);
-            button.setPreferredSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-            button.setMinimumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-            button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-            button.setForeground(Color.darkGray);
-            button.setIcon(imageIcon);
-            return button;
+        ImageIcon imageIcon = ImageUtils.getProgramImage(imageName);
+        JButton button = new JButton(btnLabel);
+        button.setHorizontalTextPosition(SwingConstants.RIGHT);
+        button.setPreferredSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+        button.setMinimumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+        button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
+        button.setForeground(Color.darkGray);
+        button.setIcon(imageIcon);
+        return button;
     }
 
     public JButton getStartExamBtn() {

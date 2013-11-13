@@ -33,42 +33,45 @@ public class CSVStandardQuestionDataProvider {
         List<StandardQuestion> standardQuestionList
                 = new ArrayList<StandardQuestion>();
 
-        Path questionsPath = Paths.get("src/main/resources/csv/questions_enc.csv");
+        Path questionsPath = Paths.get("src/main/resources/csv/questions_enc");
         byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, Charset.defaultCharset());
+        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
 
         csvReader.readHeaders();
 
         while (csvReader.readRecord()) {
             try {
-                int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
-                String question = csvReader.get(Q_QUESTION);
-                YesNoAnswer correctAnser = YesNoAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
-                int moduleId = Integer.parseInt(csvReader.get(Q_MODULE));
-                Module module = CSVModuleDataProvider.getModule(moduleId);
+                if (csvReader.get(Q_QUESTION_TYPE).equals("podstawowa")) {
+                    int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
+                    String question = csvReader.get(Q_QUESTION);
+                    YesNoAnswer correctAnser = YesNoAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
+                    int moduleId = Integer.parseInt(csvReader.get(Q_MODULE));
+                    Module module = CSVModuleDataProvider.getModule(moduleId);
 
-                String mediaPath = null;
-                if (!csvReader.get(Q_FIRST_MEDIA_PATH).equals("")) {
-                    mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
-                } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
-                    mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+                    String mediaPath = null;
+                    if (!csvReader.get(Q_FIRST_MEDIA_PATH).equals("")) {
+                        mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
+                    } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
+                        mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+                    }
+
+                    MediaType mediaType = MediaType.valueOf(csvReader.get(Q_MEDIA_TYPE));
+
+                    StandardQuestion standardQuestion = new StandardQuestion(
+                            points,
+                            question,
+                            null,
+                            correctAnser,
+                            module,
+                            mediaPath,
+                            mediaType
+                    );
+
+                    standardQuestionList.add(standardQuestion);
+
                 }
-
-                MediaType mediaType = MediaType.valueOf(csvReader.get(Q_MEDIA_TYPE));
-
-                StandardQuestion standardQuestion = new StandardQuestion(
-                        points,
-                        question,
-                        null,
-                        correctAnser,
-                        module,
-                        mediaPath,
-                        mediaType
-                );
-
-                standardQuestionList.add(standardQuestion);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (IllegalArgumentException e) {

@@ -12,6 +12,7 @@ public class QuestionColumnNames {
     public static final int Q_ANSWER_C = 7;
     public static final int Q_CORRECT_ANSWER = 8;
     public static final int Q_MODULE = 9;
+    public static final int Q_QUESTION_TYPE = 11;
     public static final int Q_FIRST_MEDIA_PATH = 12;
     public static final int Q_SECOND_MEDIA_PATH = 13;
     public static final int Q_MEDIA_TYPE = 16;
