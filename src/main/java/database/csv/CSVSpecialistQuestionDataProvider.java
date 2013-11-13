@@ -28,48 +28,50 @@ public class CSVSpecialistQuestionDataProvider {
         List<SpecialistQuestion> specialistQuestionList
                 = new ArrayList<SpecialistQuestion>();
 
-        Path questionsPath = Paths.get("src/main/resources/csv/questions_enc.csv");
+        Path questionsPath = Paths.get("src/main/resources/csv/questions_enc");
         byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, Charset.defaultCharset());
+        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
 
         csvReader.readHeaders();
 
         while (csvReader.readRecord()) {
             try {
-                int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
-                String question = csvReader.get(Q_QUESTION);
-                ABCAnswer correctAnser = ABCAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
-                String answerA = csvReader.get(Q_ANSWER_A);
-                String answerB = csvReader.get(Q_ANSWER_B);
-                String answerC = csvReader.get(Q_ANSWER_C);
-                int moduleId = Integer.parseInt(csvReader.get(Q_MODULE));
-                Module module = CSVModuleDataProvider.getModule(moduleId);
+                if (csvReader.get(Q_QUESTION_TYPE).equals("specjalistyczna")) {
+                    int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
+                    String question = csvReader.get(Q_QUESTION);
+                    ABCAnswer correctAnser = ABCAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
+                    String answerA = csvReader.get(Q_ANSWER_A);
+                    String answerB = csvReader.get(Q_ANSWER_B);
+                    String answerC = csvReader.get(Q_ANSWER_C);
+                    int moduleId = Integer.parseInt(csvReader.get(Q_MODULE));
+                    Module module = CSVModuleDataProvider.getModule(moduleId);
 
-                String mediaPath = null;
-                if (!csvReader.get(Q_FIRST_MEDIA_PATH).equals("")) {
-                    mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
-                } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
-                    mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+                    String mediaPath = null;
+                    if (!csvReader.get(Q_FIRST_MEDIA_PATH).equals("")) {
+                        mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
+                    } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
+                        mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+                    }
+
+                    MediaType mediaType = MediaType.valueOf(csvReader.get(Q_MEDIA_TYPE));
+
+                    SpecialistQuestion specialistQuestion = new SpecialistQuestion(
+                            points,
+                            question,
+                            answerA,
+                            answerB,
+                            answerC,
+                            null,
+                            correctAnser,
+                            module,
+                            mediaPath,
+                            mediaType
+                    );
+
+                    specialistQuestionList.add(specialistQuestion);
                 }
-
-                MediaType mediaType = MediaType.valueOf(csvReader.get(Q_MEDIA_TYPE));
-
-                SpecialistQuestion specialistQuestion = new SpecialistQuestion(
-                        points,
-                        question,
-                        answerA,
-                        answerB,
-                        answerC,
-                        null,
-                        correctAnser,
-                        module,
-                        mediaPath,
-                        mediaType
-                );
-
-                specialistQuestionList.add(specialistQuestion);
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (IllegalArgumentException e) {

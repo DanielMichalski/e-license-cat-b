@@ -1,6 +1,6 @@
 package database.dao;
 
-import database.xls.XLSModuleDataProvider;
+import database.csv.CSVModuleDataProvider;
 import model.Module;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -15,6 +15,12 @@ public class ModuleDao {
     public static List<Module> getAllModules()
             throws IOException, InvalidFormatException {
 
-        return XLSModuleDataProvider.getAllModules();
+        return CSVModuleDataProvider.getAllModules();
+    }
+
+    public static Module getModuleById(int moduleId)
+            throws IOException {
+
+        return CSVModuleDataProvider.getModule(moduleId);
     }
 }
