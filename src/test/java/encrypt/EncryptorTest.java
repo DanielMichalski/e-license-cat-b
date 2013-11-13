@@ -2,6 +2,7 @@ package encrypt;
 
 import org.junit.Test;
 
+import java.nio.channels.Channel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 

@@ -5,7 +5,6 @@ import database.columns.ModuleColumnNames;
 import encrypt.Encrypter;
 import model.Module;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,14 +19,14 @@ import java.util.List;
  * Date: 12.11.13.
  */
 public class CSVModuleDataProvider {
-    public static List<Module> readAllModules() throws IOException {
+    public static List<Module> getAllModules() throws IOException {
         List<Module> modules = new ArrayList<Module>();
 
-        Path modulesPath = Paths.get("src/main/resources/csv/modules_enc.csv");
+        Path modulesPath = Paths.get("src/main/resources/csv/modules_enc");
         byte[] bytesArray = Encrypter.decryptFile(modulesPath, null, false);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, Charset.defaultCharset());
+        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
 
         while (csvReader.readRecord()) {
             try {
@@ -45,7 +44,7 @@ public class CSVModuleDataProvider {
     }
 
     public static Module getModule(int moduleId) throws IOException {
-        List<Module> modules = readAllModules();
+        List<Module> modules = getAllModules();
 
         for (Module module : modules) {
             if (module.getId() == moduleId) {
