@@ -10,8 +10,6 @@ import model.StandardQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -23,15 +21,15 @@ public class EncryptTest {
 
         List<StandardQuestion> allStandardQuestions =
                 CSVStandardQuestionDataProvider.getAllStandardQuestions();
-        System.out.println(allStandardQuestions);
+        System.out.println(allStandardQuestions.size() + " " + allStandardQuestions);
 
         List<SpecialistQuestion> specialistQuestions =
                 CSVSpecialistQuestionDataProvider.getAllSpecialistQuestions();
-        System.out.println(specialistQuestions);
+        System.out.println(specialistQuestions.size() + " " + specialistQuestions);
 
         List<Module> allModules = CSVModuleDataProvider.getAllModules();
-        System.out.println(allModules);
+        System.out.println(allModules.size() + " " + allModules);
 
-
+        Encrypter.enryptChoosenFile();
     }
 }

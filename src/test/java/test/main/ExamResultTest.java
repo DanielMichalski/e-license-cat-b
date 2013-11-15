@@ -5,7 +5,7 @@ import model.SpecialistQuestion;
 import model.StandardQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ui.exam_result.view.ExamResultFrame;
-import util.Utils;
+import util.ApplicationUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -20,7 +20,7 @@ public class ExamResultTest {
     public static void main(String[] args)
             throws IOException, InvalidFormatException {
 
-        Utils.setNimbusLookAndFeel();
+        ApplicationUtils.setNimbusLookAndFeel();
 
         List<StandardQuestion> standardQuestions
                 = QuestionsDao.get20StandardQuestion();

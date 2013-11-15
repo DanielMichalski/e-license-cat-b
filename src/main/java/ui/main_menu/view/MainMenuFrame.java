@@ -2,7 +2,7 @@ package ui.main_menu.view;
 
 import database.dao.TextsDao;
 import ui.main_menu.controller.MainMenuPresenter;
-import util.Utils;
+import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,11 +24,11 @@ public class MainMenuFrame extends JFrame {
     }
 
     private void setUpFrame() {
-        Utils.setNimbusLookAndFeel();
+        ApplicationUtils.setNimbusLookAndFeel();
 
         setTitle(TextsDao.getText("view.MainMenu.title"));
         setResizable(false);
-        Utils.setApplicationIcon(this);
+        ApplicationUtils.setApplicationIcon(this);
     }
 
     private void initializeComponents() {

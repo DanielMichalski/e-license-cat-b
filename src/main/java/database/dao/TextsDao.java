@@ -13,7 +13,7 @@ public class TextsDao {
     }
 
     public static String getFileName(String name) {
-        ResourceBundle rb = ResourceBundle.getBundle("properties/file_names");
+        ResourceBundle rb = ResourceBundle.getBundle("properties/file_paths");
         return rb.getString(name);
     }
 }
