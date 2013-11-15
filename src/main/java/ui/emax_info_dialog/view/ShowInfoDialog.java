@@ -1,9 +1,9 @@
-package ui.dialogs.view;
+package ui.emax_info_dialog.view;
 
 import database.dao.TextsDao;
-import ui.dialogs.logic.ShowInfoPresenter;
-import ui.dialogs.logic.WindowCloser;
 import media.images.ImageUtils;
+import ui.emax_info_dialog.logic.ShowInfoPresenter;
+import ui.emax_info_dialog.logic.WindowCloser;
 
 import javax.swing.*;
 import java.awt.*;
