@@ -22,7 +22,7 @@ public abstract class TimerCountDown extends TimerTask {
     public void run() {
         if (sec > 0) {
             if (sec == 15) {
-                examPresenter.showImage();
+                examPresenter.showMedia();
             }
             examPresenter.getTimerLbl().setText("" + sec);
         } else {

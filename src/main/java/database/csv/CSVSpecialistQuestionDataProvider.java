@@ -2,8 +2,12 @@ package database.csv;
 
 import com.csvreader.CsvReader;
 import database.columns.QuestionColumnNames;
+import database.dao.TextsDao;
 import encrypt.Encrypter;
-import model.*;
+import model.ABCAnswer;
+import model.MediaType;
+import model.Module;
+import model.SpecialistQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.ByteArrayInputStream;
@@ -28,7 +32,7 @@ public class CSVSpecialistQuestionDataProvider {
         List<SpecialistQuestion> specialistQuestionList
                 = new ArrayList<SpecialistQuestion>();
 
-        Path questionsPath = Paths.get("src/main/resources/csv/questions_enc");
+        Path questionsPath = Paths.get(TextsDao.getFileName("csv.questions"));
         byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
@@ -38,7 +42,7 @@ public class CSVSpecialistQuestionDataProvider {
 
         while (csvReader.readRecord()) {
             try {
-                if (csvReader.get(Q_QUESTION_TYPE).equals("specjalistyczna")) {
+                if (csvReader.get(Q_QUESTION_TYPE).equals(TextsDao.getText("specialistQuestion"))) {
                     int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
                     String question = csvReader.get(Q_QUESTION);
                     ABCAnswer correctAnser = ABCAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));

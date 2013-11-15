@@ -5,7 +5,7 @@ import model.SpecialistQuestion;
 import model.StandardQuestion;
 import ui.exam_result.controller.ExamResultPresenter;
 import ui.exam_result.view.interfaces.WindowAutoSizer;
-import util.Utils;
+import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +33,7 @@ public class ExamResultFrame extends JDialog implements WindowAutoSizer {
 
     private void setUpFrame() {
         setTitle(TextsDao.getText("view.ExamResultFrame.title"));
-        Utils.setApplicationIcon(this);
+        ApplicationUtils.setApplicationIcon(this);
         setModal(true);
         setResizable(false);
     }
