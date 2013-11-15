@@ -208,7 +208,6 @@ public class VideoCodec {
             container.close();
             container = null;
         }
-        closeJavaWindow();
 
     }
 
@@ -226,13 +225,5 @@ public class VideoCodec {
      */
     private static void openJavaWindow() {
         mScreen = new VideoFrame();
-    }
-
-    /**
-     * Forces the swing thread to terminate; I'm sure there is a right
-     * way to do this in swing, but this works too.
-     */
-    private static void closeJavaWindow() {
-        System.exit(0);
     }
 }

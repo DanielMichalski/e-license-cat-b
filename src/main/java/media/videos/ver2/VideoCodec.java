@@ -5,16 +5,8 @@ import com.xuggle.xuggler.*;
 import java.awt.image.BufferedImage;
 
 public class VideoCodec {
-
-    /**
-     * Takes a media container (file) as the first argument, opens it,
-     * opens up a Swing window and displays
-     * video frames with <i>roughly</i> the right timing.
-     *
-     * @param args Must contain one string which represents a filename
-     */
-    @SuppressWarnings("deprecation")
-    public static void main(String[] args) {
+    public VideoCodec(VideoFrame videoFrame) {
+        mScreen = videoFrame;
 
         String filename = "src/main/resources/videos/PICT0577_ZS_ITS.mp4";
 
@@ -209,8 +201,8 @@ public class VideoCodec {
             container = null;
         }
         closeJavaWindow();
-
     }
+
 
     /**
      * The window we'll draw the video on.
@@ -225,7 +217,7 @@ public class VideoCodec {
      * Opens a Swing window on screen.
      */
     private static void openJavaWindow() {
-        mScreen = new VideoFrame();
+        //mScreen = new VideoFrame();
     }
 
     /**
@@ -233,6 +225,6 @@ public class VideoCodec {
      * way to do this in swing, but this works too.
      */
     private static void closeJavaWindow() {
-        System.exit(0);
+        //System.exit(0);
     }
 }
