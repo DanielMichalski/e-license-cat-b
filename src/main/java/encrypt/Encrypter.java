@@ -2,9 +2,12 @@ package encrypt;
 
 import org.jasypt.util.binary.BasicBinaryEncryptor;
 
+import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Author: Daniel
@@ -37,6 +40,21 @@ public class Encrypter {
         }
 
         return decrypted;
+    }
+
+    public static void chooseFileToEncrypt() throws IOException {
+        JFileChooser jChooser = new JFileChooser();
+        int result = jChooser.showOpenDialog(null);
+
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = jChooser.getSelectedFile();
+            String canonicalPath = selectedFile.getCanonicalPath();
+            Path oldPath = Paths.get(canonicalPath);
+
+            Path newPath = Paths.get(canonicalPath + "enc");
+
+            encryptFile(oldPath, newPath);
+        }
     }
 }
 
