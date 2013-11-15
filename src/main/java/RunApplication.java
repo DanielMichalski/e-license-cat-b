@@ -7,7 +7,7 @@ import java.awt.*;
  * Author: dmichalski
  * Date: 01.11.13
  */
-public class Main {
+public class RunApplication {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override

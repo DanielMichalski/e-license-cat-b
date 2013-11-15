@@ -21,7 +21,7 @@ import java.util.List;
 public class EncryptTest {
     public static void main(String[] args) throws IOException, InvalidFormatException {
 
-        List<StandardQuestion> allStandardQuestions =
+        /*List<StandardQuestion> allStandardQuestions =
                 CSVStandardQuestionDataProvider.getAllStandardQuestions();
         System.out.println(allStandardQuestions);
 
@@ -31,7 +31,9 @@ public class EncryptTest {
 
         List<Module> allModules = CSVModuleDataProvider.getAllModules();
         System.out.println(allModules);
+*/
 
 
+        Encrypter.chooseFileToEncrypt();
     }
 }
