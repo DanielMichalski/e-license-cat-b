@@ -2,10 +2,7 @@ package ui.exam.controller;
 
 import database.dao.QuestionsDao;
 import database.dao.TextsDao;
-import model.ABCAnswer;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
-import model.YesNoAnswer;
+import model.*;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import timer.SpecialistPartTimerCountdown;
 import timer.StandardPartTimerCountdown;
@@ -67,7 +64,7 @@ public class ExamPresenter {
 
     public void nextQuestion() {
         timer = new Timer();
-        long period = 1000;
+        long period = 50;
 
         try {
             actualStandardQuestion++;
@@ -171,9 +168,33 @@ public class ExamPresenter {
     }
 
 
-    public void showImage() {
-        examQuestionsLeftPanel.setImageName("Slajd117_ITS.jpg");
+    public void showMedia() {
+        MediaType mediaType;
+        String mediaPath;
+
+        String imageExtension = TextsDao.getText("imageFilesExtension");
+        String videoExtension = TextsDao.getText("videoFilesExtension");
+
+        if (isStandardPartCompleted) {
+            SpecialistQuestion specialistQuestion = specialistQuestions.get(actualSpecialistQuestion - 1);
+            mediaType = specialistQuestion.getMediaType();
+            mediaPath = specialistQuestion.getMediaPath();
+        } else {
+            StandardQuestion standardQuestion = standardQuestions.get(actualStandardQuestion - 1);
+            mediaType = standardQuestion.getMediaType();
+            mediaPath = standardQuestion.getMediaPath();
+        }
+
+        switch (mediaType) {
+            case IMAGE:
+                examQuestionsLeftPanel.setImageName(mediaPath + imageExtension);
+                break;
+            case VIDEO:
+                System.out.println("Tu będzie video: " + mediaPath + videoExtension);
+                break;
+        }
     }
+
 
     public void showWaitMedia() {
         if (!isStandardPartCompleted) {
@@ -310,6 +331,7 @@ public class ExamPresenter {
                 nextQuestion();
             }
         }
+
     }
 
     private void markBtn(JButton whichButtonToMark) {

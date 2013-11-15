@@ -10,7 +10,7 @@ public class SpecialistPartTimerCountdown extends TimerCountDown {
     private static final int HOW_MANY_SEC = 50;
 
     public SpecialistPartTimerCountdown(ExamPresenter presenter) {
-        super(presenter, 50);
+        super(presenter, HOW_MANY_SEC);
     }
 }
 

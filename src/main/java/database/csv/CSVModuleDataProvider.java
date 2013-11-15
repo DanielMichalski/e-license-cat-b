@@ -2,6 +2,7 @@ package database.csv;
 
 import com.csvreader.CsvReader;
 import database.columns.ModuleColumnNames;
+import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.Module;
 
@@ -22,11 +23,13 @@ public class CSVModuleDataProvider {
     public static List<Module> getAllModules() throws IOException {
         List<Module> modules = new ArrayList<Module>();
 
-        Path modulesPath = Paths.get("src/main/resources/csv/modules_enc");
+        Path modulesPath = Paths.get(TextsDao.getFileName("csv.modules"));
         byte[] bytesArray = Encrypter.decryptFile(modulesPath, null, false);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
         CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
+
+        csvReader.readHeaders();
 
         while (csvReader.readRecord()) {
             try {
