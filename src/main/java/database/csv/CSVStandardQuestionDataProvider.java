@@ -2,6 +2,7 @@ package database.csv;
 
 import com.csvreader.CsvReader;
 import database.columns.QuestionColumnNames;
+import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.MediaType;
 import model.Module;
@@ -19,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static database.columns.QuestionColumnNames.*;
-import static database.columns.QuestionColumnNames.Q_MEDIA_TYPE;
-import static database.columns.QuestionColumnNames.Q_SECOND_MEDIA_PATH;
 
 /**
  * Author: Daniel
@@ -33,7 +32,7 @@ public class CSVStandardQuestionDataProvider {
         List<StandardQuestion> standardQuestionList
                 = new ArrayList<StandardQuestion>();
 
-        Path questionsPath = Paths.get("src/main/resources/csv/questions_enc");
+        Path questionsPath = Paths.get(TextsDao.getFileName("csv.questions"));
         byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
@@ -43,7 +42,7 @@ public class CSVStandardQuestionDataProvider {
 
         while (csvReader.readRecord()) {
             try {
-                if (csvReader.get(Q_QUESTION_TYPE).equals("podstawowa")) {
+                if (csvReader.get(Q_QUESTION_TYPE).equals(TextsDao.getText("standardQuestion"))) {
                     int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
                     String question = csvReader.get(Q_QUESTION);
                     YesNoAnswer correctAnser = YesNoAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));

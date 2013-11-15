@@ -51,7 +51,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>RunApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
