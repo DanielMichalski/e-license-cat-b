@@ -4,7 +4,7 @@ import database.dao.TextsDao;
 import ui.exam.controller.ExamPresenter;
 import ui.exam.view.interfaces.WindowAutoSizer;
 import ui.exam.view.interfaces.WindowCloser;
-import util.Utils;
+import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +22,8 @@ public class ExamFrame extends JDialog implements WindowAutoSizer, WindowCloser 
     }
 
     private void setUpFrame() {
-        Utils.setNimbusLookAndFeel();
-        Utils.setApplicationIcon(this);
+        ApplicationUtils.setNimbusLookAndFeel();
+        ApplicationUtils.setApplicationIcon(this);
         setTitle(TextsDao.getText("view.ExamFrame.title"));
         setModal(true);
         setResizable(false);

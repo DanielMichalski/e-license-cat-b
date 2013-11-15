@@ -1,7 +1,7 @@
 package test.main;
 
 import ui.exam.view.ExamFrame;
-import util.Utils;
+import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class MainExam {
             @Override
             public void run() {
                 ExamFrame frame = new ExamFrame();
-                Utils.setApplicationIcon(frame);
+                ApplicationUtils.setApplicationIcon(frame);
                 frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 frame.setVisible(true);
             }

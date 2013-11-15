@@ -1,7 +1,7 @@
 package ui.main_menu.controller;
 
 import database.dao.TextsDao;
-import ui.dialogs.view.ShowInfoDialog;
+import ui.emax_info_dialog.view.ShowInfoDialog;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
