@@ -1,4 +1,4 @@
-package ui.dialogs.logic;
+package ui.emax_info_dialog.logic;
 
 /**
  * Author: Daniel

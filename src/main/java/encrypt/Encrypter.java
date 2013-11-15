@@ -42,18 +42,16 @@ public class Encrypter {
         return decrypted;
     }
 
-    public static void chooseFileToEncrypt() throws IOException {
-        JFileChooser jChooser = new JFileChooser();
-        int result = jChooser.showOpenDialog(null);
-
+    public static void enryptChoosenFile() throws IOException {
+        JFileChooser fChooser = new JFileChooser();
+        int result = fChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = jChooser.getSelectedFile();
-            String canonicalPath = selectedFile.getCanonicalPath();
-            Path oldPath = Paths.get(canonicalPath);
+            File selectedFile = fChooser.getSelectedFile();
 
-            Path newPath = Paths.get(canonicalPath + "enc");
+            Path oldFile = Paths.get(selectedFile.getAbsolutePath());
+            Path newFile = Paths.get(selectedFile.getAbsolutePath() + "-encrypted");
 
-            encryptFile(oldPath, newPath);
+            encryptFile(oldFile, newFile);
         }
     }
 }
