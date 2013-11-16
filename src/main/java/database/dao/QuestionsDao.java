@@ -2,8 +2,6 @@ package database.dao;
 
 import database.csv.CSVSpecialistQuestionDataProvider;
 import database.csv.CSVStandardQuestionDataProvider;
-import database.xls.XLSSpecialistQuestionDataProvider;
-import database.xls.XLSStandardQuestionDataProvider;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -17,7 +15,7 @@ import java.util.List;
  */
 public class QuestionsDao {
     public static List<StandardQuestion> get20StandardQuestion()
-            throws IOException, InvalidFormatException {
+            throws IOException {
         return CSVStandardQuestionDataProvider.get20StandardQuestions();
     }
 

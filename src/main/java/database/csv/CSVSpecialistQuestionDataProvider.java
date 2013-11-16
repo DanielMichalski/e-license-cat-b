@@ -14,8 +14,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,11 +30,11 @@ public class CSVSpecialistQuestionDataProvider {
         List<SpecialistQuestion> specialistQuestionList
                 = new ArrayList<SpecialistQuestion>();
 
-        Path questionsPath = Paths.get(TextsDao.getFileName("csv.questions"));
-        byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
+        InputStream resourceAsStream = CSVSpecialistQuestionDataProvider.class.getResourceAsStream("/csv/questions_enc");
+        byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
+        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
 
         csvReader.readHeaders();
 
