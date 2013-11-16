@@ -3,7 +3,7 @@ package ui.exam_result.view;
 import database.dao.TextsDao;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
-import ui.exam_result.controller.ExamResultPresenter;
+import ui.exam_result.logic.ExamResultPresenter;
 import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.ApplicationUtils;
 
@@ -49,6 +49,7 @@ public class ExamResultFrame extends JDialog implements WindowAutoSizer {
 
         presenter.setLeftPanel(leftPanel);
         presenter.setRightPanel(rightPanel);
+        rightPanel.getCloseBtnPanel().getCloseBtn().addActionListener(presenter.getCloseBtnListener(this));
 
         presenter.setUpPanels();
     }
