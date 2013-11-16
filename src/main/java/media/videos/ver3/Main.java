@@ -11,7 +11,6 @@ public class Main {
 
         VideoPanel videoPanel = frame.getmOnscreenPicture();
 
-
         VideoCodec videoCodec = new VideoCodec(videoPanel);
     }
 }

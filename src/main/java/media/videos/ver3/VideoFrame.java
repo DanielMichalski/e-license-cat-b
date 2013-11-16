@@ -12,8 +12,9 @@ public class VideoFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getContentPane().add(mOnscreenPicture);
         this.setVisible(true);
+        setLocationRelativeTo(null);
 
-        setSize(700, 500);
+        setSize(650, 390);
     }
 
     public VideoPanel getmOnscreenPicture() {

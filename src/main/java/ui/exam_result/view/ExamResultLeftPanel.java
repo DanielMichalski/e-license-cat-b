@@ -1,11 +1,11 @@
 package ui.exam_result.view;
 
 import database.dao.TextsDao;
+import media.images.ImageUtils;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Const;
-import media.images.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -42,7 +42,7 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        emptyBorder = BorderFactory.createEmptyBorder(10, 5, 10, 10);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);

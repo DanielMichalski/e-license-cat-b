@@ -1,9 +1,9 @@
 package ui.exam_result.view.balls;
 
-import model.SpecialistQuestion;
-import ui.exam_result.controller.ExamResultPresenter;
-import util.Const;
 import media.images.IconUtils;
+import model.SpecialistQuestion;
+import ui.exam_result.logic.ExamResultPresenter;
+import util.Const;
 
 import javax.swing.*;
 import java.awt.*;
