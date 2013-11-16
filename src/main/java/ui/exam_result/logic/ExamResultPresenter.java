@@ -1,5 +1,6 @@
-package ui.exam_result.controller;
+package ui.exam_result.logic;
 
+import database.dao.TextsDao;
 import model.ABCAnswer;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
@@ -7,6 +8,9 @@ import model.YesNoAnswer;
 import ui.exam_result.view.ExamResultLeftPanel;
 import ui.exam_result.view.ExamResultRightPanel;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 /**
@@ -97,6 +101,30 @@ public class ExamResultPresenter {
 
         leftPanel.setBtnABCTexts(answerA, answerB, answerC);
         leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
+    }
+
+    public ActionListener getCloseBtnListener(final JDialog dialog) {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showCloseConfirmDialog(dialog);
+            }
+        };
+    }
+
+    private void showCloseConfirmDialog(JDialog dialog) {
+        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
+        UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
+        int answer = JOptionPane.showConfirmDialog(
+                null,
+                TextsDao.getText("view.examResultConfirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            dialog.dispose();
+        }
     }
 
     public void changePanelToStandardPanel() {

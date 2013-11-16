@@ -1,4 +1,4 @@
-package ui.exam.controller;
+package ui.exam.logic;
 
 import database.dao.QuestionsDao;
 import database.dao.TextsDao;
@@ -41,6 +41,7 @@ public class ExamPresenter {
     private JLabel timerLbl;
 
     private ExamQuestionsLeftPanel examQuestionsLeftPanel;
+    private ExamPointsRightPanel.CloseBtnPanel closeBtnPanel;
     private ExamPointsRightPanel.BasicPartPanel basicPartPanel;
     private ExamPointsRightPanel.SpecjalistPartPanel specjalistPartPanel;
     private ExamPointsRightPanel.TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
@@ -64,7 +65,7 @@ public class ExamPresenter {
 
     public void nextQuestion() {
         timer = new Timer();
-        long period = 50;
+        long period = 1000;
 
         try {
             actualStandardQuestion++;
@@ -150,21 +151,34 @@ public class ExamPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
-                UIManager.put("noButtonLbl", TextsDao.getText("noButtonLbl"));
-                int answer = JOptionPane.showConfirmDialog(
-                        null,
-                        TextsDao.getText("view.examFramConfirmDialog.message"),
-                        TextsDao.getText("view.confirmDialog.title"),
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                if (answer == JOptionPane.YES_OPTION) {
-                    breakExam();
-                    dialog.dispose();
-                }
+                showCloseConfirmDialog(dialog);
             }
         };
+    }
+
+    public ActionListener getCloseBtnListener(final JDialog dialog) {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showCloseConfirmDialog(dialog);
+            }
+        };
+    }
+
+    private void showCloseConfirmDialog(JDialog dialog) {
+        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
+        UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
+        int answer = JOptionPane.showConfirmDialog(
+                null,
+                TextsDao.getText("view.examFramConfirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            breakExam();
+            dialog.dispose();
+        }
     }
 
 
@@ -284,6 +298,7 @@ public class ExamPresenter {
 
         LOGGER.info(text);
     }
+
 
     class YesBtnListener implements ActionListener {
         @Override

@@ -1,7 +1,7 @@
 package ui.exam.view;
 
 import database.dao.TextsDao;
-import ui.exam.controller.ExamPresenter;
+import ui.exam.logic.ExamPresenter;
 import ui.exam.view.interfaces.WindowAutoSizer;
 import ui.exam.view.interfaces.WindowCloser;
 import util.ApplicationUtils;
@@ -19,6 +19,8 @@ public class ExamFrame extends JDialog implements WindowAutoSizer, WindowCloser 
         initializeComponents();
         pack();
         setLocationRelativeTo(null);
+
+        System.out.println(getSize());
     }
 
     private void setUpFrame() {
@@ -39,9 +41,10 @@ public class ExamFrame extends JDialog implements WindowAutoSizer, WindowCloser 
         add(examResultPanel, BorderLayout.EAST);
 
         addWindowListener(presenter.getWindowListener(this));
+        examResultPanel.getCloseBtnPanel().getCloseBtn().addActionListener(presenter.getCloseBtnListener(this));
 
         presenter.setExamQuestionsLeftPanel(examQuestionsPanel);
-        presenter.setBasicPartPanel(examResultPanel.getStandardPartPanel());
+        presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
         presenter.setSpecjalistPartPanel(examResultPanel.getSpecjalistPartPanel());
         presenter.setTimeAndBtnConfirmPanel(examResultPanel.getTimeAndBtnConfirmPanel());
 
