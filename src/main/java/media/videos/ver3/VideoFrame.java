@@ -15,6 +15,17 @@ public class VideoFrame extends JFrame {
         setLocationRelativeTo(null);
 
         setSize(650, 390);
+
+        VideoPanel videoPanel = getmOnscreenPicture();
+
+        VideoCodec videoCodec = new VideoCodec(videoPanel, "PICT0577_ZS_ITS.mp4");
+
+        remove(videoPanel);
+
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Ok"));
+        add(panel);
+        revalidate();
     }
 
     public VideoPanel getmOnscreenPicture() {

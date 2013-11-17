@@ -1,9 +1,11 @@
 package ui.exam.view;
 
 import database.dao.TextsDao;
+import media.images.ImageUtils;
+import media.videos.ver3.VideoCodec;
+import media.videos.ver3.VideoPanel;
 import ui.exam.view.interfaces.WindowAutoSizer;
 import util.Const;
-import media.images.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -132,6 +134,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setFocusable(false);
         return button;
     }
 
@@ -162,19 +165,20 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void showWaitImageImage() {
+        imagePanel.removeAll();
         String imgFileName = TextsDao.getFileName("img.wait_photo");
         ImageIcon image = ImageUtils.getProgramImage(imgFileName);
         imagePanel.remove(imageLabel);
-        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel = new JLabel("", image, JLabel.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         imagePanel.add(imageLabel);
     }
 
     public void showWaitVideoImage() {
+        imagePanel.removeAll();
         String imgFileName = TextsDao.getFileName("img.wait_video");
         ImageIcon image = ImageUtils.getProgramImage(imgFileName);
-        imagePanel.remove(imageLabel);
-        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel = new JLabel("", image, JLabel.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         imagePanel.add(imageLabel);
     }
@@ -182,14 +186,33 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void setImageName(String imageName) {
         try {
             ImageIcon image = ImageUtils.getQuestionImage(imageName);
-            imagePanel.remove(imageLabel);
-            imageLabel = new JLabel("", image, JLabel.LEADING);
+            imagePanel.removeAll();
+            imageLabel = new JLabel("", image, JLabel.CENTER);
             imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             imagePanel.add(imageLabel);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
+    public void setVideoName(final String videoName) {
+        imagePanel.removeAll();
+        final VideoPanel videoPanel = new VideoPanel();
+        videoPanel.setPreferredSize(Const.Dimensions.VIDEO_SIZE);
+        videoPanel.setMinimumSize(Const.Dimensions.VIDEO_SIZE);
+        videoPanel.setMaximumSize(Const.Dimensions.VIDEO_SIZE);
+        imagePanel.add(videoPanel);
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                VideoCodec videoCodec =
+                        new VideoCodec(videoPanel, videoName);
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     public void enableAllBtns() {
@@ -227,6 +250,4 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JButton getBtnC() {
         return btnC;
     }
-
-
 }

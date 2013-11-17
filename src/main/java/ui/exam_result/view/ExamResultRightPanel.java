@@ -76,6 +76,7 @@ public class ExamResultRightPanel extends JPanel {
             closeBtn.setMaximumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
             closeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
             closeBtn.setFocusable(false);
+            closeBtn.setFocusable(false);
             return closeBtn;
         }
 
