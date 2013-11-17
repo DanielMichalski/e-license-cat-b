@@ -64,7 +64,7 @@ public class ExamPresenter {
 
     public void nextQuestion() {
         timer = new Timer();
-        long period = 50;
+        long period = 1000;
 
         try {
             actualStandardQuestion++;
