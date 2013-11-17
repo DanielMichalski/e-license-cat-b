@@ -204,6 +204,7 @@ public class ExamPresenter {
                 examQuestionsLeftPanel.setImageName(mediaPath + imageExtension);
                 break;
             case VIDEO:
+                examQuestionsLeftPanel.setVideoName(mediaPath + videoExtension);
                 System.out.println("Tu będzie video: " + mediaPath + videoExtension);
                 break;
         }
