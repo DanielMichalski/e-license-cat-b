@@ -1,10 +1,7 @@
 package ui.exam_result.logic;
 
 import database.dao.TextsDao;
-import model.ABCAnswer;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
-import model.YesNoAnswer;
+import model.*;
 import ui.exam_result.view.ExamResultLeftPanel;
 import ui.exam_result.view.ExamResultRightPanel;
 
@@ -75,29 +72,53 @@ public class ExamResultPresenter {
     }
 
     public void setNumberOfStandardQuestion(int numOfQuestion) {
-        YesNoAnswer userAnswer = standardQuestions.get(numOfQuestion - 1).getUserAnswer();
-        YesNoAnswer correctAnswer = standardQuestions.get(numOfQuestion - 1).getCorrectAnswer();
+        StandardQuestion question = standardQuestions.get(numOfQuestion - 1);
+        MediaType mediaType = question.getMediaType();
 
-        leftPanel.setImageName("Slajd117_ITS.jpg");
-        leftPanel.setQestion(standardQuestions.get(numOfQuestion - 1).getQuestion());
+        YesNoAnswer userAnswer = question.getUserAnswer();
+        YesNoAnswer correctAnswer = question.getCorrectAnswer();
 
-        rightPanel.setHowManyQuestionPoints(standardQuestions.get(numOfQuestion - 1).getPoints());
+        String mediaPath = question.getMediaPath();
+        switch (mediaType) {
+            case IMAGE:
+                leftPanel.setImageName(mediaPath);
+                break;
+            case VIDEO:
+                leftPanel.setVideoName(mediaPath);
+                break;
+        }
+
+        leftPanel.setQestion(question.getQuestion());
+
+        rightPanel.setHowManyQuestionPoints(question.getPoints());
 
         leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
     }
 
     public void setNumberOfSpecialistQuestion(int numOfQuestion) {
-        String answerA = specialistQuestions.get(numOfQuestion - 1).getAnswerA();
-        String answerB = specialistQuestions.get(numOfQuestion - 1).getAnswerB();
-        String answerC = specialistQuestions.get(numOfQuestion - 1).getAnswerC();
+        SpecialistQuestion question = specialistQuestions.get(numOfQuestion - 1);
+        MediaType mediaType = question.getMediaType();
 
-        ABCAnswer userAnswer = specialistQuestions.get(numOfQuestion - 1).getUserAnswer();
-        ABCAnswer correctAnswer = specialistQuestions.get(numOfQuestion - 1).getCorrectAnswer();
+        String answerA = question.getAnswerA();
+        String answerB = question.getAnswerB();
+        String answerC = question.getAnswerC();
 
-        leftPanel.setImageName("Slajd117_ITS.jpg");
-        leftPanel.setQestion(specialistQuestions.get(numOfQuestion - 1).getQuestion());
+        ABCAnswer userAnswer = question.getUserAnswer();
+        ABCAnswer correctAnswer = question.getCorrectAnswer();
 
-        rightPanel.setHowManyQuestionPoints(specialistQuestions.get(numOfQuestion - 1).getPoints());
+        String mediaPath = question.getMediaPath();
+        switch (mediaType) {
+            case IMAGE:
+                leftPanel.setImageName(mediaPath);
+                break;
+            case VIDEO:
+                leftPanel.setVideoName(mediaPath);
+                break;
+        }
+
+        leftPanel.setQestion(question.getQuestion());
+
+        rightPanel.setHowManyQuestionPoints(question.getPoints());
 
         leftPanel.setBtnABCTexts(answerA, answerB, answerC);
         leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
