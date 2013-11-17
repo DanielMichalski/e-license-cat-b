@@ -5,11 +5,11 @@ import com.xuggle.xuggler.*;
 import java.awt.image.BufferedImage;
 
 public class VideoCodec {
-    public VideoCodec(VideoPanel videoPanel) {
+    public VideoCodec(VideoPanel videoPanel, String videoName) {
         {
             this.videoPanel = videoPanel;
 
-            String filename = "src/main/resources/videos/PICT0577_ZS_ITS.mp4";
+            String filename = "src/main/resources/videos/" + videoName;
 
             // Let's make sure that we can actually convert video pixel formats.
             if (!IVideoResampler.isSupported(

@@ -176,6 +176,7 @@ public class ExamPointsRightPanel extends JPanel {
             button.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
             button.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.setFocusable(false);
             return button;
         }
 
