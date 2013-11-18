@@ -2,8 +2,8 @@ package ui.exam_result.view;
 
 import database.dao.TextsDao;
 import media.images.ImageUtils;
-import media.videos.ver3.VideoCodec;
-import media.videos.ver3.VideoPanel;
+import media.videos.VideoCodec;
+import media.videos.VideoPanel;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.exam_result.view.interfaces.WindowAutoSizer;
@@ -240,7 +240,7 @@ public class ExamResultLeftPanel extends JPanel {
             imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             imagePanel.add(imageLabel);
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         }
     }
 

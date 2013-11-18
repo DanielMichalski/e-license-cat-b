@@ -11,12 +11,15 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Author: Daniel
  * Date: 12.11.13.
  */
 public class CSVModuleDataProvider {
+    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+
     public static List<Module> getAllModules() throws IOException {
         List<Module> modules = new ArrayList<Module>();
 
@@ -36,7 +39,8 @@ public class CSVModuleDataProvider {
 
                 Module module = new Module(moduleId, moduleName);
                 modules.add(module);
-            } catch (NumberFormatException ignored) {
+            } catch (NumberFormatException e) {
+                LOGGER.warning(e.toString());
             }
         }
         csvReader.close();
