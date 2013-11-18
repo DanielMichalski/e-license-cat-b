@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static database.columns.QuestionColumnNames.*;
 
@@ -23,6 +24,8 @@ import static database.columns.QuestionColumnNames.*;
  * Date: 12.11.13.
  */
 public class CSVStandardQuestionDataProvider {
+    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+
     public static List<StandardQuestion> getAllStandardQuestions()
             throws IOException {
 
@@ -72,9 +75,9 @@ public class CSVStandardQuestionDataProvider {
 
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             }
         }
 
