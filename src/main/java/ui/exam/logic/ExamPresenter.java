@@ -57,9 +57,9 @@ public class ExamPresenter {
             this.standardQuestions = QuestionsDao.get20StandardQuestion();
             this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         } catch (InvalidFormatException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         }
     }
 

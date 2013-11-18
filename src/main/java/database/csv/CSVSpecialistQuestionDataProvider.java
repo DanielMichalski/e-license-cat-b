@@ -16,6 +16,7 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static database.columns.QuestionColumnNames.*;
 
@@ -24,6 +25,8 @@ import static database.columns.QuestionColumnNames.*;
  * Date: 12.11.13.
  */
 public class CSVSpecialistQuestionDataProvider {
+    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+
     public static List<SpecialistQuestion> getAllSpecialistQuestions()
             throws IOException, InvalidFormatException {
 
@@ -75,9 +78,9 @@ public class CSVSpecialistQuestionDataProvider {
                     specialistQuestionList.add(specialistQuestion);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             }
         }
 
