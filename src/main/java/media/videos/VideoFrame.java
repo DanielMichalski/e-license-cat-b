@@ -1,4 +1,4 @@
-package media.videos.ver3;
+package media.videos;
 
 import javax.swing.*;
 
