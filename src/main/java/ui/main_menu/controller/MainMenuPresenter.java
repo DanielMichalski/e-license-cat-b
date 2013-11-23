@@ -2,6 +2,7 @@ package ui.main_menu.controller;
 
 import database.dao.TextsDao;
 import ui.emax_info_dialog.view.ShowInfoDialog;
+import ui.main_menu.view.IMinimalize;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,11 +13,16 @@ import java.awt.event.ActionListener;
  * Date: 01.11.13
  */
 public class MainMenuPresenter {
+    private IMinimalize iMinimalize;
+
+    public MainMenuPresenter(IMinimalize iMinimalize) {
+        this.iMinimalize = iMinimalize;
+    }
 
     class StartExamActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ShowInfoDialog dialog = new ShowInfoDialog(true);
+            ShowInfoDialog dialog = new ShowInfoDialog(true, iMinimalize);
             dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         }
@@ -25,7 +31,7 @@ public class MainMenuPresenter {
     class ShowInfoAboutExam implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            ShowInfoDialog dialog = new ShowInfoDialog(false);
+            ShowInfoDialog dialog = new ShowInfoDialog(false, iMinimalize);
             dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             dialog.setVisible(true);
         }

@@ -145,6 +145,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         button.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setFocusable(false);
         return button;
     }
 

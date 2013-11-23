@@ -136,6 +136,7 @@ public class ExamResultLeftPanel extends JPanel {
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setFocusable(false);
         return button;
     }
 

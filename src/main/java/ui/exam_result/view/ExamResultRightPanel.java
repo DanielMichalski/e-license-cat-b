@@ -65,17 +65,16 @@ public class ExamResultRightPanel extends JPanel {
         public CloseBtnPanel() {
             setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
-            add(createConfirmBtn());
+            add(createCloseBtn());
         }
 
-        private JButton createConfirmBtn() {
+        private JButton createCloseBtn() {
             closeBtn = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
             closeBtn.setFont(Const.Fonts.BTN_CLOSE_FONT);
             closeBtn.setPreferredSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
             closeBtn.setMinimumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
             closeBtn.setMaximumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
             closeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-            closeBtn.setFocusable(false);
             closeBtn.setFocusable(false);
             return closeBtn;
         }
