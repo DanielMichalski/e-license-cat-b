@@ -2,8 +2,9 @@ package ui.emax_info_dialog.view;
 
 import database.dao.TextsDao;
 import media.images.ImageUtils;
+import ui.emax_info_dialog.logic.IWindowCloser;
 import ui.emax_info_dialog.logic.ShowInfoPresenter;
-import ui.emax_info_dialog.logic.WindowCloser;
+import ui.main_menu.view.IMinimalize;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,12 +13,14 @@ import java.awt.*;
  * Author: dmichalski
  * Date: 02.11.13
  */
-public class ShowInfoDialog extends JDialog implements WindowCloser {
+public class ShowInfoDialog extends JDialog implements IWindowCloser {
     private boolean startExamAfterRead;
+    private IMinimalize iMinimalize;
     private ShowInfoPresenter presenter;
 
-    public ShowInfoDialog(boolean startExamAfterRead) {
+    public ShowInfoDialog(boolean startExamAfterRead, IMinimalize iMinimalize) {
         this.startExamAfterRead = startExamAfterRead;
+        this.iMinimalize = iMinimalize;
         this.presenter = new ShowInfoPresenter();
 
         setUpDialog();
@@ -69,13 +72,15 @@ public class ShowInfoDialog extends JDialog implements WindowCloser {
             startBtn = new JButton(TextsDao.getText(
                     "views.ShowInfoAboutExam.startBtn.text"));
 
-            startBtn.addActionListener(presenter.getStartExamListener(this));
+            startBtn.addActionListener(presenter.getStartExamListener(this, iMinimalize));
         } else {
             startBtn = new JButton(TextsDao.getText("" +
                     "views.ShowInfoAboutExam.closeBtn.text"));
 
             startBtn.addActionListener(presenter.getCloseAboutExamListener(this));
         }
+
+        startBtn.setFocusable(false);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.WHITE);
