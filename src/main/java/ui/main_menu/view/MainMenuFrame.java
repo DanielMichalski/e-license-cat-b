@@ -13,7 +13,7 @@ import java.awt.event.WindowEvent;
  * Author: dmichalski
  * Date: 01.11.13
  */
-public class MainMenuFrame extends JFrame {
+public class MainMenuFrame extends JFrame implements IMinimalize {
 
     private JMenuItem startExamMenuItem;
     private JMenuItem closeMenuItem;
@@ -32,7 +32,7 @@ public class MainMenuFrame extends JFrame {
     }
 
     private void initializeComponents() {
-        final MainMenuPresenter presenter = new MainMenuPresenter();
+        final MainMenuPresenter presenter = new MainMenuPresenter(this);
 
         MainMenuPanel mainPanel = new MainMenuPanel();
         add(mainPanel, BorderLayout.CENTER);
@@ -68,5 +68,10 @@ public class MainMenuFrame extends JFrame {
         fileMenu.add(closeMenuItem);
 
         return menuBar;
+    }
+
+    @Override
+    public void minimalize() {
+        setState(Frame.ICONIFIED);
     }
 }
