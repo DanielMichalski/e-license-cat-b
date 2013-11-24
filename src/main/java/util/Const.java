@@ -37,8 +37,8 @@ public class Const {
         Dimension EXAM_CLOSE_BTN_SIZE = new Dimension(230, 35);
         Dimension HOW_MANY_POINTS_LBL = new Dimension(230, 50);
         Dimension MAIN_MENUBTN_SIZE = new Dimension(280, 86);
-        Dimension IMAGE_SIZE = new Dimension(640, 360);
-        Dimension VIDEO_SIZE = new Dimension(640, 360);
+        Dimension IMAGE_SIZE = new Dimension(533, 288);
+        Dimension VIDEO_SIZE = new Dimension(533, 288);
 
     }
 }
