@@ -1,12 +1,11 @@
 package ui.emax_info_dialog.logic;
 
-import ui.exam.view.ExamFrame;
+import ui.login.view.LoginFrame;
 import ui.main_menu.view.IMinimalize;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
  * Author: Daniel
@@ -20,9 +19,10 @@ public class ShowInfoPresenter {
             public void actionPerformed(ActionEvent e) {
                 iMinimalize.minimalize();
                 windowCloser.close();
-                ExamFrame examFrame = new ExamFrame();
-                examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-                examFrame.setVisible(true);
+
+                LoginFrame loginFrame = new LoginFrame();
+                loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                loginFrame.setVisible(true);
             }
         };
     }
