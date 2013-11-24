@@ -15,9 +15,14 @@ import java.awt.*;
  */
 public class ExamFrame extends JDialog implements WindowAutoSizer, WindowCloser {
     public ExamFrame() {
+        System.out.println(System.getProperty("firstName"));
+        System.out.println(System.getProperty("lastName"));
+        System.out.println(System.getProperty("pesel"));
+
+
+        setSize(new Dimension(953, 670));
         setUpFrame();
         initializeComponents();
-        pack();
         setLocationRelativeTo(null);
 
         System.out.println(getSize());
