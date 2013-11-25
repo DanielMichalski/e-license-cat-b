@@ -48,8 +48,10 @@ public class ApplicationUtils {
         owner.setIconImage(iconImage.getImage());
     }
 
-    public static Dimension getScreenResolution() {
+    public static void checkResolution() {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        return toolkit.getScreenSize();
+        Dimension resolution = toolkit.getScreenSize();
+        String text = String.format("Rodzielczość ekranu: %d x %d", resolution.width, resolution.height);
+        System.out.println(text);
     }
 }

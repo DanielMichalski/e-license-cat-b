@@ -21,6 +21,5 @@ public class MainExam {
                 frame.setVisible(true);
             }
         });
-
     }
 }

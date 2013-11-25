@@ -30,6 +30,10 @@ public class IconUtils {
         return getImageIcon(TextsDao.getFileName("img.point_bad"));
     }
 
+    public static ImageIcon getPreloaderIcon() {
+        return getImageIcon(TextsDao.getFileName("img.preloader"));
+    }
+
     public static ImageIcon getImageIcon(String fileName) {
         String iconsFolder = "/program_images/";
         URL imageSrc = IconUtils.class.getResource(iconsFolder + fileName);
