@@ -4,7 +4,6 @@ import database.dao.TextsDao;
 import media.images.ImageUtils;
 import media.videos.VideoCodec;
 import media.videos.VideoPanel;
-import ui.exam.view.interfaces.WindowAutoSizer;
 import util.Const;
 
 import javax.swing.*;
@@ -30,11 +29,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private JButton btnB;
     private JButton btnC;
 
-    private WindowAutoSizer validateWindowSize;
     private Border emptyBorder;
 
-    public ExamQuestionsLeftPanel(WindowAutoSizer validateWindowSize) {
-        this.validateWindowSize = validateWindowSize;
+    public ExamQuestionsLeftPanel() {
         setUpPanel();
         initializeComponents();
     }
@@ -98,13 +95,15 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
+        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
 
-        buttonPanel.add(yesBtn);
         buttonPanel.add(noBtn);
+        buttonPanel.add(yesBtn);
 
         return buttonPanel;
     }
@@ -114,7 +113,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
         btnA = createABCBtn();
@@ -134,6 +132,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setFocusable(false);
         return button;
     }
@@ -162,7 +161,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void changePanelFromStandarToSpecial() {
         remove(yesNoBtnPanel);
         add(abcBtnPanel);
-        validateWindowSize.autoSize();
     }
 
     public void showWaitImageImage() {
