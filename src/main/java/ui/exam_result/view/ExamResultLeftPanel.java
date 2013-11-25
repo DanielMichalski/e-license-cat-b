@@ -6,7 +6,6 @@ import media.videos.VideoCodec;
 import media.videos.VideoPanel;
 import model.ABCAnswer;
 import model.YesNoAnswer;
-import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Const;
 
 import javax.swing.*;
@@ -19,7 +18,6 @@ import java.io.IOException;
  * Date: 08.11.13
  */
 public class ExamResultLeftPanel extends JPanel {
-    private WindowAutoSizer windowAutoSizer;
 
     private JPanel imagePanel;
     private JPanel abcBtnPanel;
@@ -36,8 +34,7 @@ public class ExamResultLeftPanel extends JPanel {
 
     private Border emptyBorder;
 
-    public ExamResultLeftPanel(WindowAutoSizer windowAutoSizer) {
-        this.windowAutoSizer = windowAutoSizer;
+    public ExamResultLeftPanel() {
 
         setUpPanel();
         initializeComponents();
@@ -100,13 +97,15 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
+        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
 
-        buttonPanel.add(yesBtn);
         buttonPanel.add(noBtn);
+        buttonPanel.add(yesBtn);
 
         return buttonPanel;
     }
@@ -224,13 +223,13 @@ public class ExamResultLeftPanel extends JPanel {
     public void changePanelToStandardPanel() {
         remove(abcBtnPanel);
         add(yesNoBtnPanel);
-        windowAutoSizer.autoSize();
+        repaint();
     }
 
     public void changePanelToSpecialistPanel() {
         remove(yesNoBtnPanel);
         add(abcBtnPanel);
-        windowAutoSizer.autoSize();
+        repaint();
     }
 
     public void setImageName(String imageName) {
