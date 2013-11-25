@@ -15,7 +15,8 @@ import java.awt.*;
  * Date: 03.11.13
  */
 public class ExamPointsRightPanel extends JPanel {
-    private BasicPartPanel standardPartPanel;
+    private CloseBtnPanel closeBtnPanel;
+    private BasicPartPanel basicPartPanel;
     private SpecjalistPartPanel specjalistPartPanel;
     private TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
 
@@ -28,18 +29,45 @@ public class ExamPointsRightPanel extends JPanel {
         BoxLayout layout =
                 new BoxLayout(ExamPointsRightPanel.this, BoxLayout.Y_AXIS);
         setLayout(layout);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
     }
 
     private void initializeComponents() {
-        standardPartPanel = new BasicPartPanel();
+        closeBtnPanel = new CloseBtnPanel();
+        basicPartPanel = new BasicPartPanel();
         specjalistPartPanel = new SpecjalistPartPanel();
         timeAndBtnConfirmPanel = new TimeAndBtnConfirmPanel();
 
-        add(standardPartPanel);
+        add(closeBtnPanel);
+        add(basicPartPanel);
         add(specjalistPartPanel);
         add(timeAndBtnConfirmPanel);
+    }
+
+    public class CloseBtnPanel extends JPanel {
+        private JButton closeBtn;
+
+        public CloseBtnPanel() {
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+
+            add(createConfirmBtn());
+        }
+
+        private JButton createConfirmBtn() {
+            closeBtn = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
+            closeBtn.setFont(Const.Fonts.BTN_CLOSE_FONT);
+            closeBtn.setPreferredSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
+            closeBtn.setMinimumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
+            closeBtn.setMaximumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
+            closeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            closeBtn.setFocusable(false);
+            return closeBtn;
+        }
+
+        public JButton getCloseBtn() {
+            return closeBtn;
+        }
     }
 
     public class BasicPartPanel extends JPanel {
@@ -125,6 +153,7 @@ public class ExamPointsRightPanel extends JPanel {
             add(confirmBtn);
             add(Box.createRigidArea(new Dimension(0, 10)));
             add(howManyPointsLbl);
+            add(Box.createRigidArea(new Dimension(0, 10)));
         }
 
         private JLabel createTimerLbl() {
@@ -147,6 +176,7 @@ public class ExamPointsRightPanel extends JPanel {
             button.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
             button.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
+            button.setFocusable(false);
             return button;
         }
 
@@ -154,11 +184,7 @@ public class ExamPointsRightPanel extends JPanel {
             JLabel howManyPointsLbl = new JLabel();
             howManyPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
             howManyPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            howManyPointsLbl.setPreferredSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
-            howManyPointsLbl.setMinimumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
-            howManyPointsLbl.setMaximumSize(Const.Dimensions.EXAM_CONFIRM_BTN_SIZE);
             howManyPointsLbl.setFont(Const.Fonts.TEXTS_FONT);
-            howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.HOW_MANY_POINTS_BORDER_COLOR));
             return howManyPointsLbl;
         }
 
@@ -175,8 +201,12 @@ public class ExamPointsRightPanel extends JPanel {
         }
     }
 
-    public BasicPartPanel getStandardPartPanel() {
-        return standardPartPanel;
+    public CloseBtnPanel getCloseBtnPanel() {
+        return closeBtnPanel;
+    }
+
+    public BasicPartPanel getBasicPartPanel() {
+        return basicPartPanel;
     }
 
     public SpecjalistPartPanel getSpecjalistPartPanel() {

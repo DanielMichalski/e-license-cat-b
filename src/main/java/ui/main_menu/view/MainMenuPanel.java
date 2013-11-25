@@ -1,8 +1,8 @@
 package ui.main_menu.view;
 
 import database.dao.TextsDao;
-import util.Const;
 import media.images.ImageUtils;
+import util.Const;
 
 import javax.swing.*;
 import java.awt.*;
@@ -52,6 +52,7 @@ public class MainMenuPanel extends JPanel {
         button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
         button.setForeground(Color.darkGray);
         button.setIcon(imageIcon);
+        button.setFocusable(false);
         return button;
     }
 

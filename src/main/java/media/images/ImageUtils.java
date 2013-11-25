@@ -1,5 +1,7 @@
 package media.images;
 
+import util.Const;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,8 +13,6 @@ import java.net.URL;
  * Date: 10.11.13.
  */
 public class ImageUtils {
-    public static final int IMAGE_WIDTH = 640;
-    public static final int IMAGE_HEIGHT = 360;
 
     public static ImageIcon getQuestionImage(String imageFileName)
             throws IOException {
@@ -38,8 +38,8 @@ public class ImageUtils {
         Image image = imageIcon.getImage();
 
         Image scaledInstance = image.getScaledInstance(
-                IMAGE_WIDTH,
-                IMAGE_HEIGHT,
+                Const.Dimensions.IMAGE_SIZE.width,
+                Const.Dimensions.IMAGE_SIZE.height,
                 BufferedImage.SCALE_DEFAULT);
 
         return new ImageIcon(scaledInstance);

@@ -3,8 +3,7 @@ package ui.exam_result.view;
 import database.dao.TextsDao;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
-import ui.exam_result.controller.ExamResultPresenter;
-import ui.exam_result.view.interfaces.WindowAutoSizer;
+import ui.exam_result.logic.ExamResultPresenter;
 import util.ApplicationUtils;
 
 import javax.swing.*;
@@ -15,9 +14,13 @@ import java.util.List;
  * Author: Daniel
  * Date: 08.11.13
  */
-public class ExamResultFrame extends JDialog implements WindowAutoSizer {
+public class ExamResultFrame extends JDialog {
+
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
+
+    public static final int WIDTH = 953;
+    public static final int HEIGHT = 670;
 
     public ExamResultFrame(List<StandardQuestion> standardQuestions,
                            List<SpecialistQuestion> specialistQuestions) {
@@ -27,13 +30,13 @@ public class ExamResultFrame extends JDialog implements WindowAutoSizer {
 
         setUpFrame();
         initializeComponents();
-        pack();
         setLocationRelativeTo(null);
     }
 
     private void setUpFrame() {
         setTitle(TextsDao.getText("view.ExamResultFrame.title"));
         ApplicationUtils.setApplicationIcon(this);
+        setSize(WIDTH, HEIGHT);
         setModal(true);
         setResizable(false);
     }
@@ -41,7 +44,7 @@ public class ExamResultFrame extends JDialog implements WindowAutoSizer {
     private void initializeComponents() {
         ExamResultPresenter presenter = new ExamResultPresenter(standardQuestions, specialistQuestions);
 
-        ExamResultLeftPanel leftPanel = new ExamResultLeftPanel(this);
+        ExamResultLeftPanel leftPanel = new ExamResultLeftPanel();
         ExamResultRightPanel rightPanel = new ExamResultRightPanel(presenter, standardQuestions, specialistQuestions);
 
         add(leftPanel, BorderLayout.CENTER);
@@ -49,12 +52,8 @@ public class ExamResultFrame extends JDialog implements WindowAutoSizer {
 
         presenter.setLeftPanel(leftPanel);
         presenter.setRightPanel(rightPanel);
+        rightPanel.getCloseBtnPanel().getCloseBtn().addActionListener(presenter.getCloseBtnListener(this));
 
         presenter.setUpPanels();
-    }
-
-    @Override
-    public void autoSize() {
-        pack();
     }
 }

@@ -1,9 +1,10 @@
 package ui.exam.view;
 
 import database.dao.TextsDao;
-import ui.exam.view.interfaces.WindowAutoSizer;
-import util.Const;
 import media.images.ImageUtils;
+import media.videos.VideoCodec;
+import media.videos.VideoPanel;
+import util.Const;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -28,11 +29,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private JButton btnB;
     private JButton btnC;
 
-    private WindowAutoSizer validateWindowSize;
     private Border emptyBorder;
 
-    public ExamQuestionsLeftPanel(WindowAutoSizer validateWindowSize) {
-        this.validateWindowSize = validateWindowSize;
+    public ExamQuestionsLeftPanel() {
         setUpPanel();
         initializeComponents();
     }
@@ -96,13 +95,15 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
+        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
 
-        buttonPanel.add(yesBtn);
         buttonPanel.add(noBtn);
+        buttonPanel.add(yesBtn);
 
         return buttonPanel;
     }
@@ -112,7 +113,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
         btnA = createABCBtn();
@@ -132,6 +132,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setFocusable(false);
         return button;
     }
 
@@ -142,6 +144,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         button.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setFocusable(false);
         return button;
     }
 
@@ -158,23 +161,23 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void changePanelFromStandarToSpecial() {
         remove(yesNoBtnPanel);
         add(abcBtnPanel);
-        validateWindowSize.autoSize();
     }
 
     public void showWaitImageImage() {
+        imagePanel.removeAll();
         String imgFileName = TextsDao.getFileName("img.wait_photo");
         ImageIcon image = ImageUtils.getProgramImage(imgFileName);
         imagePanel.remove(imageLabel);
-        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel = new JLabel("", image, JLabel.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         imagePanel.add(imageLabel);
     }
 
     public void showWaitVideoImage() {
+        imagePanel.removeAll();
         String imgFileName = TextsDao.getFileName("img.wait_video");
         ImageIcon image = ImageUtils.getProgramImage(imgFileName);
-        imagePanel.remove(imageLabel);
-        imageLabel = new JLabel("", image, JLabel.LEADING);
+        imageLabel = new JLabel("", image, JLabel.CENTER);
         imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         imagePanel.add(imageLabel);
     }
@@ -182,14 +185,33 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void setImageName(String imageName) {
         try {
             ImageIcon image = ImageUtils.getQuestionImage(imageName);
-            imagePanel.remove(imageLabel);
-            imageLabel = new JLabel("", image, JLabel.LEADING);
+            imagePanel.removeAll();
+            imageLabel = new JLabel("", image, JLabel.CENTER);
             imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             imagePanel.add(imageLabel);
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         }
+    }
 
+    public void setVideoName(final String videoName) {
+        imagePanel.removeAll();
+        final VideoPanel videoPanel = new VideoPanel();
+        videoPanel.setPreferredSize(Const.Dimensions.VIDEO_SIZE);
+        videoPanel.setMinimumSize(Const.Dimensions.VIDEO_SIZE);
+        videoPanel.setMaximumSize(Const.Dimensions.VIDEO_SIZE);
+        imagePanel.add(videoPanel);
+
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                VideoCodec videoCodec =
+                        new VideoCodec(videoPanel, videoName);
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     public void enableAllBtns() {
@@ -227,6 +249,4 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JButton getBtnC() {
         return btnC;
     }
-
-
 }

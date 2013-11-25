@@ -1,11 +1,12 @@
 package ui.exam_result.view;
 
 import database.dao.TextsDao;
+import media.images.ImageUtils;
+import media.videos.VideoCodec;
+import media.videos.VideoPanel;
 import model.ABCAnswer;
 import model.YesNoAnswer;
-import ui.exam_result.view.interfaces.WindowAutoSizer;
 import util.Const;
-import media.images.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -17,7 +18,6 @@ import java.io.IOException;
  * Date: 08.11.13
  */
 public class ExamResultLeftPanel extends JPanel {
-    private WindowAutoSizer windowAutoSizer;
 
     private JPanel imagePanel;
     private JPanel abcBtnPanel;
@@ -34,15 +34,14 @@ public class ExamResultLeftPanel extends JPanel {
 
     private Border emptyBorder;
 
-    public ExamResultLeftPanel(WindowAutoSizer windowAutoSizer) {
-        this.windowAutoSizer = windowAutoSizer;
+    public ExamResultLeftPanel() {
 
         setUpPanel();
         initializeComponents();
     }
 
     private void setUpPanel() {
-        emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        emptyBorder = BorderFactory.createEmptyBorder(10, 5, 10, 10);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
@@ -98,13 +97,15 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
+        yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
 
-        buttonPanel.add(yesBtn);
         buttonPanel.add(noBtn);
+        buttonPanel.add(yesBtn);
 
         return buttonPanel;
     }
@@ -134,6 +135,7 @@ public class ExamResultLeftPanel extends JPanel {
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setFocusable(false);
         return button;
     }
 
@@ -145,6 +147,7 @@ public class ExamResultLeftPanel extends JPanel {
         button.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
         button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setFocusable(false);
         return button;
     }
 
@@ -220,25 +223,44 @@ public class ExamResultLeftPanel extends JPanel {
     public void changePanelToStandardPanel() {
         remove(abcBtnPanel);
         add(yesNoBtnPanel);
-        windowAutoSizer.autoSize();
+        repaint();
     }
 
     public void changePanelToSpecialistPanel() {
         remove(yesNoBtnPanel);
         add(abcBtnPanel);
-        windowAutoSizer.autoSize();
+        repaint();
     }
 
     public void setImageName(String imageName) {
         try {
-            ImageIcon image = ImageUtils.getQuestionImage(imageName);
-            imagePanel.remove(imageLabel);
+            ImageIcon image = ImageUtils.getQuestionImage(imageName + TextsDao.getText("imageFilesExtension"));
+            imagePanel.removeAll();
             imageLabel = new JLabel("", image, JLabel.LEADING);
             imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
             imagePanel.add(imageLabel);
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public void setVideoName(final String videoName) {
+        imagePanel.removeAll();
+        final VideoPanel videoPanel = new VideoPanel();
+        videoPanel.setPreferredSize(Const.Dimensions.VIDEO_SIZE);
+        videoPanel.setMinimumSize(Const.Dimensions.VIDEO_SIZE);
+        videoPanel.setMaximumSize(Const.Dimensions.VIDEO_SIZE);
+        imagePanel.add(videoPanel);
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                VideoCodec videoCodec =
+                        new VideoCodec(videoPanel, videoName + TextsDao.getText("videoFilesExtension"));
+            }
+        };
+
+        Thread thread = new Thread(runnable);
+        thread.start();
     }
 
     public void enableAllBtns() {
