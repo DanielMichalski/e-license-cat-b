@@ -1,6 +1,7 @@
 package ui.login.view;
 
 import database.dao.TextsDao;
+import util.Const;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class ButtonPanel extends JPanel {
 
     private void setUpPanel() {
         setBorder(BorderFactory.createEmptyBorder(0, 10, 5, 10));
+        setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
     }
 
     private void initializeComponents() {
