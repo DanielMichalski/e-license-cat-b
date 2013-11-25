@@ -3,7 +3,7 @@ package ui.exam_result.view;
 import database.dao.TextsDao;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
-import ui.exam_result.controller.ExamResultPresenter;
+import ui.exam_result.logic.ExamResultPresenter;
 import ui.exam_result.view.balls.ResultSpecialistBallsPanel;
 import ui.exam_result.view.balls.ResultStandardBallsPanel;
 import util.Const;
@@ -22,6 +22,7 @@ public class ExamResultRightPanel extends JPanel {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
+    private CloseBtnPanel closeBtnPanel;
     private StandardPartPanel standardPartPanel;
     private SpecjalistPartPanel specjalistPartPanel;
     private HowManyPointsPanel howManyPointsPanel;
@@ -42,18 +43,45 @@ public class ExamResultRightPanel extends JPanel {
         BoxLayout layout =
                 new BoxLayout(ExamResultRightPanel.this, BoxLayout.Y_AXIS);
         setLayout(layout);
-        setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
     }
 
     private void initializeComponents() {
+        closeBtnPanel = new CloseBtnPanel();
         standardPartPanel = new StandardPartPanel();
         specjalistPartPanel = new SpecjalistPartPanel();
         howManyPointsPanel = new HowManyPointsPanel();
 
+        add(closeBtnPanel);
         add(standardPartPanel);
         add(specjalistPartPanel);
         add(howManyPointsPanel);
+    }
+
+    public class CloseBtnPanel extends JPanel {
+        private JButton closeBtn;
+
+        public CloseBtnPanel() {
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+
+            add(createCloseBtn());
+        }
+
+        private JButton createCloseBtn() {
+            closeBtn = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
+            closeBtn.setFont(Const.Fonts.BTN_CLOSE_FONT);
+            closeBtn.setPreferredSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
+            closeBtn.setMinimumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
+            closeBtn.setMaximumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
+            closeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            closeBtn.setFocusable(false);
+            return closeBtn;
+        }
+
+        public JButton getCloseBtn() {
+            return closeBtn;
+        }
     }
 
     public class StandardPartPanel extends JPanel {
@@ -212,5 +240,9 @@ public class ExamResultRightPanel extends JPanel {
 
     public void setExamResult(boolean isPassed, int userPoints, int allPoints) {
         howManyPointsPanel.setExamResult(isPassed, userPoints, allPoints);
+    }
+
+    public CloseBtnPanel getCloseBtnPanel() {
+        return closeBtnPanel;
     }
 }

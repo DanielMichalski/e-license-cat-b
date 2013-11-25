@@ -2,7 +2,6 @@ package encrypt;
 
 import org.junit.Test;
 
-import java.nio.channels.Channel;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -19,6 +18,6 @@ public class EncryptorTest {
 
         Encrypter.encryptFile(path1, path2);
 
-        Encrypter.decryptFile(path2, path3, true);
+        // Encrypter.decryptFile(path2, path3, true);
     }
 }

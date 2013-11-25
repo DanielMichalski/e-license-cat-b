@@ -1,29 +1,67 @@
-package media.videos.ver3;
+package media.videos;
 
 import com.xuggle.xuggler.*;
 
+import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
 
 public class VideoCodec {
-    public VideoCodec(VideoPanel videoPanel) {
+
+    public VideoCodec(VideoPanel videoPanel, String videoName) {
         {
             this.videoPanel = videoPanel;
 
-            String filename = "src/main/resources/videos/PICT0577_ZS_ITS.mp4";
+            String fileName = "videos/" + videoName;
 
             // Let's make sure that we can actually convert video pixel formats.
             if (!IVideoResampler.isSupported(
-                    IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION))
-                throw new RuntimeException("you must install the GPL version" +
-                        " of Xuggler (with IVideoResampler support) for " +
-                        "this demo to work");
+                    IVideoResampler.Feature.FEATURE_COLORSPACECONVERSION)) {
+                String info1 = "you must install the GPL version of Xuggler (with IVideoResampler support) forthis demo to work";
+                JOptionPane.showMessageDialog(null, info1, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                throw new RuntimeException(info1);
+            }
 
             // Create a Xuggler container object
             IContainer container = IContainer.make();
 
+
+            String path = "";
+            File file = null;
+            String resource = "/videos/" + videoName;
+            URL res = getClass().getResource(resource);
+            if (res.toString().startsWith("jar:")) {
+                try {
+                    InputStream input = getClass().getResourceAsStream(resource);
+                    file = File.createTempFile("tempfile", ".tmp");
+                    OutputStream out = new FileOutputStream(file);
+                    int read;
+                    byte[] bytes = new byte[1024];
+
+                    while ((read = input.read(bytes)) != -1) {
+                        out.write(bytes, 0, read);
+                    }
+
+                    path = file.getPath();
+                    file.deleteOnExit();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                path = "src/main/resources" + resource;
+            }
+
+            if (file != null && !file.exists()) {
+                throw new RuntimeException("Error: File " + file + " not found!");
+            }
+
             // Open up the container
-            if (container.open(filename, IContainer.Type.READ, null) < 0)
-                throw new IllegalArgumentException("could not open file: " + filename);
+            if (container.open(path, IContainer.Type.READ, null) < 0) {
+                String info2 = "could not open file: " + fileName;
+                JOptionPane.showMessageDialog(null, info2, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                throw new IllegalArgumentException(info2);
+            }
 
             // query how many streams the call to open found
             int numStreams = container.getNumStreams();
@@ -43,17 +81,21 @@ public class VideoCodec {
                     break;
                 }
             }
-            if (videoStreamId == -1)
-                throw new RuntimeException("could not find video stream in container: "
-                        + filename);
+            if (videoStreamId == -1) {
+                String info3 = "could not find video stream in container: " + fileName;
+                JOptionPane.showMessageDialog(null, info3, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                throw new RuntimeException(info3);
+            }
 
     /*
      * Now we have found the video stream in this file.  Let's open up our decoder so it can
      * do work.
      */
-            if (videoCoder.open() < 0)
-                throw new RuntimeException("could not open video decoder for container: "
-                        + filename);
+            if (videoCoder.open() < 0) {
+                String info4 = "could not open video decoder for container: ";
+                JOptionPane.showMessageDialog(null, info4, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                throw new RuntimeException(info4 + fileName);
+            }
 
             IVideoResampler resampler = null;
             if (videoCoder.getPixelType() != IPixelFormat.Type.BGR24) {
@@ -62,9 +104,11 @@ public class VideoCodec {
                 resampler = IVideoResampler.make(videoCoder.getWidth(),
                         videoCoder.getHeight(), IPixelFormat.Type.BGR24,
                         videoCoder.getWidth(), videoCoder.getHeight(), videoCoder.getPixelType());
-                if (resampler == null)
-                    throw new RuntimeException("could not create color space " +
-                            "resampler for: " + filename);
+                if (resampler == null) {
+                    String info5 = "could not create color space resampler for " + fileName;
+                    JOptionPane.showMessageDialog(null, info5, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                    throw new RuntimeException(info5);
+                }
             }
     /*
      * And once we have that, we draw a window on screen
@@ -95,9 +139,11 @@ public class VideoCodec {
            *
            */
                         int bytesDecoded = videoCoder.decodeVideo(picture, packet, offset);
-                        if (bytesDecoded < 0)
-                            throw new RuntimeException("got error decoding video in: "
-                                    + filename);
+                        if (bytesDecoded < 0) {
+                            String info6 = "got error decoding video in: " + fileName;
+                            JOptionPane.showMessageDialog(null, info6, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                            throw new RuntimeException(info6);
+                        }
                         offset += bytesDecoded;
 
           /*
@@ -116,13 +162,17 @@ public class VideoCodec {
                                 // we must resample
                                 newPic = IVideoPicture.make(resampler.getOutputPixelFormat(),
                                         picture.getWidth(), picture.getHeight());
-                                if (resampler.resample(newPic, picture) < 0)
-                                    throw new RuntimeException("could not resample video from: "
-                                            + filename);
+                                String info7 = "could not resample video from: " + fileName;
+                                if (resampler.resample(newPic, picture) < 0) {
+                                    JOptionPane.showMessageDialog(null, info7, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                                    throw new RuntimeException(info7);
+                                }
                             }
-                            if (newPic.getPixelType() != IPixelFormat.Type.BGR24)
-                                throw new RuntimeException("could not decode video" +
-                                        " as BGR 24 bit data in: " + filename);
+                            if (newPic.getPixelType() != IPixelFormat.Type.BGR24) {
+                                String info8 = "could not decode video as BGR 24 bit data in: " + fileName;
+                                JOptionPane.showMessageDialog(null, info8, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+                                throw new RuntimeException(info8);
+                            }
 
                             /**
                              * We could just display the images as quickly as we decode them,

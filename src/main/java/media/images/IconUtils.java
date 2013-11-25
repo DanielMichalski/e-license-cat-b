@@ -1,8 +1,11 @@
 package media.images;
 
 import database.dao.TextsDao;
+import util.Const;
 
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 
 /**
@@ -30,6 +33,17 @@ public class IconUtils {
     public static ImageIcon getImageIcon(String fileName) {
         String iconsFolder = "/program_images/";
         URL imageSrc = IconUtils.class.getResource(iconsFolder + fileName);
-        return new ImageIcon(imageSrc);
+        return scaleImageIcon(new ImageIcon(imageSrc));
+    }
+
+    private static ImageIcon scaleImageIcon(ImageIcon imageIcon) {
+        Image image = imageIcon.getImage();
+
+        Image scaledInstance = image.getScaledInstance(
+                Const.Dimensions.BALL_ICON_SIZE.width,
+                Const.Dimensions.BALL_ICON_SIZE.height,
+                BufferedImage.SCALE_DEFAULT);
+
+        return new ImageIcon(scaledInstance);
     }
 }

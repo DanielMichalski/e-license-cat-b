@@ -8,16 +8,14 @@ import model.MediaType;
 import model.Module;
 import model.StandardQuestion;
 import model.YesNoAnswer;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static database.columns.QuestionColumnNames.*;
 
@@ -26,17 +24,22 @@ import static database.columns.QuestionColumnNames.*;
  * Date: 12.11.13.
  */
 public class CSVStandardQuestionDataProvider {
+    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+
     public static List<StandardQuestion> getAllStandardQuestions()
-            throws IOException, InvalidFormatException {
+            throws IOException {
 
-        List<StandardQuestion> standardQuestionList
-                = new ArrayList<StandardQuestion>();
+        List<StandardQuestion> standardQuestionList =
+                new ArrayList<StandardQuestion>();
 
-        Path questionsPath = Paths.get(TextsDao.getFileName("csv.questions"));
-        byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
+        InputStream resourceAsStream = CSVStandardQuestionDataProvider.class.getResourceAsStream("/csv/questions_enc");
+
+        System.out.println(resourceAsStream);
+
+        byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
+        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
 
         csvReader.readHeaders();
 
@@ -72,9 +75,9 @@ public class CSVStandardQuestionDataProvider {
 
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             }
         }
 
@@ -82,7 +85,7 @@ public class CSVStandardQuestionDataProvider {
     }
 
     public static List<StandardQuestion> get20StandardQuestions()
-            throws IOException, InvalidFormatException {
+            throws IOException {
 
         List<StandardQuestion> list = getAllStandardQuestions();
         List<StandardQuestion> list20 = new ArrayList<StandardQuestion>();
