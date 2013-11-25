@@ -1,7 +1,7 @@
 package ui.main_menu.view;
 
 import database.dao.TextsDao;
-import ui.main_menu.controller.MainMenuPresenter;
+import ui.main_menu.logic.MainMenuPresenter;
 import util.ApplicationUtils;
 
 import javax.swing.*;
