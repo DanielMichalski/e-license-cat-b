@@ -22,18 +22,24 @@ public class Const {
         Font IS_PASSED_OR_NO_LBL_FONT = new Font("Arial", Font.PLAIN, 48);
         Font RESULT_POINT_FONT = new Font("Arial", Font.PLAIN, 30);
         Font BTNS_YES_NO_FONT = new Font("Arial", Font.PLAIN, 16);
-        Font BTNS_ABC_FONT = new Font("Arial", Font.PLAIN, 14);
+        Font BTNS_ABC_FONT = new Font("Arial", Font.PLAIN, 16);
         Font BTN_CONFIRM_FONT = new Font("Arial", Font.PLAIN, 14);
+        Font BTN_CLOSE_FONT = new Font("Arial", Font.PLAIN, 14);
     }
 
     public static interface Dimensions {
-        Dimension EXAM_YES_NO_BTN_SIZE = new Dimension(320, 50);
-        Dimension ABC_BTNS_SIZE = new Dimension(250, 50);
+        Dimension EXAM_YES_NO_BTN_SIZE = new Dimension(230, 50);
+        Dimension ABC_BTNS_SIZE = new Dimension(230, 50);
         Dimension EXAM_TIME_LBL_SIZE = new Dimension(230, 50);
         Dimension RESULT_POINT = new Dimension(230, 50);
         Dimension IS_PASSED_OR_NO_LBL = new Dimension(230, 50);
         Dimension EXAM_CONFIRM_BTN_SIZE = new Dimension(230, 50);
+        Dimension EXAM_CLOSE_BTN_SIZE = new Dimension(230, 35);
         Dimension HOW_MANY_POINTS_LBL = new Dimension(230, 50);
         Dimension MAIN_MENUBTN_SIZE = new Dimension(280, 86);
+        Dimension IMAGE_SIZE = new Dimension(640, 360);
+        Dimension VIDEO_SIZE = new Dimension(640, 360);
+        Dimension BALL_ICON_SIZE = new Dimension(28, 29);
+
     }
 }

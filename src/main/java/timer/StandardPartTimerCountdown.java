@@ -1,6 +1,6 @@
 package timer;
 
-import ui.exam.controller.ExamPresenter;
+import ui.exam.logic.ExamPresenter;
 
 /**
  * Author: Daniel

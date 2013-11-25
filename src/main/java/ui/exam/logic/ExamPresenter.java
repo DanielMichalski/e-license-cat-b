@@ -1,4 +1,4 @@
-package ui.exam.controller;
+package ui.exam.logic;
 
 import database.dao.QuestionsDao;
 import database.dao.TextsDao;
@@ -29,7 +29,7 @@ public class ExamPresenter {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
-    private int actualStandardQuestion = 0;
+    private int actualStandardQuestion = 19;
     private int actualSpecialistQuestion = 0;
     private boolean isStandardPartCompleted = false;
 
@@ -41,6 +41,7 @@ public class ExamPresenter {
     private JLabel timerLbl;
 
     private ExamQuestionsLeftPanel examQuestionsLeftPanel;
+    private ExamPointsRightPanel.CloseBtnPanel closeBtnPanel;
     private ExamPointsRightPanel.BasicPartPanel basicPartPanel;
     private ExamPointsRightPanel.SpecjalistPartPanel specjalistPartPanel;
     private ExamPointsRightPanel.TimeAndBtnConfirmPanel timeAndBtnConfirmPanel;
@@ -56,9 +57,9 @@ public class ExamPresenter {
             this.standardQuestions = QuestionsDao.get20StandardQuestion();
             this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         } catch (InvalidFormatException e) {
-            JOptionPane.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -150,21 +151,34 @@ public class ExamPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
-                UIManager.put("noButtonLbl", TextsDao.getText("noButtonLbl"));
-                int answer = JOptionPane.showConfirmDialog(
-                        null,
-                        TextsDao.getText("view.examFramConfirmDialog.message"),
-                        TextsDao.getText("view.confirmDialog.title"),
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                if (answer == JOptionPane.YES_OPTION) {
-                    breakExam();
-                    dialog.dispose();
-                }
+                showCloseConfirmDialog(dialog);
             }
         };
+    }
+
+    public ActionListener getCloseBtnListener(final JDialog dialog) {
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showCloseConfirmDialog(dialog);
+            }
+        };
+    }
+
+    private void showCloseConfirmDialog(JDialog dialog) {
+        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
+        UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
+        int answer = JOptionPane.showConfirmDialog(
+                null,
+                TextsDao.getText("view.examFramConfirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            breakExam();
+            dialog.dispose();
+        }
     }
 
 
@@ -190,6 +204,7 @@ public class ExamPresenter {
                 examQuestionsLeftPanel.setImageName(mediaPath + imageExtension);
                 break;
             case VIDEO:
+                examQuestionsLeftPanel.setVideoName(mediaPath + videoExtension);
                 System.out.println("Tu będzie video: " + mediaPath + videoExtension);
                 break;
         }
@@ -284,6 +299,7 @@ public class ExamPresenter {
 
         LOGGER.info(text);
     }
+
 
     class YesBtnListener implements ActionListener {
         @Override

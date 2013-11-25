@@ -14,10 +14,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static database.columns.QuestionColumnNames.*;
 
@@ -26,17 +25,19 @@ import static database.columns.QuestionColumnNames.*;
  * Date: 12.11.13.
  */
 public class CSVSpecialistQuestionDataProvider {
+    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+
     public static List<SpecialistQuestion> getAllSpecialistQuestions()
             throws IOException, InvalidFormatException {
 
         List<SpecialistQuestion> specialistQuestionList
                 = new ArrayList<SpecialistQuestion>();
 
-        Path questionsPath = Paths.get(TextsDao.getFileName("csv.questions"));
-        byte[] bytesArray = Encrypter.decryptFile(questionsPath, null, false);
+        InputStream resourceAsStream = CSVSpecialistQuestionDataProvider.class.getResourceAsStream("/csv/questions_enc");
+        byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.defaultCharset());
+        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
 
         csvReader.readHeaders();
 
@@ -77,9 +78,9 @@ public class CSVSpecialistQuestionDataProvider {
                     specialistQuestionList.add(specialistQuestion);
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.warning(e.toString());
             }
         }
 
