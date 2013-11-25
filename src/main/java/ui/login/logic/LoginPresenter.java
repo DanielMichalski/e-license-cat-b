@@ -2,6 +2,7 @@ package ui.login.logic;
 
 import ui.exam.view.ExamFrame;
 import ui.login.view.IWindowCloser;
+import ui.preloader.PreloaderFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -39,13 +40,14 @@ public class LoginPresenter {
     }
 
     private void loginUser() {
-        iWindowCloser.close();
+        //TODO dodac loader
+        //iWindowCloser.close();
 
         saveFormData();
 
-        ExamFrame examFrame = new ExamFrame();
-        examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        examFrame.setVisible(true);
+        PreloaderFrame frame = new PreloaderFrame();
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
     private void saveFormData() {

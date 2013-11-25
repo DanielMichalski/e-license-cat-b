@@ -1,4 +1,4 @@
-package ui.main_menu.controller;
+package ui.main_menu.logic;
 
 import database.dao.TextsDao;
 import ui.emax_info_dialog.view.ShowInfoDialog;
