@@ -2,6 +2,7 @@ package ui.exam_result.logic;
 
 import database.dao.TextsDao;
 import model.*;
+import pdf.PDFGenerator;
 import ui.exam_result.view.ExamResultLeftPanel;
 import ui.exam_result.view.ExamResultRightPanel;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * Date: 08.11.13
  */
 public class ExamResultPresenter {
+
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
@@ -28,6 +30,19 @@ public class ExamResultPresenter {
         this.standardQuestions = standardQuestions;
         this.specialistQuestions = specialistQuestions;
     }
+
+    class PrintBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            PDFGenerator pdfGenerator = new PDFGenerator(standardQuestions,
+                    specialistQuestions,
+                    countUserPoints(),
+                    countAllPoints());
+
+            pdfGenerator.generatePDFFile();
+        }
+    }
+
 
     public void setUpPanels() {
         int userPoints = countUserPoints();
@@ -124,13 +139,17 @@ public class ExamResultPresenter {
         leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
     }
 
-    public ActionListener getCloseBtnListener(final JDialog dialog) {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showCloseConfirmDialog(dialog);
-            }
-        };
+    private class CloseBtnListener implements ActionListener {
+        private JDialog jDialog;
+
+        public CloseBtnListener(JDialog jDialog) {
+            this.jDialog = jDialog;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            showCloseConfirmDialog(jDialog);
+        }
     }
 
     private void showCloseConfirmDialog(JDialog dialog) {
@@ -172,4 +191,11 @@ public class ExamResultPresenter {
         this.specialistQuestions = specialistQuestions;
     }
 
+    public void setCloseBtn(JButton closeBtn, JDialog jDialog) {
+        closeBtn.addActionListener(new CloseBtnListener(jDialog));
+    }
+
+    public void setPrintBtn(JButton printBtn) {
+        printBtn.addActionListener(new PrintBtnListener());
+    }
 }

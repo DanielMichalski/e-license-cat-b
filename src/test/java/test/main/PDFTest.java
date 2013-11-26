@@ -1,6 +1,5 @@
 package test.main;
 
-import database.csv.CSVModuleDataProvider;
 import database.csv.CSVSpecialistQuestionDataProvider;
 import database.csv.CSVStandardQuestionDataProvider;
 import model.SpecialistQuestion;
@@ -23,6 +22,6 @@ public class PDFTest {
         List<SpecialistQuestion> specialistQuestion =
                 CSVSpecialistQuestionDataProvider.get12SpecialistQuestion();
 
-        PDFGenerator pdfGenerator = new PDFGenerator(standardQuestions, specialistQuestion);
+        PDFGenerator pdfGenerator = new PDFGenerator(standardQuestions, specialistQuestion, 40, 89);
     }
 }

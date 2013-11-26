@@ -1,14 +1,11 @@
 package ui.login.logic;
 
-import ui.exam.view.ExamFrame;
 import ui.login.view.IWindowCloser;
-import ui.preloader.PreloaderFrame;
+import ui.splash_screen.SplashScreen;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 /**
  * Author: Daniel
@@ -40,14 +37,25 @@ public class LoginPresenter {
     }
 
     private void loginUser() {
-        //TODO dodac loader
-        //iWindowCloser.close();
-
         saveFormData();
 
-        PreloaderFrame frame = new PreloaderFrame();
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        iWindowCloser.close();
+
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    new SplashScreen();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Wystąpił błąd: " + e,
+                            "Informacja",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
     }
 
     private void saveFormData() {

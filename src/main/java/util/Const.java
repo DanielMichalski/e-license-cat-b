@@ -25,6 +25,7 @@ public class Const {
         Font BTNS_ABC_FONT = new Font("Arial", Font.PLAIN, 16);
         Font BTN_CONFIRM_FONT = new Font("Arial", Font.PLAIN, 14);
         Font BTN_CLOSE_FONT = new Font("Arial", Font.PLAIN, 14);
+        Font BTN_PRINT_FONT = new Font("Arial", Font.PLAIN, 14);
     }
 
     public static interface Dimensions {
@@ -35,6 +36,7 @@ public class Const {
         Dimension IS_PASSED_OR_NO_LBL = new Dimension(230, 50);
         Dimension EXAM_CONFIRM_BTN_SIZE = new Dimension(230, 50);
         Dimension EXAM_CLOSE_BTN_SIZE = new Dimension(230, 35);
+        Dimension EXAM_PRINT_BTN_SIZE = new Dimension(230, 35);
         Dimension HOW_MANY_POINTS_LBL = new Dimension(230, 50);
         Dimension MAIN_MENUBTN_SIZE = new Dimension(280, 86);
         Dimension IMAGE_SIZE = new Dimension(640, 360);
