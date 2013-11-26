@@ -29,7 +29,7 @@ public class ExamPresenter {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
-    private int actualStandardQuestion = 19;
+    private int actualStandardQuestion = 0;
     private int actualSpecialistQuestion = 0;
     private boolean isStandardPartCompleted = false;
 
