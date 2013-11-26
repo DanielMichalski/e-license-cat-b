@@ -52,7 +52,9 @@ public class ExamResultFrame extends JDialog {
 
         presenter.setLeftPanel(leftPanel);
         presenter.setRightPanel(rightPanel);
-        rightPanel.getCloseBtnPanel().getCloseBtn().addActionListener(presenter.getCloseBtnListener(this));
+
+        presenter.setCloseBtn(rightPanel.getCloseBtn(), this);
+        presenter.setPrintBtn(rightPanel.getPrintBtn());
 
         presenter.setUpPanels();
     }

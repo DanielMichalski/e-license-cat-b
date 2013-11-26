@@ -18,10 +18,6 @@ public class ExamFrame extends JDialog implements WindowCloser {
     public static final int HEIGHT = 670;
 
     public ExamFrame() {
-        System.out.println(System.getProperty("firstName"));
-        System.out.println(System.getProperty("lastName"));
-        System.out.println(System.getProperty("pesel"));
-
         setUpFrame();
         initializeComponents();
         setLocationRelativeTo(null);

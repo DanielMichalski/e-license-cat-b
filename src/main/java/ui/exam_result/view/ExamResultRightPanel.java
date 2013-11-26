@@ -27,6 +27,9 @@ public class ExamResultRightPanel extends JPanel {
     private SpecjalistPartPanel specjalistPartPanel;
     private HowManyPointsPanel howManyPointsPanel;
 
+    private JButton printBtn;
+    private JButton closeBtn;
+
     public ExamResultRightPanel(ExamResultPresenter presenter,
                                 List<StandardQuestion> standardQuestions,
                                 List<SpecialistQuestion> specialistQuestions) {
@@ -59,9 +62,11 @@ public class ExamResultRightPanel extends JPanel {
         add(howManyPointsPanel);
     }
 
-    public class CloseBtnPanel extends JPanel {
-        private JButton closeBtn;
+    public JButton getCloseBtn() {
+        return closeBtn;
+    }
 
+    public class CloseBtnPanel extends JPanel {
         public CloseBtnPanel() {
             setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
@@ -155,6 +160,7 @@ public class ExamResultRightPanel extends JPanel {
             examResultLbl = createIsPassedOrNoLbl();
             userPointsLbl = createUserPointsLbl();
             howManyPointsForQuestionLbl = createHowManyPointsLbl();
+            printBtn = createPrintBtn();
 
             Component rigidArea = Box.createRigidArea(new Dimension(0, 10));
 
@@ -164,6 +170,19 @@ public class ExamResultRightPanel extends JPanel {
             add(userPointsLbl);
             add(rigidArea);
             add(howManyPointsForQuestionLbl);
+            add(rigidArea);
+            add(printBtn);
+        }
+
+        private JButton createPrintBtn() {
+            printBtn = new JButton(TextsDao.getText("ExamPointRigthPanel.btnPrintLbl"));
+            printBtn.setFont(Const.Fonts.BTN_PRINT_FONT);
+            printBtn.setPreferredSize(Const.Dimensions.EXAM_PRINT_BTN_SIZE);
+            printBtn.setMinimumSize(Const.Dimensions.EXAM_PRINT_BTN_SIZE);
+            printBtn.setMaximumSize(Const.Dimensions.EXAM_PRINT_BTN_SIZE);
+            printBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
+            printBtn.setFocusable(false);
+            return printBtn;
         }
 
         private JLabel createIsPassedOrNoLbl() {
@@ -244,5 +263,9 @@ public class ExamResultRightPanel extends JPanel {
 
     public CloseBtnPanel getCloseBtnPanel() {
         return closeBtnPanel;
+    }
+
+    public JButton getPrintBtn() {
+        return printBtn;
     }
 }
