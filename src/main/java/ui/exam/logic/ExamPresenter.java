@@ -186,9 +186,6 @@ public class ExamPresenter {
         MediaType mediaType;
         String mediaPath;
 
-        String imageExtension = TextsDao.getText("imageFilesExtension");
-        String videoExtension = TextsDao.getText("videoFilesExtension");
-
         if (isStandardPartCompleted) {
             SpecialistQuestion specialistQuestion = specialistQuestions.get(actualSpecialistQuestion - 1);
             mediaType = specialistQuestion.getMediaType();
@@ -201,15 +198,13 @@ public class ExamPresenter {
 
         switch (mediaType) {
             case IMAGE:
-                examQuestionsLeftPanel.setImageName(mediaPath + imageExtension);
+                examQuestionsLeftPanel.setImageName(mediaPath);
                 break;
             case VIDEO:
-                examQuestionsLeftPanel.setVideoName(mediaPath + videoExtension);
-                System.out.println("Tu będzie video: " + mediaPath + videoExtension);
+                examQuestionsLeftPanel.setVideoName(mediaPath);
                 break;
         }
     }
-
 
     public void showWaitMedia() {
         if (!isStandardPartCompleted) {

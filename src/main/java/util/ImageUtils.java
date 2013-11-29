@@ -1,6 +1,4 @@
-package media.images;
-
-import util.Const;
+package util;
 
 import javax.swing.*;
 import java.awt.*;

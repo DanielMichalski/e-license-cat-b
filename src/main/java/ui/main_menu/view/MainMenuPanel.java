@@ -1,8 +1,8 @@
 package ui.main_menu.view;
 
 import database.dao.TextsDao;
-import media.images.ImageUtils;
 import util.Const;
+import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;

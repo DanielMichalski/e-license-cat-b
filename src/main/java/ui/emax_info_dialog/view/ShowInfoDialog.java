@@ -1,10 +1,10 @@
 package ui.emax_info_dialog.view;
 
 import database.dao.TextsDao;
-import media.images.ImageUtils;
 import ui.emax_info_dialog.logic.IWindowCloser;
 import ui.emax_info_dialog.logic.ShowInfoPresenter;
 import ui.main_menu.view.IMinimalize;
+import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
