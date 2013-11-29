@@ -1,29 +1,30 @@
 package ui.exam_result.view;
 
+import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
-import media.images.ImageUtils;
-import media.videos.VideoCodec;
-import media.videos.VideoPanel;
 import model.ABCAnswer;
 import model.YesNoAnswer;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.io.IOException;
+import java.io.File;
 
 /**
  * Author: Daniel
  * Date: 08.11.13
  */
 public class ExamResultLeftPanel extends JPanel {
+    private EmbeddedMediaPlayerComponent component;
+    private EmbeddedMediaPlayer player;
 
-    private JPanel imagePanel;
     private JPanel abcBtnPanel;
     private JPanel yesNoBtnPanel;
 
-    private JLabel imageLabel;
     private JTextArea questionTextArea;
 
     private JButton yesBtn;
@@ -32,43 +33,43 @@ public class ExamResultLeftPanel extends JPanel {
     private JButton btnB;
     private JButton btnC;
 
-    private Border emptyBorder;
-
     public ExamResultLeftPanel() {
-
         setUpPanel();
         initializeComponents();
     }
 
     private void setUpPanel() {
-        emptyBorder = BorderFactory.createEmptyBorder(10, 5, 10, 10);
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLC");
+        component = new EmbeddedMediaPlayerComponent();
+        player = component.getMediaPlayer();
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        setLayout(null);
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
     }
 
     private void initializeComponents() {
-        imagePanel = getImagePanel();
+        JPanel imageAndVideoPanel = getImageAndVideoPanel();
         JPanel questionPanel = getQuestionPanel();
         abcBtnPanel = getABCBtnPanel();
         yesNoBtnPanel = getYesNoBtnPanel();
 
-        add(imagePanel);
+        add(imageAndVideoPanel);
         add(questionPanel);
         add(yesNoBtnPanel);
     }
 
-    public JPanel getImagePanel() {
+    public JPanel getImageAndVideoPanel() {
         JPanel imagePanel = new JPanel();
+        imagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        imagePanel.setBounds(10, 10, 640, 360);
         imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
-        ImageIcon image = ImageUtils.getProgramImage("no_photo.jpg");
-        imageLabel = new JLabel("", image, SwingConstants.CENTER);
-        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        imagePanel.add(imageLabel);
+        imagePanel.setLayout(new BorderLayout());
+        imagePanel.add(component);
 
         return imagePanel;
     }
@@ -76,16 +77,16 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getQuestionPanel() {
         JPanel questionPanel = new JPanel();
         questionPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-
+        questionPanel.setBounds(0, 380, 680, 80);
         questionTextArea = getQuestionTextArea();
-
+        questionTextArea.setVisible(true);
         questionPanel.add(questionTextArea);
         return questionPanel;
     }
 
     private JTextArea getQuestionTextArea() {
         JTextArea questionTextArea = new JTextArea(3, 49);
-        questionTextArea.setBorder(emptyBorder);
+        questionTextArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         questionTextArea.setFont(Const.Fonts.TEXTS_FONT);
         questionTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         questionTextArea.setLineWrap(true);
@@ -97,6 +98,7 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setBounds(0, 500, 680, 130);
         buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -113,6 +115,7 @@ public class ExamResultLeftPanel extends JPanel {
     private JPanel getABCBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setBounds(0, 475, 680, 160);
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
@@ -233,34 +236,22 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
-        try {
-            ImageIcon image = ImageUtils.getQuestionImage(imageName + TextsDao.getText("imageFilesExtension"));
-            imagePanel.removeAll();
-            imageLabel = new JLabel("", image, JLabel.LEADING);
-            imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            imagePanel.add(imageLabel);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
-        }
+        player.stop();
+        player.prepareMedia("media" + File.separator + imageName);
+        player.parseMedia();
+        player.play();
     }
 
-    public void setVideoName(final String videoName) {
-        imagePanel.removeAll();
-        final VideoPanel videoPanel = new VideoPanel();
-        videoPanel.setPreferredSize(Const.Dimensions.VIDEO_SIZE);
-        videoPanel.setMinimumSize(Const.Dimensions.VIDEO_SIZE);
-        videoPanel.setMaximumSize(Const.Dimensions.VIDEO_SIZE);
-        imagePanel.add(videoPanel);
-        Runnable runnable = new Runnable() {
+    public synchronized void setVideoName(final String videoName) {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                VideoCodec videoCodec =
-                        new VideoCodec(videoPanel, videoName + TextsDao.getText("videoFilesExtension"));
+                player.stop();
+                player.prepareMedia("media" + File.separator + videoName);
+                player.parseMedia();
+                player.play();
             }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
+        }).start();
     }
 
     public void enableAllBtns() {

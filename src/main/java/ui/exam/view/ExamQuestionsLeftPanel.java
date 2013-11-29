@@ -1,26 +1,28 @@
 package ui.exam.view;
 
+import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
-import media.images.ImageUtils;
-import media.videos.VideoCodec;
-import media.videos.VideoPanel;
+import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.io.IOException;
+import java.io.File;
 
 /**
  * Author: Daniel
  * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
-    private JPanel imagePanel;
+    private EmbeddedMediaPlayerComponent component;
+    private EmbeddedMediaPlayer player;
+
     private JPanel abcBtnPanel;
     private JPanel yesNoBtnPanel;
 
-    private JLabel imageLabel;
     private JTextArea questionTextArea;
 
     private JButton yesBtn;
@@ -29,24 +31,26 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private JButton btnB;
     private JButton btnC;
 
-    private Border emptyBorder;
-
     public ExamQuestionsLeftPanel() {
         setUpPanel();
         initializeComponents();
     }
 
     private void setUpPanel() {
-        emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLC");
+        component = new EmbeddedMediaPlayerComponent();
+        player = component.getMediaPlayer();
 
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+
+        setLayout(null);
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
     }
 
     private void initializeComponents() {
-        imagePanel = getImagePanel();
+        JPanel imagePanel = getImagePanel();
         JPanel questionPanel = getQuestionPanel();
         abcBtnPanel = getABCBtnPanel();
         yesNoBtnPanel = getYesNoBtnPanel();
@@ -58,22 +62,20 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public JPanel getImagePanel() {
         JPanel imagePanel = new JPanel();
-
+        imagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        imagePanel.setBounds(10, 10, 640, 357);
         imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
-        String noPhotoFileName = TextsDao.getFileName("img.no_photo");
-        ImageIcon image = ImageUtils.getProgramImage(noPhotoFileName);
+        imagePanel.setLayout(new BorderLayout());
+        imagePanel.add(component);
 
-        imageLabel = new JLabel("", image, SwingConstants.CENTER);
-        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
-        imagePanel.add(imageLabel);
         return imagePanel;
     }
 
     public JPanel getQuestionPanel() {
         JPanel questionPanel = new JPanel();
         questionPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        questionPanel.setBounds(0, 380, 680, 80);
 
         questionTextArea = getQuestionTextArea();
 
@@ -83,7 +85,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     private JTextArea getQuestionTextArea() {
         JTextArea questionTextArea = new JTextArea(3, 49);
-        questionTextArea.setBorder(emptyBorder);
+        questionTextArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         questionTextArea.setFont(Const.Fonts.TEXTS_FONT);
         questionTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         questionTextArea.setLineWrap(true);
@@ -95,6 +97,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setBounds(0, 500, 680, 130);
         buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -111,6 +114,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private JPanel getABCBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
+        buttonPanel.setBounds(0, 475, 680, 160);
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -161,57 +165,40 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void changePanelFromStandarToSpecial() {
         remove(yesNoBtnPanel);
         add(abcBtnPanel);
+        repaint();
     }
 
     public void showWaitImageImage() {
-        imagePanel.removeAll();
-        String imgFileName = TextsDao.getFileName("img.wait_photo");
-        ImageIcon image = ImageUtils.getProgramImage(imgFileName);
-        imagePanel.remove(imageLabel);
-        imageLabel = new JLabel("", image, JLabel.CENTER);
-        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        imagePanel.add(imageLabel);
+        player.stop();
+        player.prepareMedia("media" + File.separator + "wait_photo");
+        player.parseMedia();
+        player.play();
     }
 
     public void showWaitVideoImage() {
-        imagePanel.removeAll();
-        String imgFileName = TextsDao.getFileName("img.wait_video");
-        ImageIcon image = ImageUtils.getProgramImage(imgFileName);
-        imageLabel = new JLabel("", image, JLabel.CENTER);
-        imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        imagePanel.add(imageLabel);
+        player.stop();
+        player.prepareMedia("media" + File.separator + "wait_video");
+        player.parseMedia();
+        player.play();
     }
 
     public void setImageName(String imageName) {
-        try {
-            ImageIcon image = ImageUtils.getQuestionImage(imageName);
-            imagePanel.removeAll();
-            imageLabel = new JLabel("", image, JLabel.CENTER);
-            imageLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            imagePanel.add(imageLabel);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
-        }
+        player.stop();
+        player.prepareMedia("media" + File.separator + imageName);
+        player.parseMedia();
+        player.play();
     }
 
     public void setVideoName(final String videoName) {
-        imagePanel.removeAll();
-        final VideoPanel videoPanel = new VideoPanel();
-        videoPanel.setPreferredSize(Const.Dimensions.VIDEO_SIZE);
-        videoPanel.setMinimumSize(Const.Dimensions.VIDEO_SIZE);
-        videoPanel.setMaximumSize(Const.Dimensions.VIDEO_SIZE);
-        imagePanel.add(videoPanel);
-
-        Runnable runnable = new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                VideoCodec videoCodec =
-                        new VideoCodec(videoPanel, videoName);
+                player.stop();
+                player.prepareMedia("media" + File.separator + videoName);
+                player.parseMedia();
+                player.play();
             }
-        };
-
-        Thread thread = new Thread(runnable);
-        thread.start();
+        }).start();
     }
 
     public void enableAllBtns() {

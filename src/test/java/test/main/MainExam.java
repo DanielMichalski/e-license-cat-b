@@ -18,7 +18,6 @@ public class MainExam {
                 ExamFrame frame = new ExamFrame();
                 ApplicationUtils.setApplicationIcon(frame);
                 frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                frame.setVisible(true);
             }
         });
     }

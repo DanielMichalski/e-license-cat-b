@@ -19,7 +19,7 @@ public class ExamResultFrame extends JDialog {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
-    public static final int WIDTH = 953;
+    public static final int WIDTH = 940;
     public static final int HEIGHT = 670;
 
     public ExamResultFrame(List<StandardQuestion> standardQuestions,
@@ -34,6 +34,7 @@ public class ExamResultFrame extends JDialog {
     }
 
     private void setUpFrame() {
+
         setTitle(TextsDao.getText("view.ExamResultFrame.title"));
         ApplicationUtils.setApplicationIcon(this);
         setSize(WIDTH, HEIGHT);
