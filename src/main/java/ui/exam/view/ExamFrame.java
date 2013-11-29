@@ -20,13 +20,14 @@ public class ExamFrame extends JDialog implements WindowCloser {
     public ExamFrame() {
         setUpFrame();
         initializeComponents();
-        setLocationRelativeTo(null);
     }
 
     private void setUpFrame() {
+        setVisible(true);
         ApplicationUtils.setNimbusLookAndFeel();
         ApplicationUtils.setApplicationIcon(this);
         setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
         setTitle(TextsDao.getText("view.ExamFrame.title"));
         setModal(true);
         setResizable(false);
