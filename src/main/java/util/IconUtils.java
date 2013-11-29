@@ -1,7 +1,6 @@
-package media.images;
+package util;
 
 import database.dao.TextsDao;
-import util.Const;
 
 import javax.swing.*;
 import java.awt.*;
