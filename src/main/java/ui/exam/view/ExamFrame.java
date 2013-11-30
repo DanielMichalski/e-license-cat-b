@@ -17,26 +17,32 @@ public class ExamFrame extends JDialog implements WindowCloser {
     public static final int WIDTH = 953;
     public static final int HEIGHT = 670;
 
-    public ExamFrame() {
+    private ExamQuestionsLeftPanel examQuestionsPanel;
+
+    public ExamFrame(JDialog dialog) {
         setUpFrame();
         initializeComponents();
+        setVisible(true);
+
+        if (dialog != null) {
+            dialog.dispose();
+        }
     }
 
     private void setUpFrame() {
-        setVisible(true);
         ApplicationUtils.setNimbusLookAndFeel();
         ApplicationUtils.setApplicationIcon(this);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setTitle(TextsDao.getText("view.ExamFrame.title"));
-        setModal(true);
         setResizable(false);
     }
 
     private void initializeComponents() {
         ExamPresenter presenter = new ExamPresenter(this);
 
-        ExamQuestionsLeftPanel examQuestionsPanel = new ExamQuestionsLeftPanel();
+
+        examQuestionsPanel = new ExamQuestionsLeftPanel();
         ExamPointsRightPanel examResultPanel = new ExamPointsRightPanel();
 
         add(examQuestionsPanel, BorderLayout.CENTER);
@@ -49,6 +55,8 @@ public class ExamFrame extends JDialog implements WindowCloser {
         presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
         presenter.setSpecjalistPartPanel(examResultPanel.getSpecjalistPartPanel());
         presenter.setTimeAndBtnConfirmPanel(examResultPanel.getTimeAndBtnConfirmPanel());
+
+        setVisible(true);
 
         presenter.nextQuestion();
     }

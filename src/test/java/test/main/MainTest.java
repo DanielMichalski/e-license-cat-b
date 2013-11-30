@@ -37,7 +37,6 @@ public class MainTest {
                 new ArrayList<StandardQuestion>(),
                 new ArrayList<SpecialistQuestion>());
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
         frame.setVisible(true);
     }
 

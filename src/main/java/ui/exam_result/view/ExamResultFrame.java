@@ -30,20 +30,21 @@ public class ExamResultFrame extends JDialog {
 
         setUpFrame();
         initializeComponents();
-        setLocationRelativeTo(null);
+
     }
 
     private void setUpFrame() {
-
         setTitle(TextsDao.getText("view.ExamResultFrame.title"));
         ApplicationUtils.setApplicationIcon(this);
         setSize(WIDTH, HEIGHT);
-        setModal(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
         setResizable(false);
     }
 
     private void initializeComponents() {
         ExamResultPresenter presenter = new ExamResultPresenter(standardQuestions, specialistQuestions);
+
 
         ExamResultLeftPanel leftPanel = new ExamResultLeftPanel();
         ExamResultRightPanel rightPanel = new ExamResultRightPanel(presenter, standardQuestions, specialistQuestions);
