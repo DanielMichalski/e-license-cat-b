@@ -5,6 +5,7 @@ import database.columns.ModuleColumnNames;
 import encrypt.Encrypter;
 import model.Module;
 
+import javax.swing.*;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +25,8 @@ public class CSVModuleDataProvider {
         List<Module> modules = new ArrayList<Module>();
 
         InputStream resourceAsStream = CSVModuleDataProvider.class.getResourceAsStream("/csv/modules_enc");
+
+        checkResource(resourceAsStream);
 
         byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
@@ -46,6 +49,17 @@ public class CSVModuleDataProvider {
         csvReader.close();
 
         return modules;
+    }
+
+    private static void checkResource(InputStream resourceAsStream) {
+        if (resourceAsStream == null) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Wystąpił błąd przy wczytywaniu pytań",
+                    "Informacja",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 
     public static Module getModule(int moduleId) throws IOException {

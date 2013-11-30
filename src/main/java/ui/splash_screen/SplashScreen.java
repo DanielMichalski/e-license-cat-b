@@ -23,7 +23,7 @@ public class SplashScreen {
 
             @Override
             protected Void doInBackground() throws Exception {
-                for (int i = 0; i < 100; i++) {
+                for (int i = 0; i <= 100; i++) {
                     Thread.sleep(15);
                     publish(i);
                 }
@@ -37,7 +37,6 @@ public class SplashScreen {
 
             @Override
             protected void done() {
-                hideSplashScreen();
                 showFrame();
             }
 
@@ -69,8 +68,14 @@ public class SplashScreen {
     }
 
     protected void showFrame() {
-        ExamFrame examFrame = new ExamFrame();
-        examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-        examFrame.setVisible(true);
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                ExamFrame examFrame = new ExamFrame(dialog);
+                examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                examFrame.setVisible(true);
+            }
+        });
+
     }
 }
