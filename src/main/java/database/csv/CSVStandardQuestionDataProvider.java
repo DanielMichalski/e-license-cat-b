@@ -59,7 +59,10 @@ public class CSVStandardQuestionDataProvider {
                         mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
                     }
 
-                    MediaType mediaType = MediaType.valueOf(csvReader.get(Q_MEDIA_TYPE));
+                    MediaType mediaType = MediaType.IMAGE;
+                    if (csvReader.get(Q_MEDIA_TYPE).equals("VIDEO") ) {
+                        mediaType = MediaType.VIDEO;
+                    }
 
                     StandardQuestion standardQuestion = new StandardQuestion(
                             points,
