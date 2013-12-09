@@ -39,7 +39,8 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLC");
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx86");
+        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx64");
         component = new EmbeddedMediaPlayerComponent();
         player = component.getMediaPlayer();
 
