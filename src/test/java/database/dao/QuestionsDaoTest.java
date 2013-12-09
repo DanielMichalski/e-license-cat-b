@@ -29,7 +29,6 @@ public class QuestionsDaoTest {
                 QuestionsDao.getAllStandardQuestion();
 
         assertNotNull(questions);
-
     }
 
     @Test
