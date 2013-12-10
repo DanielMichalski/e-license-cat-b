@@ -10,6 +10,7 @@ import model.StandardQuestion;
 import model.YesNoAnswer;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -34,8 +35,6 @@ public class CSVStandardQuestionDataProvider {
 
         InputStream resourceAsStream = CSVStandardQuestionDataProvider.class.getResourceAsStream("/csv/questions_enc");
 
-        System.out.println(resourceAsStream);
-
         byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
@@ -57,6 +56,11 @@ public class CSVStandardQuestionDataProvider {
                         mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
                     } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
                         mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+                    }
+
+                    File file = new File("media" + File.separator + mediaPath);
+                    if (!file.exists()) {
+                        continue;
                     }
 
                     MediaType mediaType = MediaType.IMAGE;

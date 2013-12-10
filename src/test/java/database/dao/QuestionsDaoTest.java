@@ -4,6 +4,7 @@ import model.SpecialistQuestion;
 import model.StandardQuestion;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -28,6 +29,14 @@ public class QuestionsDaoTest {
         List<StandardQuestion> questions =
                 QuestionsDao.getAllStandardQuestion();
 
+        for (StandardQuestion question : questions) {
+            String mediaPath = question.getMediaPath();
+            File file = new File("media" + File.separator + mediaPath);
+            if (!file.exists()) {
+                System.out.println(file);
+            }
+        }
+
         assertNotNull(questions);
     }
 
@@ -44,6 +53,14 @@ public class QuestionsDaoTest {
     public void testGetAllSpecialistQuestion() throws Exception {
         List<SpecialistQuestion> questions =
                 QuestionsDao.getAllSpecialistQuestion();
+
+        for (SpecialistQuestion question : questions) {
+            String mediaPath = question.getMediaPath();
+            File file = new File("media" + File.separator + mediaPath);
+            if (!file.exists()) {
+                System.out.println(file);
+            }
+        }
 
         assertNotNull(questions);
     }

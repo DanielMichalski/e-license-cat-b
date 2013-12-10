@@ -11,6 +11,7 @@ import model.SpecialistQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -58,6 +59,11 @@ public class CSVSpecialistQuestionDataProvider {
                         mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
                     } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
                         mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+                    }
+
+                    File file = new File("media" + File.separator + mediaPath);
+                    if (!file.exists()) {
+                        continue;
                     }
 
                     MediaType mediaType = MediaType.IMAGE;
