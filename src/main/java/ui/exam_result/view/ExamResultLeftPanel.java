@@ -40,7 +40,6 @@ public class ExamResultLeftPanel extends JPanel {
 
     private void setUpPanel() {
         NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx86");
-        //NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx64");
         component = new EmbeddedMediaPlayerComponent();
         player = component.getMediaPlayer();
 
@@ -237,6 +236,8 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
+        System.out.println("media" + File.separator + imageName);
+
         player.stop();
         player.prepareMedia("media" + File.separator + imageName);
         player.parseMedia();
@@ -244,15 +245,12 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     public synchronized void setVideoName(final String videoName) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                player.stop();
-                player.prepareMedia("media" + File.separator + videoName);
-                player.parseMedia();
-                player.play();
-            }
-        }).start();
+        System.out.println("media" + File.separator + videoName);
+
+        player.stop();
+        player.prepareMedia("media" + File.separator + videoName);
+        player.parseMedia();
+        player.play();
     }
 
     public void enableAllBtns() {
