@@ -37,9 +37,19 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx86");
-        component = new EmbeddedMediaPlayerComponent();
-        player = component.getMediaPlayer();
+        try {
+            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx86");
+            component = new EmbeddedMediaPlayerComponent();
+            player = component.getMediaPlayer();
+        } catch (RuntimeException ex) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Nie można uruchomić programu gdy ma się zainstalowaną wersję JRE x64. Odinstaluj JRE x64 oraz zainstaluj JRE x86 i spróbuj ponownie.",
+                    "Uwaga",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            System.exit(1);
+        }
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
