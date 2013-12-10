@@ -17,11 +17,11 @@ import static org.junit.Assert.assertNotNull;
 public class QuestionsDaoTest {
     @Test
     public void testGet20StandardQuestion() throws Exception {
-        List<SpecialistQuestion> questions =
-                QuestionsDao.get12SpecialistQuestion();
+        List<StandardQuestion> questions =
+                QuestionsDao.get20StandardQuestion();
 
         assertNotNull(questions);
-        assertEquals(12, questions.size());
+        assertEquals(20, questions.size());
     }
 
     @Test
