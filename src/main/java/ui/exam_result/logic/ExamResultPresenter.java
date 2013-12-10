@@ -23,7 +23,7 @@ public class ExamResultPresenter {
     private ExamResultLeftPanel leftPanel;
     private ExamResultRightPanel rightPanel;
 
-    public static final int HOW_MANY_POINTS_TO_PASS = 68;
+    public static final int HOW_MANY_POINTS_TO_PASS = 69;
 
     public ExamResultPresenter(List<StandardQuestion> standardQuestions,
                                List<SpecialistQuestion> specialistQuestions) {

@@ -1,3 +1,4 @@
+import database.provider.QuestionsProvider;
 import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
@@ -9,24 +10,22 @@ import java.awt.*;
  */
 public class RunApplication {
     public static void main(String[] args) {
+        readQuestions();
+        startApp();
+    }
 
+    private static void readQuestions() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (int i = 1; i <= 100; i++) {
-                    try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    System.out.println(i + " %");
-                }
+                QuestionsProvider provider = QuestionsProvider.getInstance();
             }
         });
 
         thread.start();
+    }
 
+    private static void startApp() {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -35,7 +34,6 @@ public class RunApplication {
                 mv.setVisible(true);
             }
         });
-
     }
 }
 
