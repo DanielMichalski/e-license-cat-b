@@ -1,9 +1,8 @@
 package ui.exam.logic;
 
-import database.dao.QuestionsDao;
 import database.dao.TextsDao;
+import database.provider.QuestionsProvider;
 import model.*;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import timer.SpecialistPartTimerCountdown;
 import timer.StandardPartTimerCountdown;
 import timer.TimerCountDown;
@@ -14,7 +13,6 @@ import ui.exam_result.view.ExamResultFrame;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.List;
 import java.util.Timer;
 import java.util.logging.Logger;
@@ -53,14 +51,10 @@ public class ExamPresenter {
     public ExamPresenter(WindowCloser windowCloser) {
         this.windowCloser = windowCloser;
 
-        try {
-            this.standardQuestions = QuestionsDao.get20StandardQuestion();
-            this.specialistQuestions = QuestionsDao.get12SpecialistQuestion();
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
-        } catch (InvalidFormatException e) {
-            JOptionPane.showMessageDialog(null, e, "Błąd", JOptionPane.ERROR_MESSAGE);
-        }
+        QuestionsProvider questionsProvider = QuestionsProvider.getInstance();
+
+        this.standardQuestions = questionsProvider.getStandard20Questions();
+        this.specialistQuestions = questionsProvider.getSpecialist12Questions();
     }
 
     public void nextQuestion() {
