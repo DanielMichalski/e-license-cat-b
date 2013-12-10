@@ -46,11 +46,4 @@ public class ApplicationUtils {
         ImageIcon iconImage = ImageUtils.getProgramImage(appIconFileName);
         owner.setIconImage(iconImage.getImage());
     }
-
-    public static void checkResolution() {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension resolution = toolkit.getScreenSize();
-        String text = String.format("Rodzielczość ekranu: %d x %d", resolution.width, resolution.height);
-        System.out.println(text);
-    }
 }
