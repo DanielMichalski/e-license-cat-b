@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Author: Daniel
@@ -50,8 +51,13 @@ public class QuestionsProvider {
             spQuestionsAt2 = new ArrayList<SpecialistQuestion>();
             spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
-            Collections.shuffle(allStandardQuestions);
-            Collections.shuffle(allSpecialistQuestions);
+            Random random = new Random(47);
+            int x = random.nextInt(5) + 1;
+
+            for (int i = 0; i < 100; i++) {
+                Collections.shuffle(allStandardQuestions);
+                Collections.shuffle(allSpecialistQuestions);
+            }
 
             setQuestions();
 

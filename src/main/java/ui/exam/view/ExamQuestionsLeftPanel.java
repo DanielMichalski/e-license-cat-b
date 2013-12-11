@@ -42,13 +42,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
             component = new EmbeddedMediaPlayerComponent();
             player = component.getMediaPlayer();
         } catch (RuntimeException ex) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Nie można uruchomić programu gdy ma się zainstalowaną wersję JRE x64. Odinstaluj JRE x64 oraz zainstaluj JRE x86 i spróbuj ponownie.",
-                    "Uwaga",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            System.exit(1);
+            showErrorMessageAndExit();
         }
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
@@ -57,6 +51,16 @@ public class ExamQuestionsLeftPanel extends JPanel {
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
+    }
+
+    private void showErrorMessageAndExit() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Nie można uruchomić programu gdy ma się zainstalowaną wersję JRE x64. Odinstaluj JRE x64 oraz zainstaluj JRE x86 i spróbuj ponownie.",
+                "Uwaga",
+                JOptionPane.ERROR_MESSAGE
+        );
+        System.exit(1);
     }
 
     private void initializeComponents() {
@@ -194,7 +198,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public void setImageName(String imageName) {
         player.stop();
-        player.prepareMedia("media" + File.separator + imageName);
+        player.prepareMedia("media" + File.separator + imageName + ".prod");
         player.parseMedia();
         player.play();
     }
@@ -204,7 +208,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
             @Override
             public void run() {
                 player.stop();
-                player.prepareMedia("media" + File.separator + videoTitle);
+                player.prepareMedia("media" + File.separator + videoTitle + ".prod");
                 player.parseMedia();
                 player.play();
             }

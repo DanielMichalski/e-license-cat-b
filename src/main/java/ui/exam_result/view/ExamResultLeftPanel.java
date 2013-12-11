@@ -236,19 +236,15 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
-        System.out.println("media" + File.separator + imageName);
-
         player.stop();
-        player.prepareMedia("media" + File.separator + imageName);
+        player.prepareMedia("media" + File.separator + imageName + ".prod");
         player.parseMedia();
         player.play();
     }
 
     public synchronized void setVideoName(final String videoName) {
-        System.out.println("media" + File.separator + videoName);
-
         player.stop();
-        player.prepareMedia("media" + File.separator + videoName);
+        player.prepareMedia("media" + File.separator + videoName + ".prod");
         player.parseMedia();
         player.play();
     }
