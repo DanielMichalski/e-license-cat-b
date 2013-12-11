@@ -61,7 +61,7 @@ public class CSVSpecialistQuestionDataProvider {
                         mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
                     }
 
-                    File file = new File("media" + File.separator + mediaPath);
+                    File file = new File("media" + File.separator + mediaPath + ".prod");
                     if (!file.exists()) {
                         continue;
                     }
