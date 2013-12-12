@@ -10,12 +10,26 @@ import java.util.List;
  * Author: Daniel
  */
 public class QuestionsDao {
+    public static List<StandardQuestion> getAllStandardQuestions() {
+        QuestionsProvider questionsProvider =
+                QuestionsProvider.getInstance();
+
+        return questionsProvider.getAllStandardQuestions();
+    }
+
     public static List<StandardQuestion> getStandard20Questions() {
 
         QuestionsProvider questionsProvider =
                 QuestionsProvider.getInstance();
 
         return questionsProvider.getStandard20Questions();
+    }
+
+    public static List<SpecialistQuestion> getAllSpecialistQuestions() {
+        QuestionsProvider questionsProvider =
+                QuestionsProvider.getInstance();
+
+        return questionsProvider.getAllSpecialistQuestions();
     }
 
     public static List<SpecialistQuestion> getSpecialist12Questions() {

@@ -36,7 +36,7 @@ public class QuestionsProvider {
     private QuestionsProvider() {
         long start = System.currentTimeMillis();
 
-        CSVQuestionDataProvider csvQuestionDataProvider = CSVQuestionDataProvider.getInstance();
+        CSVQuestionDataProvider csvQuestionDataProvider = new CSVQuestionDataProvider();
 
         allStandardQuestions = csvQuestionDataProvider.getAllStandardQuestions();
         allSpecialistQuestions = csvQuestionDataProvider.getAllSpecialistQuestions();
@@ -49,14 +49,7 @@ public class QuestionsProvider {
         spQuestionsAt2 = new ArrayList<SpecialistQuestion>();
         spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
-        Random random = new Random(47);
-        int x = random.nextInt(100) + 1;
-
-        for (int i = 0; i < x; i++) {
-            Collections.shuffle(allStandardQuestions);
-            Collections.shuffle(allSpecialistQuestions);
-        }
-
+        shuffleQuestions();
         setQuestions();
 
         long end = System.currentTimeMillis();
@@ -64,104 +57,53 @@ public class QuestionsProvider {
         System.out.println(String.format("Całość: %.2f sec.", time));
     }
 
-    private void setQuestions() {
-        setStQuestionsAt3();
-        setStQuestionsAt2();
-        setStQuestionsAt1();
+    private void shuffleQuestions() {
+        Random random = new Random(47);
+        int x = random.nextInt(100) + 1;
 
-        setSpQuestions3();
-        setSpQuestions2();
-        setSpQuestions1();
+        for (int i = 0; i < x; i++) {
+            Collections.shuffle(allStandardQuestions);
+            Collections.shuffle(allSpecialistQuestions);
+        }
+    }
+
+    private void setQuestions() {
+        setStandQuestions(stQuestionsAt3, 3, 10);
+        setStandQuestions(stQuestionsAt2, 2, 6);
+        setStandQuestions(stQuestionsAt1, 1, 4);
+
+        setSpecQuestions(spQuestionsAt3, 3, 6);
+        setSpecQuestions(spQuestionsAt2, 2, 4);
+        setSpecQuestions(spQuestionsAt1, 1, 2);
 
         set20StandardQuestions();
         set12SpecialistQuestions();
     }
 
-    private void setStQuestionsAt3() {
+    private void setStandQuestions(List<StandardQuestion> questions, int howManyPoints, int howManyQuestions) {
         int i = 0;
 
         for (StandardQuestion standardQuestion : allStandardQuestions) {
-            if (standardQuestion.getPoints() == 3) {
-                stQuestionsAt3.add(standardQuestion);
+            if (standardQuestion.getPoints() == howManyPoints) {
+                questions.add(standardQuestion);
                 i++;
 
-                if (i == 10) {
+                if (i == howManyQuestions) {
                     break;
                 }
             }
         }
     }
 
-    private void setStQuestionsAt2() {
-        int i = 0;
-
-        for (StandardQuestion standardQuestion : allStandardQuestions) {
-            if (standardQuestion.getPoints() == 2) {
-                stQuestionsAt2.add(standardQuestion);
-                i++;
-
-                if (i == 6) {
-                    break;
-                }
-            }
-        }
-    }
-
-    private void setStQuestionsAt1() {
-        int i = 0;
-
-        for (StandardQuestion standardQuestion : allStandardQuestions) {
-            if (standardQuestion.getPoints() == 1) {
-                stQuestionsAt1.add(standardQuestion);
-                i++;
-
-                if (i == 4) {
-                    break;
-                }
-            }
-        }
-    }
-
-
-    private void setSpQuestions3() {
+    private void setSpecQuestions(List<SpecialistQuestion> questions, int howManyPoints, int howManyQuestions) {
         int i = 0;
 
         for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
-            if (specialistQuestion.getPoints() == 3) {
-                spQuestionsAt3.add(specialistQuestion);
+            if (specialistQuestion.getPoints() == howManyPoints) {
+                questions.add(specialistQuestion);
                 i++;
 
-                if (i == 6) {
-                    break;
-                }
-            }
-        }
-    }
-
-    private void setSpQuestions2() {
-        int i = 0;
-
-        for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
-            if (specialistQuestion.getPoints() == 2) {
-                spQuestionsAt2.add(specialistQuestion);
-                i++;
-
-                if (i == 4) {
-                    break;
-                }
-            }
-        }
-    }
-
-    private void setSpQuestions1() {
-        int i = 0;
-
-        for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
-            if (specialistQuestion.getPoints() == 1) {
-                spQuestionsAt1.add(specialistQuestion);
-                i++;
-
-                if (i == 2) {
+                if (i == howManyQuestions) {
                     break;
                 }
             }
@@ -190,5 +132,13 @@ public class QuestionsProvider {
 
     public List<SpecialistQuestion> getSpecialist12Questions() {
         return specialist12Questions;
+    }
+
+    public List<StandardQuestion> getAllStandardQuestions() {
+        return allStandardQuestions;
+    }
+
+    public List<SpecialistQuestion> getAllSpecialistQuestions() {
+        return allSpecialistQuestions;
     }
 }
