@@ -1,6 +1,5 @@
 package test.main;
 
-import database.csv.CSVModuleDataProvider;
 import database.xls.XLSSpecialistQuestionDataProvider;
 import database.xls.XLSStandardQuestionDataProvider;
 import model.SpecialistQuestion;

@@ -36,7 +36,7 @@ public class CSVQuestionDataProvider {
         long start = System.currentTimeMillis();
         readQuestions();
         long end = System.currentTimeMillis();
-        double time = (double)(end-start) / 1000;
+        double time = (double) (end - start) / 1000;
         System.out.println(String.format("Wczytywanie pytań: %.2f sec.", time));
     }
 
@@ -51,7 +51,7 @@ public class CSVQuestionDataProvider {
 
             csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
             long end = System.currentTimeMillis();
-            double time = (double)(end-start) / 1000;
+            double time = (double) (end - start) / 1000;
             System.out.println(String.format("Odszyfrowywanie: %.2f sec.", time));
 
             csvReader.readHeaders();
@@ -95,7 +95,7 @@ public class CSVQuestionDataProvider {
         }
 
         MediaType mediaType = MediaType.IMAGE;
-        if (csvReader.get(Q_MEDIA_TYPE).equals("VIDEO") ) {
+        if (csvReader.get(Q_MEDIA_TYPE).equals("VIDEO")) {
             mediaType = MediaType.VIDEO;
         }
 

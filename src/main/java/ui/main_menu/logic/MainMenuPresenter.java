@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
  */
 public class MainMenuPresenter {
     private IMinimalize iMinimalize;
-    private JMenuItem aboutMenuItem;
 
     public MainMenuPresenter(IMinimalize iMinimalize) {
         this.iMinimalize = iMinimalize;

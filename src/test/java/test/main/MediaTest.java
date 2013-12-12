@@ -55,9 +55,9 @@ public class MediaTest {
         System.out.println(suma);
 
         long end = System.currentTimeMillis();
-        long time = end-start;
+        long time = end - start;
 
-        double timeInSec = (double)time / 1000;
+        double timeInSec = (double) time / 1000;
         System.out.println(String.format("Time: %.2f sec.", timeInSec));
 
     }

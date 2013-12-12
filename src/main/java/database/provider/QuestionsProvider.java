@@ -53,7 +53,7 @@ public class QuestionsProvider {
         setQuestions();
 
         long end = System.currentTimeMillis();
-        double time = (double)(end-start) / 1000;
+        double time = (double) (end - start) / 1000;
         System.out.println(String.format("Całość: %.2f sec.", time));
     }
 
