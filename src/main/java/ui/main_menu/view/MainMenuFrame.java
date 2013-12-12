@@ -17,6 +17,7 @@ public class MainMenuFrame extends JFrame implements IMinimalize {
 
     private JMenuItem startExamMenuItem;
     private JMenuItem closeMenuItem;
+    private JMenuItem aboutMenuItem;
 
     public MainMenuFrame() {
         setUpFrame();
@@ -43,6 +44,7 @@ public class MainMenuFrame extends JFrame implements IMinimalize {
         presenter.setInfoAboutExamBtn(mainPanel.getInfoAboutExamBtn());
         presenter.setStartExamMenuItem(startExamMenuItem);
         presenter.setCloseMenuItem(closeMenuItem);
+        presenter.setAboutMenuItem(aboutMenuItem);
 
         pack();
         setLocationRelativeTo(null);
@@ -57,14 +59,21 @@ public class MainMenuFrame extends JFrame implements IMinimalize {
 
     private JMenuBar createJMenuBar() {
         JMenuBar menuBar = new JMenuBar();
+
         JMenu fileMenu = new JMenu(TextsDao.getText("view.MainMenuFrame.Menu.fileMenu"));
+        JMenu helpMenu = new JMenu(TextsDao.getText("view.MainMenuFrame.Menu.helpMenu"));
+
         menuBar.add(fileMenu);
+        menuBar.add(helpMenu);
 
         startExamMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.starExamMenuItem"));
         fileMenu.add(startExamMenuItem);
 
         closeMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.closeMenuItem"));
         fileMenu.add(closeMenuItem);
+
+        aboutMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.aboutMenuItem"));
+        helpMenu.add(aboutMenuItem);
 
         return menuBar;
     }
