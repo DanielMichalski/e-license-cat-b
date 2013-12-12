@@ -43,12 +43,11 @@ public class CSVQuestionDataProvider {
     private void readQuestions() {
         try {
             InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/q_enc");
+            ApplicationUtils.checkResource(resourceAsStream);
             byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
             long start = System.currentTimeMillis();
             InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-
-            ApplicationUtils.checkResource(byteInputStream);
 
             csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
             long end = System.currentTimeMillis();
