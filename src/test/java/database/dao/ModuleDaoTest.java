@@ -4,6 +4,7 @@ import model.Module;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -15,5 +16,6 @@ public class ModuleDaoTest {
     public void testGetAllModules() throws Exception {
         List<Module> allModules = ModuleDao.getAllModules();
         assertNotNull(allModules);
+        assertNotEquals(0, allModules.size());
     }
 }
