@@ -26,7 +26,6 @@ public class CSVModuleDataProvider {
 
         try {
             InputStream resourceAsStream = CSVModuleDataProvider.class.getResourceAsStream("/csv/m_enc");
-
             ApplicationUtils.checkResource(resourceAsStream);
 
             byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
