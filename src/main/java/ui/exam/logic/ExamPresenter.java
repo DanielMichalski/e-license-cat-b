@@ -2,7 +2,6 @@ package ui.exam.logic;
 
 import database.dao.QuestionsDao;
 import database.dao.TextsDao;
-import database.provider.QuestionsProvider;
 import model.*;
 import timer.SpecialistPartTimerCountdown;
 import timer.StandardPartTimerCountdown;
