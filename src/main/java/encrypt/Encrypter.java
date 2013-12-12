@@ -29,7 +29,7 @@ public class Encrypter {
         Files.write(newPath, myEncryptedBytes);
     }
 
- /*   public static byte[] decryptFile(Path oldPath, Path newPath, boolean createFile) throws IOException {
+    public static byte[] decryptFile(Path oldPath, Path newPath, boolean createFile) throws IOException {
         byte[] myBinary = Files.readAllBytes(oldPath);
 
         BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
@@ -42,7 +42,7 @@ public class Encrypter {
         }
 
         return decrypted;
-    }*/
+    }
 
     public static byte[] decryptFile(InputStream inputStream) throws IOException {
         byte[] myBinary = IOUtils.toByteArray(inputStream);
