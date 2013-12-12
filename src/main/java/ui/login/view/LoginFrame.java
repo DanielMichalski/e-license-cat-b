@@ -2,6 +2,7 @@ package ui.login.view;
 
 import database.dao.TextsDao;
 import ui.login.logic.LoginPresenter;
+import util.ApplicationUtils;
 import util.Const;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ public class LoginFrame extends JFrame implements IWindowCloser {
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
-
+        ApplicationUtils.setApplicationIcon(this);
     }
 
     private void initializeComponents() {
