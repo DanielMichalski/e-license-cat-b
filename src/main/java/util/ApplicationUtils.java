@@ -52,7 +52,7 @@ public class ApplicationUtils {
         if (resourceAsStream == null) {
             JOptionPane.showMessageDialog(
                     null,
-                    "Wystąpił błąd przy wczytywaniu pytań",
+                    "Wystąpił błąd przy wczytywaniu pytań. Aplikacja zostanie zamknięta",
                     "Informacja",
                     JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
