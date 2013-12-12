@@ -28,13 +28,7 @@ public class CSVQuestionDataProvider {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
-    private static CSVQuestionDataProvider ourInstance = new CSVQuestionDataProvider();
-
-    public static CSVQuestionDataProvider getInstance() {
-        return ourInstance;
-    }
-
-    private CSVQuestionDataProvider() {
+    public CSVQuestionDataProvider() {
         standardQuestions = new ArrayList<StandardQuestion>();
         specialistQuestions = new ArrayList<SpecialistQuestion>();
 

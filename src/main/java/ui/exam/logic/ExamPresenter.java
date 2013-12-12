@@ -52,8 +52,6 @@ public class ExamPresenter {
     public ExamPresenter(WindowCloser windowCloser) {
         this.windowCloser = windowCloser;
 
-        QuestionsProvider questionsProvider = QuestionsProvider.getInstance();
-
         this.standardQuestions = QuestionsDao.getStandard20Questions();
         this.specialistQuestions = QuestionsDao.getSpecialist12Questions();
     }
