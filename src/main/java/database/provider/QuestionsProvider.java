@@ -50,9 +50,9 @@ public class QuestionsProvider {
         spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
         Random random = new Random(47);
-        int x = random.nextInt(5) + 1;
+        int x = random.nextInt(100) + 1;
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < x; i++) {
             Collections.shuffle(allStandardQuestions);
             Collections.shuffle(allSpecialistQuestions);
         }
