@@ -1,12 +1,9 @@
 package database.provider;
 
-import database.csv.CSVSpecialistQuestionDataProvider;
-import database.csv.CSVStandardQuestionDataProvider;
+import database.csv.CSVQuestionDataProvider;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,36 +36,32 @@ public class QuestionsProvider {
     private QuestionsProvider() {
         long start = System.currentTimeMillis();
 
-        try {
-            allStandardQuestions = CSVStandardQuestionDataProvider.getAllStandardQuestions();
-            allSpecialistQuestions = CSVSpecialistQuestionDataProvider.getAllSpecialistQuestions();
+        CSVQuestionDataProvider csvQuestionDataProvider = CSVQuestionDataProvider.getInstance();
 
-            stQuestionsAt3 = new ArrayList<StandardQuestion>();
-            stQuestionsAt2 = new ArrayList<StandardQuestion>();
-            stQuestionsAt1 = new ArrayList<StandardQuestion>();
+        allStandardQuestions = csvQuestionDataProvider.getAllStandardQuestions();
+        allSpecialistQuestions = csvQuestionDataProvider.getAllSpecialistQuestions();
 
-            spQuestionsAt3 = new ArrayList<SpecialistQuestion>();
-            spQuestionsAt2 = new ArrayList<SpecialistQuestion>();
-            spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
+        stQuestionsAt3 = new ArrayList<StandardQuestion>();
+        stQuestionsAt2 = new ArrayList<StandardQuestion>();
+        stQuestionsAt1 = new ArrayList<StandardQuestion>();
 
-            Random random = new Random(47);
-            int x = random.nextInt(5) + 1;
+        spQuestionsAt3 = new ArrayList<SpecialistQuestion>();
+        spQuestionsAt2 = new ArrayList<SpecialistQuestion>();
+        spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
-            for (int i = 0; i < 100; i++) {
-                Collections.shuffle(allStandardQuestions);
-                Collections.shuffle(allSpecialistQuestions);
-            }
+        Random random = new Random(47);
+        int x = random.nextInt(5) + 1;
 
-            setQuestions();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InvalidFormatException e) {
-            e.printStackTrace();
+        for (int i = 0; i < 100; i++) {
+            Collections.shuffle(allStandardQuestions);
+            Collections.shuffle(allSpecialistQuestions);
         }
 
+        setQuestions();
+
         long end = System.currentTimeMillis();
-        System.out.println("Time " + (end - start) + " ms");
+        double time = (double)(end-start) / 1000;
+        System.out.println(String.format("Całość: %.2f sec.", time));
     }
 
     private void setQuestions() {
