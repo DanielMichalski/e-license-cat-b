@@ -33,10 +33,10 @@ public class HelpPanel extends JPanel {
         JLabel obsluga = new JLabel(OBSLUGA);
         BtnPanel btnPanel = new BtnPanel();
 
-        logo.setBounds(50, 10, 200, 70);
+        logo.setBounds(25, 10, 200, 70);
         developerInfo.setBounds(20, 50, 250, 100);
         obsluga.setBounds(20, 75, 250, 100);
-        btnPanel.setBounds(35, 150, 200, 50);
+        btnPanel.setBounds(30, 150, 200, 50);
 
         add(logo);
         add(developerInfo);

@@ -8,8 +8,8 @@ import java.awt.*;
  */
 public class HelpDialog extends JDialog implements Disposable {
 
-    public static final int WIDTH = 290;
-    public static final int HEIGHT = 240;
+    public static final int WIDTH = 270;
+    public static final int HEIGHT = 230;
 
     public HelpDialog() {
         setUpDialog();
