@@ -43,7 +43,7 @@ public class XLSUtil {
         String question = null;
         YesNoAnswer correctAnser = null;
         int moduleId;
-        Module module = null;
+        String module = null;
         String mediaPath = null;
         MediaType mediaType = null;
 
@@ -57,8 +57,7 @@ public class XLSUtil {
             correctAnser = YesNoAnswer.valueOf(row.getCell(Q_CORRECT_ANSWER).getStringCellValue());
         }
         if (row.getCell(Q_MODULE) != null) {
-            moduleId = (int) row.getCell(Q_MODULE).getNumericCellValue();
-            module = XLSModuleDataProvider.getModuleFromModuleId(moduleId);
+            module = row.getCell(Q_MODULE).getStringCellValue();
         }
 
         if (row.getCell(Q_FIRST_MEDIA_PATH) != null) {
@@ -92,7 +91,7 @@ public class XLSUtil {
         String answerC = null;
         ABCAnswer correctAnser = null;
         int moduleId;
-        Module module = null;
+        String module = null;
         String mediaPath = null;
         MediaType mediaType = null;
 
@@ -115,8 +114,7 @@ public class XLSUtil {
             correctAnser = ABCAnswer.valueOf(row.getCell(8).getStringCellValue());
         }
         if (row.getCell(9) != null) {
-            moduleId = (int) row.getCell(9).getNumericCellValue();
-            module = XLSModuleDataProvider.getModuleFromModuleId(moduleId);
+            module = row.getCell(Q_MODULE).getStringCellValue();
         }
 
         if (row.getCell(12) != null) {
