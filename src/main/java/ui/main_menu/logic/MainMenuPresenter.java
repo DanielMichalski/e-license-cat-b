@@ -2,9 +2,11 @@ package ui.main_menu.logic;
 
 import database.dao.TextsDao;
 import ui.emax_info_dialog.view.ShowInfoDialog;
+import ui.help.view.HelpDialog;
 import ui.main_menu.view.IMinimalize;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,6 +16,7 @@ import java.awt.event.ActionListener;
  */
 public class MainMenuPresenter {
     private IMinimalize iMinimalize;
+    private JMenuItem aboutMenuItem;
 
     public MainMenuPresenter(IMinimalize iMinimalize) {
         this.iMinimalize = iMinimalize;
@@ -41,6 +44,20 @@ public class MainMenuPresenter {
         @Override
         public void actionPerformed(ActionEvent e) {
             showConfirmClosingDialog();
+        }
+    }
+
+    class AboutAppListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    HelpDialog helpDialog = new HelpDialog();
+                    helpDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    helpDialog.setVisible(true);
+                }
+            });
         }
     }
 
@@ -73,5 +90,9 @@ public class MainMenuPresenter {
 
     public void setCloseMenuItem(JMenuItem closeMenuItem) {
         closeMenuItem.addActionListener(new CloseWindowListener());
+    }
+
+    public void setAboutMenuItem(JMenuItem aboutMenuItem) {
+        aboutMenuItem.addActionListener(new AboutAppListener());
     }
 }
