@@ -9,7 +9,7 @@ public class StandardQuestion {
     private String question;
     private YesNoAnswer userAnswer;
     private YesNoAnswer correctAnswer;
-    private Module module;
+    private String module;
     private String mediaPath;
     private MediaType mediaType;
 
@@ -17,7 +17,7 @@ public class StandardQuestion {
                             String question,
                             YesNoAnswer userAnswer,
                             YesNoAnswer correctAnswer,
-                            Module module,
+                            String module,
                             String mediaPath,
                             MediaType mediaType) {
 
@@ -50,7 +50,7 @@ public class StandardQuestion {
         return correctAnswer;
     }
 
-    public Module getModule() {
+    public String getModule() {
         return module;
     }
 

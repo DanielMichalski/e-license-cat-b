@@ -12,7 +12,7 @@ public class SpecialistQuestion {
     private String answerC;
     private ABCAnswer userAnswer;
     private ABCAnswer correctAnswer;
-    private Module module;
+    private String module;
     private String mediaPath;
     private MediaType mediaType;
 
@@ -23,7 +23,7 @@ public class SpecialistQuestion {
                               String answerC,
                               ABCAnswer userAnswer,
                               ABCAnswer correctAnswer,
-                              Module module,
+                              String module,
                               String mediaPath,
                               MediaType mediaType) {
 
@@ -71,7 +71,7 @@ public class SpecialistQuestion {
         return correctAnswer;
     }
 
-    public Module getModule() {
+    public String getModule() {
         return module;
     }
 
