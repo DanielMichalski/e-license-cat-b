@@ -4,6 +4,7 @@ import database.dao.TextsDao;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 /**
@@ -45,5 +46,16 @@ public class ApplicationUtils {
         String appIconFileName = TextsDao.getFileName("img.app_icon");
         ImageIcon iconImage = ImageUtils.getProgramImage(appIconFileName);
         owner.setIconImage(iconImage.getImage());
+    }
+
+    public static void checkResource(InputStream resourceAsStream) {
+        if (resourceAsStream == null) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Wystąpił błąd przy wczytywaniu pytań",
+                    "Informacja",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 }

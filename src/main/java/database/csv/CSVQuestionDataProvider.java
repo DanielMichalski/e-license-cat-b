@@ -5,6 +5,7 @@ import database.columns.QuestionColumnNames;
 import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.*;
+import util.ApplicationUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -41,11 +42,14 @@ public class CSVQuestionDataProvider {
 
     private void readQuestions() {
         try {
-            InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/questions_enc");
+            InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/q_enc");
             byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
             long start = System.currentTimeMillis();
             InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
+
+            ApplicationUtils.checkResource(byteInputStream);
+
             csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
             long end = System.currentTimeMillis();
             double time = (double)(end-start) / 1000;
@@ -54,10 +58,15 @@ public class CSVQuestionDataProvider {
             csvReader.readHeaders();
 
             while (csvReader.readRecord()) {
-                if (csvReader.get(Q_QUESTION_TYPE).equals(TextsDao.getText("standardQuestion"))) {
+                String standard = TextsDao.getText("standardQuestion");
+                String specialist = TextsDao.getText("specialistQuestion");
+
+                if (csvReader.get(Q_QUESTION_TYPE).equals(standard)) {
                     readStandardQuestion();
                 } else {
-                    readSpecialistQuesion();
+                    if (csvReader.get(Q_QUESTION_TYPE).equals(specialist)) {
+                        readSpecialistQuesion();
+                    }
                 }
             }
         } catch (IOException e) {
@@ -82,6 +91,7 @@ public class CSVQuestionDataProvider {
 
         File file = new File("media" + File.separator + mediaPath + ".prod");
         if (!file.exists()) {
+            System.out.println("Plik nie istnieje: " + file);
             return;
         }
 
@@ -121,6 +131,7 @@ public class CSVQuestionDataProvider {
 
         File file = new File("media" + File.separator + mediaPath + ".prod");
         if (!file.exists()) {
+            System.out.println("Plik nie istnieje: " + file);
             return;
         }
 
