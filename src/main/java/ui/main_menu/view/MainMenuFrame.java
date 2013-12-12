@@ -25,11 +25,6 @@ public class MainMenuFrame extends JFrame implements IMinimalize {
 
     private void setUpFrame() {
         ApplicationUtils.setNimbusLookAndFeel();
-
-        int i = 3;
-        int y = 4;
-        int suma = i + y;
-
         setTitle(TextsDao.getText("view.MainMenu.title"));
         setResizable(false);
         ApplicationUtils.setApplicationIcon(this);
