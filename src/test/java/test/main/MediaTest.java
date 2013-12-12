@@ -19,7 +19,7 @@ public class MediaTest {
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
 
-        InputStream resourceAsStream = MediaTest.class.getResourceAsStream("/csv/questions_enc");
+        InputStream resourceAsStream = MediaTest.class.getResourceAsStream("/csv/q_enc");
         byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
         InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
