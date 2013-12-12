@@ -6,7 +6,6 @@ import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
-import util.ImageUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
