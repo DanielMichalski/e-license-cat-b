@@ -1,6 +1,7 @@
 package test.main;
 
 import database.dao.QuestionsDao;
+import database.provider.QuestionsProvider;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -22,11 +23,14 @@ public class ExamResultTest {
 
         ApplicationUtils.setNimbusLookAndFeel();
 
+        QuestionsProvider questionsProvider =
+                QuestionsProvider.getInstance();
+
         List<StandardQuestion> standardQuestions
-                = QuestionsDao.get20StandardQuestion();
+                = QuestionsDao.getStandard20Questions();
 
         List<SpecialistQuestion> specialistQuestions =
-                QuestionsDao.get12SpecialistQuestion();
+                QuestionsDao.getSpecialist12Questions();
 
         ExamResultFrame frame = new ExamResultFrame(standardQuestions, specialistQuestions);
         frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);

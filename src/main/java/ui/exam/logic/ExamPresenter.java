@@ -1,5 +1,6 @@
 package ui.exam.logic;
 
+import database.dao.QuestionsDao;
 import database.dao.TextsDao;
 import database.provider.QuestionsProvider;
 import model.*;
@@ -53,8 +54,8 @@ public class ExamPresenter {
 
         QuestionsProvider questionsProvider = QuestionsProvider.getInstance();
 
-        this.standardQuestions = questionsProvider.getStandard20Questions();
-        this.specialistQuestions = questionsProvider.getSpecialist12Questions();
+        this.standardQuestions = QuestionsDao.getStandard20Questions();
+        this.specialistQuestions = QuestionsDao.getSpecialist12Questions();
     }
 
     public void nextQuestion() {
