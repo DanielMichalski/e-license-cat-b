@@ -45,11 +45,15 @@ public class PDFGenerator {
         try {
             savePDF();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,
-                    "Wystąpił błąd podczas zapisu pliku PDF: " + e,
-                    "Informacja",
-                    JOptionPane.INFORMATION_MESSAGE);
+            showError(e);
         }
+    }
+
+    private void showError(Exception e) {
+        JOptionPane.showMessageDialog(null,
+                "Wystąpił błąd podczas zapisu pliku PDF: " + e,
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void savePDF() throws Exception {

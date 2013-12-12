@@ -36,8 +36,8 @@ public class ImageUtils {
         Image image = imageIcon.getImage();
 
         Image scaledInstance = image.getScaledInstance(
-                Const.Dimensions.IMAGE_SIZE.width,
-                Const.Dimensions.IMAGE_SIZE.height,
+                Const.Dimensions.IMAGE_AND_VIDEO_SIZE.width,
+                Const.Dimensions.IMAGE_AND_VIDEO_SIZE.height,
                 BufferedImage.SCALE_DEFAULT);
 
         return new ImageIcon(scaledInstance);
