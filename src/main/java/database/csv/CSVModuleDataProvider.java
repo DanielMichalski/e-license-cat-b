@@ -21,37 +21,40 @@ import java.util.logging.Logger;
 public class CSVModuleDataProvider {
     private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
 
-    public static List<Module> getAllModules() throws IOException {
+    public List<Module> getAllModules() {
         List<Module> modules = new ArrayList<Module>();
 
-        InputStream resourceAsStream = CSVModuleDataProvider.class.getResourceAsStream("/csv/modules_enc");
+        try {
+            InputStream resourceAsStream = CSVModuleDataProvider.class.getResourceAsStream("/csv/modules_enc");
 
-        checkResource(resourceAsStream);
+            checkResource(resourceAsStream);
 
-        byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
+            byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
-        InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
-        CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
+            InputStream byteInputStream = new ByteArrayInputStream(bytesArray);
+            CsvReader csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
 
-        csvReader.readHeaders();
+            csvReader.readHeaders();
 
-        while (csvReader.readRecord()) {
-            try {
-                int moduleId = Integer.parseInt(csvReader.get(ModuleColumnNames.MODULE_ID));
-                String moduleName = csvReader.get(ModuleColumnNames.MODULE_NAME);
+            while (csvReader.readRecord()) {
+                try {
+                    int moduleId = Integer.parseInt(csvReader.get(ModuleColumnNames.MODULE_ID));
+                    String moduleName = csvReader.get(ModuleColumnNames.MODULE_NAME);
 
-                Module module = new Module(moduleId, moduleName);
-                modules.add(module);
-            } catch (NumberFormatException e) {
-                LOGGER.warning(e.toString());
+                    Module module = new Module(moduleId, moduleName);
+                    modules.add(module);
+                } catch (NumberFormatException e) {
+                    LOGGER.warning(e.toString());
+                }
             }
+            csvReader.close();
+        } catch (IOException ex) {
+            LOGGER.warning(ex.toString());
         }
-        csvReader.close();
-
         return modules;
     }
 
-    private static void checkResource(InputStream resourceAsStream) {
+    private void checkResource(InputStream resourceAsStream) {
         if (resourceAsStream == null) {
             JOptionPane.showMessageDialog(
                     null,
@@ -60,17 +63,5 @@ public class CSVModuleDataProvider {
                     JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
-    }
-
-    public static Module getModule(int moduleId) throws IOException {
-        List<Module> modules = getAllModules();
-
-        for (Module module : modules) {
-            if (module.getId() == moduleId) {
-                return module;
-            }
-        }
-
-        return null;
     }
 }
