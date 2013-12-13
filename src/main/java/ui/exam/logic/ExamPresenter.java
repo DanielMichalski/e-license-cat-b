@@ -10,8 +10,10 @@ import ui.exam.view.ExamPointsRightPanel;
 import ui.exam.view.ExamQuestionsLeftPanel;
 import ui.exam.view.interfaces.WindowCloser;
 import ui.exam_result.view.ExamResultFrame;
+import util.Const;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.Timer;
@@ -47,6 +49,8 @@ public class ExamPresenter {
     private WindowCloser windowCloser;
     private Timer timer;
     private TimerCountDown countDown;
+
+    private Color defaultColor;
 
     public ExamPresenter(WindowCloser windowCloser) {
         this.windowCloser = windowCloser;
@@ -229,21 +233,21 @@ public class ExamPresenter {
 
     public boolean trySaveAnswer() {
         if (!isStandardPartCompleted) {
-            if (!yesBtn.isEnabled()) {
+            if (yesBtn.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
                 setStandardAnswer(YesNoAnswer.TAK);
                 return true;
-            } else if (!noBtn.isEnabled()) {
+            } else if (noBtn.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
                 setStandardAnswer(YesNoAnswer.NIE);
                 return true;
             }
         } else {
-            if (!btnA.isEnabled()) {
+            if (btnA.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
                 setSpecialistAnswer(ABCAnswer.A);
                 return true;
-            } else if (!btnB.isEnabled()) {
+            } else if (btnB.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
                 setSpecialistAnswer(ABCAnswer.B);
                 return true;
-            } else if (!btnC.isEnabled()) {
+            } else if (btnC.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
                 setSpecialistAnswer(ABCAnswer.C);
                 return true;
             }
@@ -339,7 +343,7 @@ public class ExamPresenter {
 
     private void markBtn(JButton whichButtonToMark) {
         enableAllBtns();
-        whichButtonToMark.setEnabled(false);
+        whichButtonToMark.setBackground(Const.Colors.CLICKED_BTN_COLOR);
     }
 
     public void setExamQuestionsLeftPanel(ExamQuestionsLeftPanel examQuestionsLeftPanel) {
@@ -359,6 +363,8 @@ public class ExamPresenter {
 
         this.btnC = examQuestionsLeftPanel.getBtnC();
         this.btnC.addActionListener(new CBtnListener());
+
+        defaultColor = yesBtn.getBackground();
     }
 
     public void setBasicPartPanel(ExamPointsRightPanel.BasicPartPanel basicPartPanel) {
