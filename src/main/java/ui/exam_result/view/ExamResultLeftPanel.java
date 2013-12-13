@@ -98,8 +98,8 @@ public class ExamResultLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 500, 680, 130);
-        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
+        buttonPanel.setBounds(0, 570, 680, 60);
+        buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
@@ -115,7 +115,7 @@ public class ExamResultLeftPanel extends JPanel {
     private JPanel getABCBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 475, 680, 160);
+        buttonPanel.setBounds(0, 470, 680, 160);
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
@@ -173,7 +173,7 @@ public class ExamResultLeftPanel extends JPanel {
         btnC.setBackground(null);
 
         if (userAnswer == null) {
-            colorBtn(correctAnswer, negativeColor);
+            colorBtn(correctAnswer, positiveColor);
         } else if (userAnswer == correctAnswer) {
             colorBtn(correctAnswer, positiveColor);
         } else {
@@ -203,7 +203,7 @@ public class ExamResultLeftPanel extends JPanel {
         noBtn.setBackground(null);
 
         if (userAnswer == null) {
-            colorBtn(correctAnswer, negativeColor);
+            colorBtn(correctAnswer, positiveColor);
         } else if (userAnswer == correctAnswer) {
             colorBtn(correctAnswer, positiveColor);
         } else {
