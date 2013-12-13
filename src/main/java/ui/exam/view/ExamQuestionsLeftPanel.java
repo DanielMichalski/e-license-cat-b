@@ -31,6 +31,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private JButton btnB;
     private JButton btnC;
 
+    private Color defaultColor;
+
     public ExamQuestionsLeftPanel() {
         setUpPanel();
         initializeComponents();
@@ -111,13 +113,15 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 500, 680, 130);
-        buttonPanel.setLayout(new GridLayout(2, 1, 10, 10));
+        buttonPanel.setBounds(0, 545, 680, 60);
+        buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
+
+        defaultColor = noBtn.getBackground();
 
         buttonPanel.add(noBtn);
         buttonPanel.add(yesBtn);
@@ -216,11 +220,11 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void enableAllBtns() {
-        yesBtn.setEnabled(true);
-        noBtn.setEnabled(true);
-        btnA.setEnabled(true);
-        btnB.setEnabled(true);
-        btnC.setEnabled(true);
+        yesBtn.setBackground(defaultColor);
+        noBtn.setBackground(defaultColor);
+        btnA.setBackground(defaultColor);
+        btnB.setBackground(defaultColor);
+        btnC.setBackground(defaultColor);
     }
 
     public void disableAllBtns() {

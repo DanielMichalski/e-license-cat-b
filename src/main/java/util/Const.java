@@ -13,6 +13,7 @@ public class Const {
         Color TIMER_FONT_COLOR = new Color(192, 27, 14);
         Color POSITIVE_RESULT_COLOR = new Color(83, 170, 12);
         Color NEGATIVE_RESULT_COLOR = new Color(192, 27, 14);
+        Color CLICKED_BTN_COLOR = new Color(53, 69, 224);
         Color HOW_MANY_POINTS_BORDER_COLOR = new Color(128, 125, 122);
     }
 
@@ -29,7 +30,7 @@ public class Const {
     }
 
     public static interface Dimensions {
-        Dimension EXAM_YES_NO_BTN_SIZE = new Dimension(230, 50);
+        Dimension EXAM_YES_NO_BTN_SIZE = new Dimension(322, 50);
         Dimension ABC_BTNS_SIZE = new Dimension(230, 50);
         Dimension EXAM_TIME_LBL_SIZE = new Dimension(230, 50);
         Dimension RESULT_POINT = new Dimension(230, 50);
