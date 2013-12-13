@@ -43,9 +43,13 @@ public class ApplicationUtils {
     }
 
     public static void setApplicationIcon(Window owner) {
-        String appIconFileName = TextsDao.getFileName("img.app_icon");
-        ImageIcon iconImage = ImageUtils.getProgramImage(appIconFileName);
-        owner.setIconImage(iconImage.getImage());
+        try {
+            String appIconFileName = TextsDao.getFileName("img.app_icon");
+            ImageIcon iconImage = ImageUtils.getProgramImage(appIconFileName);
+            owner.setIconImage(iconImage.getImage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void checkResource(InputStream resourceAsStream) {
