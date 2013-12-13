@@ -1,6 +1,7 @@
 package pdf;
 
 import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
 import com.lowagie.text.Font;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.pdf.BaseFont;
@@ -12,6 +13,9 @@ import model.StandardQuestion;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,6 +33,9 @@ public class PDFGenerator {
     String nazwisko = System.getProperty("lastName");
     String pesel = System.getProperty("pesel");
 
+    private Font fNormal;
+    private Font fBold;
+
     public PDFGenerator(List<StandardQuestion> standardQuestions,
                         List<SpecialistQuestion> specialistQuestions,
                         int userPoint,
@@ -39,6 +46,14 @@ public class PDFGenerator {
 
         this.userPoints = userPoint;
         this.maxPosiblePoints = maxPosiblePoints;
+
+        try {
+            BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
+            fNormal = new Font(bf, 9, Font.NORMAL);
+            fBold = new Font(bf, 9, Font.BOLD);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     public void generatePDFFile() {
@@ -71,74 +86,105 @@ public class PDFGenerator {
             PdfWriter.getInstance(document, new FileOutputStream(filePath));
             document.open();
 
-            PdfPTable table = new PdfPTable(new float[]{2f, 15f, 4f, 4f});
+            PdfPTable table1 = new PdfPTable(new float[]{1f, 17f, 3f, 3f});
+            addToTable(table1, true);
 
-            BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN,
-                    BaseFont.CP1250, BaseFont.EMBEDDED);
-            Font fNormal = new Font(bf, 12, Font.NORMAL);
-            Font fBold = new Font(bf, 12, Font.BOLD);
+            PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 3f, 3f});
+            addToTable(table2, false);
 
-            table.addCell(new Paragraph("Nr", fBold));
-            table.addCell(new Paragraph("Pytanie", fBold));
-            table.addCell(new Paragraph("Odpowiedź użytkownika", fBold));
-            table.addCell(new Paragraph("Prawidłowa odpowiedź", fBold));
-
-
-            int i = 1;
-            for (StandardQuestion standardQuestion : standardQuestions) {
-                Paragraph questionNumber = new Paragraph(i + ".", fNormal);
-                Paragraph question = new Paragraph(standardQuestion.getQuestion(), fNormal);
-                Paragraph correctAnswer = new Paragraph(standardQuestion.getCorrectAnswer().toString(), fNormal);
-                Paragraph userAnswer = null;
-
-                if (standardQuestion.getUserAnswer() != null) {
-                    userAnswer = new Paragraph(standardQuestion.getUserAnswer().toString(), fNormal);
-                } else {
-                    userAnswer = new Paragraph("Brak odp.", fNormal);
-                }
-
-                table.addCell(questionNumber);
-                table.addCell(question);
-                table.addCell(userAnswer);
-                table.addCell(correctAnswer);
-
-                i++;
-            }
-
-            i = 1;
-            for (SpecialistQuestion specialistQuestion : specialistQuestions) {
-                Paragraph questionNumber = new Paragraph(i + ".", fNormal);
-                Paragraph question = new Paragraph(specialistQuestion.getQuestion(), fNormal);
-                Paragraph correctAnswer = new Paragraph(specialistQuestion.getCorrectAnswer().toString(), fNormal);
-                Paragraph userAnswer = null;
-
-                if (specialistQuestion.getUserAnswer() != null) {
-                    userAnswer = new Paragraph(specialistQuestion.getUserAnswer().toString(), fNormal);
-                } else {
-                    userAnswer = new Paragraph("Brak odp.", fNormal);
-                }
-
-                table.addCell(questionNumber);
-                table.addCell(question);
-                table.addCell(userAnswer);
-                table.addCell(correctAnswer);
-
-                i++;
-            }
-
-            document.add(new Paragraph("Imię: " + imie, fNormal));
-            document.add(new Paragraph("Nazwisko: " + nazwisko, fNormal));
+            document.add(new Paragraph("Imię i nazwisko: " + imie + " " + nazwisko, fNormal));
             document.add(new Paragraph("PESEL: " + pesel, fNormal));
             document.add(new Paragraph("Liczba uzyskanych punktów: " + userPoints + " z " + maxPosiblePoints, fNormal));
+            document.add(new Paragraph("Data egzaminu: " + getDateInString(), fNormal));
             document.add(new Paragraph(" "));
 
-            document.add(table);
+            document.add(table1);
+
+            document.add(new Paragraph(" "));
+
+            document.add(table2);
+
             document.close();
 
             JOptionPane.showMessageDialog(null,
                     "Pomyślnie zapisano plik PDF",
                     "Informacja",
                     JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+
+    private String getDateInString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        Date date = new Date();
+
+        return sdf.format(date);
+    }
+
+    private void addToTable(PdfPTable table, boolean standardQuestions) throws IOException, DocumentException {
+
+        table.addCell(new Paragraph("Nr", fBold));
+
+        if (standardQuestions) {
+            table.addCell(new Paragraph("Pytanie standardowe", fBold));
+        } else {
+            table.addCell(new Paragraph("Pytanie specjalistyczne", fBold));
+        }
+
+
+        table.addCell(new Paragraph("Odpowiedź użytkownika", fBold));
+        table.addCell(new Paragraph("Prawidłowa odpowiedź", fBold));
+
+
+        if (standardQuestions) {
+            addStandardQuestionsToTable(table);
+        } else {
+            addSpecialistQuestionsToTable(table);
+        }
+    }
+
+    private void addStandardQuestionsToTable(PdfPTable table) {
+        int i = 1;
+        for (StandardQuestion standardQuestion : standardQuestions) {
+            Paragraph questionNumber = new Paragraph(i + ".", fNormal);
+            Paragraph question = new Paragraph(standardQuestion.getQuestion(), fNormal);
+            Paragraph correctAnswer = new Paragraph(standardQuestion.getCorrectAnswer().toString(), fNormal);
+            Paragraph userAnswer = null;
+
+            if (standardQuestion.getUserAnswer() != null) {
+                userAnswer = new Paragraph(standardQuestion.getUserAnswer().toString(), fNormal);
+            } else {
+                userAnswer = new Paragraph("Brak odp.", fNormal);
+            }
+
+            table.addCell(questionNumber);
+            table.addCell(question);
+            table.addCell(userAnswer);
+            table.addCell(correctAnswer);
+
+            i++;
+        }
+    }
+
+    private void addSpecialistQuestionsToTable(PdfPTable table) {
+        int i = 1;
+        for (SpecialistQuestion specialistQuestion : specialistQuestions) {
+            Paragraph questionNumber = new Paragraph(i + ".", fNormal);
+            Paragraph question = new Paragraph(specialistQuestion.getQuestion(), fNormal);
+            Paragraph correctAnswer = new Paragraph(specialistQuestion.getCorrectAnswer().toString(), fNormal);
+            Paragraph userAnswer = null;
+
+            if (specialistQuestion.getUserAnswer() != null) {
+                userAnswer = new Paragraph(specialistQuestion.getUserAnswer().toString(), fNormal);
+            } else {
+                userAnswer = new Paragraph("Brak odp.", fNormal);
+            }
+
+            table.addCell(questionNumber);
+            table.addCell(question);
+            table.addCell(userAnswer);
+            table.addCell(correctAnswer);
+
+            i++;
         }
     }
 }
