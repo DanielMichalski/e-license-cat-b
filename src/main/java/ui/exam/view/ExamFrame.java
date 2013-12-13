@@ -30,9 +30,6 @@ public class ExamFrame extends JDialog implements WindowCloser {
     }
 
     private void setUpFrame() {
-        //TODO usunac linijke nize
-        ApplicationUtils.setNimbusLookAndFeel();
-
         ApplicationUtils.setApplicationIcon(this);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
