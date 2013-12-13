@@ -17,8 +17,6 @@ public class ExamFrame extends JDialog implements WindowCloser {
     public static final int WIDTH = 953;
     public static final int HEIGHT = 670;
 
-    private ExamQuestionsLeftPanel examQuestionsPanel;
-
     public ExamFrame(JDialog dialog) {
         setUpFrame();
         initializeComponents();
@@ -41,7 +39,7 @@ public class ExamFrame extends JDialog implements WindowCloser {
         ExamPresenter presenter = new ExamPresenter(this);
 
 
-        examQuestionsPanel = new ExamQuestionsLeftPanel();
+        ExamQuestionsLeftPanel examQuestionsPanel = new ExamQuestionsLeftPanel();
         ExamPointsRightPanel examResultPanel = new ExamPointsRightPanel();
 
         add(examQuestionsPanel, BorderLayout.CENTER);
