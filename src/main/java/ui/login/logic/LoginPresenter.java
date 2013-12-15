@@ -1,11 +1,12 @@
 package ui.login.logic;
 
+import database.dao.TextsDao;
 import ui.login.view.IWindowCloser;
 import ui.splash_screen.SplashScreen;
+import util.PeselValidator;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 /**
  * Author: Daniel
@@ -25,14 +26,57 @@ public class LoginPresenter {
     class LoginBtnListenr implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            PeselValidator peselValidator =
+                    new PeselValidator(peselTF.getText());
+
             if (isFormComplete()) {
-                loginUser();
+                if (peselValidator.isValid()) {
+                    loginUser();
+                } else {
+                    pokazInfoNiepoprawnyPesel();
+                }
             } else {
-                JOptionPane.showMessageDialog(null,
-                        "Uzupełnij wszystkie wymagane dane",
-                        "Informacja",
-                        JOptionPane.INFORMATION_MESSAGE);
+                pokazInfoUzupelnijDane();
             }
+        }
+    }
+
+    private void pokazInfoUzupelnijDane() {
+        JOptionPane.showMessageDialog(null,
+                "Uzupełnij wszystkie wymagane dane",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void pokazInfoNiepoprawnyPesel() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Podano niepoprawny PESEL",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public WindowListener getCloseBtnListener() {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                showCloseConfirmDialog();
+            }
+        };
+    }
+
+    private void showCloseConfirmDialog() {
+        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
+        UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
+        int answer = JOptionPane.showConfirmDialog(
+                null,
+                TextsDao.getText("view.confirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.title"),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE);
+
+        if (answer == JOptionPane.YES_OPTION) {
+            System.exit(0);
         }
     }
 

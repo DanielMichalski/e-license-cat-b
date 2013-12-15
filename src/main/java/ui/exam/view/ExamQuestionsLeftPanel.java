@@ -113,7 +113,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 545, 680, 60);
+        buttonPanel.setBounds(0, 570, 680, 60);
         buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));

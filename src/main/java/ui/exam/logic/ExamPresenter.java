@@ -147,33 +147,33 @@ public class ExamPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                showCloseConfirmDialog(dialog);
+                showCloseConfirmDialog();
             }
         };
     }
 
-    public ActionListener getCloseBtnListener(final JDialog dialog) {
+    public ActionListener getCloseBtnListener() {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showCloseConfirmDialog(dialog);
+                showCloseConfirmDialog();
             }
         };
     }
 
-    private void showCloseConfirmDialog(JDialog dialog) {
+    private void showCloseConfirmDialog() {
         UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
         UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
         int answer = JOptionPane.showConfirmDialog(
                 null,
-                TextsDao.getText("view.examFramConfirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.message"),
                 TextsDao.getText("view.confirmDialog.title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);
 
         if (answer == JOptionPane.YES_OPTION) {
             breakExam();
-            dialog.dispose();
+            System.exit(0);
         }
     }
 
