@@ -44,6 +44,8 @@ public class LoginFrame extends JFrame implements IWindowCloser {
         loginPresenter.setLastNameTF(formPanel.getLastNameTF());
         loginPresenter.setPeselTF(formPanel.getPeselTF());
         loginPresenter.setLoginBtn((buttonPanel.getLoginBtn()));
+
+        addWindowListener(loginPresenter.getCloseBtnListener());
     }
 
     @Override

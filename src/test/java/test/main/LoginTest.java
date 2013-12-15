@@ -11,7 +11,7 @@ import javax.swing.*;
 public class LoginTest {
     public static void main(String[] args) {
         LoginFrame loginFrame = new LoginFrame();
-        loginFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        loginFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         loginFrame.setVisible(true);
     }
 }
