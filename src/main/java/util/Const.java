@@ -13,7 +13,7 @@ public class Const {
         Color TIMER_FONT_COLOR = new Color(192, 27, 14);
         Color POSITIVE_RESULT_COLOR = new Color(83, 170, 12);
         Color NEGATIVE_RESULT_COLOR = new Color(192, 27, 14);
-        Color CLICKED_BTN_COLOR = new Color(53, 69, 224);
+        Color CLICKED_BTN_COLOR = new Color(12, 52, 168);
         Color HOW_MANY_POINTS_BORDER_COLOR = new Color(128, 125, 122);
     }
 

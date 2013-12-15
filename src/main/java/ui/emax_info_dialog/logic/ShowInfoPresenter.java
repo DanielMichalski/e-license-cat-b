@@ -21,7 +21,7 @@ public class ShowInfoPresenter {
                 windowCloser.close();
 
                 LoginFrame loginFrame = new LoginFrame();
-                loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                loginFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 loginFrame.setVisible(true);
             }
         };
