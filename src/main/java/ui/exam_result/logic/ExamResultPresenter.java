@@ -157,7 +157,7 @@ public class ExamResultPresenter {
         UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
         int answer = JOptionPane.showConfirmDialog(
                 null,
-                TextsDao.getText("view.examResultConfirmDialog.message"),
+                TextsDao.getText("view.confirmDialog.message"),
                 TextsDao.getText("view.confirmDialog.title"),
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE);

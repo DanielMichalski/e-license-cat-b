@@ -46,7 +46,7 @@ public class ExamFrame extends JDialog implements WindowCloser {
         add(examResultPanel, BorderLayout.EAST);
 
         addWindowListener(presenter.getWindowListener(this));
-        examResultPanel.getCloseBtnPanel().getCloseBtn().addActionListener(presenter.getCloseBtnListener(this));
+        examResultPanel.getCloseBtnPanel().getCloseBtn().addActionListener(presenter.getCloseBtnListener());
 
         presenter.setExamQuestionsLeftPanel(examQuestionsPanel);
         presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
