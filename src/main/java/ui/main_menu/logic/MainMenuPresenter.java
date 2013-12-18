@@ -3,6 +3,7 @@ package ui.main_menu.logic;
 import database.dao.TextsDao;
 import ui.emax_info_dialog.view.ShowInfoDialog;
 import ui.help.view.HelpDialog;
+import ui.login.view.LoginFrame;
 import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
@@ -24,7 +25,16 @@ public class MainMenuPresenter {
     class ExerciseBtnListener extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.err.println("Not implemented!");
+            mainMenuFrame.dispose();
+
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    LoginFrame loginFrame = new LoginFrame(false);
+                    loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    loginFrame.setVisible(true);
+                }
+            });
         }
     }
 

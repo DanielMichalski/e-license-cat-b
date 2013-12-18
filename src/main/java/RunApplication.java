@@ -1,3 +1,4 @@
+import database.provider.ModuleProvider;
 import database.provider.QuestionsProvider;
 import ui.main_menu.view.MainMenuFrame;
 
@@ -18,7 +19,11 @@ public class RunApplication {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                QuestionsProvider provider = QuestionsProvider.getInstance();
+                QuestionsProvider questionsProvider =
+                        QuestionsProvider.getInstance();
+
+                ModuleProvider moduleProvider =
+                        ModuleProvider.getInstance();
             }
         });
 
