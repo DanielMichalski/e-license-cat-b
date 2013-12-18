@@ -37,7 +37,7 @@ public class MediaTest {
                     mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
                 }
 
-                File file = new File("media" + File.separator + mediaPath);
+                File file = new File("bin" + File.separator + "media" + File.separator + mediaPath);
                 if (!file.exists()) {
                     System.out.println(mediaPath + " nie istnieje");
                     //continue;

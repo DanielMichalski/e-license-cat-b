@@ -11,9 +11,14 @@ import java.awt.*;
  * Date: 08.11.13
  */
 public class LearningRightPanel extends JPanel {
-    private CloseBtnPanel closeBtnPanel;
-    private HowManyPointsPanel howManyPointsPanel;
     private JButton closeBtn;
+    private JTextArea categoryName;
+    private JButton playMovieBtn;
+    private JButton previousBtn;
+    private JButton nextBtn;
+    private JButton randomQuestion;
+    private JButton checkAnswerBtn;
+    private JLabel howManyPointsForQuestionLbl;
 
     public LearningRightPanel() {
         setUpPanel();
@@ -21,82 +26,138 @@ public class LearningRightPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        BoxLayout layout =
-                new BoxLayout(LearningRightPanel.this, BoxLayout.Y_AXIS);
-        setLayout(layout);
+        setLayout(null);
         setBorder(BorderFactory.createEmptyBorder(5, 10, 10, 10));
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
     }
 
     private void initializeComponents() {
-        closeBtnPanel = new CloseBtnPanel();
-        howManyPointsPanel = new HowManyPointsPanel();
+        closeBtn = createCloseBtn();
+        Component categoryLabel = createCategoryLabel();
+        categoryName = createCategoryName();
+        howManyPointsForQuestionLbl = createHowManyPointsLbl();
+        playMovieBtn = createPlayMovieBtn();
+        previousBtn = createPreviousBtn();
+        nextBtn = createNextBtn();
+        randomQuestion = createRandomQuestionBtn();
+        checkAnswerBtn = createCheckAnswerBtn();
 
-        add(closeBtnPanel);
-        add(howManyPointsPanel);
+        add(closeBtn);
+        add(categoryLabel);
+        add(categoryName);
+        add(playMovieBtn);
+        add(previousBtn);
+        add(nextBtn);
+        add(randomQuestion);
+        add(checkAnswerBtn);
+        add(howManyPointsForQuestionLbl);
+    }
+
+    private Component createCategoryLabel() {
+        JLabel label = new JLabel("Kategoria");
+        label.setBounds(82, 60, 200, 30);
+        label.setFont(Const.Fonts.BIGGER_FONT);
+        return label;
+    }
+
+    private JTextArea createCategoryName() {
+        JTextArea moduleNameTextArea = new JTextArea();
+        moduleNameTextArea.setBounds(0, 90, 240, 100);
+        moduleNameTextArea.setLineWrap(true);
+        moduleNameTextArea.setWrapStyleWord(true);
+        moduleNameTextArea.setFont(Const.Fonts.NORMAL_FONT);
+        moduleNameTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        return moduleNameTextArea;
+    }
+
+    private JButton createCloseBtn() {
+        JButton button = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
+        button.setBounds(0, 10, 240, 35);
+        button.setFont(Const.Fonts.NORMAL_FONT);
+        button.setFocusable(false);
+        return button;
+    }
+
+    private JButton createPlayMovieBtn() {
+        JButton button = new JButton("Odtwórz film");
+        button.setBounds(0, 325, 240, 50);
+        button.setFont(Const.Fonts.NORMAL_FONT);
+        button.setFocusable(false);
+        return button;
+    }
+
+    private JButton createPreviousBtn() {
+        JButton button = new JButton("<< Poprzednie");
+        button.setBounds(0, 395, 120, 45);
+        button.setFont(Const.Fonts.NORMAL_FONT);
+        button.setFocusable(false);
+        return button;
+    }
+
+    private JButton createNextBtn() {
+        JButton button = new JButton("Następne >>");
+        button.setBounds(120, 395, 120, 45);
+        button.setFont(Const.Fonts.NORMAL_FONT);
+        button.setFocusable(false);
+        return button;
+    }
+
+    private JButton createRandomQuestionBtn() {
+        JButton button = new JButton("Pytanie losowe");
+        button.setBounds(0, 460, 240, 50);
+        button.setFont(Const.Fonts.NORMAL_FONT);
+        button.setFocusable(false);
+        return button;
+    }
+
+    private JButton createCheckAnswerBtn() {
+        JButton button = new JButton("Sprawdź odpowiedź");
+        button.setBounds(0, 530, 240, 50);
+        button.setFont(Const.Fonts.NORMAL_FONT);
+        button.setFocusable(false);
+        return button;
+    }
+
+    private JLabel createHowManyPointsLbl() {
+        JLabel howManyPointsLbl = new JLabel("3 pkt");
+        howManyPointsLbl.setBounds(110, 590, 240, 30);
+        howManyPointsLbl.setFont(Const.Fonts.TEXTS_FONT);
+        return howManyPointsLbl;
+    }
+
+    public void setModuleName(String moduleName) {
+        categoryName.setText(moduleName);
     }
 
     public JButton getCloseBtn() {
         return closeBtn;
     }
 
-    public class CloseBtnPanel extends JPanel {
-        public CloseBtnPanel() {
-            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-
-            add(createCloseBtn());
-        }
-
-        private JButton createCloseBtn() {
-            closeBtn = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
-            closeBtn.setFont(Const.Fonts.BTN_CLOSE_FONT);
-            closeBtn.setPreferredSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
-            closeBtn.setMinimumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
-            closeBtn.setMaximumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
-            closeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-            closeBtn.setFocusable(false);
-            return closeBtn;
-        }
-
-        public JButton getCloseBtn() {
-            return closeBtn;
-        }
+    public JTextArea getCategoryName() {
+        return categoryName;
     }
 
-    public class HowManyPointsPanel extends JPanel {
-        private JLabel howManyPointsForQuestionLbl;
-
-        public HowManyPointsPanel() {
-            setLayout(new BoxLayout(HowManyPointsPanel.this, BoxLayout.Y_AXIS));
-            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-
-            howManyPointsForQuestionLbl = createHowManyPointsLbl();
-
-            add(howManyPointsForQuestionLbl);
-        }
-
-        private JLabel createHowManyPointsLbl() {
-            JLabel howManyPointsLbl = new JLabel();
-            howManyPointsLbl.setHorizontalAlignment(SwingConstants.CENTER);
-            howManyPointsLbl.setAlignmentX(Component.CENTER_ALIGNMENT);
-            howManyPointsLbl.setPreferredSize(Const.Dimensions.HOW_MANY_POINTS_LBL);
-            howManyPointsLbl.setMinimumSize(Const.Dimensions.HOW_MANY_POINTS_LBL);
-            howManyPointsLbl.setMaximumSize(Const.Dimensions.HOW_MANY_POINTS_LBL);
-            howManyPointsLbl.setFont(Const.Fonts.TEXTS_FONT);
-            howManyPointsLbl.setBorder(BorderFactory.createLineBorder(Const.Colors.HOW_MANY_POINTS_BORDER_COLOR));
-            return howManyPointsLbl;
-        }
-
-        private void setHowManyPoints(int points) {
-            howManyPointsForQuestionLbl.setText(points + " pkt");
-        }
+    public JButton getPlayMovieBtn() {
+        return playMovieBtn;
     }
 
-    public void setHowManyQuestionPoints(int howManyPoints) {
-        howManyPointsPanel.setHowManyPoints(howManyPoints);
+    public JButton getPreviousBtn() {
+        return previousBtn;
     }
 
-    public CloseBtnPanel getCloseBtnPanel() {
-        return closeBtnPanel;
+    public JButton getNextBtn() {
+        return nextBtn;
+    }
+
+    public JButton getRandomQuestion() {
+        return randomQuestion;
+    }
+
+    public JButton getCheckAnswerBtn() {
+        return checkAnswerBtn;
+    }
+
+    public JLabel getHowManyPointsForQuestionLbl() {
+        return howManyPointsForQuestionLbl;
     }
 }
