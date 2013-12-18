@@ -56,7 +56,7 @@ public class ExamPointsRightPanel extends JPanel {
 
         private JButton createConfirmBtn() {
             closeBtn = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
-            closeBtn.setFont(Const.Fonts.BTN_CLOSE_FONT);
+            closeBtn.setFont(Const.Fonts.NORMAL_FONT);
             closeBtn.setPreferredSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
             closeBtn.setMinimumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);
             closeBtn.setMaximumSize(Const.Dimensions.EXAM_CLOSE_BTN_SIZE);

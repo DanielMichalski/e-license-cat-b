@@ -88,7 +88,7 @@ public class CSVQuestionDataProvider {
             mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
         }
 
-        File file = new File("media" + File.separator + mediaPath + ".prod");
+        File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prod");
         if (!file.exists()) {
             System.out.println("Plik nie istnieje: " + file);
             return;
@@ -128,7 +128,7 @@ public class CSVQuestionDataProvider {
             mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
         }
 
-        File file = new File("media" + File.separator + mediaPath + ".prod");
+        File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prod");
         if (!file.exists()) {
             System.out.println("Plik nie istnieje: " + file);
             return;

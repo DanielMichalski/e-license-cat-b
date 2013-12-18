@@ -14,6 +14,8 @@ import java.util.List;
  * Date: 08.11.13
  */
 public class LearningPresenter {
+    private JTextArea categoryName;
+    private JLabel howManyPointsForQuestionLbl;
 
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
@@ -25,15 +27,21 @@ public class LearningPresenter {
     }
 
     private class CloseBtnListener implements ActionListener {
-        private JDialog jDialog;
+        private Window jDialog;
 
-        public CloseBtnListener(JDialog jDialog) {
+        public CloseBtnListener(Window jDialog) {
             this.jDialog = jDialog;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            showCloseConfirmDialog(jDialog);
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    showCloseConfirmDialog(jDialog);
+                }
+            });
+
         }
     }
 
@@ -48,7 +56,7 @@ public class LearningPresenter {
                 JOptionPane.INFORMATION_MESSAGE);
 
         if (answer == JOptionPane.YES_OPTION) {
-            window.dispose();
+            System.exit(0);
         }
     }
 
@@ -61,61 +69,43 @@ public class LearningPresenter {
         };
     }
 
-    /*class PrintBtnListener implements ActionListener {
+    class PlayMovieBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            PDFGenerator pdfGenerator = new PDFGenerator(standardQuestions,
-                    specialistQuestions,
-                    countUserPoints(),
-                    countAllPoints());
+            System.out.println("play");
+        }
+    }
 
-            pdfGenerator.generatePDFFile();
+    class PreviousBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("prev");
+        }
+    }
+
+    class NextBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("next");
+        }
+    }
+
+    class RandomQuestionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("random");
+        }
+    }
+
+    class CheckAnswerBtnListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("check");
         }
     }
 
 
-    public void setUpPanels() {
-        int userPoints = countUserPoints();
-        int allPoints = countAllPoints();
-
-        boolean isPassed = userPoints >= HOW_MANY_POINTS_TO_PASS;
-        rightPanel.setExamResult(isPassed, userPoints, allPoints);
-
-        setNumberOfStandardQuestion(1);
-    }
-
-    private int countUserPoints() {
-        int points = 0;
-
-        for (StandardQuestion question : standardQuestions) {
-            if (question.getUserAnswer() == question.getCorrectAnswer()) {
-                points += question.getPoints();
-            }
-        }
-
-        for (SpecialistQuestion question : specialistQuestions) {
-            if (question.getUserAnswer() == question.getCorrectAnswer()) {
-                points += question.getPoints();
-            }
-        }
-
-        return points;
-    }
-
-    private int countAllPoints() {
-        int points = 0;
-
-        for (StandardQuestion question : standardQuestions) {
-            points += question.getPoints();
-        }
-
-        for (SpecialistQuestion question : specialistQuestions) {
-            points += question.getPoints();
-        }
-
-        return points;
-    }
-
+    /*
     public void setNumberOfStandardQuestion(int numOfQuestion) {
         StandardQuestion question = standardQuestions.get(numOfQuestion - 1);
         MediaType mediaType = question.getMediaType();
@@ -169,65 +159,37 @@ public class LearningPresenter {
         leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
     }
 
-    private class CloseBtnListener implements ActionListener {
-        private JDialog jDialog;
-
-        public CloseBtnListener(JDialog jDialog) {
-            this.jDialog = jDialog;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            showCloseConfirmDialog(jDialog);
-        }
-    }
-
-    private void showCloseConfirmDialog(JDialog dialog) {
-        UIManager.put("OptionPane.yesButtonText", TextsDao.getText("yesButtonLbl"));
-        UIManager.put("OptionPane.noButtonText", TextsDao.getText("noButtonLbl"));
-        int answer = JOptionPane.showConfirmDialog(
-                null,
-                TextsDao.getText("view.confirmDialog.message"),
-                TextsDao.getText("view.confirmDialog.title"),
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE);
-
-        if (answer == JOptionPane.YES_OPTION) {
-            dialog.dispose();
-        }
-    }
-
-    public void changePanelToStandardPanel() {
-        leftPanel.changePanelToStandardPanel();
-    }
-
-    public void changePanelToSpecialistPanel() {
-        leftPanel.changePanelToSpecialistPanel();
-    }
-
-    public void setLeftPanel(LearningLeftPanel leftPanel) {
-        this.leftPanel = leftPanel;
-    }
-
-    public void setRightPanel(LearningRightPanel rightPanel) {
-        this.rightPanel = rightPanel;
-    }
-
-    public void setStandardQuestions(List<StandardQuestion> standardQuestions) {
-        this.standardQuestions = standardQuestions;
-    }
-
-    public void setSpecialistQuestions(List<SpecialistQuestion> specialistQuestions) {
-        this.specialistQuestions = specialistQuestions;
-    }
-
-    public void setCloseBtn(JButton closeBtn, JDialog jDialog) {
-        closeBtn.addActionListener(new CloseBtnListener(jDialog));
-    }
-
-    public void setPrintBtn(JButton printBtn) {
-        printBtn.addActionListener(new PrintBtnListener());
-    }
-
     */
+
+    public void setCloseBtn(JButton closeBtn, Window window) {
+        closeBtn.addActionListener(new CloseBtnListener(window));
+    }
+
+    public void setCategoryName(JTextArea categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public void setPlayMovieBtn(JButton playMovieBtn) {
+        playMovieBtn.addActionListener(new PlayMovieBtnListener());
+    }
+
+    public void setPreviousBtn(JButton previousBtn) {
+        previousBtn.addActionListener(new PreviousBtnListener());
+    }
+
+    public void setNextBtn(JButton nextBtn) {
+        nextBtn.addActionListener(new NextBtnListener());
+    }
+
+    public void setRandomQuestionBtn(JButton randomQuestionBtn) {
+        randomQuestionBtn.addActionListener(new RandomQuestionListener());
+    }
+
+    public void setCheckAnswerBtn(JButton checkAnswerBtn) {
+        checkAnswerBtn.addActionListener(new CheckAnswerBtnListener());
+    }
+
+    public void setHowManyPointsForQuestionLbl(JLabel howManyPointsForQuestionLbl) {
+        this.howManyPointsForQuestionLbl = howManyPointsForQuestionLbl;
+    }
 }
