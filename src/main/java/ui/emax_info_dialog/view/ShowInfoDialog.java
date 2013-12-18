@@ -3,24 +3,22 @@ package ui.emax_info_dialog.view;
 import database.dao.TextsDao;
 import ui.emax_info_dialog.logic.IWindowCloser;
 import ui.emax_info_dialog.logic.ShowInfoPresenter;
-import ui.main_menu.view.IMinimalize;
+import ui.main_menu.view.MainMenuFrame;
 import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Author: dmichalski
  * Date: 02.11.13
  */
 public class ShowInfoDialog extends JDialog implements IWindowCloser {
-    private boolean startExamAfterRead;
-    private IMinimalize iMinimalize;
     private ShowInfoPresenter presenter;
 
-    public ShowInfoDialog(boolean startExamAfterRead, IMinimalize iMinimalize) {
-        this.startExamAfterRead = startExamAfterRead;
-        this.iMinimalize = iMinimalize;
+    public ShowInfoDialog() {
         this.presenter = new ShowInfoPresenter();
 
         setUpDialog();
@@ -33,6 +31,20 @@ public class ShowInfoDialog extends JDialog implements IWindowCloser {
         setTitle(TextsDao.getText("view.ShowInfoAboutExam.title"));
         setModal(true);
         setResizable(false);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainMenuFrame mv = new MainMenuFrame();
+                        mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                        mv.setVisible(true);
+                    }
+                });
+            }
+        });
     }
 
     private void initializeComponents() {
@@ -67,18 +79,10 @@ public class ShowInfoDialog extends JDialog implements IWindowCloser {
      * @return dolny panel z przyciskiem
      */
     protected JComponent createSouthComponent() {
-        JButton startBtn;
-        if (startExamAfterRead) {
-            startBtn = new JButton(TextsDao.getText(
-                    "views.ShowInfoAboutExam.startBtn.text"));
+        JButton startBtn = new JButton(TextsDao.getText(
+                "views.ShowInfoAboutExam.startBtn.text"));
 
-            startBtn.addActionListener(presenter.getStartExamListener(this, iMinimalize));
-        } else {
-            startBtn = new JButton(TextsDao.getText("" +
-                    "views.ShowInfoAboutExam.closeBtn.text"));
-
-            startBtn.addActionListener(presenter.getCloseAboutExamListener(this));
-        }
+        startBtn.addActionListener(presenter.getStartExamListener(this));
 
         startBtn.setFocusable(false);
 

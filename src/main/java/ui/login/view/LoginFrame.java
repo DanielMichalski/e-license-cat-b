@@ -2,11 +2,14 @@ package ui.login.view;
 
 import database.dao.TextsDao;
 import ui.login.logic.LoginPresenter;
+import ui.main_menu.view.MainMenuFrame;
 import util.ApplicationUtils;
 import util.Const;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Author: Daniel
@@ -29,6 +32,20 @@ public class LoginFrame extends JFrame implements IWindowCloser {
         setResizable(false);
         getContentPane().setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
         ApplicationUtils.setApplicationIcon(this);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainMenuFrame mv = new MainMenuFrame();
+                        mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                        mv.setVisible(true);
+                    }
+                });
+            }
+        });
     }
 
     private void initializeComponents() {
@@ -44,8 +61,6 @@ public class LoginFrame extends JFrame implements IWindowCloser {
         loginPresenter.setLastNameTF(formPanel.getLastNameTF());
         loginPresenter.setPeselTF(formPanel.getPeselTF());
         loginPresenter.setLoginBtn((buttonPanel.getLoginBtn()));
-
-        addWindowListener(loginPresenter.getCloseBtnListener());
     }
 
     @Override

@@ -1,6 +1,5 @@
 package ui.main_menu.view;
 
-import database.dao.TextsDao;
 import util.Const;
 import util.ImageUtils;
 
@@ -12,8 +11,10 @@ import java.awt.*;
  * Date: 01.11.13
  */
 public class MainMenuPanel extends JPanel {
-    private JButton startExamBtn;
-    private JButton infoAboutExamBtn;
+    private JLabel exerciseBtn;
+    private JLabel egxamBtn;
+    private JLabel aboutApp;
+    private JLabel closeBtn;
 
     public MainMenuPanel() {
         setUpPanel();
@@ -22,45 +23,59 @@ public class MainMenuPanel extends JPanel {
 
     private void setUpPanel() {
         setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
+        setLayout(null);
     }
 
     private void initializeComponents() {
-        String startExamImageName = TextsDao.getFileName("img.start_exam");
-        String infoAboutExamImageName = TextsDao.getFileName("img.information");
+        exerciseBtn = createBtn("bl_cl.png", 140, 470);
+        egxamBtn = createBtn("e_un.png", 390, 470);
+        aboutApp = createBtn("op_un.png", 640, 470);
+        closeBtn = createCloseBtn();
 
-        String startExamBtnLabel = TextsDao.getText("view.mainMenuPanel.startExamBtn.text");
-        String infoAboutExamBtnLabel = TextsDao.getText("view.mainMenuPanel.infoAboutExamBtn.text");
-
-        startExamBtn = createBtn(startExamBtnLabel, startExamImageName);
-        infoAboutExamBtn = createBtn(infoAboutExamBtnLabel, infoAboutExamImageName);
-
-        startExamBtn.setMargin(new Insets(0, 0, 0, 15));
-
-        add(startExamBtn);
-        add(Box.createRigidArea(new Dimension(0, 20)));
-        add(infoAboutExamBtn);
+        add(exerciseBtn);
+        add(egxamBtn);
+        add(aboutApp);
+        add(closeBtn);
     }
 
-    private JButton createBtn(String btnLabel, String imageName) {
-        ImageIcon imageIcon = ImageUtils.getProgramImage(imageName);
-        JButton button = new JButton(btnLabel);
-        button.setHorizontalTextPosition(SwingConstants.RIGHT);
-        button.setPreferredSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-        button.setMinimumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-        button.setMaximumSize(Const.Dimensions.MAIN_MENUBTN_SIZE);
-        button.setForeground(Color.darkGray);
-        button.setIcon(imageIcon);
-        button.setFocusable(false);
+    private JLabel createCloseBtn() {
+        final ImageIcon imgUn = ImageUtils.getProgramImage("close_btn.png");
+        final JLabel button = new JLabel(imgUn);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setBounds(915, 5, 40, 40);
         return button;
     }
 
-    public JButton getStartExamBtn() {
-        return startExamBtn;
+    private JLabel createBtn(String imgUnPath, int x, int y) {
+        final ImageIcon imgUn = ImageUtils.getProgramImage(imgUnPath);
+
+        final JLabel button = new JLabel(imgUn);
+        button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        button.setBounds(x, y, 190, 40);
+        return button;
     }
 
-    public JButton getInfoAboutExamBtn() {
-        return infoAboutExamBtn;
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        ImageIcon programImage = ImageUtils.getProgramImage("bg.png");
+        g.drawImage(programImage.getImage(), 0, 0, null);
+    }
+
+    public JLabel getExerciseBtn() {
+        return exerciseBtn;
+    }
+
+    public JLabel getEgxamBtn() {
+        return egxamBtn;
+    }
+
+    public JLabel getAboutApp() {
+        return aboutApp;
+    }
+
+    public JLabel getCloseBtn() {
+        return closeBtn;
     }
 }
