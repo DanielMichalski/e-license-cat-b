@@ -11,6 +11,8 @@ import java.awt.*;
  */
 public class RunApplication {
     public static void main(String[] args) {
+        // test
+
         readQuestions();
         startApp();
     }
