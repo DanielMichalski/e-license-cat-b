@@ -8,7 +8,7 @@ import java.awt.*;
  */
 public class Const {
     public static interface Colors {
-        Color MAIN_MENU_BACKGROUND_COLOR = new Color(228, 250, 255);
+        Color BACKGROUND_COLOR = new Color(228, 250, 255);
         Color EXAM_BACKGROUND_COLOR = new Color(240, 255, 255);
         Color TIMER_FONT_COLOR = new Color(192, 27, 14);
         Color POSITIVE_RESULT_COLOR = new Color(83, 170, 12);

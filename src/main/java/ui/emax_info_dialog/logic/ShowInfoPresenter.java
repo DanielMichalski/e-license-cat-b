@@ -3,6 +3,7 @@ package ui.emax_info_dialog.logic;
 import ui.login.view.LoginFrame;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,9 +18,14 @@ public class ShowInfoPresenter {
             public void actionPerformed(ActionEvent e) {
                 windowCloser.close();
 
-                LoginFrame loginFrame = new LoginFrame();
-                loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                loginFrame.setVisible(true);
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        LoginFrame loginFrame = new LoginFrame(true);
+                        loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                        loginFrame.setVisible(true);
+                    }
+                });
             }
         };
     }

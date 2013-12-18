@@ -22,12 +22,12 @@ public class MainMenuPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
+        setBackground(Const.Colors.BACKGROUND_COLOR);
         setLayout(null);
     }
 
     private void initializeComponents() {
-        exerciseBtn = createBtn("bl_cl.png", 140, 470);
+        exerciseBtn = createBtn("bl_un.png", 140, 470);
         egxamBtn = createBtn("e_un.png", 390, 470);
         aboutApp = createBtn("op_un.png", 640, 470);
         closeBtn = createCloseBtn();
