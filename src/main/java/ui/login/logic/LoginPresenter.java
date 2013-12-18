@@ -1,11 +1,13 @@
 package ui.login.logic;
 
 import database.dao.TextsDao;
+import ui.choose_category.view.ChooseCategoryFrame;
 import ui.login.view.IWindowCloser;
 import ui.splash_screen.SplashScreen;
 import util.PeselValidator;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 /**
@@ -14,13 +16,15 @@ import java.awt.event.*;
  */
 public class LoginPresenter {
     private IWindowCloser iWindowCloser;
+    private boolean isStartExam;
 
     private JTextField firstNameTF;
     private JTextField lastNameTF;
     private JTextField peselTF;
 
-    public LoginPresenter(IWindowCloser iWindowCloser) {
+    public LoginPresenter(IWindowCloser iWindowCloser, boolean isStartExam) {
         this.iWindowCloser = iWindowCloser;
+        this.isStartExam = isStartExam;
     }
 
     class LoginBtnListenr implements ActionListener {
@@ -82,24 +86,25 @@ public class LoginPresenter {
 
     private void loginUser() {
         saveFormData();
-
         iWindowCloser.close();
 
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
+        if (isStartExam) {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
                     new SplashScreen();
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Wystąpił błąd: " + e,
-                            "Informacja",
-                            JOptionPane.INFORMATION_MESSAGE);
                 }
-            }
-        });
+            });
+        } else {
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
+                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    frame.setVisible(true);
+                }
+            });
+        }
     }
 
     private void saveFormData() {

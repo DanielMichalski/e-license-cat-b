@@ -16,11 +16,14 @@ import java.awt.event.WindowEvent;
  * Date: 24.11.13
  */
 public class LoginFrame extends JFrame implements IWindowCloser {
+    private boolean isStartExam;
 
     public static final int WIDTH = 280;
     public static final int HEIGHT = 210;
 
-    public LoginFrame() {
+    public LoginFrame(boolean isStartExam) {
+        this.isStartExam = isStartExam;
+
         setUpFrame();
         initializeComponents();
     }
@@ -30,7 +33,7 @@ public class LoginFrame extends JFrame implements IWindowCloser {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setResizable(false);
-        getContentPane().setBackground(Const.Colors.MAIN_MENU_BACKGROUND_COLOR);
+        getContentPane().setBackground(Const.Colors.BACKGROUND_COLOR);
         ApplicationUtils.setApplicationIcon(this);
 
         addWindowListener(new WindowAdapter() {
@@ -49,7 +52,7 @@ public class LoginFrame extends JFrame implements IWindowCloser {
     }
 
     private void initializeComponents() {
-        LoginPresenter loginPresenter = new LoginPresenter(this);
+        LoginPresenter loginPresenter = new LoginPresenter(this, isStartExam);
 
         FormPanel formPanel = new FormPanel();
         ButtonPanel buttonPanel = new ButtonPanel();

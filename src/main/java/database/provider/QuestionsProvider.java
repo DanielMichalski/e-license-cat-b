@@ -1,6 +1,7 @@
 package database.provider;
 
 import database.csv.CSVQuestionDataProvider;
+import model.Module;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
 
@@ -124,6 +125,31 @@ public class QuestionsProvider {
         standard20Questions.addAll(stQuestionsAt2);
         standard20Questions.addAll(stQuestionsAt3);
         Collections.shuffle(standard20Questions);
+    }
+
+    public List<StandardQuestion> getStanQuestionsByModule(Module module) {
+        List<StandardQuestion> questions = new ArrayList<StandardQuestion>();
+
+        for (StandardQuestion standardQuestion : allStandardQuestions) {
+            if (standardQuestion.getModule().equalsIgnoreCase(String.valueOf(module.getId()))) {
+                questions.add(standardQuestion);
+            }
+        }
+
+        return questions;
+    }
+
+
+    public List<SpecialistQuestion> getSpecQuestionsByModule(Module module) {
+        List<SpecialistQuestion> questions = new ArrayList<SpecialistQuestion>();
+
+        for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
+            if (specialistQuestion.getModule().equalsIgnoreCase(String.valueOf(module.getId()))) {
+                questions.add(specialistQuestion);
+            }
+        }
+
+        return questions;
     }
 
     public List<StandardQuestion> getStandard20Questions() {
