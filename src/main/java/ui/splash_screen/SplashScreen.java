@@ -4,7 +4,6 @@ import ui.exam.view.ExamFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.MalformedURLException;
 import java.util.List;
 
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -13,11 +12,11 @@ public class SplashScreen {
     private JDialog dialog;
     private JProgressBar progress;
 
-    public SplashScreen() throws MalformedURLException {
+    public SplashScreen() {
         initUI();
     }
 
-    public void initUI() throws MalformedURLException {
+    public void initUI() {
         showSplashScreen();
         SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
 
@@ -49,7 +48,7 @@ public class SplashScreen {
         dialog.dispose();
     }
 
-    protected void showSplashScreen() throws MalformedURLException {
+    protected void showSplashScreen() {
         dialog = new JDialog((Frame) null);
         dialog.setSize(250, 15);
         dialog.setModal(false);
