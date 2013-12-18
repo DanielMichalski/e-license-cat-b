@@ -1,23 +1,22 @@
 package ui.main_menu.view;
 
-import database.dao.TextsDao;
 import ui.main_menu.logic.MainMenuPresenter;
 import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 /**
  * Author: dmichalski
  * Date: 01.11.13
  */
-public class MainMenuFrame extends JFrame implements IMinimalize {
+public class MainMenuFrame extends JFrame {
 
-    private JMenuItem startExamMenuItem;
-    private JMenuItem closeMenuItem;
-    private JMenuItem aboutMenuItem;
+    public static final int HEIGHT = 600;
+    public static final int WIDTH = 960;
 
     public MainMenuFrame() {
         setUpFrame();
@@ -25,10 +24,33 @@ public class MainMenuFrame extends JFrame implements IMinimalize {
     }
 
     private void setUpFrame() {
+        setSize(WIDTH, HEIGHT);
+        setUndecorated(true);
         ApplicationUtils.setNimbusLookAndFeel();
-        setTitle(TextsDao.getText("view.MainMenu.title"));
-        setResizable(false);
-        ApplicationUtils.setApplicationIcon(this);
+        setLocationRelativeTo(null);
+        setWindowRemoveble();
+
+    }
+
+    private void setWindowRemoveble() {
+        final Point point = new Point();
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (!e.isMetaDown()) {
+                    point.x = e.getX();
+                    point.y = e.getY();
+                }
+            }
+        });
+        addMouseMotionListener(new MouseMotionAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                if (!e.isMetaDown()) {
+                    Point p = getLocation();
+                    setLocation(p.x + e.getX() - point.x,
+                            p.y + e.getY() - point.y);
+                }
+            }
+        });
     }
 
     private void initializeComponents() {
@@ -37,49 +59,9 @@ public class MainMenuFrame extends JFrame implements IMinimalize {
         MainMenuPanel mainPanel = new MainMenuPanel();
         add(mainPanel, BorderLayout.CENTER);
 
-        JMenuBar menuBar = createJMenuBar();
-        setJMenuBar(menuBar);
-
-        presenter.setStartExamBtn(mainPanel.getStartExamBtn());
-        presenter.setInfoAboutExamBtn(mainPanel.getInfoAboutExamBtn());
-        presenter.setStartExamMenuItem(startExamMenuItem);
-        presenter.setCloseMenuItem(closeMenuItem);
-        presenter.setAboutMenuItem(aboutMenuItem);
-
-        pack();
-        setLocationRelativeTo(null);
-
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                presenter.showConfirmClosingDialog();
-            }
-        });
-    }
-
-    private JMenuBar createJMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-
-        JMenu fileMenu = new JMenu(TextsDao.getText("view.MainMenuFrame.Menu.fileMenu"));
-        JMenu helpMenu = new JMenu(TextsDao.getText("view.MainMenuFrame.Menu.helpMenu"));
-
-        menuBar.add(fileMenu);
-        menuBar.add(helpMenu);
-
-        startExamMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.starExamMenuItem"));
-        fileMenu.add(startExamMenuItem);
-
-        closeMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.closeMenuItem"));
-        fileMenu.add(closeMenuItem);
-
-        aboutMenuItem = new JMenuItem(TextsDao.getText("view.MainMenuFrame.Menu.aboutMenuItem"));
-        helpMenu.add(aboutMenuItem);
-
-        return menuBar;
-    }
-
-    @Override
-    public void minimalize() {
-        setState(Frame.ICONIFIED);
+        presenter.setExerciseBtn(mainPanel.getExerciseBtn());
+        presenter.setEgxamBtn(mainPanel.getEgxamBtn());
+        presenter.setAboutExamBtn(mainPanel.getAboutApp());
+        presenter.setCloseBtn(mainPanel.getCloseBtn());
     }
 }

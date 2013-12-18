@@ -3,52 +3,51 @@ package ui.main_menu.logic;
 import database.dao.TextsDao;
 import ui.emax_info_dialog.view.ShowInfoDialog;
 import ui.help.view.HelpDialog;
-import ui.main_menu.view.IMinimalize;
+import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Author: dmichalski
  * Date: 01.11.13
  */
 public class MainMenuPresenter {
-    private IMinimalize iMinimalize;
+    private MainMenuFrame mainMenuFrame;
 
-    public MainMenuPresenter(IMinimalize iMinimalize) {
-        this.iMinimalize = iMinimalize;
+    public MainMenuPresenter(MainMenuFrame mainMenuFrame) {
+        this.mainMenuFrame = mainMenuFrame;
     }
 
-    class StartExamActionListener implements ActionListener {
+    class ExerciseBtnListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            ShowInfoDialog dialog = new ShowInfoDialog(true, iMinimalize);
-            dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
+        public void mouseClicked(MouseEvent e) {
+            System.err.println("Not implemented!");
         }
     }
 
-    class ShowInfoAboutExam implements ActionListener {
+    class StartExamActionListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            ShowInfoDialog dialog = new ShowInfoDialog(false, iMinimalize);
-            dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            dialog.setVisible(true);
+        public void mouseClicked(MouseEvent e) {
+            mainMenuFrame.dispose();
+
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    ShowInfoDialog dialog = new ShowInfoDialog();
+                    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
+                }
+            });
+
         }
     }
 
-    class CloseWindowListener implements ActionListener {
+    class ShowInfoAboutExamListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
-            showConfirmClosingDialog();
-        }
-    }
-
-    class AboutAppListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
@@ -57,6 +56,13 @@ public class MainMenuPresenter {
                     helpDialog.setVisible(true);
                 }
             });
+        }
+    }
+
+    class CloseBtnListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.exit(0);
         }
     }
 
@@ -75,23 +81,19 @@ public class MainMenuPresenter {
         }
     }
 
-    public void setStartExamBtn(JButton startExamBtn) {
-        startExamBtn.addActionListener(new StartExamActionListener());
+    public void setExerciseBtn(JLabel exerciseBtn) {
+        exerciseBtn.addMouseListener(new ExerciseBtnListener());
     }
 
-    public void setInfoAboutExamBtn(JButton aboutExamBtn) {
-        aboutExamBtn.addActionListener(new ShowInfoAboutExam());
+    public void setEgxamBtn(JLabel examBtn) {
+        examBtn.addMouseListener(new StartExamActionListener());
     }
 
-    public void setStartExamMenuItem(JMenuItem startExamMenuItem) {
-        startExamMenuItem.addActionListener(new StartExamActionListener());
+    public void setAboutExamBtn(JLabel aboutExamBtn) {
+        aboutExamBtn.addMouseListener(new ShowInfoAboutExamListener());
     }
 
-    public void setCloseMenuItem(JMenuItem closeMenuItem) {
-        closeMenuItem.addActionListener(new CloseWindowListener());
-    }
-
-    public void setAboutMenuItem(JMenuItem aboutMenuItem) {
-        aboutMenuItem.addActionListener(new AboutAppListener());
+    public void setCloseBtn(JLabel closeBtn) {
+        closeBtn.addMouseListener(new CloseBtnListener());
     }
 }

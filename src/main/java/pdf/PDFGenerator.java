@@ -49,8 +49,8 @@ public class PDFGenerator {
 
         try {
             BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
-            fNormal = new Font(bf, 9, Font.NORMAL);
-            fBold = new Font(bf, 9, Font.BOLD);
+            fNormal = new Font(bf, 8, Font.NORMAL);
+            fBold = new Font(bf, 8, Font.BOLD);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -114,7 +114,7 @@ public class PDFGenerator {
     }
 
     private String getDateInString() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
         Date date = new Date();
 
         return sdf.format(date);
