@@ -39,7 +39,7 @@ public class LearningLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx86");
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
         component = new EmbeddedMediaPlayerComponent();
         player = component.getMediaPlayer();
 
@@ -98,7 +98,7 @@ public class LearningLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 570, 680, 60);
+        buttonPanel.setBounds(0, 560, 660, 60);
         buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -237,14 +237,14 @@ public class LearningLeftPanel extends JPanel {
 
     public void setImageName(String imageName) {
         player.stop();
-        player.prepareMedia("media" + File.separator + imageName + ".prod");
+        player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
         player.parseMedia();
         player.play();
     }
 
     public synchronized void setVideoName(final String videoName) {
         player.stop();
-        player.prepareMedia("media" + File.separator + videoName + ".prod");
+        player.prepareMedia("bin" + File.separator + "media" + File.separator + videoName + ".prod");
         player.parseMedia();
         player.play();
     }

@@ -25,7 +25,8 @@ public class Const {
         Font BTNS_YES_NO_FONT = new Font("Arial", Font.PLAIN, 14);
         Font BTNS_ABC_FONT = new Font("Arial", Font.PLAIN, 13);
         Font BTN_CONFIRM_FONT = new Font("Arial", Font.PLAIN, 14);
-        Font BTN_CLOSE_FONT = new Font("Arial", Font.PLAIN, 14);
+        Font NORMAL_FONT = new Font("Arial", Font.PLAIN, 14);
+        Font BIGGER_FONT = new Font("Arial", Font.PLAIN, 18);
         Font BTN_PRINT_FONT = new Font("Arial", Font.PLAIN, 14);
     }
 

@@ -31,7 +31,7 @@ public class ChooseCategoryPresenter {
             }
         }
 
-        private void showLearningFrame(Module module) {
+        private void showLearningFrame(final Module module) {
             QuestionsProvider questionsProvider =
                     QuestionsProvider.getInstance();
 
@@ -45,7 +45,7 @@ public class ChooseCategoryPresenter {
                 @Override
                 public void run() {
                     LearningFrame learningFrame = new LearningFrame(
-                            stanQuestionsByModule, specQuestionsByModule);
+                            module, stanQuestionsByModule, specQuestionsByModule);
                     learningFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                     learningFrame.setVisible(true);
                 }

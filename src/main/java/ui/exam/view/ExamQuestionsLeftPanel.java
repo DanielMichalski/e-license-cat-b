@@ -40,7 +40,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     private void setUpPanel() {
         try {
-            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "VLCx86");
+            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
             component = new EmbeddedMediaPlayerComponent();
             player = component.getMediaPlayer();
         } catch (RuntimeException ex) {
@@ -188,21 +188,21 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public void showWaitImageImage() {
         player.stop();
-        player.prepareMedia("media" + File.separator + "wait_photo");
+        player.prepareMedia("bin" + File.separator + "media" + File.separator + "wait_photo");
         player.parseMedia();
         player.play();
     }
 
     public void showWaitVideoImage() {
         player.stop();
-        player.prepareMedia("media" + File.separator + "wait_video");
+        player.prepareMedia("bin" + File.separator + "media" + File.separator + "wait_video");
         player.parseMedia();
         player.play();
     }
 
     public void setImageName(String imageName) {
         player.stop();
-        player.prepareMedia("media" + File.separator + imageName + ".prod");
+        player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
         player.parseMedia();
         player.play();
     }
@@ -212,7 +212,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
             @Override
             public void run() {
                 player.stop();
-                player.prepareMedia("media" + File.separator + videoTitle + ".prod");
+                player.prepareMedia("bin" + File.separator + "media" + File.separator + videoTitle + ".prod");
                 player.parseMedia();
                 player.play();
             }
