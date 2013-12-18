@@ -59,7 +59,7 @@ public class QuestionsProvider {
 
     private void shuffleQuestions() {
         Random random = new Random(47);
-        int x = random.nextInt(100) + 1;
+        int x = random.nextInt(10) + 1;
 
         for (int i = 0; i < x; i++) {
             Collections.shuffle(allStandardQuestions);
