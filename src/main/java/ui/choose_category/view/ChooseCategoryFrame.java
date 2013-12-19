@@ -11,7 +11,7 @@ import javax.swing.*;
  * Author: Daniel
  */
 public class ChooseCategoryFrame extends JFrame {
-    public static final int WIDTH = 690;
+    public static final int WIDTH = 720;
     public static final int HEIGHT = 410;
 
     public ChooseCategoryFrame() {

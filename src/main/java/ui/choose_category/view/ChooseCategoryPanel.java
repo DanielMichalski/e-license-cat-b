@@ -2,6 +2,7 @@ package ui.choose_category.view;
 
 import database.provider.ModuleProvider;
 import model.Module;
+import ui.choose_category.model.ModuleListModel;
 import util.Const;
 
 import javax.swing.*;
@@ -32,14 +33,9 @@ public class ChooseCategoryPanel extends JPanel {
         List<Module> allModules =
                 moduleProvider.getAllModules();
 
-        DefaultListModel<Module> moduleDefaultListModel
-                = new DefaultListModel<Module>();
+        ModuleListModel model = new ModuleListModel(allModules);
 
-        for (Module module : allModules) {
-            moduleDefaultListModel.addElement(module);
-        }
-
-        moduleJList = new JList<Module>(moduleDefaultListModel);
+        moduleJList = new JList<Module>(model);
         moduleJList.setFont(new Font("Arial", Font.PLAIN, 14));
         moduleJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane scrollPane = new JScrollPane(moduleJList);
