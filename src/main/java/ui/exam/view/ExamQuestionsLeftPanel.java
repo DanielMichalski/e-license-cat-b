@@ -227,14 +227,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
         btnC.setBackground(defaultColor);
     }
 
-    public void disableAllBtns() {
-        yesBtn.setEnabled(false);
-        noBtn.setEnabled(false);
-        btnA.setEnabled(false);
-        btnB.setEnabled(false);
-        btnC.setEnabled(false);
-    }
-
     public JButton getYesBtn() {
         return yesBtn;
     }

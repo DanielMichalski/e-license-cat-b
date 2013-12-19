@@ -63,6 +63,7 @@ public class LearningRightPanel extends JPanel {
     private JTextArea createCategoryName() {
         JTextArea moduleNameTextArea = new JTextArea();
         moduleNameTextArea.setBounds(0, 90, 240, 100);
+        moduleNameTextArea.setMargin(new Insets(2, 2, 2, 2));
         moduleNameTextArea.setLineWrap(true);
         moduleNameTextArea.setWrapStyleWord(true);
         moduleNameTextArea.setFont(Const.Fonts.NORMAL_FONT);

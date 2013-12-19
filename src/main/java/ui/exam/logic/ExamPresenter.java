@@ -109,10 +109,6 @@ public class ExamPresenter {
         examResultFrame.setVisible(true);
     }
 
-    private void disableAllBtns() {
-        examQuestionsLeftPanel.disableAllBtns();
-    }
-
     private void enableAllBtns() {
         examQuestionsLeftPanel.enableAllBtns();
     }
