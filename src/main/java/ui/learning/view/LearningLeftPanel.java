@@ -33,6 +33,8 @@ public class LearningLeftPanel extends JPanel {
     private JButton btnB;
     private JButton btnC;
 
+    private Color defaultColor;
+
     public LearningLeftPanel() {
         setUpPanel();
         initializeComponents();
@@ -105,6 +107,8 @@ public class LearningLeftPanel extends JPanel {
 
         noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
+
+        defaultColor = noBtn.getBackground();
 
         buttonPanel.add(noBtn);
         buttonPanel.add(yesBtn);
@@ -249,21 +253,31 @@ public class LearningLeftPanel extends JPanel {
         player.play();
     }
 
-    public void enableAllBtns() {
-        yesBtn.setEnabled(true);
-        noBtn.setEnabled(true);
-        btnA.setEnabled(true);
-        btnB.setEnabled(true);
-        btnC.setEnabled(true);
+    public void unmarkAllBtns() {
+        yesBtn.setBackground(defaultColor);
+        noBtn.setBackground(defaultColor);
+        btnA.setBackground(defaultColor);
+        btnB.setBackground(defaultColor);
+        btnC.setBackground(defaultColor);
     }
 
-    public void disableAllBtns() {
-        yesBtn.setEnabled(false);
-        noBtn.setEnabled(false);
-        btnA.setEnabled(false);
-        btnB.setEnabled(false);
-        btnC.setEnabled(false);
+    public JButton getYesBtn() {
+        return yesBtn;
     }
 
+    public JButton getNoBtn() {
+        return noBtn;
+    }
 
+    public JButton getBtnA() {
+        return btnA;
+    }
+
+    public JButton getBtnB() {
+        return btnB;
+    }
+
+    public JButton getBtnC() {
+        return btnC;
+    }
 }
