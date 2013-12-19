@@ -60,6 +60,7 @@ public class LearningFrame extends JFrame {
         add(rightPanel);
 
         addWindowListener(presenter.getWindowListener(this));
+        presenter.setLearningLeftPanel(leftPanel);
         presenter.setCloseBtn(rightPanel.getCloseBtn(), this);
         presenter.setCategoryName(rightPanel.getCategoryName());
         presenter.setPlayMovieBtn(rightPanel.getPlayMovieBtn());
@@ -68,5 +69,7 @@ public class LearningFrame extends JFrame {
         presenter.setRandomQuestionBtn(rightPanel.getRandomQuestion());
         presenter.setCheckAnswerBtn(rightPanel.getCheckAnswerBtn());
         presenter.setHowManyPointsForQuestionLbl(rightPanel.getHowManyPointsForQuestionLbl());
+
+        presenter.setUpPanels();
     }
 }
