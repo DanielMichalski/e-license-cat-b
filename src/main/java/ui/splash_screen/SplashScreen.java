@@ -1,6 +1,10 @@
 package ui.splash_screen;
 
+import model.Module;
+import model.SpecialistQuestion;
+import model.StandardQuestion;
 import ui.exam.view.ExamFrame;
+import ui.learning.view.LearningFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,10 +13,23 @@ import java.util.List;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 public class SplashScreen {
+    private int windowType;
+    private Module module;
+    private List<StandardQuestion> standardQuestions;
+    private List<SpecialistQuestion> specialistQuestions;
+
     private JDialog dialog;
     private JProgressBar progress;
 
-    public SplashScreen() {
+    public SplashScreen(int windowType,
+                        Module module,
+                        List<StandardQuestion> standardQuestions,
+                        List<SpecialistQuestion> specialistQuestions) {
+
+        this.module = module;
+        this.standardQuestions = standardQuestions;
+        this.specialistQuestions = specialistQuestions;
+        this.windowType = windowType;
         initUI();
     }
 
@@ -36,6 +53,7 @@ public class SplashScreen {
 
             @Override
             protected void done() {
+                hideSplashScreen();
                 showFrame();
             }
 
@@ -70,9 +88,16 @@ public class SplashScreen {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                ExamFrame examFrame = new ExamFrame(dialog);
-                examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
-                examFrame.setVisible(true);
+                if (windowType == 1) {
+                    ExamFrame examFrame = new ExamFrame(dialog);
+                    examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    examFrame.setVisible(true);
+                }
+                if (windowType == 2) {
+                    LearningFrame learningFrame = new LearningFrame(module, standardQuestions, specialistQuestions);
+                    learningFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    learningFrame.setVisible(true);
+                }
             }
         });
 

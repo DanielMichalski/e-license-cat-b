@@ -4,8 +4,8 @@ import database.provider.QuestionsProvider;
 import model.Module;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
-import ui.learning.view.LearningFrame;
 import ui.main_menu.view.MainMenuFrame;
+import ui.splash_screen.SplashScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,12 +17,17 @@ import java.util.List;
  */
 public class ChooseCategoryPresenter {
     private JList<Module> moduleJList;
-    private JButton choosebtn;
+    private Window window;
+
+    public ChooseCategoryPresenter(Window window) {
+        this.window = window;
+    }
 
     class ChooseBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (moduleJList.getSelectedIndex() > -1) {
+                window.dispose();
                 ListModel<Module> model = moduleJList.getModel();
                 Module module = model.getElementAt(moduleJList.getSelectedIndex());
                 showLearningFrame(module);
@@ -44,10 +49,7 @@ public class ChooseCategoryPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    LearningFrame learningFrame = new LearningFrame(
-                            module, stanQuestionsByModule, specQuestionsByModule);
-                    learningFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-                    learningFrame.setVisible(true);
+                    new SplashScreen(2, module, stanQuestionsByModule, specQuestionsByModule);
                 }
             });
         }

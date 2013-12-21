@@ -10,6 +10,7 @@ import ui.exam.view.ExamPointsRightPanel;
 import ui.exam.view.ExamQuestionsLeftPanel;
 import ui.exam.view.interfaces.WindowCloser;
 import ui.exam_result.view.ExamResultFrame;
+import ui.main_menu.view.MainMenuFrame;
 import util.Const;
 
 import javax.swing.*;
@@ -143,7 +144,7 @@ public class ExamPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                showCloseConfirmDialog();
+                showMainFrame();
             }
         };
     }
@@ -152,9 +153,22 @@ public class ExamPresenter {
         return new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showCloseConfirmDialog();
+                showMainFrame();
             }
         };
+    }
+
+    private void showMainFrame() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                windowCloser.close();
+
+                MainMenuFrame mv = new MainMenuFrame();
+                mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                mv.setVisible(true);
+            }
+        });
     }
 
     private void showCloseConfirmDialog() {

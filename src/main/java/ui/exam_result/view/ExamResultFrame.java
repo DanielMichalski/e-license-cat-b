@@ -43,8 +43,7 @@ public class ExamResultFrame extends JDialog {
     }
 
     private void initializeComponents() {
-        ExamResultPresenter presenter = new ExamResultPresenter(standardQuestions, specialistQuestions);
-
+        ExamResultPresenter presenter = new ExamResultPresenter(this, standardQuestions, specialistQuestions);
 
         ExamResultLeftPanel leftPanel = new ExamResultLeftPanel();
         ExamResultRightPanel rightPanel = new ExamResultRightPanel(presenter, standardQuestions, specialistQuestions);
@@ -55,9 +54,10 @@ public class ExamResultFrame extends JDialog {
         presenter.setLeftPanel(leftPanel);
         presenter.setRightPanel(rightPanel);
 
-        presenter.setCloseBtn(rightPanel.getCloseBtn(), this);
+        presenter.setCloseBtn(rightPanel.getCloseBtn());
         presenter.setPrintBtn(rightPanel.getPrintBtn());
 
         presenter.setUpPanels();
+        addWindowListener(presenter.getWindowListener(this));
     }
 }
