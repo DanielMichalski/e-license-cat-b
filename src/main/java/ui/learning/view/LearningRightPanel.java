@@ -1,6 +1,5 @@
 package ui.learning.view;
 
-import database.dao.TextsDao;
 import util.Const;
 
 import javax.swing.*;
@@ -11,8 +10,9 @@ import java.awt.*;
  * Date: 08.11.13
  */
 public class LearningRightPanel extends JPanel {
-    private JButton closeBtn;
-    private JTextArea categoryName;
+    private JButton categoryChooseBtn;
+    private JTextArea categoryNameTF;
+    private JTextArea questionArea;
     private JButton playMovieBtn;
     private JButton previousBtn;
     private JButton nextBtn;
@@ -32,9 +32,11 @@ public class LearningRightPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        closeBtn = createCloseBtn();
+        categoryChooseBtn = createCategoryChooseBtn();
         Component categoryLabel = createCategoryLabel();
-        categoryName = createCategoryName();
+        categoryNameTF = createCategoryName();
+        Component questionLb = createQuestionLabel();
+        questionArea = createQuestionArea();
         howManyPointsForQuestionLbl = createHowManyPointsLbl();
         playMovieBtn = createPlayMovieBtn();
         previousBtn = createPreviousBtn();
@@ -42,9 +44,11 @@ public class LearningRightPanel extends JPanel {
         randomQuestion = createRandomQuestionBtn();
         checkAnswerBtn = createCheckAnswerBtn();
 
-        add(closeBtn);
+        add(categoryChooseBtn);
         add(categoryLabel);
-        add(categoryName);
+        add(categoryNameTF);
+        add(questionLb);
+        add(questionArea);
         add(playMovieBtn);
         add(previousBtn);
         add(nextBtn);
@@ -54,25 +58,48 @@ public class LearningRightPanel extends JPanel {
     }
 
     private Component createCategoryLabel() {
-        JLabel label = new JLabel("Kategoria");
-        label.setBounds(82, 60, 200, 30);
+        JLabel label = new JLabel("Nazwa kategorii");
+        label.setBounds(55, 55, 200, 30);
         label.setFont(Const.Fonts.BIGGER_FONT);
         return label;
     }
 
     private JTextArea createCategoryName() {
         JTextArea moduleNameTextArea = new JTextArea();
-        moduleNameTextArea.setBounds(0, 90, 240, 100);
+        moduleNameTextArea.setBounds(0, 85, 240, 100);
         moduleNameTextArea.setMargin(new Insets(2, 2, 2, 2));
         moduleNameTextArea.setLineWrap(true);
         moduleNameTextArea.setWrapStyleWord(true);
         moduleNameTextArea.setFont(Const.Fonts.NORMAL_FONT);
         moduleNameTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        moduleNameTextArea.setEditable(false);
+        moduleNameTextArea.setFocusable(false);
         return moduleNameTextArea;
     }
 
-    private JButton createCloseBtn() {
-        JButton button = new JButton(TextsDao.getText("ExamPointRigthPanel.btnCloseLbl"));
+    private Component createQuestionLabel() {
+        JLabel label = new JLabel("Numer pytania");
+        label.setBounds(60, 190, 200, 30);
+        label.setFont(Const.Fonts.BIGGER_FONT);
+        return label;
+    }
+
+    private JTextArea createQuestionArea() {
+        JTextArea moduleNameTextArea = new JTextArea();
+        moduleNameTextArea.setBounds(0, 220, 240, 50);
+        moduleNameTextArea.setMargin(new Insets(2, 2, 2, 2));
+        moduleNameTextArea.setLineWrap(true);
+        moduleNameTextArea.setWrapStyleWord(true);
+        moduleNameTextArea.setFont(Const.Fonts.NORMAL_FONT);
+        moduleNameTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+        moduleNameTextArea.setEditable(false);
+        moduleNameTextArea.setFocusable(false);
+        return moduleNameTextArea;
+    }
+
+
+    private JButton createCategoryChooseBtn() {
+        JButton button = new JButton("Wybór kategorii");
         button.setBounds(0, 10, 240, 35);
         button.setFont(Const.Fonts.NORMAL_FONT);
         button.setFocusable(false);
@@ -127,15 +154,19 @@ public class LearningRightPanel extends JPanel {
     }
 
     public void setModuleName(String moduleName) {
-        categoryName.setText(moduleName);
+        categoryNameTF.setText(moduleName);
     }
 
-    public JButton getCloseBtn() {
-        return closeBtn;
+    public JButton getCategoryChooseBtn() {
+        return categoryChooseBtn;
     }
 
-    public JTextArea getCategoryName() {
-        return categoryName;
+    public JTextArea getCategoryNameTF() {
+        return categoryNameTF;
+    }
+
+    public JTextArea getQuestionArea() {
+        return questionArea;
     }
 
     public JButton getPlayMovieBtn() {
