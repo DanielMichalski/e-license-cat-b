@@ -20,7 +20,7 @@ public class LearningFrame extends JFrame {
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
-    public static final int WIDTH = 940;
+    public static final int WIDTH = 1000;
     public static final int HEIGHT = 670;
 
     public LearningFrame(Module module,
@@ -43,6 +43,7 @@ public class LearningFrame extends JFrame {
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);
+        setResizable(false);
     }
 
     private void initializeComponents() {
@@ -53,16 +54,17 @@ public class LearningFrame extends JFrame {
         LearningRightPanel rightPanel = new LearningRightPanel();
         rightPanel.setModuleName(module.toString());
 
-        leftPanel.setBounds(0, 0, 670, 640);
-        rightPanel.setBounds(670, 0, 250, 640);
+        leftPanel.setBounds(0, 0, 735, 640);
+        rightPanel.setBounds(735, 0, 260, 640);
 
         add(leftPanel);
         add(rightPanel);
 
         addWindowListener(presenter.getWindowListener(this));
         presenter.setLearningLeftPanel(leftPanel);
-        presenter.setCloseBtn(rightPanel.getCloseBtn(), this);
-        presenter.setCategoryName(rightPanel.getCategoryName());
+        presenter.setCategoryChooseBtn(rightPanel.getCategoryChooseBtn(), this);
+        presenter.setCategoryNameTF(rightPanel.getCategoryNameTF());
+        presenter.setQuestionArea(rightPanel.getQuestionArea());
         presenter.setPlayMovieBtn(rightPanel.getPlayMovieBtn());
         presenter.setPreviousBtn(rightPanel.getPreviousBtn());
         presenter.setNextBtn(rightPanel.getNextBtn());

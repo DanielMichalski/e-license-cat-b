@@ -5,10 +5,11 @@ import model.*;
 import pdf.PDFGenerator;
 import ui.exam_result.view.ExamResultLeftPanel;
 import ui.exam_result.view.ExamResultRightPanel;
+import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ import java.util.List;
  */
 public class ExamResultPresenter {
 
+    private JDialog examResultFrame;
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
@@ -25,8 +27,11 @@ public class ExamResultPresenter {
 
     public static final int HOW_MANY_POINTS_TO_PASS = 69;
 
-    public ExamResultPresenter(List<StandardQuestion> standardQuestions,
+    public ExamResultPresenter(JDialog examResultFrame,
+                               List<StandardQuestion> standardQuestions,
                                List<SpecialistQuestion> specialistQuestions) {
+
+        this.examResultFrame = examResultFrame;
         this.standardQuestions = standardQuestions;
         this.specialistQuestions = specialistQuestions;
     }
@@ -139,17 +144,33 @@ public class ExamResultPresenter {
         leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
     }
 
+    public WindowListener getWindowListener(final JDialog dialog) {
+        return new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                showMainFrame();
+            }
+        };
+    }
+
     private class CloseBtnListener implements ActionListener {
-        private JDialog jDialog;
-
-        public CloseBtnListener(JDialog jDialog) {
-            this.jDialog = jDialog;
-        }
-
         @Override
         public void actionPerformed(ActionEvent e) {
-            showCloseConfirmDialog(jDialog);
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    showMainFrame();
+                }
+            });
         }
+    }
+
+    private void showMainFrame() {
+        examResultFrame.dispose();
+
+        MainMenuFrame mv = new MainMenuFrame();
+        mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        mv.setVisible(true);
     }
 
     private void showCloseConfirmDialog(JDialog dialog) {
@@ -191,8 +212,8 @@ public class ExamResultPresenter {
         this.specialistQuestions = specialistQuestions;
     }
 
-    public void setCloseBtn(JButton closeBtn, JDialog jDialog) {
-        closeBtn.addActionListener(new CloseBtnListener(jDialog));
+    public void setCloseBtn(JButton closeBtn) {
+        closeBtn.addActionListener(new CloseBtnListener());
     }
 
     public void setPrintBtn(JButton printBtn) {

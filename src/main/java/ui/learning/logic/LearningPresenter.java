@@ -1,23 +1,28 @@
 package ui.learning.logic;
 
 import database.dao.TextsDao;
-import model.MediaType;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
+import model.*;
+import ui.choose_category.view.ChooseCategoryFrame;
 import ui.learning.view.LearningLeftPanel;
+import ui.main_menu.view.MainMenuFrame;
 import util.Const;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Logger;
 
 /**
  * Author: Daniel
  * Date: 08.11.13
  */
 public class LearningPresenter {
+    public Logger LOGGER = Logger.getLogger(getClass().getName());
+
     private int questionNum;
+    private int allQuestiionNum;
 
     private LearningLeftPanel learningLeftPanel;
 
@@ -27,13 +32,14 @@ public class LearningPresenter {
     private JButton btnB;
     private JButton btnC;
 
-    private JTextArea categoryName;
     private JLabel howManyPointsForQuestionLbl;
+    private JTextArea categoryNameTF;
+    private JTextArea questionArea;
 
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
 
-    private Color defaultColor;
+    private Random random;
 
     public LearningPresenter(List<StandardQuestion> standardQuestions,
                              List<SpecialistQuestion> specialistQuestions) {
@@ -41,6 +47,8 @@ public class LearningPresenter {
         this.specialistQuestions = specialistQuestions;
 
         this.questionNum = 1;
+        this.allQuestiionNum = standardQuestions.size() + specialistQuestions.size();
+        this.random = new Random(47);
     }
 
     private void markBtn(JButton whichButtonToMark) {
@@ -53,53 +61,61 @@ public class LearningPresenter {
     }
 
     public void setUpPanels() {
-        setFirstQuestion();
+        setQuestion();
     }
 
-    private void setFirstQuestion() {
-        questionNum = 1;
-        if (standardQuestions.size() > 0) {
-            StandardQuestion question = standardQuestions.get(questionNum - 1);
-            MediaType mediaType = question.getMediaType();
+    private void setQuestion() {
+        questionArea.setText("Pytanie " + questionNum + " z " + allQuestiionNum);
 
-            String mediaPath = question.getMediaPath();
-            switch (mediaType) {
-                case IMAGE:
-                    learningLeftPanel.setImageName(mediaPath);
-                    break;
-                case VIDEO:
-                    learningLeftPanel.setVideoName(mediaPath);
-                    break;
-            }
+        if (questionNum <= standardQuestions.size() && questionNum >= 1) {
+            setStandardQuestion();
+        } else if (questionNum <= allQuestiionNum) {
+            setSpecialistQuestion();
+        }
+    }
 
-            learningLeftPanel.setQestion(question.getQuestion());
-            howManyPointsForQuestionLbl.setText(question.getPoints() + " pkt");
+    private void setStandardQuestion() {
+        learningLeftPanel.changePanelToStandardPanel();
 
-        } else if (specialistQuestions.size() > 0) {
-            SpecialistQuestion question = specialistQuestions.get(questionNum - 1);
-            MediaType mediaType = question.getMediaType();
-
-            String answerA = question.getAnswerA();
-            String answerB = question.getAnswerB();
-            String answerC = question.getAnswerC();
-
-            String mediaPath = question.getMediaPath();
-            switch (mediaType) {
-                case IMAGE:
-                    learningLeftPanel.setImageName(mediaPath);
-                    break;
-                case VIDEO:
-                    learningLeftPanel.setVideoName(mediaPath);
-                    break;
-            }
-
-            learningLeftPanel.setQestion(question.getQuestion());
-            howManyPointsForQuestionLbl.setText(question.getPoints() + " pkt");
-            learningLeftPanel.setBtnABCTexts(answerA, answerB, answerC);
-        } else {
-            showLastQuestionInfo();
+        StandardQuestion question = standardQuestions.get(questionNum - 1);
+        MediaType mediaType = question.getMediaType();
+        String mediaPath = question.getMediaPath();
+        switch (mediaType) {
+            case IMAGE:
+                learningLeftPanel.setImageName(mediaPath);
+                break;
+            case VIDEO:
+                learningLeftPanel.setVideoName(mediaPath);
+                break;
         }
 
+        learningLeftPanel.setQestion(question.getQuestion());
+        howManyPointsForQuestionLbl.setText(question.getPoints() + " pkt");
+    }
+
+    private void setSpecialistQuestion() {
+        learningLeftPanel.changePanelToSpecialistPanel();
+
+        SpecialistQuestion question = specialistQuestions.get(questionNum - 1);
+        MediaType mediaType = question.getMediaType();
+
+        String answerA = question.getAnswerA();
+        String answerB = question.getAnswerB();
+        String answerC = question.getAnswerC();
+
+        String mediaPath = question.getMediaPath();
+        switch (mediaType) {
+            case IMAGE:
+                learningLeftPanel.setImageName(mediaPath);
+                break;
+            case VIDEO:
+                learningLeftPanel.setVideoName(mediaPath);
+                break;
+        }
+
+        learningLeftPanel.setQestion(question.getQuestion());
+        howManyPointsForQuestionLbl.setText(question.getPoints() + " pkt");
+        learningLeftPanel.setBtnABCTexts(answerA, answerB, answerC);
     }
 
     private void showLastQuestionInfo() {
@@ -109,7 +125,6 @@ public class LearningPresenter {
                 "Informacja",
                 JOptionPane.INFORMATION_MESSAGE);
     }
-
 
     class YesBtnListener implements ActionListener {
         @Override
@@ -149,43 +164,74 @@ public class LearningPresenter {
     class PlayMovieBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("play");
+
+            if (questionNum <= standardQuestions.size()) {
+                if (standardQuestions.get(questionNum - 1).getMediaType() == MediaType.VIDEO) {
+                    learningLeftPanel.setVideoName(standardQuestions.get(questionNum - 1).getMediaPath());
+                }
+            } else if (questionNum <= allQuestiionNum) {
+                if (specialistQuestions.get(questionNum - 1).getMediaType() == MediaType.VIDEO) {
+                    learningLeftPanel.setVideoName(specialistQuestions.get(questionNum - 1).getMediaPath());
+                }
+            }
         }
     }
 
     class PreviousBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("prev");
+            if (questionNum > 1) {
+                unmarkBtns();
+                questionNum--;
+                setQuestion();
+            }
         }
     }
 
     class NextBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("next");
+            if (questionNum < allQuestiionNum) {
+                unmarkBtns();
+                questionNum++;
+                setQuestion();
+            } else {
+                showLastQuestionInfo();
+            }
         }
     }
 
     class RandomQuestionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("random");
+            unmarkBtns();
+            questionNum = random.nextInt(allQuestiionNum) + 1;
+            setQuestion();
         }
     }
 
     class CheckAnswerBtnListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("check");
+            if (questionNum <= standardQuestions.size()) {
+                YesNoAnswer userAnswer = learningLeftPanel.getUserAnswerYesNo();
+                YesNoAnswer correctAnswer = standardQuestions.get(questionNum - 1).getCorrectAnswer();
+                learningLeftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
+                LOGGER.info(String.format("User answer: %s, correct answer: %s", userAnswer, correctAnswer));
+            } else if (questionNum <= allQuestiionNum) {
+                ABCAnswer userAnswer = learningLeftPanel.getUserAnswerAbc();
+                ABCAnswer correctAnswer = specialistQuestions.get(questionNum - 1).getCorrectAnswer();
+                learningLeftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
+                LOGGER.info(String.format("User answer: %s, correct answer: %s", userAnswer, correctAnswer));
+            }
         }
     }
 
-    private class CloseBtnListener implements ActionListener {
-        private Window jDialog;
+    private class CategoryChooseListener implements ActionListener {
+        Window window;
 
-        public CloseBtnListener(Window jDialog) {
-            this.jDialog = jDialog;
+        private CategoryChooseListener(Window window) {
+            this.window = window;
         }
 
         @Override
@@ -193,10 +239,13 @@ public class LearningPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    showCloseConfirmDialog(jDialog);
+                    window.dispose();
+
+                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
+                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    frame.setVisible(true);
                 }
             });
-
         }
     }
 
@@ -219,67 +268,19 @@ public class LearningPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                showCloseConfirmDialog(window);
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        window.dispose();
+
+                        MainMenuFrame mv = new MainMenuFrame();
+                        mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+                        mv.setVisible(true);
+                    }
+                });
             }
         };
     }
-
-
-    /*
-    public void setNumberOfStandardQuestion(int numOfQuestion) {
-        StandardQuestion question = standardQuestions.get(numOfQuestion - 1);
-        MediaType mediaType = question.getMediaType();
-
-        YesNoAnswer userAnswer = question.getUserAnswer();
-        YesNoAnswer correctAnswer = question.getCorrectAnswer();
-
-        String mediaPath = question.getMediaPath();
-        switch (mediaType) {
-            case IMAGE:
-                leftPanel.setImageName(mediaPath);
-                break;
-            case VIDEO:
-                leftPanel.setVideoName(mediaPath);
-                break;
-        }
-
-        leftPanel.setQestion(question.getQuestion());
-
-        rightPanel.setHowManyQuestionPoints(question.getPoints());
-
-        leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
-    }
-
-    public void setNumberOfSpecialistQuestion(int numOfQuestion) {
-        SpecialistQuestion question = specialistQuestions.get(numOfQuestion - 1);
-        MediaType mediaType = question.getMediaType();
-
-        String answerA = question.getAnswerA();
-        String answerB = question.getAnswerB();
-        String answerC = question.getAnswerC();
-
-        ABCAnswer userAnswer = question.getUserAnswer();
-        ABCAnswer correctAnswer = question.getCorrectAnswer();
-
-        String mediaPath = question.getMediaPath();
-        switch (mediaType) {
-            case IMAGE:
-                leftPanel.setImageName(mediaPath);
-                break;
-            case VIDEO:
-                leftPanel.setVideoName(mediaPath);
-                break;
-        }
-
-        leftPanel.setQestion(question.getQuestion());
-
-        rightPanel.setHowManyQuestionPoints(question.getPoints());
-
-        leftPanel.setBtnABCTexts(answerA, answerB, answerC);
-        leftPanel.setUserAndCorrectAnswer(userAnswer, correctAnswer);
-    }
-
-    */
 
     public void setLearningLeftPanel(LearningLeftPanel learningLeftPanel) {
         this.learningLeftPanel = learningLeftPanel;
@@ -298,16 +299,18 @@ public class LearningPresenter {
 
         this.btnC = learningLeftPanel.getBtnC();
         this.btnC.addActionListener(new CBtnListener());
-
-        defaultColor = yesBtn.getBackground();
     }
 
-    public void setCloseBtn(JButton closeBtn, Window window) {
-        closeBtn.addActionListener(new CloseBtnListener(window));
+    public void setCategoryChooseBtn(JButton categoryChooseButton, Window window) {
+        categoryChooseButton.addActionListener(new CategoryChooseListener(window));
     }
 
-    public void setCategoryName(JTextArea categoryName) {
-        this.categoryName = categoryName;
+    public void setQuestionArea(JTextArea questionArea) {
+        this.questionArea = questionArea;
+    }
+
+    public void setCategoryNameTF(JTextArea categoryNameTF) {
+        this.categoryNameTF = categoryNameTF;
     }
 
     public void setPlayMovieBtn(JButton playMovieBtn) {

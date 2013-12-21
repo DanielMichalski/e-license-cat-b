@@ -67,7 +67,7 @@ public class LearningLeftPanel extends JPanel {
     public JPanel getImageAndVideoPanel() {
         JPanel imagePanel = new JPanel();
         imagePanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        imagePanel.setBounds(10, 10, 640, 360);
+        imagePanel.setBounds(45, 10, 640, 360);
         imagePanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
         imagePanel.setLayout(new BorderLayout());
@@ -78,8 +78,9 @@ public class LearningLeftPanel extends JPanel {
 
     public JPanel getQuestionPanel() {
         JPanel questionPanel = new JPanel();
+        questionPanel.setLayout(null);
         questionPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-        questionPanel.setBounds(0, 380, 680, 80);
+        questionPanel.setBounds(10, 380, 720, 80);
         questionTextArea = getQuestionTextArea();
         questionTextArea.setVisible(true);
         questionPanel.add(questionTextArea);
@@ -87,7 +88,8 @@ public class LearningLeftPanel extends JPanel {
     }
 
     private JTextArea getQuestionTextArea() {
-        JTextArea questionTextArea = new JTextArea(3, 49);
+        JTextArea questionTextArea = new JTextArea(3, 52);
+        questionTextArea.setBounds(10, 0, 700, 80);
         questionTextArea.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
         questionTextArea.setFont(Const.Fonts.TEXTS_FONT);
         questionTextArea.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
@@ -100,7 +102,7 @@ public class LearningLeftPanel extends JPanel {
     public JPanel getYesNoBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 560, 660, 60);
+        buttonPanel.setBounds(10, 560, 720, 60);
         buttonPanel.setLayout(new GridLayout(1, 2, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
@@ -119,7 +121,7 @@ public class LearningLeftPanel extends JPanel {
     private JPanel getABCBtnPanel() {
         JPanel buttonPanel = new JPanel();
 
-        buttonPanel.setBounds(0, 470, 680, 160);
+        buttonPanel.setBounds(0, 460, 720, 160);
         buttonPanel.setLayout(new GridLayout(3, 1, 10, 10));
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
 
@@ -166,6 +168,20 @@ public class LearningLeftPanel extends JPanel {
         this.btnA.setText(btnAText);
         this.btnB.setText(btnBText);
         this.btnC.setText(btnCText);
+
+        this.btnA.setToolTipText(btnAText);
+        this.btnB.setToolTipText(btnBText);
+        this.btnC.setToolTipText(btnCText);
+    }
+
+    public YesNoAnswer getUserAnswerYesNo() {
+        if (noBtn.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
+            return YesNoAnswer.NIE;
+        } else if (yesBtn.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
+            return YesNoAnswer.TAK;
+        } else {
+            return null;
+        }
     }
 
     public void setUserAndCorrectAnswer(ABCAnswer userAnswer, ABCAnswer correctAnswer) {
@@ -196,6 +212,18 @@ public class LearningLeftPanel extends JPanel {
                 break;
             case C:
                 btnC.setBackground(color);
+        }
+    }
+
+    public ABCAnswer getUserAnswerAbc() {
+        if (btnA.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
+            return ABCAnswer.A;
+        } else if (btnB.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
+            return ABCAnswer.B;
+        } else if (btnC.getBackground().equals(Const.Colors.CLICKED_BTN_COLOR)) {
+            return ABCAnswer.C;
+        } else {
+            return null;
         }
     }
 
