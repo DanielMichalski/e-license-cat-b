@@ -11,17 +11,24 @@ import java.util.TimerTask;
 public abstract class TimerCountDown extends TimerTask {
     private int sec;
     private ExamPresenter examPresenter;
+    private boolean isStandardPart;
 
-    public TimerCountDown(ExamPresenter examPresenter, int sec) {
+    public TimerCountDown(ExamPresenter examPresenter, int sec, boolean isStandardPart) {
         this.sec = sec;
         this.examPresenter = examPresenter;
-        this.examPresenter.showWaitMedia();
+        this.isStandardPart = isStandardPart;
+
+        if (isStandardPart) {
+            this.examPresenter.showWaitMedia();
+        }
     }
 
     @Override
     public void run() {
         if (sec > 0) {
-            if (sec == 15) {
+            if (isStandardPart && sec == 15) {
+                examPresenter.showMedia();
+            } else if (sec == 50) {
                 examPresenter.showMedia();
             }
             examPresenter.getTimerLbl().setText("" + sec);

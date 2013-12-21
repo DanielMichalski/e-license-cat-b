@@ -20,9 +20,6 @@ public class ChooseCategoryFrame extends JFrame {
     }
 
     private void setUpFrame() {
-        //TODO usunac
-        ApplicationUtils.setNimbusLookAndFeel();
-
         setTitle(TextsDao.getText("view.ChooseCategory.title"));
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
@@ -33,7 +30,7 @@ public class ChooseCategoryFrame extends JFrame {
 
     private void initializeComponents() {
         ChooseCategoryPresenter presenter =
-                new ChooseCategoryPresenter();
+                new ChooseCategoryPresenter(this);
 
         ChooseCategoryPanel panel = new ChooseCategoryPanel();
         add(panel);

@@ -28,10 +28,11 @@ public class Const {
         Font NORMAL_FONT = new Font("Arial", Font.PLAIN, 14);
         Font BIGGER_FONT = new Font("Arial", Font.PLAIN, 18);
         Font BTN_PRINT_FONT = new Font("Arial", Font.PLAIN, 14);
+
     }
 
     public static interface Dimensions {
-        Dimension EXAM_YES_NO_BTN_SIZE = new Dimension(322, 50);
+        Dimension EXAM_YES_NO_BTN_SIZE = new Dimension(342, 50);
         Dimension ABC_BTNS_SIZE = new Dimension(230, 50);
         Dimension EXAM_TIME_LBL_SIZE = new Dimension(230, 50);
         Dimension RESULT_POINT = new Dimension(230, 50);
@@ -41,7 +42,7 @@ public class Const {
         Dimension EXAM_PRINT_BTN_SIZE = new Dimension(230, 35);
         Dimension HOW_MANY_POINTS_LBL = new Dimension(230, 50);
         Dimension MAIN_MENUBTN_SIZE = new Dimension(280, 86);
-        Dimension IMAGE_AND_VIDEO_SIZE = new Dimension(640, 360);
+        Dimension IMAGE_AND_VIDEO_SIZE = new Dimension(660, 360);
         Dimension BALL_ICON_SIZE = new Dimension(28, 29);
 
     }
