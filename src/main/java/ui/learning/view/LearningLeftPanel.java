@@ -268,7 +268,7 @@ public class LearningLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
-
+        System.out.println("Image: " + imageName);
         player.stop();
         player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
         player.parseMedia();
@@ -276,6 +276,7 @@ public class LearningLeftPanel extends JPanel {
     }
 
     public synchronized void setVideoName(final String videoName) {
+        System.out.println("Vide: " + videoName);
         player.stop();
         player.prepareMedia("bin" + File.separator + "media" + File.separator + videoName + ".prod");
         player.parseMedia();
@@ -288,6 +289,11 @@ public class LearningLeftPanel extends JPanel {
         btnA.setBackground(defaultColor);
         btnB.setBackground(defaultColor);
         btnC.setBackground(defaultColor);
+    }
+
+    public void disposePlayer() {
+        System.out.println("Disposing media player");
+        player.release();
     }
 
     public JButton getYesBtn() {

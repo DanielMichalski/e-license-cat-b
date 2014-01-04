@@ -210,15 +210,10 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void setVideoName(final String videoTitle) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                player.stop();
-                player.prepareMedia("bin" + File.separator + "media" + File.separator + videoTitle + ".prod");
-                player.parseMedia();
-                player.play();
-            }
-        }).start();
+        player.stop();
+        player.prepareMedia("bin" + File.separator + "media" + File.separator + videoTitle + ".prod");
+        player.parseMedia();
+        player.play();
     }
 
     public void enableAllBtns() {
