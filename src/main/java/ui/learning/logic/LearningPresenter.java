@@ -243,6 +243,7 @@ public class LearningPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
+                    learningLeftPanel.disposePlayer();
                     window.dispose();
 
                     ChooseCategoryFrame frame = new ChooseCategoryFrame();
@@ -275,6 +276,7 @@ public class LearningPresenter {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                        learningLeftPanel.disposePlayer();
                         window.dispose();
 
                         MainMenuFrame mv = new MainMenuFrame();
