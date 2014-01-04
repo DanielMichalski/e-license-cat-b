@@ -50,7 +50,7 @@ public class QuestionsProvider {
         spQuestionsAt2 = new ArrayList<SpecialistQuestion>();
         spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
-        shuffleQuestions();
+        shuffleAllQuestions(10);
         setQuestions();
 
         long end = System.currentTimeMillis();
@@ -58,13 +58,23 @@ public class QuestionsProvider {
         System.out.println(String.format("Całość: %.2f sec.", time));
     }
 
-    private void shuffleQuestions() {
+    private void shuffleAllQuestions(int howManyTimes) {
         Random random = new Random(47);
-        int x = random.nextInt(10) + 1;
+        int x = random.nextInt(howManyTimes) + 1;
 
         for (int i = 0; i < x; i++) {
             Collections.shuffle(allStandardQuestions);
             Collections.shuffle(allSpecialistQuestions);
+        }
+    }
+
+    public void shuffleSelectedQuestions(int howManyTimes) {
+        Random random = new Random(47);
+        int x = random.nextInt(howManyTimes) + 1;
+
+        for (int i = 0; i < x; i++) {
+            Collections.shuffle(standard20Questions);
+            Collections.shuffle(specialist12Questions);
         }
     }
 
