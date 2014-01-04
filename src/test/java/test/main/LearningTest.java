@@ -25,11 +25,7 @@ public class LearningTest {
                 List<StandardQuestion> standardQuestionList = instance.getStanQuestionsByModule(new Module(10, "test"));
                 List<SpecialistQuestion> specialistQuestions = instance.getSpecQuestionsByModule(new Module(10, "test"));
 
-                LearningFrame learningFrame = new LearningFrame(
-                        new Module(1, "Testowy"),
-                        standardQuestionList,
-                        specialistQuestions
-                );
+                LearningFrame learningFrame = new LearningFrame(new Module(1, "Testowy"));
                 learningFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                 learningFrame.setVisible(true);
             }

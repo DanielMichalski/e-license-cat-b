@@ -91,7 +91,7 @@ public class LoginPresenter {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new SplashScreen(1, null, null, null);
+                new SplashScreen(1, null);
             }
         });
     }
