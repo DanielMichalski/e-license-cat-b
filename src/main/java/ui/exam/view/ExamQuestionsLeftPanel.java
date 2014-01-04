@@ -107,6 +107,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         questionTextArea.setLineWrap(true);
         questionTextArea.setWrapStyleWord(true);
         questionTextArea.setEditable(false);
+        questionTextArea.setFocusable(false);
         return questionTextArea;
     }
 
@@ -118,13 +119,13 @@ public class ExamQuestionsLeftPanel extends JPanel {
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
+        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
 
         defaultColor = noBtn.getBackground();
 
-        buttonPanel.add(noBtn);
         buttonPanel.add(yesBtn);
+        buttonPanel.add(noBtn);
 
         return buttonPanel;
     }
@@ -150,11 +151,12 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     private JButton createYesNoBtn(String label) {
         JButton button = new JButton(label);
+        button.setAlignmentX(CENTER_ALIGNMENT);
         button.setFont(Const.Fonts.BTNS_YES_NO_FONT);
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
-        button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
         button.setFocusable(false);
         return button;
     }
