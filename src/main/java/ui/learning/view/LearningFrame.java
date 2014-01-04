@@ -63,7 +63,6 @@ public class LearningFrame extends JFrame {
         addWindowListener(presenter.getWindowListener(this));
         presenter.setLearningLeftPanel(leftPanel);
         presenter.setCategoryChooseBtn(rightPanel.getCategoryChooseBtn(), this);
-        presenter.setCategoryNameTF(rightPanel.getCategoryNameTF());
         presenter.setQuestionArea(rightPanel.getQuestionArea());
         presenter.setPlayMovieBtn(rightPanel.getPlayMovieBtn());
         presenter.setPreviousBtn(rightPanel.getPreviousBtn());
