@@ -1,10 +1,10 @@
 package ui.main_menu.logic;
 
 import database.dao.TextsDao;
-import ui.choose_category.view.ChooseCategoryFrame;
 import ui.emax_info_dialog.view.ShowInfoDialog;
 import ui.help.view.HelpDialog;
 import ui.main_menu.view.MainMenuFrame;
+import ui.splash_screen.SplashScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,9 +30,12 @@ public class MainMenuPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
+                    SplashScreen splashScreen = new SplashScreen(3, null);
+                    /*
+
                     ChooseCategoryFrame frame = new ChooseCategoryFrame();
                     frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    frame.setVisible(true);
+                    frame.setVisible(true);*/
                 }
             });
         }

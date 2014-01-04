@@ -1,8 +1,7 @@
 package ui.splash_screen;
 
 import model.Module;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
+import ui.choose_category.view.ChooseCategoryFrame;
 import ui.exam.view.ExamFrame;
 import ui.learning.view.LearningFrame;
 
@@ -15,25 +14,18 @@ import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 public class SplashScreen {
     private int windowType;
     private Module module;
-    private List<StandardQuestion> standardQuestions;
-    private List<SpecialistQuestion> specialistQuestions;
 
     private JDialog dialog;
     private JProgressBar progress;
 
-    public SplashScreen(int windowType,
-                        Module module,
-                        List<StandardQuestion> standardQuestions,
-                        List<SpecialistQuestion> specialistQuestions) {
+    public SplashScreen(int windowType, Module module) {
 
         this.module = module;
-        this.standardQuestions = standardQuestions;
-        this.specialistQuestions = specialistQuestions;
         this.windowType = windowType;
         initUI();
     }
 
-    public void initUI() {
+    private void initUI() {
         showSplashScreen();
         SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
 
@@ -94,9 +86,14 @@ public class SplashScreen {
                     examFrame.setVisible(true);
                 }
                 if (windowType == 2) {
-                    LearningFrame learningFrame = new LearningFrame(module, standardQuestions, specialistQuestions);
+                    LearningFrame learningFrame = new LearningFrame(module);
                     learningFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
                     learningFrame.setVisible(true);
+                }
+                if (windowType == 3) {
+                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
+                    frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    frame.setVisible(true);
                 }
             }
         });
