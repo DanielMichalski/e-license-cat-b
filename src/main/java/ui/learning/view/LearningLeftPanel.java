@@ -107,13 +107,13 @@ public class LearningLeftPanel extends JPanel {
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
+        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
 
         defaultColor = noBtn.getBackground();
 
-        buttonPanel.add(noBtn);
         buttonPanel.add(yesBtn);
+        buttonPanel.add(noBtn);
 
         return buttonPanel;
     }
@@ -268,6 +268,7 @@ public class LearningLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
+
         player.stop();
         player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
         player.parseMedia();

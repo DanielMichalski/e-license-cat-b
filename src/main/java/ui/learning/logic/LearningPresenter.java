@@ -26,6 +26,7 @@ public class LearningPresenter {
 
     private LearningLeftPanel learningLeftPanel;
 
+    private JButton playMovieBtn;
     private JButton yesBtn;
     private JButton noBtn;
     private JButton btnA;
@@ -33,7 +34,6 @@ public class LearningPresenter {
     private JButton btnC;
 
     private JLabel howManyPointsForQuestionLbl;
-    private JTextArea categoryNameTF;
     private JTextArea questionArea;
 
     private List<StandardQuestion> standardQuestions;
@@ -82,9 +82,11 @@ public class LearningPresenter {
         String mediaPath = question.getMediaPath();
         switch (mediaType) {
             case IMAGE:
+                playMovieBtn.setEnabled(false);
                 learningLeftPanel.setImageName(mediaPath);
                 break;
             case VIDEO:
+                playMovieBtn.setEnabled(true);
                 learningLeftPanel.setVideoName(mediaPath);
                 break;
         }
@@ -106,9 +108,11 @@ public class LearningPresenter {
         String mediaPath = question.getMediaPath();
         switch (mediaType) {
             case IMAGE:
+                playMovieBtn.setEnabled(false);
                 learningLeftPanel.setImageName(mediaPath);
                 break;
             case VIDEO:
+                playMovieBtn.setEnabled(true);
                 learningLeftPanel.setVideoName(mediaPath);
                 break;
         }
@@ -309,12 +313,9 @@ public class LearningPresenter {
         this.questionArea = questionArea;
     }
 
-    public void setCategoryNameTF(JTextArea categoryNameTF) {
-        this.categoryNameTF = categoryNameTF;
-    }
-
     public void setPlayMovieBtn(JButton playMovieBtn) {
-        playMovieBtn.addActionListener(new PlayMovieBtnListener());
+        this.playMovieBtn = playMovieBtn;
+        this.playMovieBtn.addActionListener(new PlayMovieBtnListener());
     }
 
     public void setPreviousBtn(JButton previousBtn) {
