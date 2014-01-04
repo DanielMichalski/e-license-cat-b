@@ -1,7 +1,7 @@
 package ui.login.logic;
 
 import database.dao.TextsDao;
-import ui.choose_category.view.ChooseCategoryFrame;
+import database.provider.QuestionsProvider;
 import ui.login.view.IWindowCloser;
 import ui.splash_screen.SplashScreen;
 import util.PeselValidator;
@@ -16,15 +16,13 @@ import java.awt.event.*;
  */
 public class LoginPresenter {
     private IWindowCloser iWindowCloser;
-    private boolean isStartExam;
 
     private JTextField firstNameTF;
     private JTextField lastNameTF;
     private JTextField peselTF;
 
-    public LoginPresenter(IWindowCloser iWindowCloser, boolean isStartExam) {
+    public LoginPresenter(IWindowCloser iWindowCloser) {
         this.iWindowCloser = iWindowCloser;
-        this.isStartExam = isStartExam;
     }
 
     class LoginBtnListenr implements ActionListener {
@@ -85,26 +83,30 @@ public class LoginPresenter {
     }
 
     private void loginUser() {
+        shuffleQuestions();
+
         saveFormData();
         iWindowCloser.close();
 
-        if (isStartExam) {
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    new SplashScreen(1, null, null, null);
-                }
-            });
-        } else {
-            EventQueue.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
-                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    frame.setVisible(true);
-                }
-            });
-        }
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new SplashScreen(1, null, null, null);
+            }
+        });
+    }
+
+    private void shuffleQuestions() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                QuestionsProvider questionsProvider =
+                        QuestionsProvider.getInstance();
+                questionsProvider.shuffleSelectedQuestions(3);
+            }
+        });
+
+        thread.start();
     }
 
     private void saveFormData() {

@@ -1,9 +1,11 @@
 package ui.login.view;
 
 import database.dao.TextsDao;
+import ui.login.filter.JTextFieldDocumentFilter;
 import util.Const;
 
 import javax.swing.*;
+import javax.swing.text.AbstractDocument;
 import java.awt.*;
 
 /**
@@ -32,11 +34,11 @@ public class FormPanel extends JPanel {
         String peselText = TextsDao.getText("view.login.peselLbl.text");
 
         JLabel firstNameLbl = new JLabel(firstBameText);
-        firstNameTF = createTextField();
+        firstNameTF = createTextField(40);
         JLabel lastNameLbl = new JLabel(lastNameText);
-        lastNameTF = createTextField();
+        lastNameTF = createTextField(40);
         JLabel peselLbl = new JLabel(peselText);
-        peselTF = createTextField();
+        peselTF = createTextField(12);
 
         add(firstNameLbl);
         add(firstNameTF);
@@ -46,8 +48,11 @@ public class FormPanel extends JPanel {
         add(peselTF);
     }
 
-    private JTextField createTextField() {
+    private JTextField createTextField(int column) {
         JTextField jTextField = new JTextField();
+
+        AbstractDocument d = (AbstractDocument) jTextField.getDocument();
+        d.setDocumentFilter(new JTextFieldDocumentFilter(column));
 
         jTextField.setColumns(30);
         jTextField.setPreferredSize(new Dimension(250, 30));
