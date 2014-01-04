@@ -1,16 +1,12 @@
 package ui.choose_category.logic;
 
-import database.provider.QuestionsProvider;
 import model.Module;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
 import ui.main_menu.view.MainMenuFrame;
 import ui.splash_screen.SplashScreen;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.List;
 
 /**
  * Author: Daniel
@@ -37,19 +33,10 @@ public class ChooseCategoryPresenter {
         }
 
         private void showLearningFrame(final Module module) {
-            QuestionsProvider questionsProvider =
-                    QuestionsProvider.getInstance();
-
-            final List<StandardQuestion> stanQuestionsByModule =
-                    questionsProvider.getStanQuestionsByModule(module);
-
-            final List<SpecialistQuestion> specQuestionsByModule =
-                    questionsProvider.getSpecQuestionsByModule(module);
-
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    new SplashScreen(2, module, stanQuestionsByModule, specQuestionsByModule);
+                    new SplashScreen(2, module);
                 }
             });
         }
