@@ -86,10 +86,10 @@ public class PDFGenerator {
             PdfWriter.getInstance(document, new FileOutputStream(filePath));
             document.open();
 
-            PdfPTable table1 = new PdfPTable(new float[]{1f, 17f, 3f, 3f});
+            PdfPTable table1 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
             addToTable(table1, true);
 
-            PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 3f, 3f});
+            PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
             addToTable(table2, false);
 
             document.add(new Paragraph("Imię i nazwisko: " + imie + " " + nazwisko, fNormal));
@@ -130,7 +130,7 @@ public class PDFGenerator {
             table.addCell(new Paragraph("Pytanie specjalistyczne", fBold));
         }
 
-
+        table.addCell(new Paragraph("Waga pytania", fBold));
         table.addCell(new Paragraph("Odpowiedź użytkownika", fBold));
         table.addCell(new Paragraph("Prawidłowa odpowiedź", fBold));
 
@@ -147,6 +147,7 @@ public class PDFGenerator {
         for (StandardQuestion standardQuestion : standardQuestions) {
             Paragraph questionNumber = new Paragraph(i + ".", fNormal);
             Paragraph question = new Paragraph(standardQuestion.getQuestion(), fNormal);
+            Paragraph points = new Paragraph(String.valueOf(standardQuestion.getPoints()), fNormal);
             Paragraph correctAnswer = new Paragraph(standardQuestion.getCorrectAnswer().toString(), fNormal);
             Paragraph userAnswer = null;
 
@@ -158,6 +159,7 @@ public class PDFGenerator {
 
             table.addCell(questionNumber);
             table.addCell(question);
+            table.addCell(points);
             table.addCell(userAnswer);
             table.addCell(correctAnswer);
 
@@ -170,6 +172,7 @@ public class PDFGenerator {
         for (SpecialistQuestion specialistQuestion : specialistQuestions) {
             Paragraph questionNumber = new Paragraph(i + ".", fNormal);
             Paragraph question = new Paragraph(specialistQuestion.getQuestion(), fNormal);
+            Paragraph points = new Paragraph(String.valueOf(specialistQuestion.getPoints()), fNormal);
             Paragraph correctAnswer = new Paragraph(specialistQuestion.getCorrectAnswer().toString(), fNormal);
             Paragraph userAnswer = null;
 
@@ -181,6 +184,7 @@ public class PDFGenerator {
 
             table.addCell(questionNumber);
             table.addCell(question);
+            table.addCell(points);
             table.addCell(userAnswer);
             table.addCell(correctAnswer);
 

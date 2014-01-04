@@ -16,14 +16,11 @@ import java.awt.event.WindowEvent;
  * Date: 24.11.13
  */
 public class LoginFrame extends JFrame implements IWindowCloser {
-    private boolean isStartExam;
 
     public static final int WIDTH = 280;
     public static final int HEIGHT = 210;
 
-    public LoginFrame(boolean isStartExam) {
-        this.isStartExam = isStartExam;
-
+    public LoginFrame() {
         setUpFrame();
         initializeComponents();
     }
@@ -52,7 +49,7 @@ public class LoginFrame extends JFrame implements IWindowCloser {
     }
 
     private void initializeComponents() {
-        LoginPresenter loginPresenter = new LoginPresenter(this, isStartExam);
+        LoginPresenter loginPresenter = new LoginPresenter(this);
 
         FormPanel formPanel = new FormPanel();
         ButtonPanel buttonPanel = new ButtonPanel();

@@ -81,6 +81,7 @@ public class ExamResultLeftPanel extends JPanel {
         questionTextArea = getQuestionTextArea();
         questionTextArea.setVisible(true);
         questionPanel.add(questionTextArea);
+        questionTextArea.setFocusable(false);
         return questionPanel;
     }
 
@@ -103,11 +104,11 @@ public class ExamResultLeftPanel extends JPanel {
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
         yesBtn = createYesNoBtn(TextsDao.getText("yesButtonLbl"));
+        noBtn = createYesNoBtn(TextsDao.getText("noButtonLbl"));
 
-        buttonPanel.add(noBtn);
         buttonPanel.add(yesBtn);
+        buttonPanel.add(noBtn);
 
         return buttonPanel;
     }
@@ -138,6 +139,7 @@ public class ExamResultLeftPanel extends JPanel {
         button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
         button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        button.setHorizontalAlignment(SwingConstants.CENTER);
         button.setFocusable(false);
         return button;
     }

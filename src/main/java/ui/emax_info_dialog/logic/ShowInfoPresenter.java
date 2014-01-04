@@ -21,7 +21,7 @@ public class ShowInfoPresenter {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        LoginFrame loginFrame = new LoginFrame(true);
+                        LoginFrame loginFrame = new LoginFrame();
                         loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                         loginFrame.setVisible(true);
                     }

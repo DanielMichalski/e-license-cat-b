@@ -1,9 +1,9 @@
 package ui.main_menu.logic;
 
 import database.dao.TextsDao;
+import ui.choose_category.view.ChooseCategoryFrame;
 import ui.emax_info_dialog.view.ShowInfoDialog;
 import ui.help.view.HelpDialog;
-import ui.login.view.LoginFrame;
 import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
@@ -30,9 +30,9 @@ public class MainMenuPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    LoginFrame loginFrame = new LoginFrame(false);
-                    loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    loginFrame.setVisible(true);
+                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
+                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    frame.setVisible(true);
                 }
             });
         }
