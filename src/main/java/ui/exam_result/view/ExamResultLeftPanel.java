@@ -4,7 +4,7 @@ import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
 import model.ABCAnswer;
 import model.YesNoAnswer;
-import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import ui.exam_result.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
@@ -19,7 +19,7 @@ import java.io.File;
  * Date: 08.11.13
  */
 public class ExamResultLeftPanel extends JPanel {
-    private EmbeddedMediaPlayerComponent component;
+    private MediaPanel component;
     private EmbeddedMediaPlayer player;
 
     private JPanel abcBtnPanel;
@@ -39,16 +39,28 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
-        component = new EmbeddedMediaPlayerComponent();
+        loadNativeLibrary();
+        component = new MediaPanel();
         player = component.getMediaPlayer();
-
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         setLayout(null);
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
+    }
+
+    private void loadNativeLibrary() {
+        try {
+            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Do poprawnego działania aplikacji wymagana jest Java JRE w wersji x86",
+                    "Informacja",
+                    JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
     }
 
     private void initializeComponents() {
