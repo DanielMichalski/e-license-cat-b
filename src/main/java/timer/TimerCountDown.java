@@ -26,7 +26,7 @@ public abstract class TimerCountDown extends TimerTask {
     @Override
     public void run() {
         if (sec > 0) {
-            if (isStandardPart && sec == 15) {
+            if (isStandardPart && sec == 20) {
                 examPresenter.showMedia();
             } else if (sec == 50) {
                 examPresenter.showMedia();
