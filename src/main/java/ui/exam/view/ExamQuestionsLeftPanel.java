@@ -2,7 +2,7 @@ package ui.exam.view;
 
 import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
-import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
+import ui.exam.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
@@ -17,7 +17,7 @@ import java.io.File;
  * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
-    private EmbeddedMediaPlayerComponent component;
+    private MediaPanel component;
     private EmbeddedMediaPlayer player;
 
     private JPanel abcBtnPanel;
@@ -41,7 +41,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     private void setUpPanel() {
         try {
             NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
-            component = new EmbeddedMediaPlayerComponent();
+            component = new MediaPanel();
             player = component.getMediaPlayer();
         } catch (RuntimeException ex) {
             showErrorMessageAndExit();
