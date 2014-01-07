@@ -2,6 +2,7 @@ package ui.learning.view;
 
 import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
+import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.learning.view.components.MediaPanel;
@@ -281,17 +282,22 @@ public class LearningLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
+        Encrypter.decodeMedia(imageName);
+
         System.out.println("Image: " + imageName);
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
+        player.prepareMedia("prod" + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
 
-    public synchronized void setVideoName(final String videoName) {
-        System.out.println("Vide: " + videoName);
+
+    public synchronized void setVideoName(String videoName) {
+        Encrypter.decodeMedia(videoName);
+
+        System.out.println("Video: " + videoName);
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + videoName + ".prod");
+        player.prepareMedia("prod" + File.separator + videoName + ".prode");
         player.parseMedia();
         player.play();
     }

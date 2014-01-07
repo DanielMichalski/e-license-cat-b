@@ -4,6 +4,7 @@ import database.dao.TextsDao;
 import ui.emax_info_dialog.logic.IWindowCloser;
 import ui.emax_info_dialog.logic.ShowInfoPresenter;
 import ui.main_menu.view.MainMenuFrame;
+import util.FilesUtils;
 import util.ImageUtils;
 
 import javax.swing.*;
@@ -38,6 +39,8 @@ public class ShowInfoDialog extends JDialog implements IWindowCloser {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                        FilesUtils.deleteTempFolderContent();
+
                         MainMenuFrame mv = new MainMenuFrame();
                         mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                         mv.setVisible(true);
