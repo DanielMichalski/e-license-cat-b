@@ -2,6 +2,7 @@ package ui.exam_result.view;
 
 import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
+import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.exam_result.view.components.MediaPanel;
@@ -250,15 +251,19 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
+        Encrypter.decodeMedia(imageName);
+
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
+        player.prepareMedia("prod" + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
 
-    public synchronized void setVideoName(final String videoName) {
+    public void setVideoName(final String videoName) {
+        Encrypter.decodeMedia(videoName);
+
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + videoName + ".prod");
+        player.prepareMedia("prod" + File.separator + videoName + ".prode");
         player.parseMedia();
         player.play();
     }

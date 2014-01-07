@@ -9,7 +9,7 @@ import ui.exam.logic.ExamPresenter;
 public class StandardPartTimerCountdown extends TimerCountDown {
     private static final int HOW_MANY_SEC = 35;
 
-    public StandardPartTimerCountdown(ExamPresenter presenter) {
-        super(presenter, HOW_MANY_SEC, true);
+    public StandardPartTimerCountdown(ExamPresenter presenter, int secToVid) {
+        super(presenter, HOW_MANY_SEC, secToVid, true);
     }
 }

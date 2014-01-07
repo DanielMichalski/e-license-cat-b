@@ -2,20 +2,25 @@ package ui.exam.logic;
 
 import database.dao.QuestionsDao;
 import database.dao.TextsDao;
+import encrypt.Encrypter;
 import model.*;
 import timer.SpecialistPartTimerCountdown;
 import timer.StandardPartTimerCountdown;
 import timer.TimerCountDown;
 import ui.exam.view.ExamPointsRightPanel;
 import ui.exam.view.ExamQuestionsLeftPanel;
+import ui.exam.view.components.MediaPanel;
 import ui.exam.view.interfaces.WindowCloser;
 import ui.exam_result.view.ExamResultFrame;
 import ui.main_menu.view.MainMenuFrame;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.Const;
+import util.FilesUtils;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.List;
 import java.util.Timer;
 import java.util.logging.Logger;
@@ -51,8 +56,6 @@ public class ExamPresenter {
     private Timer timer;
     private TimerCountDown countDown;
 
-    private Color defaultColor;
-
     public ExamPresenter(WindowCloser windowCloser) {
         this.windowCloser = windowCloser;
 
@@ -67,7 +70,8 @@ public class ExamPresenter {
         try {
             actualStandardQuestion++;
             standardQuestions.get(actualStandardQuestion - 1);
-            countDown = new StandardPartTimerCountdown(this);
+            int sec = countVideoSeconds(standardQuestions.get(actualStandardQuestion - 1));
+            countDown = new StandardPartTimerCountdown(this, sec);
             timer.schedule(countDown, 0, period);
 
             setNumberOfStandardQuestion(actualStandardQuestion);
@@ -92,6 +96,22 @@ public class ExamPresenter {
             }
         }
         enableAllBtns();
+    }
+
+    public int countVideoSeconds(StandardQuestion standardQuestion) {
+        int sec = 0;
+
+        if (standardQuestion.getMediaType() == MediaType.VIDEO) {
+            Encrypter.decodeMedia(standardQuestion.getMediaPath());
+            MediaPanel component = new MediaPanel();
+            EmbeddedMediaPlayer player = component.getMediaPlayer();
+            player.prepareMedia("prod" + File.separator + standardQuestion.getMediaPath() + ".prode");
+            player.parseMedia();
+            sec = (int) (player.getMediaMeta().getLength() / 1000);
+            System.out.println("Video " + standardQuestion.getMediaPath() + " trwa " + sec + " sekund/y");
+        }
+
+        return sec;
     }
 
     public void cancelTimerCountdownTask() {
@@ -144,6 +164,7 @@ public class ExamPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                FilesUtils.deleteTempFolderContent();
                 showMainFrame();
             }
         };
@@ -374,7 +395,7 @@ public class ExamPresenter {
         this.btnC = examQuestionsLeftPanel.getBtnC();
         this.btnC.addActionListener(new CBtnListener());
 
-        defaultColor = yesBtn.getBackground();
+        Color defaultColor = yesBtn.getBackground();
     }
 
     public void setBasicPartPanel(ExamPointsRightPanel.BasicPartPanel basicPartPanel) {

@@ -48,7 +48,7 @@ public class ApplicationUtils {
             ImageIcon iconImage = ImageUtils.getProgramImage(appIconFileName);
             owner.setIconImage(iconImage.getImage());
         } catch (Exception e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -62,4 +62,6 @@ public class ApplicationUtils {
             System.exit(0);
         }
     }
+
+
 }

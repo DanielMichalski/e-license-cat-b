@@ -5,6 +5,7 @@ import ui.login.logic.LoginPresenter;
 import ui.main_menu.view.MainMenuFrame;
 import util.ApplicationUtils;
 import util.Const;
+import util.FilesUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,6 +40,8 @@ public class LoginFrame extends JFrame implements IWindowCloser {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
+                        FilesUtils.deleteTempFolderContent();
+
                         MainMenuFrame mv = new MainMenuFrame();
                         mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                         mv.setVisible(true);

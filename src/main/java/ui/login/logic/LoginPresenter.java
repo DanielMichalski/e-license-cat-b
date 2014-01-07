@@ -4,6 +4,7 @@ import database.dao.TextsDao;
 import database.provider.QuestionsProvider;
 import ui.login.view.IWindowCloser;
 import ui.splash_screen.SplashScreen;
+import util.FilesUtils;
 import util.PeselValidator;
 
 import javax.swing.*;
@@ -62,6 +63,7 @@ public class LoginPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                FilesUtils.deleteTempFolderContent();
                 showCloseConfirmDialog();
             }
         };

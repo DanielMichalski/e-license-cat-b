@@ -6,6 +6,7 @@ import ui.choose_category.view.ChooseCategoryFrame;
 import ui.learning.view.LearningLeftPanel;
 import ui.main_menu.view.MainMenuFrame;
 import util.Const;
+import util.FilesUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -278,6 +279,8 @@ public class LearningPresenter {
                     public void run() {
                         learningLeftPanel.disposePlayer();
                         window.dispose();
+
+                        FilesUtils.deleteTempFolderContent();
 
                         MainMenuFrame mv = new MainMenuFrame();
                         mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
