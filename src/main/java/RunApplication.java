@@ -1,7 +1,9 @@
 import database.provider.ModuleProvider;
 import database.provider.QuestionsProvider;
 import ui.main_menu.view.MainMenuFrame;
+import util.FilesUtils;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -10,8 +12,14 @@ import java.awt.*;
  */
 public class RunApplication {
     public static void main(String[] args) {
-        readQuestions();
-        startApp();
+        try {
+            FilesUtils.createTempFolder();
+            FilesUtils.deleteTempFolderContent();
+            readQuestions();
+            startApp();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     private static void readQuestions() {

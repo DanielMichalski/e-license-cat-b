@@ -2,6 +2,7 @@ package encrypt;
 
 import org.apache.poi.util.IOUtils;
 import org.jasypt.util.binary.BasicBinaryEncryptor;
+import util.FilesUtils;
 
 import javax.swing.*;
 import java.io.File;
@@ -30,6 +31,7 @@ public class Encrypter {
     }
 
     public static byte[] decryptFile(Path oldPath, Path newPath, boolean createFile) throws IOException {
+        FilesUtils.deleteTempFolderContent();
         byte[] myBinary = Files.readAllBytes(oldPath);
 
         BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
@@ -66,5 +68,42 @@ public class Encrypter {
             encryptFile(oldFile, newFile);
         }
     }
+
+    public static void decryptChoosenFile() throws IOException {
+        JFileChooser fChooser = new JFileChooser();
+        int result = fChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fChooser.getSelectedFile();
+
+            Path oldFile = Paths.get(selectedFile.getAbsolutePath());
+            Path newFile = Paths.get(selectedFile.getAbsolutePath() + "-decrypted");
+
+            decryptFile(oldFile, newFile, true);
+        }
+    }
+
+    public static void encryptAllFilesInDir(String dirName) throws IOException {
+        File dir = new File(dirName);
+        File[] files = dir.listFiles();
+
+        for (File file : files) {
+            Path oldFile = Paths.get(file.getAbsolutePath());
+            Path newFile = Paths.get(file.getAbsolutePath() + "e");
+
+            encryptFile(oldFile, newFile);
+        }
+    }
+
+    public static void decodeMedia(String mediaPath) {
+        Path oldPath = Paths.get("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
+        Path newPath = Paths.get("prod" + File.separator + mediaPath + ".prode");
+        try {
+            Encrypter.decryptFile(oldPath, newPath, true);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(1);
+        }
+    }
+
 }
 
