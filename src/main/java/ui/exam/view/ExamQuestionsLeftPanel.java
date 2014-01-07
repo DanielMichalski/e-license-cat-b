@@ -2,6 +2,7 @@ package ui.exam.view;
 
 import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
+import encrypt.Encrypter;
 import ui.exam.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
@@ -189,30 +190,40 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void showWaitImageImage() {
+        Encrypter.decodeMedia("wait_photo");
+
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + "wait_photo");
+        player.prepareMedia("prod" + File.separator + "wait_photo.prode");
         player.parseMedia();
         player.play();
     }
 
     public void showWaitVideoImage() {
+        Encrypter.decodeMedia("wait_video");
+
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + "wait_video");
+        player.prepareMedia("prod" + File.separator + "wait_video.prode");
         player.parseMedia();
         player.play();
     }
 
     public void setImageName(String imageName) {
+        Encrypter.decodeMedia(imageName);
+
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + imageName + ".prod");
+        player.prepareMedia("prod" + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
 
-    public void setVideoName(final String videoTitle) {
+    public void setVideoName(String videoTitle) {
+        Encrypter.decodeMedia(videoTitle);
+
         player.stop();
-        player.prepareMedia("bin" + File.separator + "media" + File.separator + videoTitle + ".prod");
+        player.prepareMedia("prod" + File.separator + videoTitle + ".prode");
         player.parseMedia();
+        int sec = (int) (player.getMediaMeta().getLength() / 1000);
+        System.out.println(sec);
         player.play();
     }
 

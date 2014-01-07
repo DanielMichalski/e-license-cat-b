@@ -10,11 +10,13 @@ import java.util.TimerTask;
  */
 public abstract class TimerCountDown extends TimerTask {
     private int sec;
+    private int secToVid;
     private ExamPresenter examPresenter;
     private boolean isStandardPart;
 
-    public TimerCountDown(ExamPresenter examPresenter, int sec, boolean isStandardPart) {
-        this.sec = sec;
+    public TimerCountDown(ExamPresenter examPresenter, int sec, int secToVid, boolean isStandardPart) {
+        this.sec = sec + secToVid;
+        this.secToVid = secToVid;
         this.examPresenter = examPresenter;
         this.isStandardPart = isStandardPart;
 
@@ -26,7 +28,7 @@ public abstract class TimerCountDown extends TimerTask {
     @Override
     public void run() {
         if (sec > 0) {
-            if (isStandardPart && sec == 20) {
+            if (isStandardPart && (sec - secToVid) == 15) {
                 examPresenter.showMedia();
             } else if (sec == 50) {
                 examPresenter.showMedia();
