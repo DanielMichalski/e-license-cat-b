@@ -105,7 +105,7 @@ public class ExamPresenter {
             Encrypter.decodeMedia(standardQuestion.getMediaPath());
             MediaPanel component = new MediaPanel();
             EmbeddedMediaPlayer player = component.getMediaPlayer();
-            player.prepareMedia("prod" + File.separator + standardQuestion.getMediaPath() + ".prode");
+            player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + standardQuestion.getMediaPath() + ".prode");
             player.parseMedia();
             sec = (int) (player.getMediaMeta().getLength() / 1000);
             System.out.println("Video " + standardQuestion.getMediaPath() + " trwa " + sec + " sekund/y");
