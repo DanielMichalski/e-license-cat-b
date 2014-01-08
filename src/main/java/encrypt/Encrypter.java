@@ -96,7 +96,7 @@ public class Encrypter {
 
     public static void decodeMedia(String mediaPath) {
         Path oldPath = Paths.get("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
-        Path newPath = Paths.get("prod" + File.separator + mediaPath + ".prode");
+        Path newPath = Paths.get(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + mediaPath + ".prode");
         try {
             Encrypter.decryptFile(oldPath, newPath, true);
         } catch (IOException e) {

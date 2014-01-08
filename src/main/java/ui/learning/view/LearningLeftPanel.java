@@ -9,6 +9,7 @@ import ui.learning.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
+import util.FilesUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -286,7 +287,7 @@ public class LearningLeftPanel extends JPanel {
 
         System.out.println("Image: " + imageName);
         player.stop();
-        player.prepareMedia("prod" + File.separator + imageName + ".prode");
+        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
@@ -297,7 +298,7 @@ public class LearningLeftPanel extends JPanel {
 
         System.out.println("Video: " + videoName);
         player.stop();
-        player.prepareMedia("prod" + File.separator + videoName + ".prode");
+        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + videoName + ".prode");
         player.parseMedia();
         player.play();
     }
