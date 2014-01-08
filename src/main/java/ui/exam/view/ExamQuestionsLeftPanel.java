@@ -203,7 +203,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         Encrypter.decodeMedia("wait_video");
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + "prod" + File.separator + "wait_video.prode");
+        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + "wait_video.prode");
         player.parseMedia();
         player.play();
     }
