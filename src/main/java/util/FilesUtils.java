@@ -9,12 +9,9 @@ import java.io.File;
 public class FilesUtils {
     public static void createTempFolder() {
         try {
-            File file = new File("prod");
-            file.mkdir();
-            Process p = Runtime.getRuntime().exec("attrib +H " + file.getPath());
-            p.waitFor();
+            File file = new File(FilesUtils.getUserDir() + File.separator + "prod");
             if (!file.exists()) {
-                boolean mkdir = file.mkdir();
+                boolean mkdir = file.mkdirs();
                 if (!mkdir) {
                     throw new Exception();
                 }
@@ -22,6 +19,8 @@ public class FilesUtils {
             } else {
                 System.out.println("Folder prod już istnieje");
             }
+            Process p = Runtime.getRuntime().exec("attrib +H " + file.getPath());
+            p.waitFor();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
                     null,
@@ -33,7 +32,7 @@ public class FilesUtils {
     }
 
     public static void deleteTempFolderContent() {
-        File dir = new File("prod");
+        File dir = new File(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + "prod");
         File[] files = dir.listFiles();
 
         if (files != null) {
@@ -41,6 +40,9 @@ public class FilesUtils {
                 file.delete();
             }
         }
+    }
 
+    public static String getUserDir() {
+        return System.getProperty("user.home");
     }
 }
