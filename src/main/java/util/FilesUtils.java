@@ -32,7 +32,7 @@ public class FilesUtils {
     }
 
     public static void deleteTempFolderContent() {
-        File dir = new File(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + "prod");
+        File dir = new File(FilesUtils.getUserDir() + File.separator + "prod");
         File[] files = dir.listFiles();
 
         if (files != null) {
