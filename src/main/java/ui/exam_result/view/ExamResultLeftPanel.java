@@ -255,7 +255,7 @@ public class ExamResultLeftPanel extends JPanel {
         Encrypter.decodeMedia(imageName);
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + imageName + ".prode");
+        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
