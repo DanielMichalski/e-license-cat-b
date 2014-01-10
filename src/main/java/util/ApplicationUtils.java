@@ -1,6 +1,9 @@
 package util;
 
 import database.dao.TextsDao;
+import database.provider.ModuleProvider;
+import database.provider.QuestionsProvider;
+import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,5 +66,28 @@ public class ApplicationUtils {
         }
     }
 
+    public static void prepareApp(final Window window) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                FilesUtils.createTempFolder();
+                FilesUtils.deleteTempFolderContent();
+                readQuestions();
+                window.dispose();
 
+                EventQueue.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MainMenuFrame mainMenuFrame = new MainMenuFrame();
+                        mainMenuFrame.setVisible(true);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    private static void readQuestions() {
+        QuestionsProvider.getInstance();
+        ModuleProvider.getInstance();
+    }
 }

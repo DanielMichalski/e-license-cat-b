@@ -1,12 +1,8 @@
 package ui.loading_new;
 
-import database.provider.ModuleProvider;
-import database.provider.QuestionsProvider;
-import ui.main_menu.view.MainMenuFrame;
-import util.FilesUtils;
+import util.ApplicationUtils;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * Author: Daniel
@@ -19,8 +15,9 @@ public class LoadingFrame extends JDialog {
     public LoadingFrame() {
         setUpFrame();
         initializeComponents();
+        ApplicationUtils.setApplicationIcon(this);
         setVisible(true);
-        prepareApp();
+        ApplicationUtils.prepareApp(this);
     }
 
     private void setUpFrame() {
@@ -34,28 +31,5 @@ public class LoadingFrame extends JDialog {
         add(loadingPanel);
     }
 
-    private void prepareApp() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                FilesUtils.createTempFolder();
-                FilesUtils.deleteTempFolderContent();
-                readQuestions();
-                dispose();
 
-                EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainMenuFrame mainMenuFrame = new MainMenuFrame();
-                        mainMenuFrame.setVisible(true);
-                    }
-                });
-            }
-        }).start();
-    }
-
-    private void readQuestions() {
-        QuestionsProvider.getInstance();
-        ModuleProvider.getInstance();
-    }
 }
