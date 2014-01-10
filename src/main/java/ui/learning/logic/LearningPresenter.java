@@ -49,7 +49,7 @@ public class LearningPresenter {
 
         this.questionNum = 1;
         this.allQuestiionNum = standardQuestions.size() + specialistQuestions.size();
-        this.random = new Random(47);
+        this.random = new Random();
     }
 
     private void markBtn(JButton whichButtonToMark) {

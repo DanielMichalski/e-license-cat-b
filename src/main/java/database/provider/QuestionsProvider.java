@@ -14,8 +14,11 @@ import java.util.Random;
  * Author: Daniel
  */
 public class QuestionsProvider {
-    List<StandardQuestion> allStandardQuestions;
-    List<SpecialistQuestion> allSpecialistQuestions;
+    List<StandardQuestion> allStandardQuestionsForExam;
+    List<SpecialistQuestion> allSpecialistQuestionsForExam;
+
+    List<StandardQuestion> allStandardQuestionsForLearning;
+    List<SpecialistQuestion> allSpecialistQuestionsForExamLearning;
 
     private List<StandardQuestion> stQuestionsAt3;
     private List<StandardQuestion> stQuestionsAt2;
@@ -39,8 +42,15 @@ public class QuestionsProvider {
 
         CSVQuestionDataProvider csvQuestionDataProvider = new CSVQuestionDataProvider();
 
-        allStandardQuestions = csvQuestionDataProvider.getAllStandardQuestions();
-        allSpecialistQuestions = csvQuestionDataProvider.getAllSpecialistQuestions();
+        allStandardQuestionsForExam = csvQuestionDataProvider.getAllStandardQuestions();
+        allSpecialistQuestionsForExam = csvQuestionDataProvider.getAllSpecialistQuestions();
+
+
+        allStandardQuestionsForLearning = new ArrayList<StandardQuestion>();
+        allSpecialistQuestionsForExamLearning = new ArrayList<SpecialistQuestion>();
+
+        allStandardQuestionsForLearning.addAll(allStandardQuestionsForExam);
+        allSpecialistQuestionsForExamLearning.addAll(allSpecialistQuestionsForExam);
 
         stQuestionsAt3 = new ArrayList<StandardQuestion>();
         stQuestionsAt2 = new ArrayList<StandardQuestion>();
@@ -50,8 +60,8 @@ public class QuestionsProvider {
         spQuestionsAt2 = new ArrayList<SpecialistQuestion>();
         spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
-        shuffleAllQuestions(10);
         setQuestions();
+        shuffleAllQuestions(10);
 
         long end = System.currentTimeMillis();
         double time = (double) (end - start) / 1000;
@@ -63,8 +73,8 @@ public class QuestionsProvider {
         int x = random.nextInt(howManyTimes) + 1;
 
         for (int i = 0; i < x; i++) {
-            Collections.shuffle(allStandardQuestions);
-            Collections.shuffle(allSpecialistQuestions);
+            Collections.shuffle(allStandardQuestionsForExam);
+            Collections.shuffle(allSpecialistQuestionsForExam);
         }
     }
 
@@ -94,7 +104,7 @@ public class QuestionsProvider {
     private void setStandQuestions(List<StandardQuestion> questions, int howManyPoints, int howManyQuestions) {
         int i = 0;
 
-        for (StandardQuestion standardQuestion : allStandardQuestions) {
+        for (StandardQuestion standardQuestion : allStandardQuestionsForExam) {
             if (standardQuestion.getPoints() == howManyPoints) {
                 questions.add(standardQuestion);
                 i++;
@@ -109,7 +119,7 @@ public class QuestionsProvider {
     private void setSpecQuestions(List<SpecialistQuestion> questions, int howManyPoints, int howManyQuestions) {
         int i = 0;
 
-        for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
+        for (SpecialistQuestion specialistQuestion : allSpecialistQuestionsForExam) {
             if (specialistQuestion.getPoints() == howManyPoints) {
                 questions.add(specialistQuestion);
                 i++;
@@ -140,7 +150,7 @@ public class QuestionsProvider {
     public List<StandardQuestion> getStanQuestionsByModule(Module module) {
         List<StandardQuestion> questions = new ArrayList<StandardQuestion>();
 
-        for (StandardQuestion standardQuestion : allStandardQuestions) {
+        for (StandardQuestion standardQuestion : allStandardQuestionsForLearning) {
             if (standardQuestion.getModule().equalsIgnoreCase(String.valueOf(module.getId()))) {
                 questions.add(standardQuestion);
             }
@@ -153,7 +163,7 @@ public class QuestionsProvider {
     public List<SpecialistQuestion> getSpecQuestionsByModule(Module module) {
         List<SpecialistQuestion> questions = new ArrayList<SpecialistQuestion>();
 
-        for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
+        for (SpecialistQuestion specialistQuestion : allSpecialistQuestionsForExamLearning) {
             if (specialistQuestion.getModule().equalsIgnoreCase(String.valueOf(module.getId()))) {
                 questions.add(specialistQuestion);
             }
@@ -170,11 +180,19 @@ public class QuestionsProvider {
         return specialist12Questions;
     }
 
-    public List<StandardQuestion> getAllStandardQuestions() {
-        return allStandardQuestions;
+    public List<StandardQuestion> getAllStandardQuestionsForExam() {
+        return allStandardQuestionsForExam;
     }
 
-    public List<SpecialistQuestion> getAllSpecialistQuestions() {
-        return allSpecialistQuestions;
+    public List<SpecialistQuestion> getAllSpecialistQuestionsForExam() {
+        return allSpecialistQuestionsForExam;
+    }
+
+    public List<StandardQuestion> getAllStandardQuestionsForLearning() {
+        return allStandardQuestionsForLearning;
+    }
+
+    public List<SpecialistQuestion> getAllSpecialistQuestionsForExamLearning() {
+        return allSpecialistQuestionsForExamLearning;
     }
 }
