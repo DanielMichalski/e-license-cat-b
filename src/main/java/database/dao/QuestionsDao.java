@@ -14,7 +14,7 @@ public class QuestionsDao {
         QuestionsProvider questionsProvider =
                 QuestionsProvider.getInstance();
 
-        return questionsProvider.getAllStandardQuestions();
+        return questionsProvider.getAllStandardQuestionsForExam();
     }
 
     public static List<StandardQuestion> getStandard20Questions() {
@@ -29,7 +29,7 @@ public class QuestionsDao {
         QuestionsProvider questionsProvider =
                 QuestionsProvider.getInstance();
 
-        return questionsProvider.getAllSpecialistQuestions();
+        return questionsProvider.getAllSpecialistQuestionsForExam();
     }
 
     public static List<SpecialistQuestion> getSpecialist12Questions() {
