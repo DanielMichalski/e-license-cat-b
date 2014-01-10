@@ -60,6 +60,8 @@ public class ChooseCategoryPresenter {
                     public void run() {
                         FilesUtils.deleteTempFolderContent();
 
+                        window.dispose();
+
                         MainMenuFrame mv = new MainMenuFrame();
                         mv.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
                         mv.setVisible(true);
