@@ -1,6 +1,8 @@
 package ui.loading_new;
 
 import util.Const;
+import util.IconUtils;
+import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,8 +21,12 @@ public class LoadingPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        ImageIcon imageIcon = new ImageIcon("loading.gif");
+        Image loadingImage = IconUtils.getLoadingIcon().getImage();
+        ImageIcon imageIcon = new ImageIcon(loadingImage);
         JLabel image = new JLabel(imageIcon);
+        image.setMinimumSize(new Dimension(200, 200));
+        image.setMaximumSize(new Dimension(200, 200));
+        image.setPreferredSize(new Dimension(200, 200));
         add(image);
     }
 }
