@@ -29,6 +29,12 @@ public class IconUtils {
         return getImageIcon(TextsDao.getFileName("img.point_bad"));
     }
 
+    public static ImageIcon getLoadingIcon() {
+        String iconsFolder = "/program_images/";
+        URL imageSrc = IconUtils.class.getResource(iconsFolder + TextsDao.getFileName("img.loading"));
+        return new ImageIcon(imageSrc);
+    }
+
     public static ImageIcon getLogo() {
         String logo = TextsDao.getFileName("logo");
 
