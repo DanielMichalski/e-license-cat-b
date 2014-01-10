@@ -30,7 +30,7 @@ public class QuestionsDaoTest {
     @Test
     public void testGetAllStandardQuestions() throws Exception {
         List<StandardQuestion> allStandardQuestions =
-                questionsProvider.getAllStandardQuestions();
+                questionsProvider.getAllStandardQuestionsForExam();
 
         assertNotNull(allStandardQuestions);
         assertNotEquals(0, allStandardQuestions.size());
@@ -49,7 +49,7 @@ public class QuestionsDaoTest {
     @Test
     public void testGetAllSpecialistQuestions() throws Exception {
         List<SpecialistQuestion> allSpecialistQuestions =
-                questionsProvider.getAllSpecialistQuestions();
+                questionsProvider.getAllSpecialistQuestionsForExam();
 
         assertNotNull(allSpecialistQuestions);
         assertNotEquals(0, allSpecialistQuestions.size());
