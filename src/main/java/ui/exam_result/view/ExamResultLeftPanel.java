@@ -255,7 +255,7 @@ public class ExamResultLeftPanel extends JPanel {
         Encrypter.decodeMedia(imageName);
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + imageName + ".prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
@@ -264,7 +264,7 @@ public class ExamResultLeftPanel extends JPanel {
         Encrypter.decodeMedia(videoName);
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + videoName + ".prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
         player.parseMedia();
         player.play();
     }

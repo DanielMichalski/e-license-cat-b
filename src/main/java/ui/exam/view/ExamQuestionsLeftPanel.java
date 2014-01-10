@@ -194,7 +194,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         Encrypter.decodeMedia("wait_photo");
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + "wait_photo.prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_photo.prode");
         player.parseMedia();
         player.play();
     }
@@ -203,7 +203,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         Encrypter.decodeMedia("wait_video");
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + "wait_video.prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_video.prode");
         player.parseMedia();
         player.play();
     }
@@ -212,7 +212,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         Encrypter.decodeMedia(imageName);
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + imageName + ".prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
@@ -221,7 +221,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
         Encrypter.decodeMedia(videoTitle);
 
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + videoTitle + ".prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
         player.parseMedia();
         int sec = (int) (player.getMediaMeta().getLength() / 1000);
         System.out.println(sec);
