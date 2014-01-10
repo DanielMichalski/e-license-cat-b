@@ -287,7 +287,7 @@ public class LearningLeftPanel extends JPanel {
 
         System.out.println("Image: " + imageName);
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + imageName + ".prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
         player.parseMedia();
         player.play();
     }
@@ -298,7 +298,7 @@ public class LearningLeftPanel extends JPanel {
 
         System.out.println("Video: " + videoName);
         player.stop();
-        player.prepareMedia(FilesUtils.getUserDir() + File.separator + "prod" + File.separator + videoName + ".prode");
+        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
         player.parseMedia();
         player.play();
     }
