@@ -269,21 +269,36 @@ public class LearningLeftPanel extends JPanel {
         Encrypter.decodeMedia(imageName);
 
         System.out.println("Image: " + imageName);
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
-
 
     public synchronized void setVideoName(String videoName) {
         Encrypter.decodeMedia(videoName);
 
         System.out.println("Video: " + videoName);
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
+    }
+
+    private void showErrorMessage() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ",
+                "Informacja",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public void unmarkAllBtns() {

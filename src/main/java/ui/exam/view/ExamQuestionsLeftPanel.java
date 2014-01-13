@@ -177,39 +177,63 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void showWaitImageImage() {
         Encrypter.decodeMedia("wait_photo");
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_photo.prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_photo.prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void showWaitVideoImage() {
         Encrypter.decodeMedia("wait_video");
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_video.prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_video.prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void setImageName(String imageName) {
         Encrypter.decodeMedia(imageName);
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void setVideoName(String videoTitle) {
         Encrypter.decodeMedia(videoTitle);
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
-        player.parseMedia();
-        int sec = (int) (player.getMediaMeta().getLength() / 1000);
-        System.out.println(sec);
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
+            player.parseMedia();
+            int sec = (int) (player.getMediaMeta().getLength() / 1000);
+            System.out.println(sec);
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
+    }
+
+    private void showErrorMessage() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ",
+                "Informacja",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public void enableAllBtns() {
