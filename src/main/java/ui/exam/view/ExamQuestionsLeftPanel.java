@@ -221,7 +221,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
             player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
             player.parseMedia();
             int sec = (int) (player.getMediaMeta().getLength() / 1000);
-            System.out.println(sec);
             player.play();
         } catch (Exception e) {
             showErrorMessage();
