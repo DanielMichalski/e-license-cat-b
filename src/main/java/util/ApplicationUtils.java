@@ -70,20 +70,32 @@ public class ApplicationUtils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                FilesUtils.createTempFolder();
-                FilesUtils.deleteTempFolderContent();
-                readQuestions();
-                window.dispose();
+                try {
+                    FilesUtils.createTempFolder();
+                    FilesUtils.deleteTempFolderContent();
+                    readQuestions();
+                    window.dispose();
 
-                EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        MainMenuFrame mainMenuFrame = new MainMenuFrame();
-                        mainMenuFrame.setVisible(true);
-                    }
-                });
+                    EventQueue.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            MainMenuFrame mainMenuFrame = new MainMenuFrame();
+                            mainMenuFrame.setVisible(true);
+                        }
+                    });
+                } catch (Exception e) {
+                    showErrorMessage(e);
+                }
             }
         }).start();
+    }
+
+    private static void showErrorMessage(Exception e) {
+        JOptionPane.showMessageDialog(
+                null,
+                "Wystąpił błąd przy próbie uruchomienia aplikacji: " + e,
+                "Informacja",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     private static void readQuestions() {
