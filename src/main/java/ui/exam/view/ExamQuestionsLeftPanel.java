@@ -1,11 +1,9 @@
 package ui.exam.view;
 
-import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
 import encrypt.Encrypter;
 import ui.exam.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
 import util.FilesUtils;
 
@@ -41,13 +39,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        try {
-            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
-            component = new MediaPanel();
-            player = component.getMediaPlayer();
-        } catch (RuntimeException ex) {
-            showErrorMessageAndExit();
-        }
+        component = new MediaPanel();
+        player = component.getMediaPlayer();
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
@@ -57,15 +50,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
         setBorder(emptyBorder);
     }
 
-    private void showErrorMessageAndExit() {
-        JOptionPane.showMessageDialog(
-                null,
-                "Nie można uruchomić programu gdy ma się zainstalowaną wersję JRE x64. Odinstaluj JRE x64 oraz zainstaluj JRE x86 i spróbuj ponownie.",
-                "Uwaga",
-                JOptionPane.ERROR_MESSAGE
-        );
-        System.exit(1);
-    }
 
     private void initializeComponents() {
         JPanel imagePanel = getImagePanel();
@@ -193,39 +177,62 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public void showWaitImageImage() {
         Encrypter.decodeMedia("wait_photo");
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_photo.prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_photo.prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void showWaitVideoImage() {
         Encrypter.decodeMedia("wait_video");
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_video.prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_video.prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void setImageName(String imageName) {
         Encrypter.decodeMedia(imageName);
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void setVideoName(String videoTitle) {
         Encrypter.decodeMedia(videoTitle);
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
-        player.parseMedia();
-        int sec = (int) (player.getMediaMeta().getLength() / 1000);
-        System.out.println(sec);
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
+            player.parseMedia();
+            int sec = (int) (player.getMediaMeta().getLength() / 1000);
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
+    }
+
+    private void showErrorMessage() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ",
+                "Informacja",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     public void enableAllBtns() {
