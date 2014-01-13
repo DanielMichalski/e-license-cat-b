@@ -1,13 +1,11 @@
 package ui.exam_result.view;
 
-import com.sun.jna.NativeLibrary;
 import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.exam_result.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 import util.Const;
 import util.FilesUtils;
 
@@ -41,7 +39,6 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        loadNativeLibrary();
         component = new MediaPanel();
         player = component.getMediaPlayer();
 
@@ -50,19 +47,6 @@ public class ExamResultLeftPanel extends JPanel {
         setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         setAlignmentX(Component.LEFT_ALIGNMENT);
         setBorder(emptyBorder);
-    }
-
-    private void loadNativeLibrary() {
-        try {
-            NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Do poprawnego działania aplikacji wymagana jest Java JRE w wersji x86",
-                    "Informacja",
-                    JOptionPane.INFORMATION_MESSAGE);
-            System.exit(0);
-        }
     }
 
     private void initializeComponents() {
@@ -254,20 +238,37 @@ public class ExamResultLeftPanel extends JPanel {
     public void setImageName(String imageName) {
         Encrypter.decodeMedia(imageName);
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
 
     public void setVideoName(final String videoName) {
         Encrypter.decodeMedia(videoName);
 
-        player.stop();
-        player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
-        player.parseMedia();
-        player.play();
+        try {
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            showErrorMessage();
+        }
     }
+
+    private void showErrorMessage() {
+        JOptionPane.showMessageDialog(
+                null,
+                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ",
+                "Informacja",
+                JOptionPane.ERROR_MESSAGE);
+    }
+
 
     public void enableAllBtns() {
         yesBtn.setEnabled(true);
