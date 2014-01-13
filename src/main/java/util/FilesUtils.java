@@ -1,5 +1,8 @@
 package util;
 
+import com.sun.jna.NativeLibrary;
+import uk.co.caprica.vlcj.runtime.RuntimeUtil;
+
 import javax.swing.*;
 import java.io.File;
 
@@ -42,5 +45,30 @@ public class FilesUtils {
 
     public static String getTempDirPath() {
         return System.getProperty("java.io.tmpdir") + File.separator + "prod";
+    }
+
+    public static void loadVLCJNativeLibraries() {
+        try {
+            if (is64bitJavaJREInstalled()) {
+                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx64");
+                System.out.println("VLCx64 library loaded correctly");
+            } else {
+                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
+                System.out.println("VLCx86 library loaded correctly");
+            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Nie można uruchomić programu, ponieważ wystąpił błąd z załadowaniem biblioteki vlcj. " + e,
+                    "Uwaga",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            System.exit(1);
+        }
+    }
+
+    private static boolean is64bitJavaJREInstalled() {
+        String osArch = System.getProperty("os.arch");
+        return osArch != null && osArch.contains("64");
     }
 }
