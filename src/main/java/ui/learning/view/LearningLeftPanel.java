@@ -5,6 +5,7 @@ import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import ui.learning.view.components.MediaPanel;
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.Const;
 import util.FilesUtils;
@@ -42,7 +43,9 @@ public class LearningLeftPanel extends JPanel {
 
     private void setUpPanel() {
         component = new MediaPanel();
-        player = component.getMediaPlayer();
+//        player = component.getMediaPlayer();
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory("-vvv");
+        player = mediaPlayerFactory.newEmbeddedMediaPlayer();
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         setLayout(null);
