@@ -9,14 +9,6 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <!-- Video Codec Repository -->
-    <repositories>
-        <repository>
-            <id>xuggle repo</id>
-            <url>http://xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
-        </repository>
-    </repositories>
-
     <dependencies>
         <!-- XLS -->
         <dependency>
