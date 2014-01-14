@@ -68,7 +68,7 @@ public class FilesUtils {
     }
 
     private static boolean is64bitJavaJREInstalled() {
-        String osArch = System.getProperty("os.arch");
-        return osArch != null && osArch.contains("64");
+        String osArch = System.getProperty("sun.arch.data.model");
+        return osArch != null && osArch.equals("64");
     }
 }
