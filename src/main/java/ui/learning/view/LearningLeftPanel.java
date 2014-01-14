@@ -20,7 +20,7 @@ import java.io.File;
  * Date: 08.11.13
  */
 public class LearningLeftPanel extends JPanel {
-    private MediaPanel component;
+    private Canvas component;
     private EmbeddedMediaPlayer player;
 
     private JPanel abcBtnPanel;
@@ -42,10 +42,10 @@ public class LearningLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        component = new MediaPanel();
-//        player = component.getMediaPlayer();
         MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory("-vvv");
+        component = new Canvas();
         player = mediaPlayerFactory.newEmbeddedMediaPlayer();
+        player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
         setLayout(null);
