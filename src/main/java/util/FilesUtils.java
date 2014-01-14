@@ -44,7 +44,7 @@ public class FilesUtils {
     }
 
     public static String getTempDirPath() {
-        return System.getProperty("java.io.tmpdir") + File.separator + "prod";
+        return System.getProperty("java.io.tmpdir") + "prod";
     }
 
     public static void loadVLCJNativeLibraries() {

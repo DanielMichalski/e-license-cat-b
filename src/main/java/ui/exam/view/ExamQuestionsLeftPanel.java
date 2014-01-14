@@ -3,6 +3,7 @@ package ui.exam.view;
 import database.dao.TextsDao;
 import encrypt.Encrypter;
 import ui.exam.view.components.MediaPanel;
+import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.Const;
 import util.FilesUtils;
@@ -17,7 +18,7 @@ import java.io.File;
  * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
-    private MediaPanel component;
+    private Canvas component;
     private EmbeddedMediaPlayer player;
 
     private JPanel abcBtnPanel;
@@ -39,8 +40,10 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        component = new MediaPanel();
-        player = component.getMediaPlayer();
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory("-vvv");
+        component = new Canvas();
+        player = mediaPlayerFactory.newEmbeddedMediaPlayer();
+        player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
 
         Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
