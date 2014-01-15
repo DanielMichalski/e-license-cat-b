@@ -4,6 +4,7 @@ import com.csvreader.CsvReader;
 import database.columns.ModuleColumnNames;
 import encrypt.Encrypter;
 import model.Module;
+import org.apache.log4j.Logger;
 import util.ApplicationUtils;
 
 import java.io.ByteArrayInputStream;
@@ -12,14 +13,13 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Author: Daniel
  * Date: 12.11.13.
  */
 public class CSVModuleDataProvider {
-    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+    private static Logger LOGGER = ApplicationUtils.getLogger(CSVModuleDataProvider.class);
 
     public List<Module> getAllModules() {
         List<Module> modules = new ArrayList<Module>();
@@ -43,12 +43,12 @@ public class CSVModuleDataProvider {
                     Module module = new Module(moduleId, moduleName);
                     modules.add(module);
                 } catch (NumberFormatException e) {
-                    LOGGER.warning(e.toString());
+                    LOGGER.warn(e.toString());
                 }
             }
             csvReader.close();
         } catch (IOException ex) {
-            LOGGER.warning(ex.toString());
+            LOGGER.warn(ex.toString());
         }
         return modules;
     }

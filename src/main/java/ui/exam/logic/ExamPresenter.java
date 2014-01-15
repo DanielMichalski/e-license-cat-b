@@ -4,6 +4,7 @@ import database.dao.QuestionsDao;
 import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.*;
+import org.apache.log4j.Logger;
 import timer.SpecialistPartTimerCountdown;
 import timer.StandardPartTimerCountdown;
 import timer.TimerCountDown;
@@ -14,6 +15,7 @@ import ui.exam.view.interfaces.WindowCloser;
 import ui.exam_result.view.ExamResultFrame;
 import ui.main_menu.view.MainMenuFrame;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import util.ApplicationUtils;
 import util.Const;
 import util.FilesUtils;
 
@@ -23,14 +25,13 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.List;
 import java.util.Timer;
-import java.util.logging.Logger;
 
 /**
  * Author: Daniel
  * Date: 03.11.13
  */
 public class ExamPresenter {
-    public Logger LOGGER = Logger.getLogger(getClass().getName());
+    public Logger LOGGER = ApplicationUtils.getLogger(ExamPresenter.class);
 
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
