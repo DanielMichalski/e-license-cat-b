@@ -5,6 +5,7 @@ import database.columns.QuestionColumnNames;
 import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.*;
+import org.apache.log4j.Logger;
 import util.ApplicationUtils;
 
 import java.io.ByteArrayInputStream;
@@ -14,7 +15,6 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static database.columns.QuestionColumnNames.*;
 
@@ -22,7 +22,7 @@ import static database.columns.QuestionColumnNames.*;
  * Author: Daniel
  */
 public class CSVQuestionDataProvider {
-    private static Logger LOGGER = Logger.getLogger(CSVModuleDataProvider.class.getName());
+    private static Logger LOGGER = ApplicationUtils.getLogger(CSVQuestionDataProvider.class);
 
     private CsvReader csvReader;
 
@@ -69,9 +69,9 @@ public class CSVQuestionDataProvider {
                 }
             }
         } catch (IOException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (IllegalArgumentException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         }
     }
 
