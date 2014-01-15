@@ -4,7 +4,6 @@ import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
-import ui.learning.view.components.MediaPanel;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.Const;
@@ -273,12 +272,9 @@ public class LearningLeftPanel extends JPanel {
 
         System.out.println("Image: " + imageName);
         try {
-            player.stop();
             player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-            player.parseMedia();
-            player.play();
         } catch (Exception e) {
-            showErrorMessage();
+            showErrorMessage(e);
         }
     }
 
@@ -287,19 +283,16 @@ public class LearningLeftPanel extends JPanel {
 
         System.out.println("Video: " + videoName);
         try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
-            player.parseMedia();
-            player.play();
+            player.playMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
         } catch (Exception e) {
-            showErrorMessage();
+            showErrorMessage(e);
         }
     }
 
-    private void showErrorMessage() {
+    private void showErrorMessage(Exception e) {
         JOptionPane.showMessageDialog(
                 null,
-                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ",
+                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ: " + e,
                 "Informacja",
                 JOptionPane.ERROR_MESSAGE);
     }

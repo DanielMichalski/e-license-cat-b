@@ -3,31 +3,33 @@ package util;
 import database.dao.TextsDao;
 import database.provider.ModuleProvider;
 import database.provider.QuestionsProvider;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
+import ui.exam.logic.ExamPresenter;
 import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.InputStream;
-import java.util.logging.Logger;
 
 /**
  * Author: Daniel
  * Date: 05.11.13
  */
 public class ApplicationUtils {
-    private static Logger LOGGER = Logger.getLogger(ApplicationUtils.class.getName());
+    private static final Logger LOGGER = getLogger(ExamPresenter.class);
 
     public static void setSystemLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (InstantiationException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (IllegalAccessException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (UnsupportedLookAndFeelException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         }
     }
 
@@ -35,13 +37,13 @@ public class ApplicationUtils {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (InstantiationException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (IllegalAccessException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         } catch (UnsupportedLookAndFeelException e) {
-            LOGGER.warning(e.toString());
+            LOGGER.warn(e.toString());
         }
     }
 
@@ -101,5 +103,11 @@ public class ApplicationUtils {
     private static void readQuestions() {
         QuestionsProvider.getInstance();
         ModuleProvider.getInstance();
+    }
+
+    public static Logger getLogger(Class className) {
+        final Logger logger = Logger.getLogger(className);
+        PropertyConfigurator.configure(ApplicationUtils.class.getResource("/log4j.properties"));
+        return logger;
     }
 }

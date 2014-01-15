@@ -2,9 +2,12 @@ package ui.learning.logic;
 
 import database.dao.TextsDao;
 import model.*;
+import org.apache.log4j.Logger;
 import ui.choose_category.view.ChooseCategoryFrame;
 import ui.learning.view.LearningLeftPanel;
+import ui.login.logic.LoginPresenter;
 import ui.main_menu.view.MainMenuFrame;
+import util.ApplicationUtils;
 import util.Const;
 import util.FilesUtils;
 
@@ -13,14 +16,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Logger;
 
 /**
  * Author: Daniel
  * Date: 08.11.13
  */
 public class LearningPresenter {
-    public Logger LOGGER = Logger.getLogger(getClass().getName());
+    public Logger LOGGER = ApplicationUtils.getLogger(LearningPresenter.class);
 
     private int questionNum;
     private int allQuestiionNum;
