@@ -4,6 +4,8 @@ import database.csv.CSVQuestionDataProvider;
 import model.Module;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
+import org.apache.log4j.Logger;
+import util.ApplicationUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,6 +16,8 @@ import java.util.Random;
  * Author: Daniel
  */
 public class QuestionsProvider {
+    public Logger logger = ApplicationUtils.getLogger(QuestionsProvider.class);
+
     List<StandardQuestion> allStandardQuestionsForExam;
     List<SpecialistQuestion> allSpecialistQuestionsForExam;
 
@@ -65,7 +69,7 @@ public class QuestionsProvider {
 
         long end = System.currentTimeMillis();
         double time = (double) (end - start) / 1000;
-        System.out.println(String.format("Całość: %.2f sec.", time));
+        logger.info(String.format("Całość: %.2f sec.", time));
     }
 
     private void shuffleAllQuestions(int howManyTimes) {

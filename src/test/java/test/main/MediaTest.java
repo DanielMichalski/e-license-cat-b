@@ -2,6 +2,8 @@ package test.main;
 
 import com.csvreader.CsvReader;
 import encrypt.Encrypter;
+import org.apache.log4j.Logger;
+import util.ApplicationUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -16,6 +18,8 @@ import static database.columns.QuestionColumnNames.Q_SECOND_MEDIA_PATH;
  * Author: Daniel
  */
 public class MediaTest {
+    public static Logger logger = ApplicationUtils.getLogger(MediaTest.class);
+
     public static void main(String[] args) throws IOException {
         long start = System.currentTimeMillis();
 
@@ -39,7 +43,7 @@ public class MediaTest {
 
                 File file = new File("bin" + File.separator + "media" + File.separator + mediaPath);
                 if (!file.exists()) {
-                    System.out.println(mediaPath + " nie istnieje");
+                    logger.info(mediaPath + " nie istnieje");
                     //continue;
                 }
 
@@ -52,13 +56,13 @@ public class MediaTest {
             }
         }
 
-        System.out.println(suma);
+        logger.info(suma);
 
         long end = System.currentTimeMillis();
         long time = end - start;
 
         double timeInSec = (double) time / 1000;
-        System.out.println(String.format("Time: %.2f sec.", timeInSec));
+        logger.info(String.format("Time: %.2f sec.", timeInSec));
 
     }
 }

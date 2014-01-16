@@ -4,8 +4,10 @@ import database.dao.TextsDao;
 import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
+import org.apache.log4j.Logger;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import util.ApplicationUtils;
 import util.Const;
 import util.FilesUtils;
 
@@ -19,6 +21,8 @@ import java.io.File;
  * Date: 08.11.13
  */
 public class LearningLeftPanel extends JPanel {
+    private Logger logger = ApplicationUtils.getLogger(LearningLeftPanel.class);
+
     private Canvas component;
     private EmbeddedMediaPlayer player;
 
@@ -268,33 +272,31 @@ public class LearningLeftPanel extends JPanel {
     }
 
     public void setImageName(String imageName) {
+        logger.info("Loading image: " + imageName + ".prode");
         Encrypter.decodeMedia(imageName);
 
-        System.out.println("Image: " + imageName);
         try {
+            player.stop();
             player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.parseMedia();
+            player.play();
         } catch (Exception e) {
-            showErrorMessage(e);
+            logger.error(e);
         }
     }
 
-    public synchronized void setVideoName(String videoName) {
+    public void setVideoName(String videoName) {
+        logger.info("Loading video: " + videoName + ".prode");
         Encrypter.decodeMedia(videoName);
 
-        System.out.println("Video: " + videoName);
         try {
-            player.playMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
+            player.parseMedia();
+            player.play();
         } catch (Exception e) {
-            showErrorMessage(e);
+            logger.error(e);
         }
-    }
-
-    private void showErrorMessage(Exception e) {
-        JOptionPane.showMessageDialog(
-                null,
-                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ: " + e,
-                "Informacja",
-                JOptionPane.ERROR_MESSAGE);
     }
 
     public void unmarkAllBtns() {
@@ -306,7 +308,7 @@ public class LearningLeftPanel extends JPanel {
     }
 
     public void disposePlayer() {
-        System.out.println("Disposing media player");
+        logger.info("Disposing media player");
         player.release();
     }
 
