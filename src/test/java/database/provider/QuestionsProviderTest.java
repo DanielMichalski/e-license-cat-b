@@ -3,7 +3,9 @@ package database.provider;
 import model.Module;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
+import org.apache.log4j.Logger;
 import org.junit.Test;
+import util.ApplicationUtils;
 
 import java.util.List;
 
@@ -11,6 +13,8 @@ import java.util.List;
  * Author: Daniel
  */
 public class QuestionsProviderTest {
+    public Logger logger = ApplicationUtils.getLogger(QuestionsProviderTest.class);
+
     @Test
     public void testGetStanQuestionsByModule() throws Exception {
         long start = System.currentTimeMillis();
@@ -32,14 +36,14 @@ public class QuestionsProviderTest {
             suma += stanQuestionsByModule.size();
             suma += specQuestionsByModule.size();
 
-            System.out.println(suma);
+            logger.info(suma);
             allSuma += suma;
         }
 
-        System.out.println("All: " + allSuma);
+        logger.info("All: " + allSuma);
 
         long end = System.currentTimeMillis();
         double time = (double) (end - start) / 1000;
-        System.out.println(String.format("Wczytywanie: %.2f sec.", time));
+        logger.info(String.format("Wczytywanie: %.2f sec.", time));
     }
 }

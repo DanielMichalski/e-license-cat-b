@@ -4,8 +4,10 @@ import database.xls.XLSSpecialistQuestionDataProvider;
 import database.xls.XLSStandardQuestionDataProvider;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
+import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ui.exam_result.view.ExamResultFrame;
+import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -17,6 +19,8 @@ import java.util.List;
  * Date: 05.11.13
  */
 public class MainTest {
+    public static Logger logger = ApplicationUtils.getLogger(MainTest.class);
+
     public static void main(String[] args) {
         //testExamResultFrame();
         //testdao();
@@ -36,7 +40,7 @@ public class MainTest {
                     XLSStandardQuestionDataProvider.get20StandardQuestions();
             int i = 1;
             for (StandardQuestion standardQuestion : allStandardQuestions) {
-                System.out.println(i);
+                logger.info(i);
                 i++;
             }
 
@@ -45,7 +49,7 @@ public class MainTest {
                     XLSSpecialistQuestionDataProvider.getAllSpecialistQuestions();
             i = 1;
             for (SpecialistQuestion specialistQuestion : allSpecialistQuestions) {
-                System.out.println(i);
+                logger.info(i);
                 i++;
             }
 
