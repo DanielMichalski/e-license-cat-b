@@ -9,9 +9,12 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
+import org.apache.log4j.Logger;
+import util.ApplicationUtils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -23,6 +26,8 @@ import java.util.List;
  * Date: 25.11.13.
  */
 public class PDFGenerator {
+    public Logger logger = ApplicationUtils.getLogger(PDFGenerator.class);
+
     private int userPoints;
     private int maxPosiblePoints;
 
@@ -52,6 +57,7 @@ public class PDFGenerator {
             fNormal = new Font(bf, 8, Font.NORMAL);
             fBold = new Font(bf, 8, Font.BOLD);
         } catch (Exception e) {
+            logger.error(e);
             JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -65,6 +71,8 @@ public class PDFGenerator {
     }
 
     private void showError(Exception e) {
+        logger.error(e);
+
         JOptionPane.showMessageDialog(null,
                 "Wystąpił błąd podczas zapisu pliku PDF: " + e,
                 "Informacja",
@@ -81,36 +89,58 @@ public class PDFGenerator {
         int result = fileChooser.showSaveDialog(null);
 
         if (result == JFileChooser.APPROVE_OPTION) {
-            String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+            if (new File(fileChooser.getSelectedFile().getAbsolutePath() + ".pdf").exists()) {
+                UIManager.put("OptionPane.yesButtonText", "Tak");
+                UIManager.put("OptionPane.noButtonText", "Nie");
 
-            PdfWriter.getInstance(document, new FileOutputStream(filePath));
-            document.open();
+                int confirm = JOptionPane.showConfirmDialog(
+                        null,
+                        "Wybrany plik już istnieje, czy chcesz go nadpisać?",
+                        "Informacja",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.INFORMATION_MESSAGE);
 
-            PdfPTable table1 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
-            addToTable(table1, true);
+                if (confirm == JOptionPane.YES_OPTION) {
+                    saveFile(document, fileChooser);
+                }
 
-            PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
-            addToTable(table2, false);
-
-            document.add(new Paragraph("Imię i nazwisko: " + imie + " " + nazwisko, fNormal));
-            document.add(new Paragraph("PESEL: " + pesel, fNormal));
-            document.add(new Paragraph("Liczba uzyskanych punktów: " + userPoints + " z " + maxPosiblePoints, fNormal));
-            document.add(new Paragraph("Data egzaminu: " + getDateInString(), fNormal));
-            document.add(new Paragraph(" "));
-
-            document.add(table1);
-
-            document.add(new Paragraph(" "));
-
-            document.add(table2);
-
-            document.close();
-
-            JOptionPane.showMessageDialog(null,
-                    "Pomyślnie zapisano plik PDF",
-                    "Informacja",
-                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                saveFile(document, fileChooser);
+            }
         }
+    }
+
+    private void saveFile(Document document, JFileChooser fileChooser) throws DocumentException, IOException {
+        String filePath = fileChooser.getSelectedFile().getAbsolutePath() + ".pdf";
+
+        PdfWriter.getInstance(document, new FileOutputStream(filePath));
+        document.open();
+
+        PdfPTable table1 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
+        addToTable(table1, true);
+
+        PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
+        addToTable(table2, false);
+
+        document.add(new Paragraph("Imię i nazwisko: " + imie + " " + nazwisko, fNormal));
+        document.add(new Paragraph("PESEL: " + pesel, fNormal));
+        document.add(new Paragraph("Liczba uzyskanych punktów: " + userPoints + " z " + maxPosiblePoints, fNormal));
+        document.add(new Paragraph("Data egzaminu: " + getDateInString(), fNormal));
+        document.add(new Paragraph(" "));
+
+        document.add(table1);
+
+        document.add(new Paragraph(" "));
+
+        document.add(table2);
+
+        document.close();
+
+        logger.info("Pomyślnie zapisano plik PDF");
+        JOptionPane.showMessageDialog(null,
+                "Pomyślnie zapisano plik PDF",
+                "Informacja",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private String getDateInString() {

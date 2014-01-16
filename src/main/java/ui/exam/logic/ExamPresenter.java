@@ -31,7 +31,7 @@ import java.util.Timer;
  * Date: 03.11.13
  */
 public class ExamPresenter {
-    public Logger LOGGER = ApplicationUtils.getLogger(ExamPresenter.class);
+    public Logger logger = ApplicationUtils.getLogger(ExamPresenter.class);
 
     private List<StandardQuestion> standardQuestions;
     private List<SpecialistQuestion> specialistQuestions;
@@ -109,7 +109,7 @@ public class ExamPresenter {
             player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + standardQuestion.getMediaPath() + ".prode");
             player.parseMedia();
             sec = (int) (player.getMediaMeta().getLength() / 1000);
-            System.out.println("Video " + standardQuestion.getMediaPath() + " trwa " + sec + " sekund/y");
+            logger.info("Video " + standardQuestion.getMediaPath() + " trwa " + sec + " sekund/y");
         }
 
         return sec;
@@ -302,7 +302,7 @@ public class ExamPresenter {
                 standardQuestion.getCorrectAnswer(),
                 resultPoints);
 
-        LOGGER.info(text);
+        logger.info(text);
     }
 
     private void setSpecialistAnswer(ABCAnswer answer) {
@@ -320,7 +320,7 @@ public class ExamPresenter {
                 specialistQuestion.getCorrectAnswer(),
                 resultPoints);
 
-        LOGGER.info(text);
+        logger.info(text);
     }
 
 
