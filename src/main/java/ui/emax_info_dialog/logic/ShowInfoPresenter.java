@@ -4,38 +4,37 @@ import ui.login.view.LoginFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Author: Daniel
  * Date: 08.11.13
  */
 public class ShowInfoPresenter {
-    public ActionListener getStartExamListener(final IWindowCloser windowCloser) {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                windowCloser.close();
+    class SluchaczKiknięciaOk extends MouseAdapter {
+        private JDialog dialog;
 
-                EventQueue.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        LoginFrame loginFrame = new LoginFrame();
-                        loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                        loginFrame.setVisible(true);
-                    }
-                });
-            }
-        };
+        public SluchaczKiknięciaOk(JDialog dialog) {
+            this.dialog = dialog;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            dialog.dispose();
+
+            EventQueue.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    LoginFrame loginFrame = new LoginFrame();
+                    loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    loginFrame.setVisible(true);
+                }
+            });
+        }
     }
 
-    public ActionListener getCloseAboutExamListener(final IWindowCloser windowCloser) {
-        return new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                windowCloser.close();
-            }
-        };
+    public void setAboutApp(JLabel aboutApp, JDialog dialog) {
+        aboutApp.addMouseListener(new SluchaczKiknięciaOk(dialog));
     }
 }

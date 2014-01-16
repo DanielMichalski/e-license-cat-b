@@ -2,8 +2,10 @@ package ui.exam.view;
 
 import database.dao.TextsDao;
 import encrypt.Encrypter;
+import org.apache.log4j.Logger;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
+import util.ApplicationUtils;
 import util.Const;
 import util.FilesUtils;
 
@@ -17,6 +19,8 @@ import java.io.File;
  * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
+    private Logger logger = ApplicationUtils.getLogger(ExamQuestionsLeftPanel.class);
+
     private Canvas component;
     private EmbeddedMediaPlayer player;
 
@@ -177,6 +181,7 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void showWaitImageImage() {
+        logger.info("Loading image: wait_photo.prode");
         Encrypter.decodeMedia("wait_photo");
 
         try {
@@ -185,11 +190,12 @@ public class ExamQuestionsLeftPanel extends JPanel {
             player.parseMedia();
             player.play();
         } catch (Exception e) {
-            showErrorMessage(e);
+            logger.error(e);
         }
     }
 
     public void showWaitVideoImage() {
+        logger.info("Loading image: wait_video.prode");
         Encrypter.decodeMedia("wait_video");
 
         try {
@@ -198,36 +204,36 @@ public class ExamQuestionsLeftPanel extends JPanel {
             player.parseMedia();
             player.play();
         } catch (Exception e) {
-            showErrorMessage(e);
+            logger.error(e);
         }
     }
 
     public void setImageName(String imageName) {
+        logger.info("Loading image: " + imageName + ".prode");
         Encrypter.decodeMedia(imageName);
 
         try {
-            player.playMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
+            player.parseMedia();
+            player.play();
         } catch (Exception e) {
-            showErrorMessage(e);
+            logger.error(e);
         }
     }
 
-    public void setVideoName(String videoTitle) {
-        Encrypter.decodeMedia(videoTitle);
+    public void setVideoName(String videoName) {
+        logger.info("Loading video: " + videoName + ".prode");
+        Encrypter.decodeMedia(videoName);
 
         try {
-            player.playMedia(FilesUtils.getTempDirPath() + File.separator + videoTitle + ".prode");
+            player.stop();
+            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
+            player.parseMedia();
+            player.play();
         } catch (Exception e) {
-            showErrorMessage(e);
+            logger.error(e);
         }
-    }
-
-    private void showErrorMessage(Exception e) {
-        JOptionPane.showMessageDialog(
-                null,
-                "Wystąpił błąd przy odtwarzaniu mediów związany z biblioteką VLCJ: " + e,
-                "Informacja",
-                JOptionPane.ERROR_MESSAGE);
     }
 
     public void enableAllBtns() {

@@ -22,7 +22,7 @@ import static database.columns.QuestionColumnNames.*;
  * Author: Daniel
  */
 public class CSVQuestionDataProvider {
-    private static Logger LOGGER = ApplicationUtils.getLogger(CSVQuestionDataProvider.class);
+    private static Logger logger = ApplicationUtils.getLogger(CSVQuestionDataProvider.class);
 
     private CsvReader csvReader;
 
@@ -37,7 +37,7 @@ public class CSVQuestionDataProvider {
         readQuestions();
         long end = System.currentTimeMillis();
         double time = (double) (end - start) / 1000;
-        System.out.println(String.format("Wczytywanie pytań: %.2f sec.", time));
+        logger.info(String.format("Wczytywanie pytań: %.2f sec.", time));
     }
 
     private void readQuestions() {
@@ -52,7 +52,7 @@ public class CSVQuestionDataProvider {
             csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
             long end = System.currentTimeMillis();
             double time = (double) (end - start) / 1000;
-            System.out.println(String.format("Odszyfrowywanie: %.2f sec.", time));
+            logger.info(String.format("Odszyfrowywanie: %.2f sec.", time));
 
             csvReader.readHeaders();
 
@@ -69,9 +69,9 @@ public class CSVQuestionDataProvider {
                 }
             }
         } catch (IOException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (IllegalArgumentException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         }
     }
 
@@ -90,7 +90,7 @@ public class CSVQuestionDataProvider {
 
         File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
         if (!file.exists()) {
-            System.out.println("Plik nie istnieje: " + file);
+            logger.info("Plik nie istnieje: " + file);
             return;
         }
 
@@ -130,7 +130,7 @@ public class CSVQuestionDataProvider {
 
         File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
         if (!file.exists()) {
-            System.out.println("Plik nie istnieje: " + file);
+            logger.info("Plik nie istnieje: " + file);
             return;
         }
 

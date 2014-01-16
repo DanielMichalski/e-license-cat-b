@@ -1,6 +1,7 @@
 package util;
 
 import com.sun.jna.NativeLibrary;
+import org.apache.log4j.Logger;
 import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import javax.swing.*;
@@ -10,6 +11,8 @@ import java.io.File;
  * Author: Daniel
  */
 public class FilesUtils {
+    private static Logger logger = ApplicationUtils.getLogger(FilesUtils.class);
+
     public static void createTempFolder() {
         try {
             File file = new File(FilesUtils.getTempDirPath());
@@ -18,9 +21,10 @@ public class FilesUtils {
                 if (!mkdir) {
                     throw new Exception();
                 }
-                System.out.println("Utworzenie folderu prod");
+
+                logger.info("Utworzenie folderu temp");
             } else {
-                System.out.println("Folder prod już istnieje");
+                logger.info("Folder temp już istnieje");
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(
@@ -51,10 +55,10 @@ public class FilesUtils {
         try {
             if (is64bitJavaJREInstalled()) {
                 NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx64");
-                System.out.println("VLCx64 library loaded correctly");
+                logger.info("VLCx64 library loaded correctly");
             } else {
                 NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
-                System.out.println("VLCx86 library loaded correctly");
+                logger.info("VLCx86 library loaded correctly");
             }
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(

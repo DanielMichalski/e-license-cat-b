@@ -1,6 +1,4 @@
-import org.apache.log4j.Logger;
 import ui.loading_new.LoadingFrame;
-import util.ApplicationUtils;
 import util.FilesUtils;
 
 import java.awt.*;
@@ -14,11 +12,8 @@ public class RunApplication {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Logger logger = ApplicationUtils.getLogger(RunApplication.class);
-                logger.info("informacja");
-
-                /*FilesUtils.loadVLCJNativeLibraries();
-                new LoadingFrame();*/
+                FilesUtils.loadVLCJNativeLibraries();
+                new LoadingFrame();
             }
         });
     }
