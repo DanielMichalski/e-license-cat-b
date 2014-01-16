@@ -17,19 +17,19 @@ import java.io.InputStream;
  * Date: 05.11.13
  */
 public class ApplicationUtils {
-    private static final Logger LOGGER = getLogger(ExamPresenter.class);
+    private static final Logger logger = getLogger(ExamPresenter.class);
 
     public static void setSystemLookAndFeel() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (InstantiationException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (IllegalAccessException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (UnsupportedLookAndFeelException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         }
     }
 
@@ -37,13 +37,13 @@ public class ApplicationUtils {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (ClassNotFoundException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (InstantiationException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (IllegalAccessException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         } catch (UnsupportedLookAndFeelException e) {
-            LOGGER.warn(e.toString());
+            logger.warn(e.toString());
         }
     }
 
@@ -59,6 +59,7 @@ public class ApplicationUtils {
 
     public static void checkResource(InputStream resourceAsStream) {
         if (resourceAsStream == null) {
+            logger.error("Wystąpił błąd przy wczytywaniu pytań. Aplikacja zostanie zamknięta.");
             JOptionPane.showMessageDialog(
                     null,
                     "Wystąpił błąd przy wczytywaniu pytań. Aplikacja zostanie zamknięta",

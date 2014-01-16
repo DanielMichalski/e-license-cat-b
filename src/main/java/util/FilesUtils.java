@@ -24,9 +24,10 @@ public class FilesUtils {
 
                 logger.info("Utworzenie folderu temp");
             } else {
-                logger.info("Folder temp już istnieje");
+                logger.info("Folder temp już istnieje, nie ma potrzeby tworzenia");
             }
         } catch (Exception e) {
+            logger.error("Aplikacja nie mogła utworzyć wymaganego folderu: " + e);
             JOptionPane.showMessageDialog(
                     null,
                     "Aplikacja nie mogła utworzyć wymaganego folderu: " + e,
