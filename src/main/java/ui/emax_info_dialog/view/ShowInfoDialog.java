@@ -66,45 +66,4 @@ public class ShowInfoDialog extends JDialog {
         });
     }
 
-   /* *//**
-     * Metoda tworzy centralny panel okna dialogowego na ktorym
-     * są wyświetlane informacje o egzaminie. Informacje o egzaminie są
-     * pobierane z pliku information.jpg znajdującego się w resources
-     *
-     * @return komponent zawierający dane opisujące egzamin
-     *//*
-    protected JComponent createCenterComponent() {
-        JPanel imagePanel = new JPanel();
-        imagePanel.setBackground(Color.WHITE);
-
-        String aboutExamImageFileName = TextsDao.getFileName("img.wait_start");
-        ImageIcon aboutExamImage = ImageUtils.getProgramImage(aboutExamImageFileName);
-        JLabel imageLbl = new JLabel(aboutExamImage);
-
-        imagePanel.add(imageLbl);
-
-        return imagePanel;
-
-    }
-
-    *//**
-     * Metoda tworzy dolny panel z przyciskiem
-     *
-     * @return dolny panel z przyciskiem
-     *//*
-    protected JComponent createSouthComponent() {
-        JButton startBtn = new JButton(TextsDao.getText(
-                "views.ShowInfoAboutExam.startBtn.text"));
-
-        startBtn.addActionListener(presenter.getStartExamListener(this));
-
-        startBtn.setFocusable(false);
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.WHITE);
-        buttonPanel.add(startBtn);
-
-        return buttonPanel;
-    }*/
-
 }
