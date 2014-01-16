@@ -88,7 +88,7 @@ public class Encrypter {
 
         for (File file : files) {
             Path oldFile = Paths.get(file.getAbsolutePath());
-            Path newFile = Paths.get(file.getAbsolutePath() + "e");
+            Path newFile = Paths.get(file.getAbsolutePath());
 
             encryptFile(oldFile, newFile);
         }
