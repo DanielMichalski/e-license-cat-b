@@ -1,7 +1,9 @@
 package encrypt;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 import org.jasypt.util.binary.BasicBinaryEncryptor;
+import util.ApplicationUtils;
 import util.FilesUtils;
 
 import javax.swing.*;
@@ -17,6 +19,7 @@ import java.nio.file.Paths;
  * Date: 12.11.13.
  */
 public class Encrypter {
+    public static Logger logger = ApplicationUtils.getLogger(Encrypter.class);
 
     static String myEncryptionPassword = "J3#&0(%7%z";
 
@@ -100,7 +103,12 @@ public class Encrypter {
         try {
             Encrypter.decryptFile(oldPath, newPath, true);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
+            logger.error("Brakuje pliku: " + mediaPath + " " + e);
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Nie znaleziono pliku " + mediaPath + ". Program zakończy swoje działanie",
+                    "Błąd",
+                    JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
     }
