@@ -43,7 +43,7 @@ public class ExamResultLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory("-vvv");
+        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
         component = new Canvas();
         player = mediaPlayerFactory.newEmbeddedMediaPlayer();
         player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));

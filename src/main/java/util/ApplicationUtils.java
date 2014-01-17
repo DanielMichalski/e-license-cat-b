@@ -9,8 +9,11 @@ import ui.exam.logic.ExamPresenter;
 import ui.main_menu.view.MainMenuFrame;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.io.File;
 import java.io.InputStream;
+import java.util.Arrays;
 
 /**
  * Author: Daniel
@@ -91,6 +94,22 @@ public class ApplicationUtils {
                 }
             }
         }).start();
+    }
+
+    public static boolean isCDInTheDrive() {
+        //TODO zmienic nazwę płyty
+        String cdName = "TEST_B_PWPW_v2.5";
+
+        java.util.List<File> files = Arrays.asList(File.listRoots());
+        for (File drv : files) {
+            String drvName = FileSystemView.getFileSystemView().getSystemDisplayName(drv);
+            logger.info("Znaleziony napęd: " + drvName);
+            if (drvName.contains(cdName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static void showErrorMessage(Exception e) {
