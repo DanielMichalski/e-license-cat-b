@@ -9,7 +9,7 @@ import java.awt.*;
  * Date: 07.11.13
  */
 public class StandardPartTimerCountdown extends TimerCountDown {
-    private int sec = 3;
+    private int sec = 20;
     private ExamPresenter examPresenter;
     private int secToVid;
     private LoadingType loadingType = LoadingType.question;
@@ -22,7 +22,7 @@ public class StandardPartTimerCountdown extends TimerCountDown {
     @Override
     public void run() {
         if (loadingType == LoadingType.question) {
-            if (sec == 3) {
+            if (sec == 20) {
                 examPresenter.getTimerLbl().setForeground(Color.blue);
                 examPresenter.showWaitMedia();
             } else if (sec < 0) {

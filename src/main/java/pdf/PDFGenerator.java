@@ -74,7 +74,8 @@ public class PDFGenerator {
         logger.error(e);
 
         JOptionPane.showMessageDialog(null,
-                "Wystąpił błąd podczas zapisu pliku PDF: " + e,
+                "Wystąpił błąd podczas zapisu pliku PDF, być może jest on otwarty w innym programie." +
+                        "Zamknij inne programy które mogę korzystać z pliku i spróbuj ponownie.",
                 "Informacja",
                 JOptionPane.INFORMATION_MESSAGE);
     }

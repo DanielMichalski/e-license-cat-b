@@ -40,6 +40,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public ExamQuestionsLeftPanel() {
         setUpPanel();
         initializeComponents();
+
+
     }
 
     private void setUpPanel() {
@@ -262,9 +264,5 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public JButton getBtnC() {
         return btnC;
-    }
-
-    public Canvas getComponent() {
-        return component;
     }
 }
