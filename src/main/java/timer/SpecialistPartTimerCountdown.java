@@ -7,10 +7,26 @@ import ui.exam.logic.ExamPresenter;
  * Date: 03.11.13
  */
 public class SpecialistPartTimerCountdown extends TimerCountDown {
-    private static final int HOW_MANY_SEC = 50;
+    private int sec = 50;
+    private ExamPresenter examPresenter;
 
     public SpecialistPartTimerCountdown(ExamPresenter presenter) {
-        super(presenter, HOW_MANY_SEC, 0, false);
+        this.examPresenter = presenter;
+    }
+
+    @Override
+    public void run() {
+        if (sec == 50) {
+            examPresenter.showMedia();
+            examPresenter.getTimerLbl().setText("" + sec);
+        } else if (sec <= 0) {
+            examPresenter.cancelTimerCountdownTask();
+            examPresenter.trySaveAnswer();
+            examPresenter.nextQuestion();
+        }
+
+        examPresenter.getTimerLbl().setText("" + sec);
+        sec--;
     }
 }
 

@@ -1,7 +1,5 @@
 package timer;
 
-import ui.exam.logic.ExamPresenter;
-
 import java.util.TimerTask;
 
 /**
@@ -9,37 +7,5 @@ import java.util.TimerTask;
  * Date: 09.11.13
  */
 public abstract class TimerCountDown extends TimerTask {
-    private int sec;
-    private int secToVid;
-    private ExamPresenter examPresenter;
-    private boolean isStandardPart;
-
-    public TimerCountDown(ExamPresenter examPresenter, int sec, int secToVid, boolean isStandardPart) {
-        this.sec = sec + secToVid;
-        this.secToVid = secToVid;
-        this.examPresenter = examPresenter;
-        this.isStandardPart = isStandardPart;
-
-        if (isStandardPart) {
-            this.examPresenter.showWaitMedia();
-        }
-    }
-
-    @Override
-    public void run() {
-        if (sec > 0) {
-            if (isStandardPart && (sec - secToVid) == 15) {
-                examPresenter.showMedia();
-            } else if (sec == 50) {
-                examPresenter.showMedia();
-            }
-            examPresenter.getTimerLbl().setText("" + sec);
-        } else {
-            examPresenter.cancelTimerCountdownTask();
-            examPresenter.trySaveAnswer();
-            examPresenter.nextQuestion();
-        }
-
-        sec--;
-    }
+    public abstract void run();
 }

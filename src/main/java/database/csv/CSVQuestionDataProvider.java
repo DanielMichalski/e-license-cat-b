@@ -69,9 +69,9 @@ public class CSVQuestionDataProvider {
                 }
             }
         } catch (IOException e) {
-            logger.warn(e.toString());
+            logger.error(e.toString());
         } catch (IllegalArgumentException e) {
-            logger.warn(e.toString());
+            logger.error(e.toString());
         }
     }
 
@@ -130,7 +130,7 @@ public class CSVQuestionDataProvider {
 
         File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
         if (!file.exists()) {
-            logger.info("Plik nie istnieje: " + file);
+            logger.error("Plik nie istnieje: " + file);
             return;
         }
 

@@ -43,12 +43,12 @@ public class CSVModuleDataProvider {
                     Module module = new Module(moduleId, moduleName);
                     modules.add(module);
                 } catch (NumberFormatException e) {
-                    LOGGER.warn(e.toString());
+                    LOGGER.error(e.toString());
                 }
             }
             csvReader.close();
         } catch (IOException ex) {
-            LOGGER.warn(ex.toString());
+            LOGGER.error(ex.toString());
         }
         return modules;
     }

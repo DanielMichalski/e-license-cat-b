@@ -2,14 +2,60 @@ package timer;
 
 import ui.exam.logic.ExamPresenter;
 
+import java.awt.*;
+
 /**
  * Author: Daniel
  * Date: 07.11.13
  */
 public class StandardPartTimerCountdown extends TimerCountDown {
-    private static final int HOW_MANY_SEC = 35;
+    private int sec = 3;
+    private ExamPresenter examPresenter;
+    private int secToVid;
+    private LoadingType loadingType = LoadingType.question;
 
     public StandardPartTimerCountdown(ExamPresenter presenter, int secToVid) {
-        super(presenter, HOW_MANY_SEC, secToVid, true);
+        this.examPresenter = presenter;
+        this.secToVid = secToVid;
+    }
+
+    @Override
+    public void run() {
+        if (loadingType == LoadingType.question) {
+            if (sec == 3) {
+                examPresenter.getTimerLbl().setForeground(Color.blue);
+                examPresenter.showWaitMedia();
+            } else if (sec < 0) {
+                loadingType = LoadingType.movie;
+                sec = secToVid;
+                return;
+            }
+        }
+
+        if (loadingType == LoadingType.movie) {
+            if (sec == secToVid) {
+                examPresenter.getTimerLbl().setText("");
+                examPresenter.getTimerLbl().setForeground(Color.red);
+                examPresenter.showMedia();
+            } else if (sec <= 0) {
+                loadingType = LoadingType.answer;
+                sec = 15;
+                return;
+            }
+        }
+
+        if (loadingType == LoadingType.answer) {
+            if (sec <= 0) {
+                examPresenter.cancelTimerCountdownTask();
+                examPresenter.trySaveAnswer();
+                examPresenter.nextQuestion();
+            }
+        }
+
+        if (loadingType != LoadingType.movie) {
+            examPresenter.getTimerLbl().setText("" + sec);
+        }
+
+        sec--;
     }
 }

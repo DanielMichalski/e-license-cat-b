@@ -263,4 +263,8 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public JButton getBtnC() {
         return btnC;
     }
+
+    public Canvas getComponent() {
+        return component;
+    }
 }
