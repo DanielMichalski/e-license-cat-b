@@ -26,7 +26,6 @@ public class MainMenuFrame extends JFrame {
     private void setUpFrame() {
         setSize(WIDTH, HEIGHT);
         setUndecorated(true);
-        ApplicationUtils.setNimbusLookAndFeel();
         ApplicationUtils.setApplicationIcon(this);
         setLocationRelativeTo(null);
         setWindowRemoveble();
