@@ -49,7 +49,6 @@ public class QuestionsProvider {
         allStandardQuestionsForExam = csvQuestionDataProvider.getAllStandardQuestions();
         allSpecialistQuestionsForExam = csvQuestionDataProvider.getAllSpecialistQuestions();
 
-
         allStandardQuestionsForLearning = new ArrayList<StandardQuestion>();
         allSpecialistQuestionsForExamLearning = new ArrayList<SpecialistQuestion>();
 
@@ -65,7 +64,7 @@ public class QuestionsProvider {
         spQuestionsAt1 = new ArrayList<SpecialistQuestion>();
 
         setQuestions();
-        shuffleAllQuestions(10);
+        shuffleAllQuestions(30);
 
         long end = System.currentTimeMillis();
         double time = (double) (end - start) / 1000;
@@ -73,7 +72,7 @@ public class QuestionsProvider {
     }
 
     private void shuffleAllQuestions(int howManyTimes) {
-        Random random = new Random(47);
+        Random random = new Random();
         int x = random.nextInt(howManyTimes) + 1;
 
         for (int i = 0; i < x; i++) {
@@ -83,7 +82,7 @@ public class QuestionsProvider {
     }
 
     public void shuffleSelectedQuestions(int howManyTimes) {
-        Random random = new Random(47);
+        Random random = new Random();
         int x = random.nextInt(howManyTimes) + 1;
 
         for (int i = 0; i < x; i++) {
@@ -140,7 +139,12 @@ public class QuestionsProvider {
         specialist12Questions.addAll(spQuestionsAt1);
         specialist12Questions.addAll(spQuestionsAt2);
         specialist12Questions.addAll(spQuestionsAt3);
-        Collections.shuffle(specialist12Questions);
+
+        Random random = new Random();
+        int x = random.nextInt(11);
+        for (int i = 0; i < x; i++) {
+            Collections.shuffle(specialist12Questions);
+        }
     }
 
     private void set20StandardQuestions() {
@@ -148,7 +152,12 @@ public class QuestionsProvider {
         standard20Questions.addAll(stQuestionsAt1);
         standard20Questions.addAll(stQuestionsAt2);
         standard20Questions.addAll(stQuestionsAt3);
-        Collections.shuffle(standard20Questions);
+
+        Random random = new Random();
+        int x = random.nextInt(11);
+        for (int i = 0; i < x; i++) {
+            Collections.shuffle(standard20Questions);
+        }
     }
 
     public List<StandardQuestion> getStanQuestionsByModule(Module module) {
@@ -177,10 +186,12 @@ public class QuestionsProvider {
     }
 
     public List<StandardQuestion> getStandard20Questions() {
+        set20StandardQuestions();
         return standard20Questions;
     }
 
     public List<SpecialistQuestion> getSpecialist12Questions() {
+        set12SpecialistQuestions();
         return specialist12Questions;
     }
 
