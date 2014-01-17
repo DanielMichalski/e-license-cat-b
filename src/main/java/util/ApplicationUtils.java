@@ -98,13 +98,20 @@ public class ApplicationUtils {
 
     public static boolean isCDInTheDrive() {
         //TODO zmienic nazwę płyty
-        String cdName = "TEST_B_PWPW_v2.5";
+        String cdName = "VS2013_RTM_WINEXP_ENU";
 
         java.util.List<File> files = Arrays.asList(File.listRoots());
         for (File drv : files) {
             String drvName = FileSystemView.getFileSystemView().getSystemDisplayName(drv);
+
+            if (drvName.length() == 0) {
+                drvName = FileSystemView.getFileSystemView().getSystemTypeDescription(drv);
+            }
+
             logger.info("Znaleziony napęd: " + drvName);
+
             if (drvName.contains(cdName)) {
+                logger.info("Płyta jest w napędzie, można uruchomić aplikację");
                 return true;
             }
         }
