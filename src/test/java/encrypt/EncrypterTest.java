@@ -16,8 +16,8 @@ public class EncrypterTest {
         Encrypter.decryptChoosenFile();
     }*/
 
-    @Test
+    /*@Test
     public void testEncryptFilesInDir() throws Exception {
         Encrypter.encryptAllFilesInDir("bin/media");
-    }
+    }*/
 }
