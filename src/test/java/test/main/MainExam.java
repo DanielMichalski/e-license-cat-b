@@ -2,6 +2,7 @@ package test.main;
 
 import ui.exam.view.ExamFrame;
 import util.ApplicationUtils;
+import util.FilesUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,8 @@ public class MainExam {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                FilesUtils.loadVLCJNativeLibraries();
+
                 ExamFrame frame = new ExamFrame(null);
                 ApplicationUtils.setApplicationIcon(frame);
                 frame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);

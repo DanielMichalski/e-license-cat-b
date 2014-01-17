@@ -40,6 +40,8 @@ public class ExamPresenter {
     private int actualSpecialistQuestion = 0;
     private boolean isStandardPartCompleted = false;
 
+    private Canvas component;
+
     private JButton yesBtn;
     private JButton noBtn;
     private JButton btnA;
@@ -255,7 +257,7 @@ public class ExamPresenter {
         }
     }
 
-    public void showWaitImage() {
+    private void showWaitImage() {
         examQuestionsLeftPanel.showWaitImageImage();
     }
 
@@ -323,6 +325,48 @@ public class ExamPresenter {
         logger.info(text);
     }
 
+
+    class SluchaczKliknieciaNaFilmie extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "fds", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mouseWheelMoved(MouseWheelEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            JOptionPane.showMessageDialog(null, "", "Informacja", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
 
     class YesBtnListener implements ActionListener {
         @Override
@@ -417,5 +461,9 @@ public class ExamPresenter {
 
     public JLabel getTimerLbl() {
         return timerLbl;
+    }
+
+    public void setComponent(Canvas component) {
+        component.getParent().addMouseListener(new SluchaczKliknieciaNaFilmie());
     }
 }
