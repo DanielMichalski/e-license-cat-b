@@ -123,7 +123,7 @@ public class ApplicationUtils {
 
         JOptionPane.showMessageDialog(
                 null,
-                "Brak płyty w napędzie. Włóż płytę z aplikacją ePrawko i spróbuj ponownie uruchomić aplikację.",
+                "Brak płyty w napędzie. Włóż płytę z aplikacją Testy B i spróbuj ponownie uruchomić aplikację.",
                 "Błąd",
                 JOptionPane.ERROR_MESSAGE);
 
