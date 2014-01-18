@@ -16,6 +16,6 @@ public class EncrypterTest {
 
     /*@Test
     public void testEncryptFilesInDir() throws Exception {
-        Encrypter.encryptAllFilesInDir("bin/media");
+        Encrypter.encryptAllFilesInDir(PathUtils.getMediaDirPath());
     }*/
 }
