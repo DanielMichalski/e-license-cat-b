@@ -4,6 +4,7 @@ import com.csvreader.CsvReader;
 import encrypt.Encrypter;
 import org.apache.log4j.Logger;
 import util.ApplicationUtils;
+import util.PathUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -41,10 +42,10 @@ public class MediaTest {
                     mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
                 }
 
-                File file = new File("bin" + File.separator + "media" + File.separator + mediaPath);
+                File file = new File(PathUtils.getMediaDirPath() + mediaPath);
                 if (!file.exists()) {
                     logger.info(mediaPath + " nie istnieje");
-                    //continue;
+                    continue;
                 }
 
                 suma++;

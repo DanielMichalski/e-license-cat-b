@@ -5,6 +5,7 @@ import org.apache.poi.util.IOUtils;
 import org.jasypt.util.binary.BasicBinaryEncryptor;
 import util.ApplicationUtils;
 import util.FilesUtils;
+import util.PathUtils;
 
 import javax.swing.*;
 import java.io.File;
@@ -98,7 +99,7 @@ public class Encrypter {
     }
 
     public static void decodeMedia(String mediaPath) {
-        Path oldPath = Paths.get("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
+        Path oldPath = Paths.get(PathUtils.getMediaDirPath() + mediaPath + ".prode");
         Path newPath = Paths.get(FilesUtils.getTempDirPath() + File.separator + mediaPath + ".prode");
         try {
             Encrypter.decryptFile(oldPath, newPath, true);

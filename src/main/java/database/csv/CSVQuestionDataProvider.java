@@ -7,6 +7,7 @@ import encrypt.Encrypter;
 import model.*;
 import org.apache.log4j.Logger;
 import util.ApplicationUtils;
+import util.PathUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -81,14 +82,14 @@ public class CSVQuestionDataProvider {
         YesNoAnswer correctAnser = YesNoAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
         String module = csvReader.get(Q_MODULE);
 
-        String mediaPath = null;
+        String mediaFileName = null;
         if (!csvReader.get(Q_FIRST_MEDIA_PATH).equals("")) {
-            mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
+            mediaFileName = csvReader.get(Q_FIRST_MEDIA_PATH);
         } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
-            mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+            mediaFileName = csvReader.get(Q_SECOND_MEDIA_PATH);
         }
 
-        File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
+        File file = new File(PathUtils.getMediaDirPath() + mediaFileName + ".prode");
         if (!file.exists()) {
             logger.error("Plik nie istnieje: " + file);
             return;
@@ -105,7 +106,7 @@ public class CSVQuestionDataProvider {
                 null,
                 correctAnser,
                 module,
-                mediaPath,
+                mediaFileName,
                 mediaType
         );
 
@@ -121,14 +122,14 @@ public class CSVQuestionDataProvider {
         String answerC = csvReader.get(Q_ANSWER_C);
         String module = csvReader.get(Q_MODULE);
 
-        String mediaPath = null;
+        String mediaFileName = null;
         if (!csvReader.get(Q_FIRST_MEDIA_PATH).equals("")) {
-            mediaPath = csvReader.get(Q_FIRST_MEDIA_PATH);
+            mediaFileName = csvReader.get(Q_FIRST_MEDIA_PATH);
         } else if (!csvReader.get(Q_SECOND_MEDIA_PATH).equals("")) {
-            mediaPath = csvReader.get(Q_SECOND_MEDIA_PATH);
+            mediaFileName = csvReader.get(Q_SECOND_MEDIA_PATH);
         }
 
-        File file = new File("bin" + File.separator + "media" + File.separator + mediaPath + ".prode");
+        File file = new File(PathUtils.getMediaDirPath() + mediaFileName + ".prode");
         if (!file.exists()) {
             logger.error("Plik nie istnieje: " + file);
             return;
@@ -148,7 +149,7 @@ public class CSVQuestionDataProvider {
                 null,
                 correctAnser,
                 module,
-                mediaPath,
+                mediaFileName,
                 mediaType
         );
 
