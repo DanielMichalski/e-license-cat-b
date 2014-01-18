@@ -97,7 +97,7 @@ public class ApplicationUtils {
     }
 
     public static void checkCD() {
-        String cdName = "Testy kat.B v3.0";
+        String cdName = "Testy_kat_B_v3.0";
 
         java.util.List<File> files = Arrays.asList(File.listRoots());
         for (File drv : files) {
