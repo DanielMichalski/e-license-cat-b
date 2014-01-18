@@ -1,8 +1,8 @@
 package ui.main_menu.logic;
 
 import database.dao.TextsDao;
+import ui.emax_info_dialog.model.NextActionType;
 import ui.emax_info_dialog.view.ShowInfoDialog;
-import ui.help.view.HelpDialog;
 import ui.main_menu.view.MainMenuFrame;
 import ui.splash_screen.SplashScreen;
 
@@ -49,7 +49,7 @@ public class MainMenuPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    ShowInfoDialog dialog = new ShowInfoDialog();
+                    ShowInfoDialog dialog = new ShowInfoDialog(NextActionType.start_exam);
                     dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     dialog.setVisible(true);
                 }
@@ -64,9 +64,9 @@ public class MainMenuPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    HelpDialog helpDialog = new HelpDialog();
-                    helpDialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    helpDialog.setVisible(true);
+                    ShowInfoDialog dialog = new ShowInfoDialog(NextActionType.close);
+                    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
                 }
             });
         }
