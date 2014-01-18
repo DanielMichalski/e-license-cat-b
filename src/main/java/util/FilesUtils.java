@@ -55,10 +55,10 @@ public class FilesUtils {
     public static void loadVLCJNativeLibraries() {
         try {
             if (is64bitJavaJREInstalled()) {
-                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx64");
+                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), PathUtils.getVlcLibDirPath() + "VLCx64");
                 logger.info("VLCx64 library loaded correctly");
             } else {
-                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), "bin" + File.separator + "VLCx86");
+                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), PathUtils.getVlcLibDirPath() + "VLCx86");
                 logger.info("VLCx86 library loaded correctly");
             }
         } catch (RuntimeException e) {
