@@ -21,7 +21,7 @@ public class ShowInfoPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        aboutApp = createBtn("bl_ok.png", 300, 800);
+        aboutApp = createBtn("bl_ok.png", 150, 960);
         add(aboutApp);
     }
 
@@ -30,7 +30,7 @@ public class ShowInfoPanel extends JPanel {
 
         JLabel button = new JLabel(imgUn);
         button.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        button.setBounds(x, y, 190, 40);
+        button.setBounds(x, y, 190, 30);
         return button;
     }
 
@@ -38,7 +38,7 @@ public class ShowInfoPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        ImageIcon programImage = ImageUtils.getProgramImage("info.png");
+        ImageIcon programImage = ImageUtils.getProgramImage("info2.png");
         g.drawImage(programImage.getImage(), 0, 0, null);
     }
 
