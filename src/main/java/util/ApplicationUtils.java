@@ -96,9 +96,8 @@ public class ApplicationUtils {
         }).start();
     }
 
-    public static boolean isCDInTheDrive() {
-        //TODO zmienic nazwę płyty
-        String cdName = "VS2013_RTM_WINEXP_ENU";
+    public static void checkCD() {
+        String cdName = "Testy kat.B v3.0";
 
         java.util.List<File> files = Arrays.asList(File.listRoots());
         for (File drv : files) {
@@ -112,11 +111,23 @@ public class ApplicationUtils {
 
             if (drvName.contains(cdName)) {
                 logger.info("Płyta jest w napędzie, można uruchomić aplikację");
-                return true;
+                return;
             }
         }
 
-        return false;
+        showNoCDErrorMessageAndExit();
+    }
+
+    private static void showNoCDErrorMessageAndExit() {
+        logger.error("Brak płyty w napędzie, aplikacja nie może się uruchomić bez płyty. Trwa zamykanie aplikacji.");
+
+        JOptionPane.showMessageDialog(
+                null,
+                "Brak płyty w napędzie. Włóż płytę z aplikacją ePrawko i spróbuj ponownie uruchomić aplikację.",
+                "Błąd",
+                JOptionPane.ERROR_MESSAGE);
+
+        System.exit(1);
     }
 
     private static void showErrorMessage(Exception e) {
