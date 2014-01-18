@@ -11,10 +11,7 @@ import java.awt.*;
 public class RunApplication {
     public static void main(String[] args) {
         ApplicationUtils.setNimbusLookAndFeel();
-
-//TODO odkomentować tą linijkę
-//        ApplicationUtils.checkCD();
-
+        ApplicationUtils.checkCD();
         startApp();
     }
 
