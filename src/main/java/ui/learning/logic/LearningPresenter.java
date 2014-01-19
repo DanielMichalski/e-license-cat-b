@@ -5,7 +5,6 @@ import model.*;
 import org.apache.log4j.Logger;
 import ui.choose_category.view.ChooseCategoryFrame;
 import ui.learning.view.LearningLeftPanel;
-import ui.login.logic.LoginPresenter;
 import ui.main_menu.view.MainMenuFrame;
 import util.ApplicationUtils;
 import util.Const;
