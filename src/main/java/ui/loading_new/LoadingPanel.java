@@ -2,7 +2,6 @@ package ui.loading_new;
 
 import util.Const;
 import util.IconUtils;
-import util.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
