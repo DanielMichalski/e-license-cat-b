@@ -53,23 +53,32 @@ public class FilesUtils {
     }
 
     public static void loadVLCJNativeLibraries() {
-        try {
-            if (is64bitJavaJREInstalled()) {
-                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), PathUtils.getVlcLibDirPath() + "VLCx64");
-                logger.info("VLCx64 library loaded correctly");
-            } else {
-                NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), PathUtils.getVlcLibDirPath() + "VLCx86");
-                logger.info("VLCx86 library loaded correctly");
-            }
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Nie można uruchomić programu, ponieważ wystąpił błąd z załadowaniem biblioteki vlcj. " + e,
-                    "Uwaga",
-                    JOptionPane.ERROR_MESSAGE
-            );
-            System.exit(1);
+        if (is64bitJavaJREInstalled()) {
+            loadLib("VLCx64");
+        } else {
+            loadLib("VLCx86");
         }
+    }
+
+    private static void loadLib(String libName) {
+        File file = new File(PathUtils.getVlcLibDirPath() + libName);
+        if (!file.exists()) {
+            showNoLibErrorAndExit(file.getAbsolutePath());
+        }
+        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), file.getPath());
+
+        logger.info(libName + " library loaded correctly from dir " + file.getAbsolutePath());
+    }
+
+    private static void showNoLibErrorAndExit(String absolutePath) {
+        JOptionPane.showMessageDialog(
+                null,
+                "Nie można uruchomić programu, ponieważ wystąpił błąd z załadowaniem biblioteki vlcj. Folder " + absolutePath + " nie istnieje.",
+                "Uwaga",
+                JOptionPane.ERROR_MESSAGE
+        );
+        System.exit(1);
+
     }
 
     private static boolean is64bitJavaJREInstalled() {
