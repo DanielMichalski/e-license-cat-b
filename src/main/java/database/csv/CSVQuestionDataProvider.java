@@ -53,7 +53,7 @@ public class CSVQuestionDataProvider {
             csvReader = new CsvReader(byteInputStream, ';', Charset.forName("UTF-8"));
             long end = System.currentTimeMillis();
             double time = (double) (end - start) / 1000;
-            logger.info(String.format("Odszyfrowywanie: %.2f sec.", time));
+            logger.info(String.format("Odszyfrowywanie pytań: %.2f sec.", time));
 
             csvReader.readHeaders();
 
