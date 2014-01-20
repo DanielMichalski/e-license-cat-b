@@ -34,6 +34,7 @@ public class ShowInfoPanel extends JPanel {
         return button;
     }
 
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

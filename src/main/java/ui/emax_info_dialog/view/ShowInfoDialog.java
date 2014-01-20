@@ -17,8 +17,8 @@ import java.awt.event.MouseMotionAdapter;
 public class ShowInfoDialog extends JDialog {
     private final NextActionType actionType;
 
-    public static final int HEIGHT = 1000;
-    public static final int WIDTH = 500;
+    public static final int WIDTH = 520;
+    public static final int HEIGHT = 700;
 
     public ShowInfoDialog(NextActionType actionType) {
         this.actionType = actionType;
@@ -34,16 +34,25 @@ public class ShowInfoDialog extends JDialog {
         setTitle(TextsDao.getText("view.ShowInfoAboutExam.title"));
         setModal(true);
         setResizable(false);
-        setWindowRemoveble();
+
     }
 
     private void initializeComponents() {
         ShowInfoPresenter presenter = new ShowInfoPresenter(actionType);
 
-        ShowInfoPanel showInfoPanel = new ShowInfoPanel();
-        add(showInfoPanel);
+        ShowInfoPanel showInfoPanel = new ShowInfoPanel() {
+            @Override
+            public Dimension getPreferredSize() {
+                return new Dimension(490, 1000);
+            }
+        };
 
+        JScrollPane scrollPane = new JScrollPane(showInfoPanel);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        getContentPane().add(scrollPane, BorderLayout.CENTER);
         presenter.setAboutApp(showInfoPanel.getAboutApp(), this);
+
+        setWindowRemoveble();
     }
 
     private void setWindowRemoveble() {
@@ -66,5 +75,4 @@ public class ShowInfoDialog extends JDialog {
             }
         });
     }
-
 }

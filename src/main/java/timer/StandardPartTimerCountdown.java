@@ -9,6 +9,7 @@ import java.awt.*;
  * Date: 07.11.13
  */
 public class StandardPartTimerCountdown extends TimerCountDown {
+    //TODO zmienic
     private int sec = 20;
     private ExamPresenter examPresenter;
     private int secToVid;
@@ -28,7 +29,6 @@ public class StandardPartTimerCountdown extends TimerCountDown {
             } else if (sec < 0) {
                 loadingType = LoadingType.movie;
                 sec = secToVid;
-                return;
             }
         }
 
@@ -37,10 +37,9 @@ public class StandardPartTimerCountdown extends TimerCountDown {
                 examPresenter.getTimerLbl().setText("");
                 examPresenter.getTimerLbl().setForeground(Color.red);
                 examPresenter.showMedia();
-            } else if (sec <= 0) {
+            } else if (sec < 0) {
                 loadingType = LoadingType.answer;
                 sec = 15;
-                return;
             }
         }
 
