@@ -1,7 +1,6 @@
 package ui.login.logic;
 
 import database.dao.TextsDao;
-import database.provider.QuestionsProvider;
 import ui.login.view.IWindowCloser;
 import ui.splash_screen.SplashScreen;
 import util.FilesUtils;
@@ -85,8 +84,6 @@ public class LoginPresenter {
     }
 
     private void loginUser() {
-        shuffleQuestions();
-
         saveFormData();
         iWindowCloser.close();
 
@@ -96,19 +93,6 @@ public class LoginPresenter {
                 new SplashScreen(1, null);
             }
         });
-    }
-
-    private void shuffleQuestions() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                QuestionsProvider questionsProvider =
-                        QuestionsProvider.getInstance();
-                questionsProvider.shuffleSelectedQuestions(3);
-            }
-        });
-
-        thread.start();
     }
 
     private void saveFormData() {

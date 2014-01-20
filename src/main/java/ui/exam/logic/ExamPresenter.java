@@ -64,6 +64,8 @@ public class ExamPresenter {
 
         this.standardQuestions = QuestionsDao.getStandard20Questions();
         this.specialistQuestions = QuestionsDao.getSpecialist12Questions();
+
+        logger.info("Wylosowano nowe pytania do egzaminu");
     }
 
     public void nextQuestion() {

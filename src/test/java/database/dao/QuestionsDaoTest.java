@@ -1,5 +1,6 @@
 package database.dao;
 
+import database.provider.ExamQuestionProvider;
 import database.provider.QuestionsProvider;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
@@ -15,22 +16,24 @@ import static org.junit.Assert.*;
  * Author: Daniel
  */
 public class QuestionsDaoTest {
-    private QuestionsProvider questionsProvider;
+    private ExamQuestionProvider ExamQuestionsProvider;
 
     @Before
     public void setUp() throws Exception {
-        questionsProvider = QuestionsProvider.getInstance();
+        ExamQuestionsProvider = ExamQuestionProvider.getInstance();
     }
 
     @After
     public void tearDown() throws Exception {
-        questionsProvider = null;
+        ExamQuestionsProvider = null;
     }
 
     @Test
     public void testGetAllStandardQuestions() throws Exception {
+        QuestionsProvider questionsProvider = QuestionsProvider.getInstance();
+
         List<StandardQuestion> allStandardQuestions =
-                questionsProvider.getAllStandardQuestionsForExam();
+                questionsProvider.getAllStQuestions();
 
         assertNotNull(allStandardQuestions);
         assertNotEquals(0, allStandardQuestions.size());
@@ -39,7 +42,7 @@ public class QuestionsDaoTest {
     @Test
     public void testGetStandard20Questions() throws Exception {
         List<StandardQuestion> standard20Questions =
-                questionsProvider.getStandard20Questions();
+                ExamQuestionsProvider.getStandard20Questions();
 
         assertNotNull(standard20Questions);
         assertNotEquals(0, standard20Questions.size());
@@ -48,8 +51,10 @@ public class QuestionsDaoTest {
 
     @Test
     public void testGetAllSpecialistQuestions() throws Exception {
+        QuestionsProvider questionsProvider = QuestionsProvider.getInstance();
+
         List<SpecialistQuestion> allSpecialistQuestions =
-                questionsProvider.getAllSpecialistQuestionsForExam();
+                questionsProvider.getAllSpQuestions();
 
         assertNotNull(allSpecialistQuestions);
         assertNotEquals(0, allSpecialistQuestions.size());
@@ -58,7 +63,7 @@ public class QuestionsDaoTest {
     @Test
     public void testGetSpecialist12Questions() throws Exception {
         List<SpecialistQuestion> specialist12Questions =
-                questionsProvider.getSpecialist12Questions();
+                ExamQuestionsProvider.getSpecialist12Questions();
 
         assertNotNull(specialist12Questions);
         assertNotEquals(0, specialist12Questions.size());
