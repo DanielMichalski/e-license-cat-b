@@ -3,7 +3,6 @@ package ui.main_menu.logic;
 import database.dao.TextsDao;
 import ui.emax_info_dialog.model.NextActionType;
 import ui.emax_info_dialog.view.ShowInfoDialog;
-import ui.login.view.LoginFrame;
 import ui.main_menu.view.MainMenuFrame;
 import ui.splash_screen.SplashScreen;
 
@@ -32,11 +31,6 @@ public class MainMenuPresenter {
                 @Override
                 public void run() {
                     SplashScreen splashScreen = new SplashScreen(3, null);
-                    /*
-
-                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
-                    frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    frame.setVisible(true);*/
                 }
             });
         }
@@ -50,9 +44,9 @@ public class MainMenuPresenter {
             EventQueue.invokeLater(new Runnable() {
                 @Override
                 public void run() {
-                    LoginFrame loginFrame = new LoginFrame();
-                    loginFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-                    loginFrame.setVisible(true);
+                    ShowInfoDialog dialog = new ShowInfoDialog(NextActionType.start_exam);
+                    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+                    dialog.setVisible(true);
                 }
             });
 

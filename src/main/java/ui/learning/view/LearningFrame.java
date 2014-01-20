@@ -1,7 +1,7 @@
 package ui.learning.view;
 
 import database.dao.TextsDao;
-import database.provider.QuestionsProvider;
+import database.provider.LearningQuestionProvider;
 import model.Module;
 import model.SpecialistQuestion;
 import model.StandardQuestion;
@@ -26,11 +26,11 @@ public class LearningFrame extends JFrame {
 
     public LearningFrame(Module module) {
 
-        QuestionsProvider questionsProvider = QuestionsProvider.getInstance();
+        LearningQuestionProvider learningProvider = LearningQuestionProvider.getInstance();
 
         this.module = module;
-        this.standardQuestions = questionsProvider.getStanQuestionsByModule(module);
-        this.specialistQuestions = questionsProvider.getSpecQuestionsByModule(module);
+        this.standardQuestions = learningProvider.getStanQuestionsByModule(module);
+        this.specialistQuestions = learningProvider.getSpecQuestionsByModule(module);
 
         setUpFrame();
         initializeComponents();

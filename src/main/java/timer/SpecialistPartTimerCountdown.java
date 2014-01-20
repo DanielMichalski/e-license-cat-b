@@ -2,6 +2,8 @@ package timer;
 
 import ui.exam.logic.ExamPresenter;
 
+import java.awt.*;
+
 /**
  * Author: Daniel
  * Date: 03.11.13
@@ -16,6 +18,7 @@ public class SpecialistPartTimerCountdown extends TimerCountDown {
 
     @Override
     public void run() {
+        examPresenter.getTimerLbl().setForeground(Color.red);
         if (sec == 50) {
             examPresenter.showMedia();
             examPresenter.getTimerLbl().setText("" + sec);

@@ -40,8 +40,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
     public ExamQuestionsLeftPanel() {
         setUpPanel();
         initializeComponents();
-
-
     }
 
     private void setUpPanel() {

@@ -1,15 +1,12 @@
 package test.main;
 
-import database.provider.QuestionsProvider;
 import model.Module;
-import model.SpecialistQuestion;
-import model.StandardQuestion;
 import ui.learning.view.LearningFrame;
 import util.ApplicationUtils;
+import util.FilesUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 /**
  * Author: Daniel
@@ -19,11 +16,8 @@ public class LearningTest {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
+                FilesUtils.loadVLCJNativeLibraries();
                 ApplicationUtils.setNimbusLookAndFeel();
-
-                QuestionsProvider instance = QuestionsProvider.getInstance();
-                List<StandardQuestion> standardQuestionList = instance.getStanQuestionsByModule(new Module(10, "test"));
-                List<SpecialistQuestion> specialistQuestions = instance.getSpecQuestionsByModule(new Module(10, "test"));
 
                 LearningFrame learningFrame = new LearningFrame(new Module(1, "Testowy"));
                 learningFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
