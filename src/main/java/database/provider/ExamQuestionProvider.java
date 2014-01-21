@@ -57,7 +57,7 @@ public class ExamQuestionProvider {
     }
 
     public void shuffleAndSetQuestions() {
-        shuffleAllQuestions(30);
+        shuffleAllQuestions();
         setQuestions();
     }
 
@@ -72,11 +72,12 @@ public class ExamQuestionProvider {
 
         set20StandardQuestions();
         set12SpecialistQuestions();
+        shuffleSelectedQuestions();
     }
 
-    private void shuffleAllQuestions(int howManyTimes) {
+    private void shuffleAllQuestions() {
         Random random = new Random();
-        int x = random.nextInt(howManyTimes) + 1;
+        int x = random.nextInt(30) + 1;
 
         for (int i = 0; i < x; i++) {
             Collections.shuffle(allStQuestions);
@@ -84,9 +85,20 @@ public class ExamQuestionProvider {
         }
     }
 
+    public void shuffleSelectedQuestions() {
+        Random random = new Random();
+        int x = random.nextInt(25) + 1;
+
+        for (int i = 0; i < x; i++) {
+            Collections.shuffle(standard20Questions);
+            Collections.shuffle(specialist12Questions);
+        }
+    }
+
     private void setStandQuestions(List<StandardQuestion> questions, int howManyPoints, int howManyQuestions) {
         int i = 0;
 
+        questions.clear();
         for (StandardQuestion standardQuestion : allStQuestions) {
             if (standardQuestion.getPoints() == howManyPoints) {
                 questions.add(standardQuestion);
@@ -102,6 +114,7 @@ public class ExamQuestionProvider {
     private void setSpecQuestions(List<SpecialistQuestion> questions, int howManyPoints, int howManyQuestions) {
         int i = 0;
 
+        questions.clear();
         for (SpecialistQuestion specialistQuestion : allSpQuestions) {
             if (specialistQuestion.getPoints() == howManyPoints) {
                 questions.add(specialistQuestion);
