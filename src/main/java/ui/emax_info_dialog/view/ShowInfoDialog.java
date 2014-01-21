@@ -48,7 +48,7 @@ public class ShowInfoDialog extends JDialog {
         };
 
         JScrollPane scrollPane = new JScrollPane(showInfoPanel);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(15);
         getContentPane().add(scrollPane, BorderLayout.CENTER);
         presenter.setAboutApp(showInfoPanel.getAboutApp(), this);
 
