@@ -40,7 +40,12 @@ public class ExamQuestionProvider {
         this.allSpQuestions = new ArrayList<SpecialistQuestion>(provider.getAllSpQuestions());
 
         initializeLists();
+
+        long start = System.currentTimeMillis();
         shuffleAndSetQuestions();
+        long end = System.currentTimeMillis();
+        double time = (double) (end - start) / 1000;
+        logger.info(String.format("Losowanie pytań do egzaminu trwało: %.2f sec.", time));
     }
 
     private void initializeLists() {
@@ -87,7 +92,7 @@ public class ExamQuestionProvider {
 
     public void shuffleSelectedQuestions() {
         Random random = new Random();
-        int x = random.nextInt(25) + 1;
+        int x = random.nextInt(40) + 1;
 
         for (int i = 0; i < x; i++) {
             Collections.shuffle(standard20Questions);
