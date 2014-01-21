@@ -1,14 +1,13 @@
 package test.main;
 
-import ui.emax_info_dialog.model.NextActionType;
-import ui.emax_info_dialog.view.ShowInfoDialog;
+import ui.application_info.view.ShowInfoDialog;
 
 /**
  * Author: Daniel
  */
 public class ShowInfoDialogTest {
     public static void main(String[] args) {
-        ShowInfoDialog showInfoDialogTest = new ShowInfoDialog(NextActionType.start_exam);
+        ShowInfoDialog showInfoDialogTest = new ShowInfoDialog();
         showInfoDialogTest.setVisible(true);
     }
 }
