@@ -1,4 +1,4 @@
-package ui.emax_info_dialog.view;
+package ui.application_info.view;
 
 import util.ImageUtils;
 
