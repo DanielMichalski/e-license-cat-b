@@ -12,7 +12,7 @@ public class RunApplication {
     public static void main(String[] args) {
         ApplicationUtils.setNimbusLookAndFeel();
         ApplicationUtils.checkCD();
-//        startApp();
+        startApp();
     }
 
     private static void startApp() {
