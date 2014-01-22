@@ -1,8 +1,7 @@
-package ui.emax_info_dialog.view;
+package ui.application_info.view;
 
 import database.dao.TextsDao;
-import ui.emax_info_dialog.logic.ShowInfoPresenter;
-import ui.emax_info_dialog.model.NextActionType;
+import ui.application_info.logic.ShowInfoPresenter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,14 +14,11 @@ import java.awt.event.MouseMotionAdapter;
  * Date: 02.11.13
  */
 public class ShowInfoDialog extends JDialog {
-    private final NextActionType actionType;
 
     public static final int WIDTH = 520;
     public static final int HEIGHT = 700;
 
-    public ShowInfoDialog(NextActionType actionType) {
-        this.actionType = actionType;
-
+    public ShowInfoDialog() {
         setUpDialog();
         initializeComponents();
         setLocationRelativeTo(null);
@@ -31,14 +27,14 @@ public class ShowInfoDialog extends JDialog {
     private void setUpDialog() {
         setSize(new Dimension(WIDTH, HEIGHT));
         setUndecorated(true);
-        setTitle(TextsDao.getText("view.ShowInfoAboutExam.title"));
+        setTitle(TextsDao.getText("view.ShowInfoAboutApp.title"));
         setModal(true);
         setResizable(false);
 
     }
 
     private void initializeComponents() {
-        ShowInfoPresenter presenter = new ShowInfoPresenter(actionType);
+        ShowInfoPresenter presenter = new ShowInfoPresenter();
 
         ShowInfoPanel showInfoPanel = new ShowInfoPanel() {
             @Override
