@@ -86,15 +86,20 @@ public class Encrypter {
         }
     }
 
-    public static void encryptAllFilesInDir(String dirName) throws IOException {
-        File dir = new File(dirName);
-        File[] files = dir.listFiles();
+    public static void encryptAllFilesInChoosenDir() throws IOException {
+        JFileChooser fChooser = new JFileChooser();
+        fChooser.setAcceptAllFileFilterUsed(true);
+        int result = fChooser.showOpenDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File dir = fChooser.getSelectedFile().getParentFile();
+            File[] files = dir.listFiles();
 
-        for (File file : files) {
-            Path oldFile = Paths.get(file.getAbsolutePath());
-            Path newFile = Paths.get(file.getAbsolutePath());
+            for (File file : files) {
+                Path oldFile = Paths.get(file.getAbsolutePath());
+                Path newFile = Paths.get(file.getAbsolutePath());
 
-            encryptFile(oldFile, newFile);
+                encryptFile(oldFile, newFile);
+            }
         }
     }
 
