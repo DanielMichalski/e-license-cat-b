@@ -65,7 +65,7 @@ public class FilesUtils {
         if (!file.exists()) {
             showNoLibErrorAndExit(file.getAbsolutePath());
         }
-        NativeLibrary.addSearchPath(RuntimeUtil.getLibVlcLibraryName(), file.getPath());
+        NativeLibrary.addSearchPath("libvlc", file.getAbsolutePath());
 
         logger.info(libName + " library loaded correctly from dir " + file.getAbsolutePath());
     }
