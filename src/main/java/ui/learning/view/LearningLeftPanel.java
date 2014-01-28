@@ -45,16 +45,20 @@ public class LearningLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-        component = new Canvas();
-        player = mediaPlayerFactory.newEmbeddedMediaPlayer();
-        player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
+        try {
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            component = new Canvas();
+            player = mediaPlayerFactory.newEmbeddedMediaPlayer();
+            player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
-        setLayout(null);
-        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-        setAlignmentX(Component.LEFT_ALIGNMENT);
-        setBorder(emptyBorder);
+            Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+            setLayout(null);
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+            setAlignmentX(Component.LEFT_ALIGNMENT);
+            setBorder(emptyBorder);
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 
     private void initializeComponents() {
