@@ -3,10 +3,12 @@ package util;
 import database.dao.TextsDao;
 import database.provider.ModuleProvider;
 import database.provider.QuestionsProvider;
+import encrypt.Encrypter;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import ui.exam.logic.ExamPresenter;
 import ui.main_menu.view.MainMenuFrame;
+import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -147,5 +149,26 @@ public class ApplicationUtils {
         final Logger logger = Logger.getLogger(className);
         PropertyConfigurator.configure(ApplicationUtils.class.getResource("/log4j.properties"));
         return logger;
+    }
+
+    public static void prepareAndPlayMedia(EmbeddedMediaPlayer player, String mediaTitle) {
+        try {
+            String mrl = FilesUtils.getTempDirPath() + File.separator + mediaTitle + ".prode";
+            Encrypter.decodeMedia(mediaTitle);
+            logger.info("Loading image: " + mediaTitle + ".prode");
+            FilesUtils.showIfFileExists(mrl, mediaTitle);
+
+            player.stop();
+            boolean lodedCorrectly = player.prepareMedia(mrl);
+
+            if (!lodedCorrectly) {
+                logger.error("Wystąpił błąd podczas załadowania pliku: " + mediaTitle);
+            }
+
+            player.parseMedia();
+            player.play();
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
 }

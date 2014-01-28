@@ -2,7 +2,6 @@ package util;
 
 import com.sun.jna.NativeLibrary;
 import org.apache.log4j.Logger;
-import uk.co.caprica.vlcj.runtime.RuntimeUtil;
 
 import javax.swing.*;
 import java.io.File;
@@ -85,5 +84,15 @@ public class FilesUtils {
     private static boolean is64bitJavaJREInstalled() {
         String osArch = System.getProperty("sun.arch.data.model");
         return osArch != null && osArch.equals("64");
+    }
+
+    public static void showIfFileExists(String mrl, String fileName) {
+        File file = new File(mrl);
+
+        if (file.exists()) {
+            logger.info("Plik istnieje: " + fileName);
+        } else {
+            logger.error("Plik nie istnieje: " + fileName);
+        }
     }
 }
