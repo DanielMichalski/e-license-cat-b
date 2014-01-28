@@ -1,7 +1,6 @@
 package ui.learning.view;
 
 import database.dao.TextsDao;
-import encrypt.Encrypter;
 import model.ABCAnswer;
 import model.YesNoAnswer;
 import org.apache.log4j.Logger;
@@ -9,12 +8,10 @@ import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.ApplicationUtils;
 import util.Const;
-import util.FilesUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.io.File;
 
 /**
  * Author: Daniel
@@ -275,32 +272,12 @@ public class LearningLeftPanel extends JPanel {
         repaint();
     }
 
-    public void setImageName(String imageName) {
-        logger.info("Loading image: " + imageName + ".prode");
-        Encrypter.decodeMedia(imageName);
-
-        try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-            player.parseMedia();
-            player.play();
-        } catch (Exception e) {
-            logger.error(e);
-        }
+    public void setImageName(String mediaTitle) {
+        ApplicationUtils.prepareAndPlayMedia(player, mediaTitle);
     }
 
-    public void setVideoName(String videoName) {
-        logger.info("Loading video: " + videoName + ".prode");
-        Encrypter.decodeMedia(videoName);
-
-        try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
-            player.parseMedia();
-            player.play();
-        } catch (Exception e) {
-            logger.error(e);
-        }
+    public void setVideoName(String mediaTitle) {
+        ApplicationUtils.prepareAndPlayMedia(player, mediaTitle);
     }
 
     public void unmarkAllBtns() {

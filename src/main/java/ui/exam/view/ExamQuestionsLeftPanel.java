@@ -1,18 +1,15 @@
 package ui.exam.view;
 
 import database.dao.TextsDao;
-import encrypt.Encrypter;
 import org.apache.log4j.Logger;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.ApplicationUtils;
 import util.Const;
-import util.FilesUtils;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.io.File;
 
 /**
  * Author: Daniel
@@ -43,19 +40,22 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     private void setUpPanel() {
-        MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
-        component = new Canvas();
-        player = mediaPlayerFactory.newEmbeddedMediaPlayer();
-        player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
+        try {
+            MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
+            component = new Canvas();
+            player = mediaPlayerFactory.newEmbeddedMediaPlayer();
+            player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
 
-        Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+            Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
-        setLayout(null);
-        setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
-        setAlignmentX(Component.LEFT_ALIGNMENT);
-        setBorder(emptyBorder);
+            setLayout(null);
+            setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
+            setAlignmentX(Component.LEFT_ALIGNMENT);
+            setBorder(emptyBorder);
+        } catch (Exception e) {
+            logger.error(e);
+        }
     }
-
 
     private void initializeComponents() {
         JPanel imagePanel = getImagePanel();
@@ -181,59 +181,19 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void showWaitImageImage() {
-        logger.info("Loading image: wait_photo.prode");
-        Encrypter.decodeMedia("wait_photo");
-
-        try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_photo.prode");
-            player.parseMedia();
-            player.play();
-        } catch (Exception e) {
-            logger.error(e);
-        }
+        ApplicationUtils.prepareAndPlayMedia(player, "wait_photo");
     }
 
     public void showWaitVideoImage() {
-        logger.info("Loading image: wait_video.prode");
-        Encrypter.decodeMedia("wait_video");
-
-        try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + "wait_video.prode");
-            player.parseMedia();
-            player.play();
-        } catch (Exception e) {
-            logger.error(e);
-        }
+        ApplicationUtils.prepareAndPlayMedia(player, "wait_video");
     }
 
-    public void setImageName(String imageName) {
-        logger.info("Loading image: " + imageName + ".prode");
-        Encrypter.decodeMedia(imageName);
-
-        try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + imageName + ".prode");
-            player.parseMedia();
-            player.play();
-        } catch (Exception e) {
-            logger.error(e);
-        }
+    public void setImageName(String mediaTitle) {
+        ApplicationUtils.prepareAndPlayMedia(player, mediaTitle);
     }
 
-    public void setVideoName(String videoName) {
-        logger.info("Loading video: " + videoName + ".prode");
-        Encrypter.decodeMedia(videoName);
-
-        try {
-            player.stop();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + videoName + ".prode");
-            player.parseMedia();
-            player.play();
-        } catch (Exception e) {
-            logger.error(e);
-        }
+    public void setVideoName(String mediaTitle) {
+        ApplicationUtils.prepareAndPlayMedia(player, mediaTitle);
     }
 
     public void enableAllBtns() {
