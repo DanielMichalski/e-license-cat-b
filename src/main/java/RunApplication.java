@@ -15,7 +15,7 @@ public class RunApplication {
     public static void main(String[] args) {
         try {
             ApplicationUtils.setNimbusLookAndFeel();
-//        ApplicationUtils.checkCD();
+            ApplicationUtils.checkCD();
             startApp();
         } catch (Exception e) {
             logger.error(e);
