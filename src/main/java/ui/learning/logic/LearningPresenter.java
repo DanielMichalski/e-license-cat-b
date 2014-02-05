@@ -29,11 +29,12 @@ public class LearningPresenter {
     private LearningLeftPanel learningLeftPanel;
 
     private JButton playMovieBtn;
-    private JButton yesBtn;
-    private JButton noBtn;
-    private JButton btnA;
-    private JButton btnB;
-    private JButton btnC;
+
+    private JTextArea yesBtn;
+    private JTextArea noBtn;
+    private JTextArea btnA;
+    private JTextArea btnB;
+    private JTextArea btnC;
 
     private JLabel howManyPointsForQuestionLbl;
     private JTextArea questionArea;
@@ -53,7 +54,7 @@ public class LearningPresenter {
         this.random = new Random();
     }
 
-    private void markBtn(JButton whichButtonToMark) {
+    private void markBtn(JTextArea whichButtonToMark) {
         unmarkBtns();
         whichButtonToMark.setBackground(Const.Colors.CLICKED_BTN_COLOR);
     }
@@ -132,37 +133,37 @@ public class LearningPresenter {
                 JOptionPane.INFORMATION_MESSAGE);
     }
 
-    class YesBtnListener implements ActionListener {
+    class YesBtnListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             markBtn(yesBtn);
         }
     }
 
-    class NoBtnListener implements ActionListener {
+    class NoBtnListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             markBtn(noBtn);
         }
     }
 
-    class ABtnListener implements ActionListener {
+    class ABtnListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             markBtn(btnA);
         }
     }
 
-    class BBtnListener implements ActionListener {
+    class BBtnListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             markBtn(btnB);
         }
     }
 
-    class CBtnListener implements ActionListener {
+    class CBtnListener extends MouseAdapter {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             markBtn(btnC);
         }
     }
@@ -296,19 +297,19 @@ public class LearningPresenter {
         this.learningLeftPanel = learningLeftPanel;
 
         this.yesBtn = learningLeftPanel.getYesBtn();
-        this.yesBtn.addActionListener(new YesBtnListener());
+        this.yesBtn.addMouseListener(new YesBtnListener());
 
         this.noBtn = learningLeftPanel.getNoBtn();
-        this.noBtn.addActionListener(new NoBtnListener());
+        this.noBtn.addMouseListener(new NoBtnListener());
 
         this.btnA = learningLeftPanel.getBtnA();
-        this.btnA.addActionListener(new ABtnListener());
+        this.btnA.addMouseListener(new ABtnListener());
 
         this.btnB = learningLeftPanel.getBtnB();
-        this.btnB.addActionListener(new BBtnListener());
+        this.btnB.addMouseListener(new BBtnListener());
 
         this.btnC = learningLeftPanel.getBtnC();
-        this.btnC.addActionListener(new CBtnListener());
+        this.btnC.addMouseListener(new CBtnListener());
     }
 
     public void setCategoryChooseBtn(JButton categoryChooseButton, Window window) {

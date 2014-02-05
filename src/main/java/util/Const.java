@@ -13,8 +13,10 @@ public class Const {
         Color TIMER_FONT_COLOR = new Color(192, 27, 14);
         Color POSITIVE_RESULT_COLOR = new Color(83, 170, 12);
         Color NEGATIVE_RESULT_COLOR = new Color(192, 27, 14);
-        Color CLICKED_BTN_COLOR = new Color(12, 52, 168);
+        Color CLICKED_BTN_COLOR = new Color(54, 94, 168);
         Color HOW_MANY_POINTS_BORDER_COLOR = new Color(128, 125, 122);
+        Color BTN_UNSELECTED_COLOR = new Color(219, 219, 219);
+        Color BTN_BORDER_COLOR = new Color(128, 125, 122);
     }
 
     public static interface Fonts {
@@ -22,7 +24,7 @@ public class Const {
         Font TIMER_FONT = new Font("Arial", Font.PLAIN, 48);
         Font IS_PASSED_OR_NO_LBL_FONT = new Font("Arial", Font.PLAIN, 48);
         Font RESULT_POINT_FONT = new Font("Arial", Font.PLAIN, 30);
-        Font BTNS_YES_NO_FONT = new Font("Arial", Font.PLAIN, 14);
+        Font BTNS_YES_NO_FONT = new Font("Arial", Font.PLAIN, 15);
         Font BTNS_ABC_FONT = new Font("Arial", Font.PLAIN, 13);
         Font BTN_CONFIRM_FONT = new Font("Arial", Font.PLAIN, 14);
         Font NORMAL_FONT = new Font("Arial", Font.PLAIN, 14);
