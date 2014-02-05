@@ -26,11 +26,11 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     private JTextArea questionTextArea;
 
-    private JButton yesBtn;
-    private JButton noBtn;
-    private JButton btnA;
-    private JButton btnB;
-    private JButton btnC;
+    private JTextArea yesBtn;
+    private JTextArea noBtn;
+    private JTextArea btnA;
+    private JTextArea btnB;
+    private JTextArea btnC;
 
     private Color defaultColor;
 
@@ -141,27 +141,39 @@ public class ExamQuestionsLeftPanel extends JPanel {
         return buttonPanel;
     }
 
-    private JButton createYesNoBtn(String label) {
-        JButton button = new JButton(label);
-        button.setAlignmentX(CENTER_ALIGNMENT);
-        button.setFont(Const.Fonts.BTNS_YES_NO_FONT);
-        button.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
-        button.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
-        button.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
-        button.setHorizontalAlignment(SwingConstants.CENTER);
-        button.setFocusable(false);
-        return button;
+    private JTextArea createYesNoBtn(String label) {
+        JTextArea textArea = new JTextArea(label);
+        textArea.setAlignmentX(CENTER_ALIGNMENT);
+        textArea.setFont(Const.Fonts.BTNS_YES_NO_FONT);
+        textArea.setPreferredSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        textArea.setMinimumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+        textArea.setMaximumSize(Const.Dimensions.EXAM_YES_NO_BTN_SIZE);
+
+        textArea.setFocusable(false);
+        textArea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        Border compoundBorder = BorderFactory.createLineBorder(Const.Colors.BTN_BORDER_COLOR, 1, true);
+        textArea.setBorder(BorderFactory.createCompoundBorder(compoundBorder,
+                BorderFactory.createEmptyBorder(20, 150, 10, 10)));
+        return textArea;
     }
 
-    private JButton createABCBtn() {
-        JButton button = new JButton();
-        button.setFont(Const.Fonts.BTNS_ABC_FONT);
-        button.setPreferredSize(Const.Dimensions.ABC_BTNS_SIZE);
-        button.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
-        button.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
-        button.setHorizontalAlignment(SwingConstants.LEFT);
-        button.setFocusable(false);
-        return button;
+    private JTextArea createABCBtn() {
+        JTextArea textArea = new JTextArea();
+        textArea.setFont(Const.Fonts.BTNS_ABC_FONT);
+        textArea.setPreferredSize(Const.Dimensions.ABC_BTNS_SIZE);
+        textArea.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
+        textArea.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
+
+        textArea.setFocusable(false);
+        textArea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        Border compoundBorder = BorderFactory.createLineBorder(Const.Colors.BTN_BORDER_COLOR, 1, true);
+        textArea.setBorder(BorderFactory.createCompoundBorder(compoundBorder,
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        return textArea;
     }
 
     public void setQestion(String qestion) {
@@ -197,30 +209,30 @@ public class ExamQuestionsLeftPanel extends JPanel {
     }
 
     public void enableAllBtns() {
-        yesBtn.setBackground(defaultColor);
-        noBtn.setBackground(defaultColor);
-        btnA.setBackground(defaultColor);
-        btnB.setBackground(defaultColor);
-        btnC.setBackground(defaultColor);
+        yesBtn.setBackground(Const.Colors.BTN_UNSELECTED_COLOR);
+        noBtn.setBackground(Const.Colors.BTN_UNSELECTED_COLOR);
+        btnA.setBackground(Const.Colors.BTN_UNSELECTED_COLOR);
+        btnB.setBackground(Const.Colors.BTN_UNSELECTED_COLOR);
+        btnC.setBackground(Const.Colors.BTN_UNSELECTED_COLOR);
     }
 
-    public JButton getYesBtn() {
+    public JTextArea getYesBtn() {
         return yesBtn;
     }
 
-    public JButton getNoBtn() {
+    public JTextArea getNoBtn() {
         return noBtn;
     }
 
-    public JButton getBtnA() {
+    public JTextArea getBtnA() {
         return btnA;
     }
 
-    public JButton getBtnB() {
+    public JTextArea getBtnB() {
         return btnB;
     }
 
-    public JButton getBtnC() {
+    public JTextArea getBtnC() {
         return btnC;
     }
 }
