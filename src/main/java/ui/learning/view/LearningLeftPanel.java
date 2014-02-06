@@ -158,7 +158,7 @@ public class LearningLeftPanel extends JPanel {
         textArea.setWrapStyleWord(true);
         Border compoundBorder = BorderFactory.createLineBorder(Const.Colors.BTN_BORDER_COLOR, 1, true);
         textArea.setBorder(BorderFactory.createCompoundBorder(compoundBorder,
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+                BorderFactory.createEmptyBorder(20, 160, 10, 10)));
         return textArea;
     }
 
