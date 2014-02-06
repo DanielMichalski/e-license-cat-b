@@ -1,9 +1,6 @@
 package pdf;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Font;
-import com.lowagie.text.Paragraph;
+import com.lowagie.text.*;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
@@ -11,6 +8,7 @@ import model.SpecialistQuestion;
 import model.StandardQuestion;
 import org.apache.log4j.Logger;
 import util.ApplicationUtils;
+import util.ExamUtil;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -39,6 +37,8 @@ public class PDFGenerator {
     String pesel = System.getProperty("pesel");
 
     private Font fNormal;
+    private Font fBig;
+    private Font fBigger;
     private Font fBold;
 
     public PDFGenerator(List<StandardQuestion> standardQuestions,
@@ -55,6 +55,8 @@ public class PDFGenerator {
         try {
             BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
             fNormal = new Font(bf, 8, Font.NORMAL);
+            fBig = new Font(bf, 10, Font.NORMAL);
+            fBigger = new Font(bf, 16, Font.NORMAL);
             fBold = new Font(bf, 8, Font.BOLD);
         } catch (Exception e) {
             logger.error(e);
@@ -83,6 +85,7 @@ public class PDFGenerator {
     private void savePDF() throws Exception {
 
         Document document = new Document();
+        document.setMargins(30, 30, 10, 10);
 
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setFileFilter(new FileNameExtensionFilter("Plik PDF", ".pdf"));
@@ -123,18 +126,20 @@ public class PDFGenerator {
         PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
         addToTable(table2, false);
 
-        document.add(new Paragraph("Imię i nazwisko: " + imie + " " + nazwisko, fNormal));
-        document.add(new Paragraph("PESEL: " + pesel, fNormal));
-        document.add(new Paragraph("Liczba uzyskanych punktów: " + userPoints + " z " + maxPosiblePoints, fNormal));
-        document.add(new Paragraph("Data egzaminu: " + getDateInString(), fNormal));
+        Paragraph examInfoText = new Paragraph(ExamUtil.getExamResultFromPoints(userPoints), fBigger);
+        examInfoText.setAlignment(Element.ALIGN_CENTER);
+        document.add(examInfoText);
+
+        document.add(new Paragraph("Imię i nazwisko: " + imie + " " + nazwisko, fBig));
+        document.add(new Paragraph("PESEL: " + pesel, fBig));
+        document.add(new Paragraph("Liczba uzyskanych punktów: " + userPoints + " z " + maxPosiblePoints, fBig));
+        document.add(new Paragraph("Data egzaminu: " + getDateInString(), fBig));
         document.add(new Paragraph(" "));
 
         document.add(table1);
-
         document.add(new Paragraph(" "));
-
         document.add(table2);
-
+        addFooter(document);
         document.close();
 
         logger.info("Pomyślnie zapisano plik PDF");
@@ -142,6 +147,21 @@ public class PDFGenerator {
                 "Pomyślnie zapisano plik PDF",
                 "Informacja",
                 JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void addFooter(Document document) throws DocumentException {
+        PdfPTable table = new PdfPTable(new float[]{12f, 12f});
+        table.setSpacingBefore(15);
+        table.getDefaultCell().setBorder(Rectangle.NO_BORDER);
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
+        table.getDefaultCell().setVerticalAlignment(Element.ALIGN_BOTTOM);
+
+        table.addCell(new Paragraph("......................................................................................", fNormal));
+        table.addCell(new Paragraph("......................................................................................", fNormal));
+        table.addCell(new Paragraph("Podpis osoby egzaminowanej", fNormal));
+        table.addCell(new Paragraph("Podpis i pieczątka osoby egzaminującej", fNormal));
+
+        document.add(table);
     }
 
     private String getDateInString() {
@@ -153,18 +173,20 @@ public class PDFGenerator {
 
     private void addToTable(PdfPTable table, boolean standardQuestions) throws IOException, DocumentException {
 
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(new Paragraph("Nr", fBold));
 
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
         if (standardQuestions) {
-            table.addCell(new Paragraph("Pytanie standardowe", fBold));
+            table.addCell(new Paragraph("Pytanie podstawowe", fBold));
         } else {
             table.addCell(new Paragraph("Pytanie specjalistyczne", fBold));
         }
+        table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
 
         table.addCell(new Paragraph("Waga pytania", fBold));
         table.addCell(new Paragraph("Odpowiedź użytkownika", fBold));
         table.addCell(new Paragraph("Prawidłowa odpowiedź", fBold));
-
 
         if (standardQuestions) {
             addStandardQuestionsToTable(table);
@@ -189,7 +211,9 @@ public class PDFGenerator {
             }
 
             table.addCell(questionNumber);
+            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
             table.addCell(question);
+            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(points);
             table.addCell(userAnswer);
             table.addCell(correctAnswer);

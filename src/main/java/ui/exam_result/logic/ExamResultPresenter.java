@@ -6,6 +6,7 @@ import pdf.PDFGenerator;
 import ui.exam_result.view.ExamResultLeftPanel;
 import ui.exam_result.view.ExamResultRightPanel;
 import ui.main_menu.view.MainMenuFrame;
+import util.ExamUtil;
 import util.FilesUtils;
 
 import javax.swing.*;
@@ -25,8 +26,6 @@ public class ExamResultPresenter {
 
     private ExamResultLeftPanel leftPanel;
     private ExamResultRightPanel rightPanel;
-
-    public static final int HOW_MANY_POINTS_TO_PASS = 69;
 
     public ExamResultPresenter(JDialog examResultFrame,
                                List<StandardQuestion> standardQuestions,
@@ -54,7 +53,7 @@ public class ExamResultPresenter {
         int userPoints = countUserPoints();
         int allPoints = countAllPoints();
 
-        boolean isPassed = userPoints >= HOW_MANY_POINTS_TO_PASS;
+        boolean isPassed = ExamUtil.isPassedExam(userPoints);
         rightPanel.setExamResult(isPassed, userPoints, allPoints);
 
         setNumberOfStandardQuestion(1);
