@@ -13,7 +13,6 @@ import static database.columns.QuestionColumnNames.*;
 
 /**
  * Author: Daniel
- * Date: 05.11.13
  */
 public class XLSUtil {
     public static Module getModuleFromRow(Row row) {

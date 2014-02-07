@@ -13,7 +13,6 @@ import java.util.List;
 
 /**
  * Author: Daniel
- * Date: 09.11.13
  */
 public class ResultSpecialistBallsPanel extends JPanel {
     private ExamResultPresenter presenter;

@@ -6,7 +6,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 07.11.13
  */
 public class StandardPartTimerCountdown extends TimerCountDown {
     //TODO zmienic

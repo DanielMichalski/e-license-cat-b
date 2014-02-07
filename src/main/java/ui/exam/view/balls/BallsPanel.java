@@ -8,7 +8,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 04.11.13
  */
 public abstract class BallsPanel extends JPanel {
     protected int howManyBalls;

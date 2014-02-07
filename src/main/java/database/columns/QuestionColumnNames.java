@@ -2,7 +2,6 @@ package database.columns;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class QuestionColumnNames {
     public static final int Q_POINTS = 3;

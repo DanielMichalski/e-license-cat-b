@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 /**
  * Author: Daniel
- * Date: 05.11.13
  */
 public class ApplicationUtils {
     private static final Logger logger = getLogger(ExamPresenter.class);
