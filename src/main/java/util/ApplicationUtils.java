@@ -78,8 +78,8 @@ public class ApplicationUtils {
             @Override
             public void run() {
                 try {
-                    FilesUtils.createTempFolder();
-                    FilesUtils.deleteTempFolderContent();
+                    FileUtils.createTempFolder();
+                    FileUtils.deleteTempFolderContent();
                     readQuestions();
                     window.dispose();
 
@@ -152,10 +152,10 @@ public class ApplicationUtils {
 
     public static void prepareAndPlayMedia(EmbeddedMediaPlayer player, String mediaTitle) {
         try {
-            String mrl = FilesUtils.getTempDirPath() + File.separator + mediaTitle + ".prode";
+            String mrl = FileUtils.getTempDirPath() + File.separator + mediaTitle + ".prode";
             Encrypter.decodeMedia(mediaTitle);
             logger.info("Loading image: " + mediaTitle + ".prode");
-            FilesUtils.showIfFileExists(mrl, mediaTitle);
+            FileUtils.showIfFileExists(mrl, mediaTitle);
 
             player.stop();
             boolean lodedCorrectly = player.prepareMedia(mrl);

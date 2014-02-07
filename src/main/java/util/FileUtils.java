@@ -9,12 +9,12 @@ import java.io.File;
 /**
  * Author: Daniel
  */
-public class FilesUtils {
-    private static Logger logger = ApplicationUtils.getLogger(FilesUtils.class);
+public class FileUtils {
+    private static Logger logger = ApplicationUtils.getLogger(FileUtils.class);
 
     public static void createTempFolder() {
         try {
-            File file = new File(FilesUtils.getTempDirPath());
+            File file = new File(FileUtils.getTempDirPath());
             if (!file.exists()) {
                 boolean mkdir = file.mkdirs();
                 if (!mkdir) {
@@ -37,7 +37,7 @@ public class FilesUtils {
     }
 
     public static void deleteTempFolderContent() {
-        File dir = new File(FilesUtils.getTempDirPath());
+        File dir = new File(FileUtils.getTempDirPath());
         File[] files = dir.listFiles();
 
         if (files != null) {

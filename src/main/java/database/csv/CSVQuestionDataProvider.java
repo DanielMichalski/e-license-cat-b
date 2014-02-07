@@ -38,12 +38,16 @@ public class CSVQuestionDataProvider {
         readQuestions();
         long end = System.currentTimeMillis();
         double time = (double) (end - start) / 1000;
+
+        logger.info("Wczytanych standardowych pytań: " + standardQuestions.size());
+        logger.info("Wczytanych specjalistycznych pytań: " + specialistQuestions.size());
+
         logger.info(String.format("Wczytywanie pytań: %.2f sec.", time));
     }
 
     private void readQuestions() {
         try {
-            InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/q_enc");
+            InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/q_enc_temp");
             ApplicationUtils.checkResource(resourceAsStream);
             byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 

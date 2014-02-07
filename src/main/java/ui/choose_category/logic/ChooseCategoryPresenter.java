@@ -3,7 +3,7 @@ package ui.choose_category.logic;
 import model.Module;
 import ui.main_menu.view.MainMenuFrame;
 import ui.splash_screen.SplashScreen;
-import util.FilesUtils;
+import util.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -58,7 +58,7 @@ public class ChooseCategoryPresenter {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        FilesUtils.deleteTempFolderContent();
+                        FileUtils.deleteTempFolderContent();
 
                         window.dispose();
 

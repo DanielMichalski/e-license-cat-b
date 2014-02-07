@@ -5,7 +5,7 @@ import ui.login.logic.LoginPresenter;
 import ui.main_menu.view.MainMenuFrame;
 import util.ApplicationUtils;
 import util.Const;
-import util.FilesUtils;
+import util.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +39,7 @@ public class LoginFrame extends JFrame implements IWindowCloser {
                 EventQueue.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        FilesUtils.deleteTempFolderContent();
+                        FileUtils.deleteTempFolderContent();
 
                         dispose();
 
