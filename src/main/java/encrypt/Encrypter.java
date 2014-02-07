@@ -4,7 +4,7 @@ import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 import org.jasypt.util.binary.BasicBinaryEncryptor;
 import util.ApplicationUtils;
-import util.FilesUtils;
+import util.FileUtils;
 import util.PathUtils;
 
 import javax.swing.*;
@@ -34,7 +34,7 @@ public class Encrypter {
     }
 
     public static byte[] decryptFile(Path oldPath, Path newPath, boolean createFile) throws IOException {
-        FilesUtils.deleteTempFolderContent();
+        FileUtils.deleteTempFolderContent();
         byte[] myBinary = Files.readAllBytes(oldPath);
 
         BasicBinaryEncryptor binaryEncryptor = new BasicBinaryEncryptor();
@@ -104,7 +104,7 @@ public class Encrypter {
 
     public static void decodeMedia(String mediaPath) {
         Path oldPath = Paths.get(PathUtils.getMediaDirPath() + mediaPath + ".prode");
-        Path newPath = Paths.get(FilesUtils.getTempDirPath() + File.separator + mediaPath + ".prode");
+        Path newPath = Paths.get(FileUtils.getTempDirPath() + File.separator + mediaPath + ".prode");
         try {
             Encrypter.decryptFile(oldPath, newPath, true);
         } catch (IOException e) {

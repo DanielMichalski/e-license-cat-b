@@ -7,7 +7,7 @@ import ui.exam_result.view.ExamResultLeftPanel;
 import ui.exam_result.view.ExamResultRightPanel;
 import ui.main_menu.view.MainMenuFrame;
 import util.ExamUtil;
-import util.FilesUtils;
+import util.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -147,7 +147,7 @@ public class ExamResultPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                FilesUtils.deleteTempFolderContent();
+                FileUtils.deleteTempFolderContent();
                 showMainFrame();
             }
         };
