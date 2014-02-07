@@ -9,7 +9,6 @@ import static org.junit.Assert.assertNotNull;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class ModuleDaoTest {
     @org.junit.Test

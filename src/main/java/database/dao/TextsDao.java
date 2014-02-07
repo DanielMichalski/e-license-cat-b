@@ -4,7 +4,6 @@ import java.util.ResourceBundle;
 
 /**
  * Author: dmichalski
- * Date: 01.11.13
  */
 public class TextsDao {
     public static String getText(String name) {

@@ -15,7 +15,6 @@ import java.util.List;
 
 /**
  * Author: Daniel
- * Date: 05.11.13
  */
 public class XLSSpecialistQuestionDataProvider {
     public static List<SpecialistQuestion> getAllSpecialistQuestions()

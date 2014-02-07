@@ -6,7 +6,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 03.11.13
  */
 public class SpecialistPartTimerCountdown extends TimerCountDown {
     private int sec = 50;

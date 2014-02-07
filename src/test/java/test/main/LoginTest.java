@@ -6,7 +6,6 @@ import javax.swing.*;
 
 /**
  * Author: Daniel
- * Date: 25.11.13.
  */
 public class LoginTest {
     public static void main(String[] args) {

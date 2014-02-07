@@ -16,7 +16,6 @@ import java.util.List;
 
 /**
  * Author: Daniel
- * Date: 12.11.13.
  */
 public class CSVModuleDataProvider {
     private static Logger LOGGER = ApplicationUtils.getLogger(CSVModuleDataProvider.class);

@@ -17,7 +17,6 @@ import java.nio.file.Paths;
 
 /**
  * Author: Daniel
- * Date: 12.11.13.
  */
 public class Encrypter {
     public static Logger logger = ApplicationUtils.getLogger(Encrypter.class);
