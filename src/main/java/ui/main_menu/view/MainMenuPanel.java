@@ -8,7 +8,6 @@ import java.awt.*;
 
 /**
  * Author: dmichalski
- * Date: 01.11.13
  */
 public class MainMenuPanel extends JPanel {
     private JLabel exerciseBtn;

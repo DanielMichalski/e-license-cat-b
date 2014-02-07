@@ -1,15 +1,11 @@
 package ui.application_info.logic;
 
-import ui.login.view.LoginFrame;
-
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class ShowInfoPresenter {
 

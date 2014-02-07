@@ -10,7 +10,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 24.11.13
  */
 public class FormPanel extends JPanel {
     private JTextField firstNameTF;

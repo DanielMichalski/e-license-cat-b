@@ -16,7 +16,6 @@ import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
 /**
  * Author: Daniel
- * Date: 09.11.13
  */
 public class ExamResultTest {
     public static void main(String[] args)

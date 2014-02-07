@@ -7,7 +7,6 @@ import javax.swing.*;
 
 /**
  * Author: Daniel
- * Date: 24.11.13
  */
 public class ButtonPanel extends JPanel {
     private JButton loginBtn;

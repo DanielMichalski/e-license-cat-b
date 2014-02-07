@@ -10,7 +10,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 03.11.13
  */
 public class ExamFrame extends JDialog implements WindowCloser {
 

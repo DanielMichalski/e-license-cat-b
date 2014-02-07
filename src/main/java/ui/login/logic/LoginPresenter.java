@@ -12,7 +12,6 @@ import java.awt.event.*;
 
 /**
  * Author: Daniel
- * Date: 24.11.13
  */
 public class LoginPresenter {
     private IWindowCloser iWindowCloser;

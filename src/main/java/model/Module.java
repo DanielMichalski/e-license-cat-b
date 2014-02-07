@@ -2,7 +2,6 @@ package model;
 
 /**
  * Author: Daniel
- * Date: 05.11.13
  */
 public class Module {
     private int id;

@@ -13,7 +13,6 @@ import java.awt.event.MouseEvent;
 
 /**
  * Author: dmichalski
- * Date: 01.11.13
  */
 public class MainMenuPresenter {
     private MainMenuFrame mainMenuFrame;

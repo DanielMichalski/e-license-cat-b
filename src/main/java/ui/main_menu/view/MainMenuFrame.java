@@ -11,7 +11,6 @@ import java.awt.event.MouseMotionAdapter;
 
 /**
  * Author: dmichalski
- * Date: 01.11.13
  */
 public class MainMenuFrame extends JFrame {
 

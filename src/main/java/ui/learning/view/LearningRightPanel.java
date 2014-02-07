@@ -7,7 +7,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class LearningRightPanel extends JPanel {
     private JButton categoryChooseBtn;

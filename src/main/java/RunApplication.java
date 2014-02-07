@@ -7,7 +7,6 @@ import java.awt.*;
 
 /**
  * Author: dmichalski
- * Date: 01.11.13
  */
 public class RunApplication {
     private static Logger logger = ApplicationUtils.getLogger(RunApplication.class);
