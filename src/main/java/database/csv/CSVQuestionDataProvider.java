@@ -47,7 +47,7 @@ public class CSVQuestionDataProvider {
 
     private void readQuestions() {
         try {
-            InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/q_enc_temp");
+            InputStream resourceAsStream = CSVQuestionDataProvider.class.getResourceAsStream("/csv/q_enc");
             ApplicationUtils.checkResource(resourceAsStream);
             byte[] bytesArray = Encrypter.decryptFile(resourceAsStream);
 
