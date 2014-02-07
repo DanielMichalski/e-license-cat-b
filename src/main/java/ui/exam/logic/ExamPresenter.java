@@ -17,7 +17,7 @@ import ui.main_menu.view.MainMenuFrame;
 import uk.co.caprica.vlcj.player.embedded.EmbeddedMediaPlayer;
 import util.ApplicationUtils;
 import util.Const;
-import util.FilesUtils;
+import util.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -109,7 +109,7 @@ public class ExamPresenter {
             Encrypter.decodeMedia(standardQuestion.getMediaPath());
             MediaPanel component = new MediaPanel();
             EmbeddedMediaPlayer player = component.getMediaPlayer();
-            player.prepareMedia(FilesUtils.getTempDirPath() + File.separator + standardQuestion.getMediaPath() + ".prode");
+            player.prepareMedia(FileUtils.getTempDirPath() + File.separator + standardQuestion.getMediaPath() + ".prode");
             player.parseMedia();
             sec = (int) (player.getMediaMeta().getLength() / 1000);
             logger.info("Video " + standardQuestion.getMediaPath() + " trwa " + sec + " sekund/y");
@@ -168,7 +168,7 @@ public class ExamPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                FilesUtils.deleteTempFolderContent();
+                FileUtils.deleteTempFolderContent();
                 showMainFrame();
             }
         };

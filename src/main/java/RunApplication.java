@@ -1,7 +1,7 @@
 import org.apache.log4j.Logger;
 import ui.loading_new.LoadingFrame;
 import util.ApplicationUtils;
-import util.FilesUtils;
+import util.FileUtils;
 
 import java.awt.*;
 
@@ -25,7 +25,7 @@ public class RunApplication {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FilesUtils.loadVLCJNativeLibraries();
+                FileUtils.loadVLCJNativeLibraries();
                 new LoadingFrame();
             }
         });
