@@ -7,7 +7,7 @@ import model.StandardQuestion;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import ui.exam_result.view.ExamResultFrame;
 import util.ApplicationUtils;
-import util.FilesUtils;
+import util.FileUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +21,7 @@ public class ExamResultTest {
     public static void main(String[] args)
             throws IOException, InvalidFormatException {
 
-        FilesUtils.loadVLCJNativeLibraries();
+        FileUtils.loadVLCJNativeLibraries();
         ApplicationUtils.setNimbusLookAndFeel();
 
         QuestionsProvider questionsProvider =

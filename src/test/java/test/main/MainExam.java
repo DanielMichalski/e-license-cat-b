@@ -2,7 +2,7 @@ package test.main;
 
 import ui.exam.view.ExamFrame;
 import util.ApplicationUtils;
-import util.FilesUtils;
+import util.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class MainExam {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FilesUtils.loadVLCJNativeLibraries();
+                FileUtils.loadVLCJNativeLibraries();
 
                 ExamFrame frame = new ExamFrame(null);
                 ApplicationUtils.setApplicationIcon(frame);

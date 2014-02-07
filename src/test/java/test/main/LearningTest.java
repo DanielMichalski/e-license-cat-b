@@ -3,7 +3,7 @@ package test.main;
 import model.Module;
 import ui.learning.view.LearningFrame;
 import util.ApplicationUtils;
-import util.FilesUtils;
+import util.FileUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ public class LearningTest {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                FilesUtils.loadVLCJNativeLibraries();
+                FileUtils.loadVLCJNativeLibraries();
                 ApplicationUtils.setNimbusLookAndFeel();
 
                 LearningFrame learningFrame = new LearningFrame(new Module(1, "Testowy"));

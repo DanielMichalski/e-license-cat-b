@@ -3,7 +3,7 @@ package ui.login.logic;
 import database.dao.TextsDao;
 import ui.login.view.IWindowCloser;
 import ui.splash_screen.SplashScreen;
-import util.FilesUtils;
+import util.FileUtils;
 import util.PeselValidator;
 
 import javax.swing.*;
@@ -61,7 +61,7 @@ public class LoginPresenter {
         return new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                FilesUtils.deleteTempFolderContent();
+                FileUtils.deleteTempFolderContent();
                 showCloseConfirmDialog();
             }
         };
