@@ -28,7 +28,6 @@ import java.util.Timer;
 
 /**
  * Author: Daniel
- * Date: 03.11.13
  */
 public class ExamPresenter {
     public Logger logger = ApplicationUtils.getLogger(ExamPresenter.class);

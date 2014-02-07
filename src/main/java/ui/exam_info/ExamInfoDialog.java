@@ -11,7 +11,6 @@ import java.awt.event.MouseMotionAdapter;
 
 /**
  * Author: dmichalski
- * Date: 02.11.13
  */
 public class ExamInfoDialog extends JDialog {
 

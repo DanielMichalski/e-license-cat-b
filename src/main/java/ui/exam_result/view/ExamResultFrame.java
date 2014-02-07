@@ -12,7 +12,6 @@ import java.util.List;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class ExamResultFrame extends JDialog {
 

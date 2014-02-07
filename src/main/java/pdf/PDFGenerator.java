@@ -21,7 +21,6 @@ import java.util.List;
 
 /**
  * Author: Daniel
- * Date: 25.11.13.
  */
 public class PDFGenerator {
     public Logger logger = ApplicationUtils.getLogger(PDFGenerator.class);
@@ -238,7 +237,9 @@ public class PDFGenerator {
             }
 
             table.addCell(questionNumber);
+            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
             table.addCell(question);
+            table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(points);
             table.addCell(userAnswer);
             table.addCell(correctAnswer);

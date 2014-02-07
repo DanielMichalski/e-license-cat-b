@@ -13,7 +13,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 03.11.13
  */
 public class ExamQuestionsLeftPanel extends JPanel {
     private Logger logger = ApplicationUtils.getLogger(ExamQuestionsLeftPanel.class);

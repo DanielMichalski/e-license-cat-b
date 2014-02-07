@@ -5,7 +5,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class StandardBallsPanel extends BallsPanel {
     private static final int HOW_MANY_BALLS = 20;

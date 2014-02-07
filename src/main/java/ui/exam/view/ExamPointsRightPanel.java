@@ -12,7 +12,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 03.11.13
  */
 public class ExamPointsRightPanel extends JPanel {
     private CloseBtnPanel closeBtnPanel;

@@ -9,7 +9,6 @@ import java.awt.*;
 
 /**
  * Author: Daniel
- * Date: 04.11.13
  */
 public class MainExam {
     public static void main(String[] args) {

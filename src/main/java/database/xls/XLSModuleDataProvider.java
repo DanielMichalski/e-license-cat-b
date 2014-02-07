@@ -17,7 +17,6 @@ import java.util.Map;
 
 /**
  * Author: Daniel
- * Date: 05.11.13
  */
 public class XLSModuleDataProvider {
     private static Map<Integer, StandardQuestion> a20StandardQuestions;

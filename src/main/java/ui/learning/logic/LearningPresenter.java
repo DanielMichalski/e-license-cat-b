@@ -18,7 +18,6 @@ import java.util.Random;
 
 /**
  * Author: Daniel
- * Date: 08.11.13
  */
 public class LearningPresenter {
     public Logger LOGGER = ApplicationUtils.getLogger(LearningPresenter.class);
