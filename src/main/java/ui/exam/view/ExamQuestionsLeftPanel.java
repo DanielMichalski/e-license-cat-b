@@ -42,8 +42,14 @@ public class ExamQuestionsLeftPanel extends JPanel {
         try {
             MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
             component = new Canvas();
+            component.setIgnoreRepaint(false);
+
             player = mediaPlayerFactory.newEmbeddedMediaPlayer();
             player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
+            player.setEnableMouseInputHandling(true);
+
+            player.setEnableMouseInputHandling(false);
+            player.setEnableKeyInputHandling(false);
 
             Border emptyBorder = BorderFactory.createEmptyBorder(10, 10, 10, 10);
 
@@ -233,5 +239,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
 
     public JTextArea getBtnC() {
         return btnC;
+    }
+
+    public Canvas getComponent() {
+        return component;
     }
 }

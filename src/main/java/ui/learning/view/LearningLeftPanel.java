@@ -44,6 +44,7 @@ public class LearningLeftPanel extends JPanel {
         try {
             MediaPlayerFactory mediaPlayerFactory = new MediaPlayerFactory();
             component = new Canvas();
+            component.setIgnoreRepaint(false);
             player = mediaPlayerFactory.newEmbeddedMediaPlayer();
             player.setVideoSurface(mediaPlayerFactory.newVideoSurface(component));
 

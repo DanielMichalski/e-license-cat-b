@@ -39,8 +39,6 @@ public class ExamPresenter {
     private int actualSpecialistQuestion = 0;
     private boolean isStandardPartCompleted = false;
 
-    private Canvas component;
-
     private JTextArea yesBtn;
     private JTextArea noBtn;
     private JTextArea btnA;
@@ -372,7 +370,13 @@ public class ExamPresenter {
                 nextQuestion();
             }
         }
+    }
 
+    class MouseClickListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            countDown.showMediaAfterClick();
+        }
     }
 
     private void markBtn(JTextArea whichButtonToMark) {
@@ -419,5 +423,9 @@ public class ExamPresenter {
 
     public JLabel getTimerLbl() {
         return timerLbl;
+    }
+
+    public void setComponent(Canvas component) {
+        component.addMouseListener(new MouseClickListener());
     }
 }

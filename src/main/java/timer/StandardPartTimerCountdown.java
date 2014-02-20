@@ -55,4 +55,12 @@ public class StandardPartTimerCountdown extends TimerCountDown {
 
         sec--;
     }
+
+    @Override
+    public void showMediaAfterClick() {
+        if (loadingType == LoadingType.question) {
+            loadingType = LoadingType.movie;
+            sec = secToVid;
+        }
+    }
 }
