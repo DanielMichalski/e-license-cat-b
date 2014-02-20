@@ -1,5 +1,6 @@
 package ui.exam.view;
 
+import components.QuestionTextArea;
 import database.dao.TextsDao;
 import org.apache.log4j.Logger;
 import uk.co.caprica.vlcj.player.MediaPlayerFactory;
@@ -135,9 +136,9 @@ public class ExamQuestionsLeftPanel extends JPanel {
         buttonPanel.setBackground(Const.Colors.EXAM_BACKGROUND_COLOR);
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        btnA = createABCBtn();
-        btnB = createABCBtn();
-        btnC = createABCBtn();
+        btnA = new QuestionTextArea(91);
+        btnB = new QuestionTextArea(91);
+        btnC = new QuestionTextArea(91);
 
         buttonPanel.add(btnA);
         buttonPanel.add(btnB);
@@ -161,23 +162,6 @@ public class ExamQuestionsLeftPanel extends JPanel {
         Border compoundBorder = BorderFactory.createLineBorder(Const.Colors.BTN_BORDER_COLOR, 1, true);
         textArea.setBorder(BorderFactory.createCompoundBorder(compoundBorder,
                 BorderFactory.createEmptyBorder(20, 150, 10, 10)));
-        return textArea;
-    }
-
-    private JTextArea createABCBtn() {
-        JTextArea textArea = new JTextArea();
-        textArea.setFont(Const.Fonts.BTNS_ABC_FONT);
-        textArea.setPreferredSize(Const.Dimensions.ABC_BTNS_SIZE);
-        textArea.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
-        textArea.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
-
-        textArea.setFocusable(false);
-        textArea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        Border compoundBorder = BorderFactory.createLineBorder(Const.Colors.BTN_BORDER_COLOR, 1, true);
-        textArea.setBorder(BorderFactory.createCompoundBorder(compoundBorder,
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         return textArea;
     }
 
