@@ -81,6 +81,7 @@ public class CSVQuestionDataProvider {
     }
 
     private void readStandardQuestion() throws IOException {
+        int id = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_ID));
         int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
         String question = csvReader.get(Q_QUESTION);
         YesNoAnswer correctAnser = YesNoAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
@@ -105,6 +106,7 @@ public class CSVQuestionDataProvider {
         }
 
         StandardQuestion standardQuestion = new StandardQuestion(
+                id,
                 points,
                 question,
                 null,
@@ -118,6 +120,7 @@ public class CSVQuestionDataProvider {
     }
 
     private void readSpecialistQuesion() throws IOException {
+        int id = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_ID));
         int points = Integer.parseInt(csvReader.get(QuestionColumnNames.Q_POINTS));
         String question = csvReader.get(Q_QUESTION);
         ABCAnswer correctAnser = ABCAnswer.valueOf(csvReader.get(Q_CORRECT_ANSWER));
@@ -145,6 +148,7 @@ public class CSVQuestionDataProvider {
         }
 
         SpecialistQuestion specialistQuestion = new SpecialistQuestion(
+                id,
                 points,
                 question,
                 answerA,

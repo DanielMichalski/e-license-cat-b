@@ -25,6 +25,7 @@ public class ShowInfoDialog extends JDialog {
 
     private void setUpDialog() {
         setSize(new Dimension(WIDTH, HEIGHT));
+        setIgnoreRepaint(false);
         setUndecorated(true);
         setTitle(TextsDao.getText("view.ShowInfoAboutApp.title"));
         setModal(true);
