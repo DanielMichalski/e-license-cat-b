@@ -37,6 +37,7 @@ public class LearningFrame extends JFrame {
     }
 
     private void setUpFrame() {
+        setIgnoreRepaint(false);
         setLayout(null);
         setTitle(TextsDao.getText("view.LearningFrame.title"));
         ApplicationUtils.setApplicationIcon(this);

@@ -4,6 +4,7 @@ package database.columns;
  * Author: Daniel
  */
 public class QuestionColumnNames {
+    public static final int Q_ID = 0;
     public static final int Q_POINTS = 3;
     public static final int Q_QUESTION = 4;
     public static final int Q_ANSWER_A = 5;

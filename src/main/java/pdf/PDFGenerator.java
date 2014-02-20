@@ -54,9 +54,9 @@ public class PDFGenerator {
         try {
             BaseFont bf = BaseFont.createFont(BaseFont.TIMES_ROMAN, BaseFont.CP1250, BaseFont.EMBEDDED);
             fNormal = new Font(bf, 8, Font.NORMAL);
-            fBig = new Font(bf, 10, Font.NORMAL);
-            fBigger = new Font(bf, 16, Font.NORMAL);
             fBold = new Font(bf, 8, Font.BOLD);
+            fBig = new Font(bf, 10, Font.NORMAL);
+            fBigger = new Font(bf, 12, Font.NORMAL);
         } catch (Exception e) {
             logger.error(e);
             JOptionPane.showMessageDialog(null, e, "Informacja", JOptionPane.INFORMATION_MESSAGE);
@@ -119,10 +119,10 @@ public class PDFGenerator {
         PdfWriter.getInstance(document, new FileOutputStream(filePath));
         document.open();
 
-        PdfPTable table1 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
+        PdfPTable table1 = new PdfPTable(new float[]{1f, 2f, 17f, 2f, 3f, 3f});
         addToTable(table1, true);
 
-        PdfPTable table2 = new PdfPTable(new float[]{1f, 17f, 2f, 3f, 3f});
+        PdfPTable table2 = new PdfPTable(new float[]{1f, 2f, 17f, 2f, 3f, 3f});
         addToTable(table2, false);
 
         Paragraph examInfoText = new Paragraph(ExamUtil.getExamResultFromPoints(userPoints), fBigger);
@@ -174,6 +174,7 @@ public class PDFGenerator {
 
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(new Paragraph("Nr", fBold));
+        table.addCell(new Paragraph("Id pytania", fBold));
 
         table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
         if (standardQuestions) {
@@ -198,6 +199,7 @@ public class PDFGenerator {
         int i = 1;
         for (StandardQuestion standardQuestion : standardQuestions) {
             Paragraph questionNumber = new Paragraph(i + ".", fNormal);
+            Paragraph questionId = new Paragraph(standardQuestion.getId() + "", fNormal);
             Paragraph question = new Paragraph(standardQuestion.getQuestion(), fNormal);
             Paragraph points = new Paragraph(String.valueOf(standardQuestion.getPoints()), fNormal);
             Paragraph correctAnswer = new Paragraph(standardQuestion.getCorrectAnswer().toString(), fNormal);
@@ -210,6 +212,7 @@ public class PDFGenerator {
             }
 
             table.addCell(questionNumber);
+            table.addCell(questionId);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
             table.addCell(question);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);
@@ -225,6 +228,7 @@ public class PDFGenerator {
         int i = 1;
         for (SpecialistQuestion specialistQuestion : specialistQuestions) {
             Paragraph questionNumber = new Paragraph(i + ".", fNormal);
+            Paragraph questionId = new Paragraph(specialistQuestion.getId() + "", fNormal);
             Paragraph question = new Paragraph(specialistQuestion.getQuestion(), fNormal);
             Paragraph points = new Paragraph(String.valueOf(specialistQuestion.getPoints()), fNormal);
             Paragraph correctAnswer = new Paragraph(specialistQuestion.getCorrectAnswer().toString(), fNormal);
@@ -237,6 +241,7 @@ public class PDFGenerator {
             }
 
             table.addCell(questionNumber);
+            table.addCell(questionId);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_LEFT);
             table.addCell(question);
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_CENTER);

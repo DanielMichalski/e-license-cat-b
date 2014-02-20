@@ -23,6 +23,7 @@ public class MainMenuFrame extends JFrame {
     }
 
     private void setUpFrame() {
+        setIgnoreRepaint(false);
         setSize(WIDTH, HEIGHT);
         setUndecorated(true);
         ApplicationUtils.setApplicationIcon(this);

@@ -17,6 +17,7 @@ public class HelpDialog extends JDialog implements Disposable {
     }
 
     private void setUpDialog() {
+        setIgnoreRepaint(false);
         setResizable(false);
         setModal(true);
         setTitle("Informacje");

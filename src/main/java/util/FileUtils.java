@@ -60,7 +60,6 @@ public class FileUtils {
     }
 
     private static void loadLib(String libName) {
-        //TODO sprawdzic czy to dziala
         File file = new File(PathUtils.getVlcLibDirPath() + libName);
         if (!file.exists()) {
             showNoLibErrorAndExit(file.getAbsolutePath());
