@@ -7,6 +7,8 @@ import util.ApplicationUtils;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Author: Daniel
@@ -33,6 +35,13 @@ public class ExamFrame extends JDialog implements WindowCloser {
         setLocationRelativeTo(null);
         setTitle(TextsDao.getText("view.ExamFrame.title"));
         setResizable(false);
+
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.out.println("Click");
+            }
+        });
     }
 
     private void initializeComponents() {
@@ -51,6 +60,7 @@ public class ExamFrame extends JDialog implements WindowCloser {
         presenter.setBasicPartPanel(examResultPanel.getBasicPartPanel());
         presenter.setSpecjalistPartPanel(examResultPanel.getSpecjalistPartPanel());
         presenter.setTimeAndBtnConfirmPanel(examResultPanel.getTimeAndBtnConfirmPanel());
+        presenter.setComponent(examQuestionsPanel.getComponent());
 
         setVisible(true);
 

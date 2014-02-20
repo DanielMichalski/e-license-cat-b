@@ -7,4 +7,9 @@ import java.util.TimerTask;
  */
 public abstract class TimerCountDown extends TimerTask {
     public abstract void run();
+
+    public void showMediaAfterClick() {
+    }
+
+    ;
 }
