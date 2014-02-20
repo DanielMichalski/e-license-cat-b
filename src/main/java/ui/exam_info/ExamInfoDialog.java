@@ -26,6 +26,7 @@ public class ExamInfoDialog extends JDialog {
     private void setUpDialog() {
         setSize(new Dimension(WIDTH, HEIGHT));
         setUndecorated(true);
+        setIgnoreRepaint(false);
         setTitle(TextsDao.getText("view.ShowInfoAboutExam.title"));
         setModal(true);
         setResizable(false);

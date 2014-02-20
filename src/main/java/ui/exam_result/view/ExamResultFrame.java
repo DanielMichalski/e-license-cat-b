@@ -29,12 +29,12 @@ public class ExamResultFrame extends JDialog {
 
         setUpFrame();
         initializeComponents();
-
     }
 
     private void setUpFrame() {
         setTitle(TextsDao.getText("view.ExamResultFrame.title"));
         ApplicationUtils.setApplicationIcon(this);
+        setIgnoreRepaint(false);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);

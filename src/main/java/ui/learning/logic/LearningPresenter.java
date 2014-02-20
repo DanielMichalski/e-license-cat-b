@@ -67,13 +67,18 @@ public class LearningPresenter {
     }
 
     private void setQuestion() {
-        questionArea.setText("Pytanie " + questionNum + " z " + allQuestiionNum);
+        int questionId = 0;
 
         if (questionNum <= standardQuestions.size() && questionNum >= 1) {
             setStandardQuestion();
+            questionId = standardQuestions.get(questionNum - 1).getId();
         } else if (questionNum <= allQuestiionNum) {
             setSpecialistQuestion();
+            questionId = specialistQuestions.get(questionNum - 1).getId();
         }
+
+        String text = String.format("Pytanie nr %d z %d (identyfikator: %d)", questionNum, allQuestiionNum, questionId);
+        questionArea.setText(text);
     }
 
     private void setStandardQuestion() {

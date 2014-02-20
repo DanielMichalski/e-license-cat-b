@@ -22,6 +22,7 @@ public class ChooseCategoryFrame extends JFrame {
     private void setUpFrame() {
         setTitle(TextsDao.getText("view.ChooseCategory.title"));
         setSize(WIDTH, HEIGHT);
+        setIgnoreRepaint(false);
         setLocationRelativeTo(null);
         setResizable(false);
         getContentPane().setBackground(Const.Colors.BACKGROUND_COLOR);
