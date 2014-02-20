@@ -1,5 +1,6 @@
 package ui.learning.view;
 
+import components.QuestionTextArea;
 import database.dao.TextsDao;
 import model.ABCAnswer;
 import model.YesNoAnswer;
@@ -11,6 +12,7 @@ import util.Const;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 
 /**
@@ -88,6 +90,11 @@ public class LearningLeftPanel extends JPanel {
         questionPanel.setBounds(10, 380, 720, 80);
         questionTextArea = getQuestionTextArea();
         questionTextArea.setVisible(true);
+
+        DefaultCaret c = new DefaultCaret();
+        c.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+        questionTextArea.setCaret(c);
+
         questionPanel.add(questionTextArea);
         return questionPanel;
     }
@@ -132,9 +139,9 @@ public class LearningLeftPanel extends JPanel {
 
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-        btnA = createABCBtn();
-        btnB = createABCBtn();
-        btnC = createABCBtn();
+        btnA = new QuestionTextArea(96);
+        btnB = new QuestionTextArea(96);
+        btnC = new QuestionTextArea(96);
 
         buttonPanel.add(btnA);
         buttonPanel.add(btnB);
@@ -162,39 +169,19 @@ public class LearningLeftPanel extends JPanel {
         return textArea;
     }
 
-    private JTextArea createABCBtn() {
-        JTextArea textArea = new JTextArea();
-        textArea.setFocusable(false);
-        textArea.setFont(Const.Fonts.BTNS_ABC_FONT);
-        textArea.setPreferredSize(Const.Dimensions.ABC_BTNS_SIZE);
-        textArea.setMinimumSize(Const.Dimensions.ABC_BTNS_SIZE);
-        textArea.setMaximumSize(Const.Dimensions.ABC_BTNS_SIZE);
-        textArea.setFocusable(false);
-
-        textArea.setBackground(Const.Colors.BTN_UNSELECTED_COLOR);
-        textArea.setEditable(false);
-        textArea.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        Border compoundBorder = BorderFactory.createLineBorder(Const.Colors.BTN_BORDER_COLOR, 1, true);
-        textArea.setBorder(BorderFactory.createCompoundBorder(compoundBorder,
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-
-        return textArea;
-    }
-
     public void setQestion(String qestion) {
         questionTextArea.setText(qestion);
     }
 
     public void setBtnABCTexts(String btnAText, String btnBText, String btnCText) {
-        this.btnA.setText(btnAText);
-        this.btnB.setText(btnBText);
-        this.btnC.setText(btnCText);
+        setBtnText(btnA, btnAText);
+        setBtnText(btnB, btnBText);
+        setBtnText(btnC, btnCText);
+    }
 
-        this.btnA.setToolTipText(btnAText);
-        this.btnB.setToolTipText(btnBText);
-        this.btnC.setToolTipText(btnCText);
+    private void setBtnText(JTextArea textArea, String text) {
+        textArea.setText(text);
+        textArea.setToolTipText(text);
     }
 
     public YesNoAnswer getUserAnswerYesNo() {
