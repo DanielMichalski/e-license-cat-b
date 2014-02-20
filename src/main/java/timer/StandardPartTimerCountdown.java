@@ -8,7 +8,6 @@ import java.awt.*;
  * Author: Daniel
  */
 public class StandardPartTimerCountdown extends TimerCountDown {
-    //TODO zmienic
     private int sec = 20;
     private ExamPresenter examPresenter;
     private int secToVid;

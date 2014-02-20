@@ -28,6 +28,7 @@ public class ExamFrame extends JDialog implements WindowCloser {
 
     private void setUpFrame() {
         ApplicationUtils.setApplicationIcon(this);
+        setIgnoreRepaint(false);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setTitle(TextsDao.getText("view.ExamFrame.title"));

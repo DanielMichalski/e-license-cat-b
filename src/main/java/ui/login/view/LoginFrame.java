@@ -26,6 +26,7 @@ public class LoginFrame extends JFrame implements IWindowCloser {
     }
 
     private void setUpFrame() {
+        setIgnoreRepaint(false);
         setTitle(TextsDao.getText("view.LoginFrame.title"));
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);

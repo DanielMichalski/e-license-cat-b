@@ -21,6 +21,7 @@ public class LoadingFrame extends JDialog {
     }
 
     private void setUpFrame() {
+        setIgnoreRepaint(false);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setUndecorated(true);
