@@ -77,8 +77,9 @@ public class LearningPresenter {
             questionId = specialistQuestions.get(questionNum - 1).getId();
         }
 
-        String text = String.format("Pytanie nr %d z %d (identyfikator: %d)", questionNum, allQuestiionNum, questionId);
-        questionArea.setText(text);
+        String firsLine = String.format("Pytanie nr %d z %d\n", questionNum, allQuestiionNum);
+        String secondLine = String.format("Id pytania: %d", questionId);
+        questionArea.setText(firsLine + secondLine);
     }
 
     private void setStandardQuestion() {
