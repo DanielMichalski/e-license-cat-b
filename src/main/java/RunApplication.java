@@ -9,6 +9,7 @@ import java.awt.*;
  * Author: dmichalski
  */
 public class RunApplication {
+    // test
     private static Logger logger = ApplicationUtils.getLogger(RunApplication.class);
 
     public static void main(String[] args) {
