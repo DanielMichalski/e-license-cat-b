@@ -5,7 +5,9 @@ It contains lessons and exams that end with a PDF report.
 
 [![e-Licence Category B](https://github.com/DanielMichalski/e-license-cat-b/blob/master/.github/gifs/application.gif)](https://www.youtube.com/watch?v=Mx8VI7CxQxY "e-Licence Category B")
 
-## Table of Contents
+## Documentation
+
+The documentation is divided into several sections:
 
 * [Prerequisites](#prerequisites)
 * [Project contains](#project-contains)
