@@ -1,0 +1,102 @@
+package com.danielmichalski.elicense.ui.splash_screen;
+
+import com.danielmichalski.elicense.model.Module;
+import com.danielmichalski.elicense.ui.choose_category.view.ChooseCategoryFrame;
+import com.danielmichalski.elicense.ui.exam.view.ExamFrame;
+import com.danielmichalski.elicense.ui.learning.view.LearningFrame;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
+
+public class SplashScreen {
+    private int windowType;
+    private Module module;
+
+    private JDialog dialog;
+    private JProgressBar progress;
+
+    public SplashScreen(int windowType, Module module) {
+
+        this.module = module;
+        this.windowType = windowType;
+        initUI();
+    }
+
+    private void initUI() {
+        showSplashScreen();
+        SwingWorker<Void, Integer> worker = new SwingWorker<Void, Integer>() {
+
+            @Override
+            protected Void doInBackground() throws Exception {
+                for (int i = 0; i <= 100; i++) {
+                    Thread.sleep(10);
+                    publish(i);
+                }
+                return null;
+            }
+
+            @Override
+            protected void process(List<Integer> chunks) {
+                progress.setValue(chunks.get(chunks.size() - 1));
+            }
+
+            @Override
+            protected void done() {
+                hideSplashScreen();
+                showFrame();
+            }
+
+        };
+        worker.execute();
+    }
+
+    protected void hideSplashScreen() {
+        dialog.setVisible(false);
+        dialog.dispose();
+    }
+
+    protected void showSplashScreen() {
+        dialog = new JDialog((Frame) null);
+        dialog.setSize(250, 15);
+        dialog.setModal(false);
+        dialog.setUndecorated(true);
+        JLabel background = new JLabel();
+        background.setLayout(new BorderLayout());
+        dialog.add(background);
+        JLabel text = new JLabel("Loading, please wait...");
+        text.setForeground(Color.WHITE);
+        text.setBorder(BorderFactory.createEmptyBorder(100, 50, 100, 50));
+        //background.add(text);
+        progress = new JProgressBar();
+        background.add(progress, BorderLayout.SOUTH);
+        dialog.setLocationRelativeTo(null);
+        dialog.setVisible(true);
+    }
+
+    protected void showFrame() {
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                if (windowType == 1) {
+                    ExamFrame examFrame = new ExamFrame(dialog);
+                    examFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    examFrame.setVisible(true);
+                }
+                if (windowType == 2) {
+                    LearningFrame learningFrame = new LearningFrame(module);
+                    learningFrame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    learningFrame.setVisible(true);
+                }
+                if (windowType == 3) {
+                    ChooseCategoryFrame frame = new ChooseCategoryFrame();
+                    frame.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                    frame.setVisible(true);
+                }
+            }
+        });
+
+    }
+}
